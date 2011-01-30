@@ -1,288 +1,45 @@
 \documentclass[a4wide]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[british,swedish]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath, amssymb}
 \usepackage{epsfig}
-\usepackage{floatflt} %för inkapslade bilder.
+\usepackage{floatflt}
+\usepacakge{ae}
+\usepackage{icomma}
+\usepacakge{subfig}
+\usepackage{subfiles}
 \usepackage{fancyhdr}
-\addtolength{\textwidth}{20mm}
-%\addtolength{\textheight}{30mm}
-\addtolength{\textheight}{10mm}
-\addtolength{\headheight}{-10mm}
-\addtolength{\oddsidemargin}{-10mm}
 
-% Här nedan kommer kommandon där du skall göra val
-%
-
-
-\newcommand{\ARBETE}{ %välj arbetsbenämning här, notera att båda kan användas samtidigt
- \newline \noindent Examensarbete för kandidatexamen i matematik vid Göteborgs universitet % om någon i gruppen läser på GU
- \medskip
- \newline \noindent Kandidatarbete inom civilingenjörsutbildningen vid Chalmers % om någon läser på Chalmers
- \medskip
-}
-
-
-\newcommand{\titel}{Dokumentnamn} %Skriv in titeln här
-\newcommand{\undertitel}{undertitel  } %Skriv in undertiteln här, eller lämna tomt
-
-
-\newcommand{\namn}{ %Skriv in medlemmarnas namn i bokstavsordning.
-  förnamn efternamn 1 \\
-  förnamn efternamn 2  \\
-%  förnamn efternamn 3 \\
-%  förnamn efternamn 4
-%  förnamn efternamn 5 \\
-%  förnamn efternamn 6 %
-}
-
-\newcommand{\examina}{ % här skall gruppens medlemmar skrivas in vid önskad examen. Aktivera aktuella examina, inte kursnummer. Vid fyra med samma examen blir det snyggast om man gör en tabell.
-%  \newline \noindent \begin{tabular}{ll}
-%  förnamn efternamn 1 &
-%  förnamn efternamn 2  \\
-%  förnamn efternamn 3 &
-%  förnamn efternamn 4
-% \end{tabular}
-% Vid fem eller sex görs tabellen med tre kolumner
-% Vid flera examina skall \bigskip aktiveras utom för den sista.
-%
-%
-%%%%%%%%%%%%%%%%%% Kurs MMG900 %%%%%%%%%%%%%%%%
- \newline \noindent {\it Examensarbete för kandidatexamen i matematik vid Göteborgs universitet} \smallskip
- \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
- \bigskip
-%%%%%%%%%%%%%%%%%% Kurs MMG910  %%%%%%%%%%%%%%%%
- \newline \noindent{ \it  Examensarbete för kandidatexamen i matematik inom matematikprogrammet vid Göteborgs universitet} \smallskip
- \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
- \bigskip
- %
-%%%%%%%%%%%%%%%%%% Kurs MMG920  %%%%%%%%%%%%%%%%%
-%  \newline \noindent {\it Examensarbete för kandidatexamen i tillämpad matematik inom matematikprogrammet vid Göteborgs universitet} \smallskip
-%  \newline \noindent förnamn efternamn 1
-%  \quad förnamn efternamn 2
-%  \quad förnamn efternamn 3
-%  \quad förnamn efternamn 4
-%  \bigskip
-%
-%%%%%%%%%%%%%%%%%%% Kurs MSG900  %%%%%%%%%%%%%%%%%
-% \newline \noindent {\it Examensarbete för kandidatexamen i matematisk statistik vid Göteborgs universitet} \smallskip
-% \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
-% \bigskip
-%
-%%%%%%%%%%%%%%%%%%% Kurs M1G910  %%%%%%%%%%%%%%%%%
-%\newline \noindent {\it Examensarbete för kandidatexamen i matematisk statistik inom matematikprogrammet vid Göteborgs universitet} \smallskip
-%
-%\newline \noindent förnamn efternamn 1
-%\quad förnamn efternamn 2
-%\quad förnamn efternamn 3
-%\quad förnamn efternamn 4
-% \bigskip
-%
-%%%%%%%%%%%%%%%%%%% Kurs MVEX01  %%%%%%%%%%%%%%%%%
- \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Automation och mekatronik vid Chalmers} \smallskip
- \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
- % \bigskip
-%
-% \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Datateknik vid Chalmers} \smallskip
-% \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
-% \bigskip
-%
-% \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Maskinteknik vid Chalmers} \smallskip
-%
-% \newline \noindent förnamn efternamn 1
-% \quad förnamn efternamn 2
-% \quad förnamn efternamn 3
-% \quad förnamn efternamn 4
-% \bigskip
-%
-%   \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Teknisk fysik vid Chalmers} \smallskip
-%   \newline \noindent förnamn efternamn 1
-%   \quad förnamn efternamn 2
-%   \quad förnamn efternamn 3
-%   \quad förnamn efternamn 4
-%   \bigskip
-%
-%   \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Teknisk matematik vid Chalmers} \smallskip
-%   \newline \noindent förnamn efternamn 1
-%   \quad förnamn efternamn 2
-%   \quad förnamn efternamn 3
-%   \quad förnamn efternamn 4
-%   \bigskip
-%
- \bigskip
-
-}
-
-
-\newcommand{\handledare}{% om samtliga handledare är från MV lämnas fältet inst tomt
-namn 1& inst \\
-%  & namn 2 & inst \\
-%  & namn 3 & inst \\
-}
-
-\newcommand{\examinator}{
-namn %Skriv in examinators namn här.
-}
-
-% Här nedan kommer kommandon som du inte skall ändra, de ger utformningen av rapporten. Vid problem kontakta C-H.
-
-\newcommand{\skribenter} {\begin{tabular}{l} \namn \end{tabular}}
-
-
-%%%%%%%%%%%%%%%%% Här börjar utformningen av omslaget %%%%%%%%%%%%%%%%
-\newcommand{\omslag}{
-\addtolength{\textheight}{-20mm}
-
-\thispagestyle{fancy}
-\newdimen\headrulewidth
-
-\hspace*{-10ex}\parbox{17cm}{
-\vspace*{-15mm}
-\includegraphics[width=160mm]{LogoCH_GU_SVEsvart.eps}
-
-\vspace{60mm}
-
-\noindent{\Huge \titel}
-\bigskip
-
-\noindent {\huge \undertitel}
-
-\noindent\hspace*{-1 ex}{\Large \it
-\ARBETE
-}
-\vspace{20mm}
-
-\noindent\hspace*{-1 ex}\parbox{80mm}{\noindent {\huge \skribenter}}}
-
-
-
-\lfoot{\hspace{-6.4ex}\parbox{8cm}{\noindent\large{Institutionen för matematiska vetenskaper\\
-Chalmers tekniska högskola\\
-Göteborgs universitet\\
-Göteborg 2011} }  }
-\cfoot{}
-\rfoot{}
-\lhead{}
-\chead{}
-\rhead{}
-\newpage
-\thispagestyle{empty}
-\mbox{}
-
-\newpage}
-%%%%%%%%%%%%%% Utformning av omslag slut %%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%% Här börjar utformning av titelsidor %%%%%%%%%%%%%%%%
-\newcommand{\titelsidor}{
-
-\thispagestyle{fancyplain}
-
-
-\lfoot{}
-\rfoot{}
-\lhead{}
-\chead{}
-\rhead{}
-
-
-
-
-\lfoot{%\hspace*{40mm}
-\parbox{70mm}{
-Institutionen för matematiska vetenskaper\\
-Chalmers tekniska högskola\\
-Göteborgs universitet\\
-Göteborg 2011
-}
-}
-
-
-
-
-%\thispagestyle{empty}
-\addtolength{\textheight}{-40mm}
-%\begin{center}
-\addtolength{\topmargin}{30mm}
-\noindent {\LARGE \titel}\bigskip\bigskip
-
-\noindent {\large \undertitel}
-\vspace{30mm}
-
-%\end{center}
-
-\noindent {\large \examina}
-\vfill
-
-\hspace{-5.8 ex} \begin{tabular}[t]{lll}
-Handledare:& \handledare
-Examinator:& \examinator & \end{tabular}
-\bigskip\bigskip
-
-
- \newpage
- \thispagestyle{empty}\mbox{}
-
-\vfill
-
-%\begin{center}\hrule  Institutionen för matematiska vetenskaper \\ Göteborg 2009 \end{center}
- \setcounter{page}{0}
-\newpage }
-
-
-
-\usepackage[T1]{fontenc}                % För svenska bokstäver
-\usepackage[swedish,english]{babel}             % För svensk avstavning och svenska rubriker (t ex "innehållsförteckning)
-
+\input{omslag.tex}
 
 \begin{document}
-\selectlanguage{swedish}
 \omslag
-
 \titelsidor
+
 \thispagestyle{empty}
 \setlength{\textheight}{240mm}
 \addtolength{\topmargin}{-50mm}
 
 \begin{abstract}
-
+% Sammanfattning
 \end{abstract}
 
-\selectlanguage{english}
+\selectlanguage{british}
 \begin{abstract}
-
+% Abstract
 \end{abstract}
-
-\newpage
 \selectlanguage{swedish}
-\pagestyle{plain}
-\tableofcontents                % Innehållsförteckning
-
-                % Tabellförteckning
- \newpage
-\section*{Förord}
-\input{forord.tex}
-
 \newpage
-\section{Inledning}
-\input{inledning.tex}
 
+\pagestyle{plain}
+\tableofcontents
+\newpage
 
-\begin{thebibliography}{FFF}
-\bibitem[UR]{rapp} Utformning av rapporter och kandidatarbetens skriftliga presentation för Civilingenjörsprogrammen vid Chalmers tekniska högskola. 2008. Göteborg: Chalmers Tekniska Högskola
-\end{thebibliography}
+\subfile{kapitel/forord.tex}
+\newpage
+\subfile{kapitel/inledning.tex}
 
-\end{document}                 % The input file ends with this command.
+\input{bibliografi.tex}
+\end{document}

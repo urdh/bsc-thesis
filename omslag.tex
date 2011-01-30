@@ -1,0 +1,115 @@
+\addtolength{\textwidth}{20mm}
+%\addtolength{\textheight}{30mm}
+\addtolength{\textheight}{10mm}
+\addtolength{\headheight}{-10mm}
+\addtolength{\oddsidemargin}{-10mm}
+
+%% Kommandon vi ska ändra
+\newcommand{\ARBETE}{
+ \newline \noindent Kandidatarbete inom civilingenjörsutbildningen vid Chalmers
+ \medskip
+}
+
+\newcommand{\titel}{Dokumentnamn} %Skriv in titeln här
+\newcommand{\undertitel}{undertitel} %Skriv in undertiteln här, eller lämna tomt
+
+\newcommand{\namn}{
+  Harald Freij \\
+  Viktor Nilsson \\
+  David Samuelsson \\
+  Simon Sigurdhsson
+}
+
+\newcommand{\examina}{
+  \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Teknisk fysik vid Chalmers} \smallskip
+  \newline \noindent Harald Freij \quad Viktor Nilsson
+  \bigskip
+  \newline \noindent {\it Kandidatarbete i matematik inom civilingenjörsprogrammet Teknisk matematik vid Chalmers} \smallskip
+  \newline \noindent David Samuelsson \quad Simon Sigurdhsson
+  \bigskip
+}
+
+\newcommand{\handledare}{
+  % om samtliga handledare är från MV lämnas fältet inst tomt
+  namn & inst \\
+  namn & inst
+}
+
+\newcommand{\examinator}{
+  namn
+}
+
+%% Kommandon vi inte ska ändra
+\newcommand{\skribenter} {\begin{tabular}{l} \namn \end{tabular}}
+
+%% Själva omslaget
+\newcommand{\omslag}{
+  \addtolength{\textheight}{-20mm}
+  \thispagestyle{fancy}
+  \newdimen\headrulewidth
+  \hspace*{-10ex}\parbox{17cm}{
+    \vspace*{-15mm}
+    \includegraphics[width=160mm]{LogoCH_GU_SVEsvart.eps}
+    \vspace{60mm}
+    \noindent{\Huge \titel}
+    \bigskip
+    \noindent {\huge \undertitel}
+    \noindent\hspace*{-1 ex}{\Large \it
+      \ARBETE
+    }
+    \vspace{20mm}
+    \noindent\hspace*{-1 ex}\parbox{80mm}{\noindent {\huge \skribenter}}
+  }
+  \lfoot{
+    \hspace{-6.4ex}
+    \parbox{8cm}{
+      \noindent\large{Institutionen för matematiska vetenskaper\\
+                      Chalmers tekniska högskola\\
+                      Göteborgs universitet\\
+                      Göteborg 2011}
+    }
+  }
+  \cfoot{}
+  \rfoot{}
+  \lhead{}
+  \chead{}
+  \rhead{}
+  \newpage
+  \thispagestyle{empty}
+  \mbox{}
+  \newpage
+}
+
+%% Titelsidor
+\newcommand{\titelsidor}{
+  \thispagestyle{fancyplain}
+  \lfoot{}
+  \rfoot{}
+  \lhead{}
+  \chead{}
+  \rhead{}
+  \lfoot{%\hspace*{40mm}
+    \parbox{70mm}{
+      Institutionen för matematiska vetenskaper\\
+      Chalmers tekniska högskola\\
+      Göteborgs universitet\\
+      Göteborg 2011
+    }
+  }
+  \addtolength{\textheight}{-40mm}
+  \addtolength{\topmargin}{30mm}
+  \noindent {\LARGE \titel}\bigskip\bigskip
+  \noindent {\large \undertitel}
+  \vspace{30mm}
+  \noindent {\large \examina}
+  \vfill
+  \hspace{-5.8 ex} \begin{tabular}[t]{lll}
+    Handledare:& \handledare
+    Examinator:& \examinator & \end{tabular}
+  \bigskip\bigskip
+  \newpage
+  \thispagestyle{empty}\mbox{}
+  \vfill
+  \setcounter{page}{0}
+  \newpage
+}
