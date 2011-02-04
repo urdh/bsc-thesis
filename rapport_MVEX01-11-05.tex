@@ -1,45 +1,25 @@
 \documentclass[a4wide]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage[british,swedish]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath, amssymb}
 \usepackage{epsfig}
-\usepackage{floatflt}
-\usepackage{ae}
+%\usepackage{floatflt}
+%\usepackage{ae}
 \usepackage{icomma}
 \usepackage{subfig}
 \usepackage{subfiles}
 \usepackage{fancyhdr}
-
-\input{omslag.tex}
+\usepackage{hyperref}
 
 \begin{document}
-\omslag
-\titelsidor
 
-\thispagestyle{empty}
-\setlength{\textheight}{240mm}
-\addtolength{\topmargin}{-50mm}
-
-\begin{abstract}
-% Sammanfattning
-\end{abstract}
-
-\selectlanguage{british}
-\begin{abstract}
-% Abstract
-\end{abstract}
-\selectlanguage{swedish}
-\newpage
-
-\pagestyle{plain}
-\tableofcontents
-\newpage
-
+\subfile{topmatter.tex}
 \subfile{kapitel/forord.tex}
 \newpage
 \subfile{kapitel/inledning.tex}
 
-\input{bibliografi.tex}
+\subfile{bibliografi.tex}
+
 \end{document}
