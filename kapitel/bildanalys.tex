@@ -1,0 +1,114 @@
+\documentclass[../rapport_MVEX01-11-05]{subfiles}
+\begin{document}
+
+\subsection{Bildanalys}
+
+
+\subsubsection{Filter}
+
+
+\subsubsection{Transformer}
+
+
+\subsubsection{Morfologiska operationer}
+Morfologiska operationer kan användas för att modifiera ''objekt'' i
+binära bilder, till exempel för att rensa bort brus eller för att
+mjuka upp kanter. Det finns fyra grundläggande morfologiska
+operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
+\emph{stängning} \cite[ss.~25]{iass}.
+
+Dessa kan definieras som operationer på mängder; specifikt mängden $A$
+av alla svarta pixlar i bilden vi behandlar, dvs. alla pixlar som är
+''avstängda'' och mängden $S$ som representerar ett strukturelement
+som i någon mening förändrar hur operationen verkar på bilden.
+Strukturelementet kan dessutom förflyttas så att dess referenspixel
+ligger på plats $(i,j)$ i bilden --- vi kan kalla detta förflyttade
+strukturelement för $S_{i,j}$.
+
+\emph{Erosionen}, som eroderar bort delar av de svarta områdena genom
+att endast behålla de pixlar vars ''omgivning'' (definierad av mängden
+$S_{i,j}$) ligger helt i mängden $A$. Vad vi egentligen gör är alltså
+att skala av det yttersta lagret, randen, av mängden $A$. Vi kan
+enkelt definiera detta i termer av mängdlära, se \eqref{morf1}. Det
+inses lätt att den motsatta operationen, \emph{dilatation}, agerar som
+en erosion på komplementet till $A$ vilket kan definieras enligt
+\eqref{morf2}.
+
+\begin{equation}
+  \label{morf1}
+  A\ominus S = \{(i,j)\;:\;S_{i,j}\subseteq A\}
+\end{equation}
+
+\begin{equation}
+  \label{morf2}
+  A\oplus S = (A^C\ominus S)^C
+\end{equation}
+
+Dessa operationer är i sig inte särskilt användbara då de förändrar
+storleken på objekten vi behandlar. Vi kan dock kombinera dessa två
+operationer för att skapa operationer som i någon mening endast 
+''mjukar upp'' objekten i bilden utan att förändra deras storlek på
+ett markant sätt. Eftersom erosion och dilatation är motsatser kan vi
+kombinera dessa (applicera dem i följd) för att behandla bilden och
+sedan återställa den. Detta kan vi göra på två olika sätt, vilket
+resulterar i två nya operationer: \emph{öppning} och \emph{stängning}.
+
+En öppning är en erosion följd av en dilatation, enligt \eqref{morf3}.
+Detta resulterar i att svart ''brus'', dvs. ensamliggande pixlar som
+är svarta (eller små områden som inte kan täckas av $S$), försvinner i
+första steget varefter de svarta områdena utökas igen i det andra
+steget. Man kan säga att operationen ''öppnar upp'' vita områden.
+
+En stängning består av motsatt procedur, enligt \eqref{morf4}, och
+resulterar i princip i en ''öppning'' av de \emph{svarta} områdena. De
+båda operationerna använder utöver $A$ och $S$ även $S'$, vilket är
+$S$ roterad 180\textdegree{} runt sin referenspixel.
+\marginpar{Men varför rotera med 180\textdegree?}
+
+\begin{equation}
+  \label{morf3}
+  \phi_S(A)=(A\ominus S)\oplus S'
+\end{equation}
+
+\begin{equation}
+  \label{morf4}
+  \Phi_S(A)=(A\oplus S)\ominus S'
+\end{equation}
+
+Utöver dessa fyra operationer kan vi även \emph{yttre} och \emph{inre}
+kanter till de svarta områdena i bilden. Med hjälp av erosion och
+dilatation kombinerat med mängddifferensen $A\setminus B=\left\{x\in
+A\;:\;x\not\in B\right\}$ kan vi definiera den yttre randen
+$\partial_S^o A$ och den inre randen $\partial_S^i A$, båda med
+avseende till strukturelementet $S$, enligt \eqref{morf5} och
+\eqref{morf6}.
+
+\begin{equation}
+  \label{morf5}
+  \partial_S^o A = \left(A\oplus S\right)\setminus A
+\end{equation}
+
+\begin{equation}
+  \label{morf6}
+  \partial_S^i A = A\setminus\left(A\ominus S\right)
+\end{equation}
+
+Operationerna är relativt enkla att implementera i MATLAB:
+
+\begin{verbatim}
+% Erosion: erosion(A,S) motsvarar A \ominus S
+erosion = @(A,S)(filter2(S/sum(S(:)), A) ~= 0);
+% Dilatation: dilation(A,S) motsvarar A \oplus S
+dilation = @(A,S)(~filter2(S/sum(S(:)), ~A) ~= 0);
+% Öppning: opening(A,S) motsvarar \phi_S(A)
+opening = @(A,S)(dilation(erosion(A,S), rot90(S,2)) ~= 0);
+% Stängning: closing(A,S) motsvarar \Phi_S(A)
+closing = @(A,S)(erosion(dilation(A,S), rot90(S,2)) ~= 0);
+
+%% Yttre rand
+%% Inre rand
+\end{verbatim}
+
+\marginpar{Bättre formatering behövs till koden.}
+
+\end{document} 
