@@ -162,7 +162,7 @@ FUNCTION {quote}
 FUNCTION {write.url}
 { URL empty$
     { skip$ }
-    { "\newline\harvardurl{" URL * "}" * write$ newline$ }
+    { "\newline\url{" URL * "}" * write$ newline$ }
   if$
 }
 
@@ -707,8 +707,7 @@ FUNCTION {article}
       format.pages output
     }
   if$
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -741,8 +740,7 @@ FUNCTION {book}
       format.edition output
     }
   if$
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -758,8 +756,7 @@ FUNCTION {booklet}
   if$
   howpublished output
   address output
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -793,8 +790,7 @@ FUNCTION {inbook}
     }
   if$
   format.chapter.pages "chapter and pages" output.check
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -821,8 +817,7 @@ FUNCTION {incollection}
     }
   if$
   format.chapter.pages output
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -855,8 +850,7 @@ FUNCTION {inproceedings}
     }
   if$
   format.pages output
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -884,8 +878,7 @@ FUNCTION {manual}
       address output
     }
   if$
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -903,8 +896,7 @@ FUNCTION {mastersthesis}
   "Master's thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -919,8 +911,7 @@ FUNCTION {misc}
     { format.title output }
   if$
   howpublished output
-  new.block
-  note output
+  
   fin.entry
   write.url
   empty.misc.check
@@ -939,8 +930,7 @@ FUNCTION {phdthesis}
   "PhD thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
-  new.block
-  note output
+  
   fin.entry
   write.url
 }
@@ -972,8 +962,8 @@ FUNCTION {proceedings}
       address output.nonnull
     }
   if$
-  new.block
-  note output
+  
+
   fin.entry
   write.url
 }
@@ -991,8 +981,8 @@ FUNCTION {techreport}
   format.tr.number emphasize output.nonnull
   institution "institution" output.check
   address output
-  new.block
-  note output
+  
+  
   fin.entry
   write.url
 }
@@ -1007,8 +997,7 @@ FUNCTION {unpublished}
     { skip$ }
     { format.title "title" output.check }
   if$
-  new.block
-  note "note" output.check
+  
   fin.entry
   write.url
 }
