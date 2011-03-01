@@ -24,28 +24,39 @@
 
 \begin{document}
 
+% Titelsida
 \subfile{topmatter.tex}
-\subfile{kapitel/forord.tex}
 \newpage
+% Inledning
 \subfile{kapitel/inledning.tex}
+\newpage
+% Huvuddel
+% Ändra inbördes ordning på allt det här så att det blir logiskt.
+% Ta även bort kapitel som vi inte ska ha, och lägg till nya.
+\subfile{kapitel/fargrymder.tex}
+\subfile{kapitel/bildanalys.tex}
 
-testar att referera till Davies: \cite{Davies05}
-med \verb#\nocite{Shapiro00}# kan man lägga till i bibliografin utan att citera.
+\newpage
+% Slutsats/Diskussion
 
-\nocite{*}
-
-% Chalmers referensguide rekommenderar Harvard-stil (författare/årtal):
-%  http://www.lib.chalmers.se/education/guides/references/
-% 
-% Följande kommandon finns tillgängliga för att referera:
-% \citeasnoun{..}    ger   "Författare (2000)"
-% \cite{..}          ger   "(Författare, 2000)"
-% \possesivecite{..} ger   "Författares (2000)"
-% \citeaffixed{..}{t.ex.} ger "(t.ex. Författare, 2000)"
-%
-% Man kan även referera till specifika sidor: \cite[s.~32]{..}
-
+\newpage
+% Källförteckning
 \bibliographystyle{dcumod}
-\bibliography{referenser} % importerar referenser.bib
+\bibliography{referenser}
+\newpage
+% Bilagor
+\appendix
+%\chapter{Bilaga}
 
 \end{document}
+
+Chalmers referensguide rekommenderar Harvard-stil (författare/årtal):
+ http://www.lib.chalmers.se/education/guides/references/
+
+Följande kommandon finns tillgängliga för att referera:
+\citeasnoun{..}    ger   "Författare (2000)"
+\cite{..}          ger   "(Författare, 2000)"
+\possesivecite{..} ger   "Författares (2000)"
+\citeaffixed{..}{t.ex.} ger "(t.ex. Författare, 2000)"
+
+Man kan även referera till specifika sidor: \cite[s.~32]{..}

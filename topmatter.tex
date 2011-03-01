@@ -121,18 +121,18 @@
 \titelsidor
 
 \thispagestyle{empty}
-\setlength{\textheight}{240mm}
+%\setlength{\textheight}{240mm}
+\addtolength{\textheight}{50mm}
 \addtolength{\topmargin}{-50mm}
 
-\begin{abstract}
-% Sammanfattning
-\end{abstract}
-
-\selectlanguage{british}
-\begin{abstract}
-% Abstract
-\end{abstract}
 \selectlanguage{swedish}
+\subfile{kapitel/sammandrag.tex}
+\selectlanguage{british}
+\subfile{kapitel/abstract.tex}
+\selectlanguage{swedish}
+\newpage
+\thispagestyle{empty}
+\mbox{}
 \newpage
 
 \pagestyle{plain}
