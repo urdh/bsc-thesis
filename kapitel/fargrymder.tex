@@ -72,11 +72,11 @@ huddetektion \cite{Hsu02,Elmezain08,Hassanpour08}.
 
 Vi har valt att använda $\mathrm{YC_bC_r}$, en enkel linjär transformation av
 RGB-rymden enligt \eqref{eq:farg:ycbcr}. Denna är fördelaktig då den
-är ortogonal, skiljer färg ($\mathrm{C_bC_r}$) från ljusstyrka ($Y$) --- någon
+är ortogonal, skiljer färg från ljusstyrka (något
 som är mycket viktigt då man i stort endast är intresserad av färgen
-när man ska hitta hudpixlar --- och just eftersom den är en enkel
-linjärtransformation, något som gör det enkelt att implementera en
-effektiv transformation från RGB vilket är mycket viktigt eftersom vi
+när man ska hitta hudpixlar), och eftersom den är en \emph{enkel}
+linjärtransformation, vilket gör det enkelt att implementera en
+effektiv transformation från RGB --- en mycket viktig egenskap eftersom vi
 behöver göra detta i realtid.
 
 \begin{equation}
@@ -90,6 +90,6 @@ behöver göra detta i realtid.
 
 Det ska även nämnas att det finns många olika färgrymder som kallas
 $YC_bC_r$; dessa skiljer sig på konstanter i linjärtransformationen.
-Den standard vi valt är \emph{ITU-R BT.601}.
+Den standard som beskrivs av \eqref{eq:farg:ycbcr} är \emph{ITU-R BT.601}.
 
 \end{document} 

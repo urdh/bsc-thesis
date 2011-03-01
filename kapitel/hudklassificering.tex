@@ -11,38 +11,47 @@ slumpvariabel, från någon av fem fördelningar; fyra för olika
 hudfärger och en för icke-hud.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen krävs ett
- antal datapunkter, och till detta kan fördelningsparametrarna
- anpassas med MLE. Den mulitvariata fördelningen ges av (med kovariansmatris
- $\Sigma$ och väntevärde $\mu$)
+antal datapunkter, och till detta kan fördelningsparametrarna
+anpassas med MLE. Den mulitvariata fördelningen ges av
+\eqref{eq:hud:fordelning}, med kovariansmatris
+$\Sigma$ och väntevärde $\mu$.
 
 \begin{equation}
-p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
+  \label{eq:hud:fordelning}
+  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
 \end{equation}
 
-Givet $N$ datapunkter $x_i$ fås den logaritmerade sannolikheten
+Givet $N$ datapunkter $x_i$ fås den logaritmerade sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$:
 
 \begin{equation}
-l(\mu,\Sigma|x_1,...,x_N)=-\frac{Nd}{2}log(2\pi)-\frac{N}{2}log|\Sigma|-\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)/2
+  \label{eq:hud:logaritmerad}
+  \begin{aligned}
+  l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}log(2\pi)-\frac{N}{2}log|\Sigma|\\
+                              &-\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)/2
+  \end{aligned}
 \end{equation}
 
-Vi får derivatan med avseende på $\mu$
+Vi får derivatan med avseende på $\mu$:
 
 \begin{equation}
-\frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}
+  \label{eq:hud:derivmu}
+  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}
 \end{equation}
 
-och map $\Sigma^{-1}$ (efter en del algebra)
+{\ldots}och med avseende på $\Sigma^{-1}$ (efter en del algebra):
 
 \begin{equation}
-\frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma -\sum_{i=1}^N(x_i-\mu)(x_i-\mu)^T/2
+  \label{eq:hud:derivsigma}
+  \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma -\sum_{i=1}^N(x_i-\mu)(x_i-\mu)^T/2
 \end{equation}
 
-Sätter vi dem i tur och ordning till noll får vi att
+Sätter vi dem i tur och ordning till noll får vi $\hat\mu$ och $\hat\Sigma$:
 
-\begin{align}
-\hat\mu&=\frac{1}{N}-\sum_{i=1}^Nx_i\\
-\hat\Sigma&=\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T\\
-\end{align}
+\begin{gather}
+  \label{eq:hud:sigmamu}
+  \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
+  \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
+\end{gather}
 
 \citeasnoun{Elmezain08} studerade $18\:972$
 hud-pixlar och $88\:320$ icke-hud-pixlar, och delade in dessa i fyra
