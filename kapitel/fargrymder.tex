@@ -9,7 +9,7 @@ behöver man ett tredimensionellt färgrum, men i vissa situationer kan
 det räcka med ett tvådimensionellt färgrum --- ibland kan det till och
 med vara fördelaktigt att göra sig av med en dimension \cite{Kakumanu07}.
 
-\subsubsection{Grundläggande färgrymder: RGB, rgb och rg}
+\subsubsection{Grundläggande färgrymder: RGB, rgb, rg och CMYK}
 
 I datorer används av tradition ofta RGB-färskalan, en \emph{additiv}
 färgrymd med komponenterna röd, grön och blå. Av tekniska skäl brukar
@@ -18,10 +18,9 @@ vilket gör att man kan representera totalt $16\:581\:375$ färger.
 RGB-skalan är mycket praktisk när man ska visa bilderna på LCD- eller
 CRT-skärmar, eftersom dessa opererar genom s.k. subpixlar med dessa
 tre färger. \citeasnoun{Lockton02} använde RGB-rymden för huddetektion
-med viss framgång.
-
-Modellen beskriver dock inte färger på ett intuitivt sätt, och är inte
-ortogonal, vilket ställer till med problem i många tillämpningar.
+med viss framgång. Modellen beskriver dock inte färger på ett
+intuitivt sätt, och är inte ortogonal, vilket ställer till med problem
+i många tillämpningar.
 
 Det finns andra färgrymder som baseras på RGB-rymden; till exempel
 \emph{rgb}-rymden (notera gemenerna), som är normaliserad RGB enligt
@@ -46,6 +45,12 @@ aritmeriska operationer har även använts i syfte att klassificera hud;
 \citeasnoun{Brand00} nådde viss framgång med ration $R/G$ och summan
 $R/G+R/B+G/B$, men visade att en SPM (\emph{Skin Probability Map}) i
 RGB-rymden var mer effektiv.
+
+En relativt orelaterad grundläggande färgrymd som inte ser så stor
+användning i datorvärlden men som är mycket viktig i tryckindustrin är
+CMYK --- \emph{cyan}, \emph{magenta}, \emph{yellow} och \emph{key}
+(svart). Denna metod används i fyrfärgstryck men sällan i andra
+tillämpningar, och är inte lämpad för hudklassificering.
 
 \subsubsection{Perceptuella färgrymder: HSI, HSV och HSL}
 
@@ -90,6 +95,7 @@ behöver göra detta i realtid.
 
 Det ska även nämnas att det finns många olika färgrymder som kallas
 $YC_bC_r$; dessa skiljer sig på konstanter i linjärtransformationen.
-Den standard som beskrivs av \eqref{eq:farg:ycbcr} är \emph{ITU-R BT.601}.
+Den standard som beskrivs av \eqref{eq:farg:ycbcr} är \emph{ITU-R
+BT.601} \citeaffixed[s.~2--3]{ITU-BT601}{se}.
 
 \end{document} 
