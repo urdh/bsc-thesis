@@ -155,7 +155,7 @@ FUNCTION {embolden}
 FUNCTION {quote}
 { duplicate$ empty$
     { pop$ "" }
-    { "`" swap$ * "'" * }
+    { "'" swap$ * "'" * }
   if$
 }
 
@@ -206,8 +206,8 @@ FUNCTION {format.editors}
     { "" }
     { "{vv~}{ll}{, jj}{, f.}" editor format.names
       editor num.names$ #1 >
-	{ " (eds)" * }
-	{ " (ed.)" * }
+	{ " (red.)" * }
+	{ " (red.)" * }
       if$
     }
   if$
@@ -218,8 +218,8 @@ FUNCTION {format.editors.reverse}
     { "" }
     { "{f.~}{vv~}{ll}{, jj}" editor format.names
       editor num.names$ #1 >
-	{ " (eds)" * }
-	{ " (ed.)" * }
+	{ " (red.)" * }
+	{ " (red.)" * }
       if$
     }
   if$
@@ -282,7 +282,7 @@ FUNCTION {format.bvolume}
     { "Vol." volume tie.or.space.connect
       series empty$
 	'skip$
-	{ " of " * series emphasize * }
+	{ " av " * series emphasize * }
       if$
       "volume and number" number either.or.check
     }
@@ -294,13 +294,13 @@ FUNCTION {format.number.series}
     { number empty$
 	{ series field.or.null }
 	{ output.state mid.sentence =
-	    { "number" }
-	    { "Number" }
+	    { "nr. " }
+	    { "Nr. " }
 	  if$
 	  number tie.or.space.connect
 	  series empty$
 	    { "there's a number but no series in " cite$ * warning$ }
-	    { " in " * series emphasize * }
+	    { " i " * series emphasize * }
 	  if$
 	}
       if$
@@ -313,8 +313,8 @@ FUNCTION {format.edition}
 { edition empty$
     { "" }
     { output.state mid.sentence =
-	{ edition "l" change.case$ " edn" * }
-	{ edition "t" change.case$ " edn" * }
+	{ edition "l" change.case$ " uppl." * }
+	{ edition "t" change.case$ " uppl." * }
       if$
     }
   if$
@@ -346,8 +346,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-	{ "pp.~" pages n.dashify * }
-	{ "p.~" pages * }
+	{ "ss.~" pages n.dashify * }
+	{ "s.~" pages * }
       if$
     }
   if$
@@ -378,7 +378,7 @@ FUNCTION {format.chapter.pages}
 { chapter empty$
     'format.pages
     { type empty$
-	{ "chapter" }
+	{ "kap. " }
 	{ type "l" change.case$ }
       if$
       chapter tie.or.space.connect
@@ -395,7 +395,7 @@ FUNCTION {format.in.ed.booktitle}
     { "" }
     { editor empty$
 	{ booktitle emphasize }
-	{ "{\em in} " format.editors.reverse * ", " * booktitle emphasize * }
+	{ "{\em i} " format.editors.reverse * ", " * booktitle emphasize * }
       if$
     }
   if$
@@ -422,7 +422,7 @@ FUNCTION {format.thesis.type}
 
 FUNCTION {format.tr.number}
 { type empty$
-    { "Technical Report" }
+    { "Teknisk rapport" }
     'type
   if$
   number empty$
@@ -438,21 +438,21 @@ FUNCTION {format.article.crossref}
 	  warning$
 	  ""
 	}
-	{ "in {\em " journal * "\/}" * " \cite{" * crossref * "}" *
+	{ "i {\em " journal * "}" * " \cite{" * crossref * "}" *
         }
       if$
     }
-    { " {\em in} \citeasnoun{" crossref * "}" * }
+    { " {\em i} \citeasnoun{" crossref * "}" * }
   if$
 }
 
 FUNCTION {format.book.crossref}
 { volume empty$
     { "empty volume in " cite$ * "'s crossref of " * crossref * warning$
-      "in "
+      "i "
     }
     { "Vol." volume tie.or.space.connect
-      " of " *
+      " av " *
     }
   if$
   editor empty$
@@ -464,7 +464,7 @@ FUNCTION {format.book.crossref}
 	      crossref * warning$
 	      "" *
 	    }
-	    { "{\em " * series * "\/}" * " \cite{" * crossref * "}" *}
+	    { "{\em " * series * "}" * " \cite{" * crossref * "}" *}
 	  if$
 	}
 	{ " \citeasnoun{" * crossref * "}" * }
@@ -485,13 +485,13 @@ FUNCTION {format.incoll.inproc.crossref}
 	      crossref * warning$
 	      ""
 	    }
-	    { "in {\em " booktitle * "\/}" * " \cite{" * crossref * "}" *}
+	    { "i {\em " booktitle * "}" * " \cite{" * crossref * "}" *}
 	  if$
 	}
-	{ " {\em in} \citeasnoun{" crossref * "}" * }
+	{ " {\em i} \citeasnoun{" crossref * "}" * }
       if$
     }
-    {  " {\em in} \citeasnoun{" crossref * "}" * }
+    {  " {\em i} \citeasnoun{" crossref * "}" * }
   if$
  
 }
@@ -893,7 +893,7 @@ FUNCTION {mastersthesis}
     { skip$ }
     { format.title emphasize "title" output.check }
   if$
-  "Master's thesis" format.thesis.type output.nonnull
+  "Examensarbete " format.thesis.type output.nonnull
   school "school" output.check
   address output
   
@@ -927,7 +927,7 @@ FUNCTION {phdthesis}
     { skip$ }
     { format.btitle "title" output.check }
   if$
-  "PhD thesis" format.thesis.type output.nonnull
+  "Doktorsavhandling " format.thesis.type output.nonnull
   school "school" output.check
   address output
   
