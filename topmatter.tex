@@ -13,8 +13,9 @@
  \medskip
 }
 
-\newcommand{\titel}{Dokumentnamn  } %Skriv in titeln här
-\newcommand{\undertitel}{undertitel} %Skriv in undertiteln här, eller lämna tomt
+\newcommand{\titel}{Statistisk bildanalys för\\\vspace{12mm}människa-dator-interaktion} %Skriv in titeln här
+\newcommand{\undertitel}{Analys av handgester med hjälp av dolda
+Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
 
 \newcommand{\namn}{
   Harald Freij \\
@@ -53,15 +54,18 @@
   \hspace*{-10ex}\parbox{17cm}{
     \vspace*{-15mm}
     \includegraphics[width=160mm]{LogoCH_GU_SVEsvart}
-    \vspace{60mm}
-    \noindent{\Huge \titel}
-    \bigskip
-    \noindent {\huge \undertitel}
+    \vspace{80mm}
+    \par
+    \noindent{\Huge\scshape \titel}
+    \vspace{-8mm}
+    \noindent {\newline\LARGE \undertitel}
+    \vspace{20mm}
     \noindent\hspace*{-1 ex}{\Large \it
       \ARBETE
     }
-    \vspace{20mm}
-    \noindent\hspace*{-1 ex}\parbox{80mm}{\noindent {\huge \skribenter}}
+    \vfill
+    %\vspace{20mm}
+    \noindent\hspace*{-1 ex}\parbox{80mm}{\noindent {\Large \skribenter}}
   }
   \lfoot{
     \hspace{-6.4ex}
@@ -101,7 +105,9 @@
   }
   \addtolength{\textheight}{-40mm}
   \addtolength{\topmargin}{30mm}
-  \noindent {\LARGE \titel}\bigskip\bigskip
+  \noindent {\LARGE\scshape \titel}
+  \par
+  \vspace{-8mm}
   \noindent {\large \undertitel}
   \vspace{30mm}
   \noindent {\large \examina}
