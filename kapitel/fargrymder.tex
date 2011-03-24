@@ -6,96 +6,45 @@
 Färg kan beskrivas matematiskt som vektorer i ett färgrum, vars
 basvektorer är färgkomponenter. För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
-det räcka med ett tvådimensionellt färgrum --- ibland kan det till och
-med vara fördelaktigt att göra sig av med en dimension \cite{Kakumanu07}.
+det räcka --- kanske till och med vara fördelaktigt -- med ett
+tvådimensionellt färgrum \cite{Kakumanu07}.
 
-\subsubsection{Grundläggande färgrymder: RGB, rgb, rg och CMYK}
+\marginpar{Hur mycket ska vi förklara RGB, HSI et al. om vi inte
+använder dem egentligen?}
 
-I datorer används av tradition ofta RGB-färskalan, en \emph{additiv}
-färgrymd med komponenterna röd, grön och blå. Av tekniska skäl brukar
-man begränsa dessa komponenter till heltal i intervallet $(0,255)$
-vilket gör att man kan representera totalt $16\:581\:375$ färger.
-RGB-skalan är mycket praktisk när man ska visa bilderna på LCD- eller
-CRT-skärmar, eftersom dessa opererar genom s.k. subpixlar med dessa
-tre färger. \citeasnoun{Lockton02} använde RGB-rymden för huddetektion
-med viss framgång. Modellen beskriver dock inte färger på ett
-intuitivt sätt, och är inte ortogonal, vilket ställer till med problem
-i många tillämpningar.
+Vilken färgrymd som är bäst för just hudklassificering beror på
+situation. RGB-liknande färgrymder har använts av bland annat
+\citeasnoun{Lockton02} och \citeasnoun{Sebe04}, och ter sig lämplig
+eftersom det är denna färgrymd som används i datorer. Perceptuella
+färgrymder som separerar kulör och styrka, till exempel HSL, har inte
+rönt någon större framgång eftersom de är prestandamässigt olämpliga
+att använda i realtidstillämpningar.
 
-Det finns andra färgrymder som baseras på RGB-rymden; till exempel
-\emph{rgb}-rymden (notera gemenerna), som är normaliserad RGB enligt
-\eqref{eq:farg:rgb} och som använts i syfte att klassificera hud av bland
-annat \citeasnoun{Sebe04}.
+Ortogonala färgrymder har däremot nått stor användning för
+hudklassificering \cite{Hsu02,Elmezain08,Hassanpour08} eftersom de
+både separerar färg från ljusstyrka och är linjärtransformationer av
+RGB och därmed prestandamässigt lämpliga för realtidsapplikationer.
+Det är en sådan färgrymd vi valt att använda: $YC_bC_r$.
 
-\begin{equation}
-  \label{eq:farg:rgb}
-  \begin{gathered}
-  r = \frac{R}{R+G+B} \\
-  g = \frac{G}{R+G+B} \\
-  b = \frac{B}{R+G+B}
-  \end{gathered}
-\end{equation}
+\subsubsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
 
-Den reducerade färgrymden \emph{rg}, egentligen en kromaticitetsrymd
-(dvs. färgrymd utan intensitetsinformation) utgår från rgb-rymden men
-kasserar den blå komponenten.
+$YC_bC_r$-rymden är ett försök att ortogonalisera RGB-rymden genom en
+linjärtransformation, vilken resulterar i en basvektor som
+representerar ljusstyrka ($Y$) och två som representerar ''chroma''
+(färg), $C_b$ och $C_r$. Enligt den standard International
+Telecommunication Union publicerat \cite{ITU-BT601} ges
+linjärtransformationen av
 
-Transformationer av RGB-rymden till endimensionella rum genom enkla
-aritmeriska operationer har även använts i syfte att klassificera hud;
-\citeasnoun{Brand00} nådde viss framgång med ration $R/G$ och summan
-$R/G+R/B+G/B$, men visade att en SPM (\emph{Skin Probability Map}) i
-RGB-rymden var mer effektiv.
-
-En relativt orelaterad grundläggande färgrymd som inte ser så stor
-användning i datorvärlden men som är mycket viktig i tryckindustrin är
-CMYK --- \emph{cyan}, \emph{magenta}, \emph{yellow} och \emph{key}
-(svart). Denna metod används i fyrfärgstryck men sällan i andra
-tillämpningar, och är inte lämpad för hudklassificering.
-
-\subsubsection{Perceptuella färgrymder: HSI, HSV och HSL}
-
-Ett mer naturligt sätt att beskriva färger är genom de tre
-komponenterna \emph{hue} (kulör), \emph{saturation} (mättnad) och en
-tredje komponent som beskriver ljusstyrkan (\emph{intensity},
-\emph{value} eller \emph{lightness}). Även om detta är ett mer
-intuitivt sätt att se färger på, så är det inte särskilt väl lämpat
-för hudklassificering då det är relativt beräkningsintensivt att
-konvertera till och från dessa färgrymder --- till skillnad från
-övriga färgrymder som är linjärtransformationer av RGB-rymden, så
-involverar konvertering till HSL flera beräkningssteg och
-trigonometriska operationer.
-
-\subsubsection[Ortogonala färgrymder: YUV och $\mathrm{YC_bC_r}$]{Ortogonala färgrymder: YUV och $\mathbf{YC_bC_r}$}
-
-Ortogonala färgrymder grundar sig i linjärtransformationer av
-RGB-rymden för att ortogonalisera rummet, och på så sätt kunna
-representera informationen i tre variabler som är så oberoende som
-möjligt. Både YUV och $YC_bC_r$ har en komponent Y som representerar
-\emph{luma}, ljusstyrka, och två komponenter som representerar
-\emph{chroma}, färg. Dessa färgrymder har rönt stor framgång inom
-huddetektion \cite{Hsu02,Elmezain08,Hassanpour08}.
-
-Vi har valt att använda $\mathrm{YC_bC_r}$, en enkel linjär transformation av
-RGB-rymden enligt \eqref{eq:farg:ycbcr}. Denna är fördelaktig då den
-är ortogonal, skiljer färg från ljusstyrka (något
-som är mycket viktigt då man i stort endast är intresserad av färgen
-när man ska hitta hudpixlar), och eftersom den är en \emph{enkel}
-linjärtransformation, vilket gör det enkelt att implementera en
-effektiv transformation från RGB --- en mycket viktig egenskap eftersom vi
-behöver göra detta i realtid.
-
-\begin{equation}
+\begin{equation*}
   \label{eq:farg:ycbcr}
   \begin{gathered}
   Y   = 16  + ( 65.481R + 128.553G + 24.966B)\\
   C_b = 128 + (-37.797R - 74.203G  + 112.0B )\\
   C_r = 128 + (112.0R   - 93.786G  - 18.214B)
   \end{gathered}
-\end{equation}
+\end{equation*}
 
-Det ska även nämnas att det finns många olika färgrymder som kallas
-$YC_bC_r$; dessa skiljer sig på konstanter i linjärtransformationen.
-Den standard som beskrivs av \eqref{eq:farg:ycbcr} är \emph{ITU-R
-BT.601} \citeaffixed[s.~2--3]{ITU-BT601}{se}.
+där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
+färgens värde i RGB-rymden.
 
 \end{document} 
