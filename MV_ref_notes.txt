@@ -10,7 +10,7 @@ jobbigt om man har många källor men praktiskt om man har några som
 huvudreferenser.
 
 Läs mer i Fackspråks skrift: Utformning av rapporter och
-kandidatarbetens skriftliga .... (2008-01-11)\cite{rapp}.
+kandidatarbetens skriftliga .... (2008-01-11)
 I det fall arbetet i huvudsak bygger på en eller ett par källor och
 det är svårt att identifiera exakt när man använder respektive källa,
 kan man tala om detta i inledningen. Man kan sedan referera till
