@@ -30,10 +30,15 @@
 
 % Fina inställningar
 \citationmode{abbr}
+\setcounter{secnumdepth}{5} % Osäker på dessa två..
+\setcounter{tocdepth}{5}    % Vad blir snyggast - med eller utan?
 \definecolor{light-gray}{gray}{0.95}
+\let\oldparagraph=\paragraph
+\let\oldsubparagraph=\subparagraph
+\renewcommand{\paragraph}[1]{\oldparagraph[#1]{#1.}}
+\renewcommand{\subparagraph}[1]{\oldsubparagraph[#1]{#1.}}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newcommand{\notes}[1]{{\color{BrickRed}\textbf{Anteckning: }\color{Red}#1}}
-%\renewcommand{\sectionmark}[1]{\markright{\thesection.\thesubsection~#1}{}}
 \renewcommand{\subsectionmark}[1]{\markright{\thesubsection~\textit{#1}}{}}
 \fancypagestyle{plain}{
   \fancyhf{} % remove everything
@@ -68,17 +73,15 @@
 
 % Titelsida
 \subfile{topmatter.tex}
-\newpage
 
 % Förord
 \pagenumbering{Roman}
 \pagestyle{plain}
 \section*{Förord}
 \subfile{kapitel/forord.tex}
-\newpage
-
+\cleardoublepage
 \tableofcontents
-\newpage
+\cleardoublepage
 \pagestyle{fancier}
 
 % Inledning
@@ -94,7 +97,7 @@
 \subfile{kapitel/fargrymder.tex}
 \subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/bildanalys.tex}
-\subfile{kapitel/features.tex}
+\subfile{kapitel/klassificering.tex}
 \newpage
 
 % Slutsats/Diskussion

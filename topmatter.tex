@@ -48,6 +48,9 @@
 
 %% Själva omslaget
 \newcommand{\omslag}{
+  \newlength{\oldtextwidth}  
+  \setlength{\oldtextwidth}{\textwidth}
+  \setlength{\textwidth}{160mm}
   \addtolength{\textheight}{-20mm}
   \thispagestyle{fancy}
   \newdimen\headrulewidth
@@ -59,14 +62,12 @@
     \begin{flushleft}
     \noindent{\sloppy\Huge\scshape \titel}
     \end{flushleft}
-    %\vspace{8mm}
     \noindent {\newline\LARGE \undertitel}
     \vspace{20mm}
     \noindent\hspace*{-1 ex}{\Large \it
       \ARBETE
     }
     \vfill
-    %\vspace{20mm}
     \noindent\hspace*{-1 ex}\parbox{80mm}{\noindent {\Large \skribenter}}
   }
   \lfoot{
@@ -83,10 +84,10 @@
   \lhead{}
   \chead{}
   \rhead{}
-  \newpage
-  \thispagestyle{empty}
-  \mbox{}
-  \newpage
+  \pagestyle{empty}
+  \cleardoublepage
+  \addtolength{\textheight}{20mm}
+  \setlength{\textwidth}{\oldtextwidth}
 }
 
 %% Titelsidor
@@ -120,31 +121,21 @@
     Handledare:& \handledare
     Examinator:& \examinator & \end{tabular}
   \bigskip\bigskip
-  \newpage
-  \thispagestyle{empty}\mbox{}
-  \vfill
-  %\setcounter{page}{0}
-  \newpage
+  \cleardoublepage
+  \addtolength{\textheight}{40mm}
+  \addtolength{\topmargin}{-30mm}
 }
 
 \omslag
 \titelsidor
 
-\thispagestyle{empty}
-%\setlength{\textheight}{240mm}
-\addtolength{\textheight}{50mm}
-\addtolength{\topmargin}{-50mm}
-\addtolength{\oddsidemargin}{10mm}
-\addtolength{\textwidth}{-20mm}
-
+\addtolength{\oddsidemargin}{20mm}
 \selectlanguage{swedish}
 \subfile{kapitel/sammandrag.tex}
 \selectlanguage{british}
 \subfile{kapitel/abstract.tex}
 \selectlanguage{swedish}
-\newpage
-\thispagestyle{empty}
-\mbox{}
-\newpage
+\cleardoublepage
+\addtolength{\oddsidemargin}{-20mm}
 
 \end{document}

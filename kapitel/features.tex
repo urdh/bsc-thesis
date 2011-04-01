@@ -1,12 +1,21 @@
-\documentclass[../rapport_MVEX01-11-05]{subfiles}
+\documentclass[klassificering]{subfiles}
 \begin{document}
-\subsection{Egenskaper}
+\subsubsection{Egenskaper}
 En Hidden Markov Model behöver observationer för att fungera; dessa
 observationer kommer vi att identifiera med hjälp av klassificering av
 nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
 med hjälp av den binära hudkartan för motsvarande bild.
 
-\subsubsection{Hausdorffavstånd}
+För att kunna applicera metoden även vid stora variationer --- olika
+personer, avstånd till kameran, uppställningar osv. --- är det viktigt
+att endast andvända egenskaper som är oberoende av sådana variabler.
+Position och absolut storlek är exempel på egenskaper som inte bör
+användas, eftersom dessa kan variera mycket även inom en specifik
+gest. Hastighet kan räknas in i denna grupp men måste ändå användas
+om rörelsegester ska kunna identifieras. Det är dock möjligt att på
+olika sätt göra denna egenskap mer oberoende.
+
+\paragraph{Hausdorffavstånd}
 
 Hausdorffavståndet mellan den bild man klassificerar och ett antal
 lagrade och förklassificerade gester kan användas som en egenskap för
@@ -25,9 +34,111 @@ där
   B}\left|\left|a-b\right|\right|.
 \end{equation*}
 
-(fortsätt)
+Detta mått kan användas som egenskap endast om man har något att
+jämföra med. Med en databas av referensbilder, sparade mängder $B_n$ från redan kända
+och klassificerade gester, kan man skapa $n$ egenskaper bestående av
+värdet $H(A,B_n)$, där $A$ är motsvarande mängd för bilden som för
+tillfället klassificeras.
 
-\subsubsection{Centroidhastighet, vinkel, konvexitet?}
+För att Hausdorffavståndet ska bli ett oberoende mått måste man
+förbehandla bilden på ett lämpligt sätt. Genom att först rotera
+handområdet enligt dess vinkel mot horisontalplanet (se nedan)
+och sedan skala området så att det fyller ett
+område på exempelvis $200\times200$ bildpunkter, utan hänsyn till
+längd-bredd-förhållande, eliminerar man alla beroende variabler. Att
+vinkeln elimineras trots att den har betydelse är irrelevant så länge
+man inkluderar den som en separat egenskap.
+
+Givetvis måste även refensbilden $B_n$ utsättas för likvärdig behandling.
+
+\paragraph{Centroidhastighet}
+
+Centroidhastigheten är ett mycket viktigt mått när det gäller
+rörelsegester; det är det mest oberoende måttet på rörelse som går att
+få ut ur en nyckelbild. Centroidhastigheten beräknas enligt
+
+\begin{equation*}
+  v(A^n) = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
+\end{equation*}
+
+där $A^n$ är den $n$:te nyckelbilden. Centroidhastigheten är
+vektorvärd, vilket gör att centroidhastigheten i själva
+verket ger två egenskaper; en i $x$-led och en i $y$-led (eller
+ekvivalent en i $r$-led och en i $\theta$-led för polära
+koordinater).
+
+Centroiden är i själva verket masscentrum för området, och
+beräknas enligt
+
+\begin{equation*}
+  \textrm{centroid}(A) = \left\lfloor\frac{
+    \sum\limits_{a\in A}m_a\vec{r}_a
+  }{
+    \sum\limits_{a\in A}m_a
+  }\right\rfloor =
+  \left\lfloor\sum\limits_{a\in
+  A}\frac{\vec{r}_a}{\textrm{Area}(A)}\right\rfloor,
+\end{equation*}
+
+där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
+binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
+$\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
+x\rfloor$ avrundar $x$ nedåt till närmsta heltal.
+
+\marginpar{Hur gör man den oberoende? Gör vi det?}
+
+\paragraph{Vinkel}
+\label{sss:vinkel}
+
+Vinkeln mellan objektet och horisontalaxeln kan användas för att
+beskriva handens rotation, och är ett viktigt mått för
+gestigenkänning. Måttet definieras som vinkeln mellan horisontalaxeln
+och den längsta av axlarna i den ellips som har samma andramoment som
+området, och löper från $-90$\textdegree{} till $90$\textdegree{}.
+
+\marginpar{Hur definieras andramomenten?}
+
+\paragraph{Konvexitet}
+
+Konvexitet \cite[s.~26]{Rudemo09} är ett användbart dimensionslöst
+mått som i någon mening beskriver hur konvext ett objekt är --- för
+gestigenkänning är detta ett relevant mått på huruvida fingrarna är
+utsträckta eller inte, men även på om de sitter tätt ihop (ex.
+stopptecken) eller löst konfigurerade (ex. segertecken). Det
+definieras av
+
+\begin{equation*}
+  \textrm{konvexitet}(A) = \frac{\partial A_h}{\partial A}
+\end{equation*}
+
+där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
+helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
+mening).
+
+\paragraph{Kompakthet}
+
+Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått som
+beskriver hur kompakt ett objekt är, dvs. hur ''rak'' områdets rand
+är. Cirkeln är det mest kompakta objektet, ju fler irregulariteter
+randen innehåller desto mindre blir kompaktheten. Kompakthet
+definieras av
+
+\begin{equation*}
+  \textrm{kompakthet}(A) = \frac{\textrm{Area}(A)}{\left(\partial
+  A\right)^2}.
+\end{equation*}
+
+\paragraph{Soliditet}
+
+Bra, dåligt? Varför?
+
+\begin{equation*}
+  \textrm{soliditet}(A) = \frac{\textrm{Area}(A)}{\textrm{Area}(A_h)}
+\end{equation*}
+
+\oldparagraph{Fler egenskaper?}
+
+Några?
 
 \end{document} 
 
