@@ -1,4 +1,4 @@
-\documentclass[a4wide,draft,twoside]{article}
+\documentclass[a4wide,twoside,draft]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage[T1]{fontenc}
@@ -30,6 +30,8 @@
 
 % Fina inställningar
 \citationmode{abbr}
+\definecolor{light-gray}{gray}{0.95}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newcommand{\notes}[1]{{\color{BrickRed}\textbf{Anteckning: }\color{Red}#1}}
 %\renewcommand{\sectionmark}[1]{\markright{\thesection.\thesubsection~#1}{}}
 \renewcommand{\subsectionmark}[1]{\markright{\thesubsection~\textit{#1}}{}}
@@ -46,6 +48,20 @@
   \fancyhead[LO]{\rightmark}
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0pt}
+}
+\lstset{
+  language=Matlab,
+  basicstyle=\normalsize
+  numbers=left,
+  numberstyle=\footnotesize,
+  stepnumber=2,
+  numbersep=5pt,
+  backgroundcolor=\color{light-gray},
+  tabsize=4,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={\%*}{*)},
+  morekeywords={}
 }
 
 \begin{document}
