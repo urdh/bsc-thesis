@@ -1,0 +1,33 @@
+\documentclass[../rapport_MVEX01-11-05]{subfiles}
+\begin{document}
+\subsection{Egenskaper}
+En Hidden Markov Model behöver observationer för att fungera; dessa
+observationer kommer vi att identifiera med hjälp av klassificering av
+nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
+med hjälp av den binära hudkartan för motsvarande bild.
+
+\subsubsection{Hausdorffavstånd}
+
+Hausdorffavståndet mellan den bild man klassificerar och ett antal
+lagrade och förklassificerade gester kan användas som en egenskap för
+klassificering \cite{Nielsen04}. Måttet mäter i någon mening avståndet
+mellan två punktmängder $A$ och $B$ (i detta fallet mängderna som definieras av
+randen till våra handområden) och definieras av
+
+\begin{equation*}
+  H(A, B) = \max\left(h(A,B),h(B, A)\right)
+\end{equation*}
+
+där
+
+\begin{equation*}
+  h(A, B) = \max\limits_{a\in A}\min\limits_{b\in
+  B}\left|\left|a-b\right|\right|.
+\end{equation*}
+
+(fortsätt)
+
+\subsubsection{Centroidhastighet, vinkel, konvexitet?}
+
+\end{document} 
+
