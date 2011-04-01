@@ -1,4 +1,4 @@
-\documentclass[a4wide]{article}
+\documentclass[a4wide,draft,twoside]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage[T1]{fontenc}
@@ -22,37 +22,75 @@
 \usepackage{textcomp}
 \usepackage{harvard}
 \usepackage[usenames,dvipsnames]{color}
+\usepackage{fancyhdr}
+
+% Titel här istället för topmatter.tex för att kunna använda i headers
+\newcommand{\titel}{Statistisk bildanalys för människa-dator-interaktion} %Skriv in titeln här
+\newcommand{\undertitel}{Analys av handgester med hjälp av dolda Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
 
 % Fina inställningar
 \citationmode{abbr}
 \newcommand{\notes}[1]{{\color{BrickRed}\textbf{Anteckning: }\color{Red}#1}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\thesubsection~#1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{\thesubsection~\textit{#1}}{}}
+\fancypagestyle{plain}{
+  \fancyhf{} % remove everything
+  \fancyhead[LE,RO]{\thepage}  
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{fancier}{
+  \fancyhf{}
+  \fancyhead[LE,RO]{\thepage}
+  \fancyhead[RE]{\textsc{\titel}}
+  \fancyhead[LO]{\rightmark}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
 
 \begin{document}
 
 % Titelsida
 \subfile{topmatter.tex}
 \newpage
+
+% Förord
+\pagenumbering{Roman}
+\pagestyle{plain}
+\section*{Förord}
+\subfile{kapitel/forord.tex}
+\newpage
+
+\tableofcontents
+\newpage
+\pagestyle{fancier}
+
 % Inledning
+\pagenumbering{arabic}
 \section{Inledning}
 \subfile{kapitel/inledning.tex} %section
+\newpage
 
 % Huvuddel
 % Ändra inbördes ordning på allt det här så att det blir logiskt.
 % Ta även bort kapitel som vi inte ska ha, och lägg till nya.
-\newpage
 \section{Teori}
 \subfile{kapitel/fargrymder.tex}
 \subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/bildanalys.tex}
-
 \newpage
+
 % Slutsats/Diskussion
-
+\section{Resultat}
+%\subfile{kapitel/???.tex}
 \newpage
+
 % Källförteckning
+\pagestyle{plain}
 \bibliographystyle{dcumod}
 \bibliography{referenser}
 \newpage
+
 % Bilagor
 \appendix
 %\chapter{Bilaga}

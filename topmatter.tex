@@ -13,9 +13,9 @@
  \medskip
 }
 
-\newcommand{\titel}{Statistisk bildanalys för\\\vspace{12mm}människa-dator-interaktion} %Skriv in titeln här
-\newcommand{\undertitel}{Analys av handgester med hjälp av dolda
-Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
+%\newcommand{\titel}{Statistisk bildanalys för\\\vspace{12mm}människa-dator-interaktion} %Skriv in titeln här
+%\newcommand{\undertitel}{Analys av handgester med hjälp av dolda
+%Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
 
 \newcommand{\namn}{
   Harald Freij \\
@@ -51,13 +51,15 @@ Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
   \addtolength{\textheight}{-20mm}
   \thispagestyle{fancy}
   \newdimen\headrulewidth
-  \hspace*{-10ex}\parbox{17cm}{
+  \hspace*{-10ex}\parbox{160mm}{
     \vspace*{-15mm}
     \includegraphics[width=160mm]{LogoCH_GU_SVEsvart}
     \vspace{80mm}
     \par
-    \noindent{\Huge\scshape \titel}
-    \vspace{-8mm}
+    \begin{flushleft}
+    \noindent{\sloppy\Huge\scshape \titel}
+    \end{flushleft}
+    %\vspace{8mm}
     \noindent {\newline\LARGE \undertitel}
     \vspace{20mm}
     \noindent\hspace*{-1 ex}{\Large \it
@@ -105,9 +107,11 @@ Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
   }
   \addtolength{\textheight}{-40mm}
   \addtolength{\topmargin}{30mm}
+  \begin{flushleft}
   \noindent {\LARGE\scshape \titel}
+  \end{flushleft}
   \par
-  \vspace{-8mm}
+  %\vspace{-8mm}
   \noindent {\large \undertitel}
   \vspace{30mm}
   \noindent {\large \examina}
@@ -119,7 +123,7 @@ Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
   \newpage
   \thispagestyle{empty}\mbox{}
   \vfill
-  \setcounter{page}{0}
+  %\setcounter{page}{0}
   \newpage
 }
 
@@ -141,10 +145,6 @@ Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
 \newpage
 \thispagestyle{empty}
 \mbox{}
-\newpage
-
-\pagestyle{plain}
-\tableofcontents
 \newpage
 
 \end{document}
