@@ -103,29 +103,9 @@ $x$- och $y$-led:
   \end{pmatrix}
 \end{gather*}
 
-\subparagraph{Centroidrörelse}
+\subparagraph{Centroid}
 
-Centroidrörelsen är ett mycket viktigt mått när det gäller
-rörelsegester; det är det mest oberoende måttet på rörelse som går att
-få ut ur en nyckelbild. Centroidrörelsen beräknas enligt
-
-\begin{equation*}
-  \Delta_c(A^n) = 
-  \begin{pmatrix}
-    \Delta x_c(A^n) \\[3pt]
-    \Delta y_c(A^n)
-   \end{pmatrix}
-   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
-\end{equation*}
-
-där $A^n$ är den $n$:te nyckelbilden. Centroidrörelsen är
-vektorvärd, vilket gör att den i själva
-verket ger två egenskaper; en i $x$-led och en i $y$-led (eller
-ekvivalent en i $r$-led och en i $\theta$-led för polära
-koordinater).
-
-Centroiden är i själva verket masscentrum för området, och
-beräknas enligt
+Centroiden är masscentrum för området, och beräknas enligt
 
 \begin{equation*}
   \textrm{centroid}(A) = \left\lfloor\frac{
@@ -141,6 +121,19 @@ där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal.
+
+Med denna beräkning utförd kan centroidförflyttningen definieras enligt
+
+\begin{equation*}
+  \Delta_c(A^n) = 
+  \begin{pmatrix}
+    \Delta x_c(A^n) \\[3pt]
+    \Delta y_c(A^n)
+   \end{pmatrix}
+   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
+\end{equation*}
+
+där $A^n$ är den $n$:te nyckelbilden.
 
 \paragraph{Vinkel}
 \label{sss:vinkel}
