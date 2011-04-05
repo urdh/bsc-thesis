@@ -1,4 +1,4 @@
-\documentclass[klassificering]{subfiles}
+\documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 \subsubsection{Egenskaper}
 En Hidden Markov Model behöver observationer för att fungera; dessa
@@ -14,6 +14,13 @@ användas, eftersom dessa kan variera mycket även inom en specifik
 gest. Hastighet kan räknas in i denna grupp men måste ändå användas
 om rörelsegester ska kunna identifieras. Det är dock möjligt att på
 olika sätt göra denna egenskap mer oberoende.
+
+Många av egenskaperna som beskrivs här kan beräknas effektivt av
+\MATLAB-kommandot \texttt{regionprops}.
+
+\marginpar{Flytta runt egenskaperna så att de dyker upp i en logisk
+ordning (definitionsmässigt etc). Rent allmänt bättre namn på allt
+behövs också.}
 
 \paragraph{Hausdorffavstånd}
 
@@ -51,18 +58,68 @@ man inkluderar den som en separat egenskap.
 
 Givetvis måste även refensbilden $B_n$ utsättas för likvärdig behandling.
 
-\paragraph{Centroidhastighet}
+\paragraph{Förflyttning}
 
-Centroidhastigheten är ett mycket viktigt mått när det gäller
+Förflyttning är givetvis en grundläggande egenskap hos rörelsegester,
+och kan definieras på två distinkta sätt: med hjälp av centroiden och
+med hjälp av den inneslutande lådan.
+
+\marginpar{Hur gör man dessa mer oberoende? Gör vi det? Behövs det?}
+
+\subparagraph{Inneslutande låda}
+
+Den inneslutande lådan är den minsta rektangeln som innehåller hela
+objektet. Denna kan effektivt beräknas genom att lokalisera
+extrempunkterna i $x$- och $y$-led, dvs. de punkter närmst kanterna
+som är en del av objektet. Lådan har fyra egenskaper:
+\begin{inparaenum}[\itshape 1\upshape)]
+  \item bredd, $\textrm{Box}_w(A)$;
+  \item höjd, $\textrm{Box}_h(A)$;
+  \item position i $x$-led, $\textrm{Box}_x(A)$; och
+  \item position i $y$-led, $\textrm{Box}_y(A)$.
+\end{inparaenum}
+
+Utifrån dessa kan vi även beräkna en femte och sjätte egenskap;
+mittpunkten i $x$- och $y$-led:
+
+\begin{gather*}
+  \textrm{Box}_{cx}(A) = \textrm{Box}_x(A) + \textrm{Box}_w(A)/2\\
+  \textrm{Box}_{cy}(A) = \textrm{Box}_y(A) + \textrm{Box}_h(A)/2
+\end{gather*}
+
+Dessa egenskaper kan vi sedan använda för att beräkna förflyttning i
+$x$- och $y$-led:
+
+\begin{gather*}
+  \Delta (A^n) =
+  \begin{pmatrix}
+    \Delta x(A^n)\\[3pt]
+    \Delta y(A^n)
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \textrm{Box}_{cx}(A^n) - \textrm{Box}_{cx}(A^{n-1})\\[3pt]
+    \textrm{Box}_{cy}(A^n) - \textrm{Box}_{cy}(A^{n-1})
+  \end{pmatrix}
+\end{gather*}
+
+\subparagraph{Centroidrörelse}
+
+Centroidrörelsen är ett mycket viktigt mått när det gäller
 rörelsegester; det är det mest oberoende måttet på rörelse som går att
-få ut ur en nyckelbild. Centroidhastigheten beräknas enligt
+få ut ur en nyckelbild. Centroidrörelsen beräknas enligt
 
 \begin{equation*}
-  v(A^n) = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
+  \Delta_c(A^n) = 
+  \begin{pmatrix}
+    \Delta x_c(A^n) \\[3pt]
+    \Delta y_c(A^n)
+   \end{pmatrix}
+   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
 \end{equation*}
 
-där $A^n$ är den $n$:te nyckelbilden. Centroidhastigheten är
-vektorvärd, vilket gör att centroidhastigheten i själva
+där $A^n$ är den $n$:te nyckelbilden. Centroidrörelsen är
+vektorvärd, vilket gör att den i själva
 verket ger två egenskaper; en i $x$-led och en i $y$-led (eller
 ekvivalent en i $r$-led och en i $\theta$-led för polära
 koordinater).
@@ -84,8 +141,6 @@ där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal.
-
-\marginpar{Hur gör man den oberoende? Gör vi det?}
 
 \paragraph{Vinkel}
 \label{sss:vinkel}
@@ -130,13 +185,17 @@ definieras av
 
 \paragraph{Soliditet}
 
-Bra, dåligt? Varför?
+Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
+definieras av ration mellan objektets area och det konvexa skalets
+area enligt
 
 \begin{equation*}
-  \textrm{soliditet}(A) = \frac{\textrm{Area}(A)}{\textrm{Area}(A_h)}
+  \textrm{soliditet}(A) = \frac{\textrm{Area}(A)}{\textrm{Area}(A_h)},
 \end{equation*}
 
-\oldparagraph{Fler egenskaper?}
+och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
+gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
+övriga fingrar riktade uppåt).
 
 Några?
 
