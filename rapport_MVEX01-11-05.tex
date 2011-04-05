@@ -23,6 +23,7 @@
 \usepackage{harvard}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{fancyhdr}
+\usepackage{paralist}
 
 % Titel här istället för topmatter.tex för att kunna använda i headers
 \newcommand{\titel}{Statistisk bildanalys för människa-dator-interaktion} %Skriv in titeln här
@@ -30,13 +31,13 @@
 
 % Fina inställningar
 \citationmode{abbr}
-\setcounter{secnumdepth}{5} % Osäker på dessa två..
-\setcounter{tocdepth}{5}    % Vad blir snyggast - med eller utan?
+\setcounter{secnumdepth}{4} % Osäker på dessa två..
+\setcounter{tocdepth}{4}    % Vad blir snyggast - med eller utan?
 \definecolor{light-gray}{gray}{0.95}
 \let\oldparagraph=\paragraph
 \let\oldsubparagraph=\subparagraph
 \renewcommand{\paragraph}[1]{\oldparagraph[#1]{#1.}}
-\renewcommand{\subparagraph}[1]{\oldsubparagraph[#1]{#1.}}
+\renewcommand{\subparagraph}[1]{\oldsubparagraph[#1]{\itshape#1.}}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newcommand{\notes}[1]{{\color{BrickRed}\textbf{Anteckning: }\color{Red}#1}}
 \renewcommand{\subsectionmark}[1]{\markright{\thesubsection~\textit{#1}}{}}
@@ -68,6 +69,15 @@
   escapeinside={\%*}{*)},
   morekeywords={}
 }
+
+% Kommandon
+\newcommand{\N}{\ensuremath{\mathbbm{N}}}
+\newcommand{\Z}{\ensuremath{\mathbbm{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbbm{Q}}}
+\newcommand{\R}{\ensuremath{\mathbbm{R}}}
+\newcommand{\C}{\ensuremath{\mathbbm{C}}}
+\newcommand{\rd}{\ensuremath{\mathrm{d}}}
+\newcommand{\id}{\ensuremath{\,\rd}}
 
 \begin{document}
 
