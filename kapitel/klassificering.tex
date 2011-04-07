@@ -10,6 +10,9 @@ Själva klassificeringen är mycket enkel. Vi utgår från ett vektorrum
 av egenskaper, där varje egenskap representerar en dimension. I detta
 vektorrum placerar vi ut nyckelbilder från förinspelade gester, genom
 att för varje (nyckel)bild i videosekvensen beräkna alla egenskaper.
+Efter detta gallras nyckelbilderna ut, så att de som ligger allt för
+nära varandra tas bort, tills antalet nyckelbilder är tillräckligt
+litet (cirka tio stycken).
 Detta ger oss en slags kodbok vilken vi sedan kan använda för att
 klassificera bilder från andra videosekvenser. 
 
