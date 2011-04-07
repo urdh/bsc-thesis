@@ -22,6 +22,10 @@ Många av egenskaperna som beskrivs här kan beräknas effektivt av
 ordning (definitionsmässigt etc). Rent allmänt bättre namn på allt
 behövs också.}
 
+\marginpar{Hur oberoende är egenskaperna? Vilka kastar vi, och
+varför? Vi kan ju ha med alla dessa i rapporten men berätta
+vilka vi kastar bort och varför.}
+
 \paragraph{Hausdorffavstånd}
 
 Hausdorffavståndet mellan den bild man klassificerar och ett antal
@@ -59,10 +63,16 @@ man inkluderar den som en separat egenskap.
 Givetvis måste även refensbilden $B_n$ utsättas för likvärdig behandling.
 
 \paragraph{Förflyttning}
+\label{feat:forflytt}
 
 Förflyttning är givetvis en grundläggande egenskap hos rörelsegester,
 och kan definieras på två distinkta sätt: med hjälp av centroiden och
 med hjälp av den inneslutande lådan.
+
+Förflyttningen mäts, till skillnad från hastighet och riktning
+(\ref{feat:hastighet} och \ref{feat:riktning}) endast mellan
+nyckelbilder, dvs. var $n$:te bild i videosekvensen (där $n$ är ett
+lämpligt tal). Detta gör att ???
 
 \marginpar{Hur gör man dessa mer oberoende? Gör vi det? Behövs det?}
 
@@ -133,10 +143,12 @@ Med denna beräkning utförd kan centroidförflyttningen definieras enligt
    = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
 \end{equation*}
 
+\marginpar{Definiera nyckelbild och $A^n$-notation tidigare!}
+
 där $A^n$ är den $n$:te nyckelbilden.
 
 \paragraph{Vinkel}
-\label{sss:vinkel}
+\label{feat:vinkel}
 
 Vinkeln mellan objektet och horisontalaxeln kan användas för att
 beskriva handens rotation, och är ett viktigt mått för
@@ -145,6 +157,10 @@ och den längsta av axlarna i den ellips som har samma andramoment som
 området, och löper från $-90$\textdegree{} till $90$\textdegree{}.
 
 \marginpar{Hur definieras andramomenten?}
+
+\marginpar{Även: vinkelskillnad}
+
+\marginpar{Cosinus av vinkeln? I så fall; varför?}
 
 \paragraph{Konvexitet}
 
@@ -177,6 +193,7 @@ definieras av
 \end{equation*}
 
 \paragraph{Soliditet}
+\label{feat:soliditet}
 
 Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
 definieras av ration mellan objektets area och det konvexa skalets
@@ -190,7 +207,76 @@ och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
 gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 övriga fingrar riktade uppåt).
 
-Några?
+
+\paragraph{Hastighet}
+\label{feat:hastighet}
+
+Hastigheten är nära relaterad till förflyttningen
+(\ref{feat:forflytt}), men uppmäts jämfört med föregående bild
+istället för föregående nyckelbild. Detta ger ett mer kontinuerligt
+mått, men även större påverkan från små brusrörelser. Hastigheten
+definieras på det naturliga sättet:
+
+\begin{equation*}
+  v(A^n) = \sqrt{\left(\Delta x(A^n) \right)^2
+               + \left(\Delta y(A^n) \right)^2}
+\end{equation*}
+
+\paragraph{Riktning}
+\label{feat:riktning}
+
+Även riktningen är nära relaterad till förflyttningen, och utgör ett
+komplement till hastigheten. På samma sätt som hastigheten ger denna
+egenskap ett mer kontinuerligt men även brusigare mått på handens
+rörelse i en gest. Definitionen är naturlig:
+
+\begin{equation*}
+  \Theta(A^n) = \sin\left(\arctan\!2\left(
+  \Delta y(A^n), \Delta x(A^n)\right)\right)
+\end{equation*}
+
+där $\arctan$-funktionen med två argument definieras av
+
+\begin{equation*}
+  \arctan\!2\left(y,x\right) = 2\arctan\left(
+  \frac{y}{\sqrt{x^2+y^2}+x}
+  \right).
+\end{equation*}
+
+\paragraph{Excentricitet}
+
+Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
+fyrkantigheten, \ref{feat:fyrkantighet}), och utgår från samma ellips
+som vinkeln (\ref{feat:vinkel}). Excenticiteten definieras av avståndet
+mellan andramomenten i ellipsen genom längden av den längsta axeln.
+
+\paragraph{Utsträckning}
+
+Utsträckningen mäter hur stor del av den inneslutande lådan som
+faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
+till soliditeten (\ref{feat:soliditet}) och definieras enligt
+
+\begin{equation*}
+  \textrm{utsträckning}(A) =
+  \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
+\end{equation*}
+
+\paragraph{Fyrkantighet}
+\label{feat:fyrkantighet}
+
+Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
+inneslutande lådan är, och på så sätt mäter det hur ''utsträckt'' en
+gest är. Dess definition är mycket enkel:
+
+\begin{equation*}
+  \textrm{fyrkantighet}(A) = \frac{\textrm{Box}_w(A)}{\textrm{Box}_h(A)}
+\end{equation*}
+
+En perfekt kvadratisk låda har alltså fyrkantighet 1, och ju mer
+fyrkantigheten avviker från detta värde desto mer avlång är gesten.
+Notera dock att detta mått är låst till rutnätet, och att
+excentriciteten mäter i princip samma sak men utgår från den
+omslutande ellipsen och därmed inte är låst till rutnätet.
 
 \end{document} 
 
