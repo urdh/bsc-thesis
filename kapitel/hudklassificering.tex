@@ -4,56 +4,53 @@
 \subsection{Klassificering av hudfärg}
 
 För att skilja pixlar med hud från bakgrundspixlar, vilket är ett
-centralt problem i projektet, används en modell där pixelfärgen antas
+centralt problem inom gestigenkänning, används en modell där pixelfärgen antas
 bero stokastiskt på om det är en hud- eller
 bakgrundspixel. Pixelfärgen antas vara en multivariat normalfördelad
 slumpvariabel, från någon av fem fördelningar; fyra för olika
 hudfärger och en för icke-hud.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen krävs ett
-antal datapunkter, och till detta kan fördelningsparametrarna
-anpassas med MLE. Den mulitvariata fördelningen ges av
-\eqref{eq:hud:fordelning}, med kovariansmatris
-$\Sigma$ och väntevärde $\mu$.
+antal datapunkter, med vilka vi kan uppskatta parametrarna med MLE.
 
-\marginpar{Snygga till!}
+Den mulitvariata fördelningen ges av
 
-\begin{equation}
-  \label{eq:hud:fordelning}
+\begin{equation*}
   p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
-\end{equation}
+\end{equation*}
 
-Givet $N$ datapunkter $x_i$ fås den logaritmerade sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$:
+med kovariansmatris $\Sigma$ och väntevärde $\mu$.
+Givet $N$ datapunkter $x_i,\:1\leq i\leq N$ ges den logaritmerade
+sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$ av
 
-\begin{equation}
-  \label{eq:hud:logaritmerad}
+\begin{equation*}
   \begin{aligned}
-  l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}log(2\pi)-\frac{N}{2}log|\Sigma|\\
-                              &-\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)/2
+  l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
+                              &-\sum_{i=1}^N\frac{(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)}{2}.
   \end{aligned}
-\end{equation}
+\end{equation*}
 
-Vi får derivatan med avseende på $\mu$:
+Vi kan därefter beräkna derivatan med avseende på $\mu$,
 
-\begin{equation}
-  \label{eq:hud:derivmu}
-  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1}
-\end{equation}
+\begin{equation*}
+  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1},
+\end{equation*}
 
-{\ldots}och med avseende på $\Sigma^{-1}$ (efter en del algebra):
+samt derivatan med avseende på $\Sigma^{-1}$,
 
-\begin{equation}
-  \label{eq:hud:derivsigma}
-  \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma -\sum_{i=1}^N(x_i-\mu)(x_i-\mu)^T/2
-\end{equation}
+\begin{equation*}
+  \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma
+  -\sum_{i=1}^N\frac{(x_i-\mu)(x_i-\mu)^T}{2}.
+\end{equation*}
 
-Sätter vi dem i tur och ordning till noll får vi $\hat\mu$ och $\hat\Sigma$:
+Sätter vi dem i tur och ordning till noll får vi uppskattningarna $\hat\mu$ och $\hat\Sigma$:
 
-\begin{gather}
-  \label{eq:hud:sigmamu}
+\marginpar{Hur då? Det är \emph{inte} uppenbart!}
+
+\begin{gather*}
   \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
   \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
-\end{gather}
+\end{gather*}
 
 \citeasnoun{Elmezain08} studerade $18\:972$
 hud-pixlar och $88\:320$ icke-hud-pixlar, och delade in dessa i fyra
@@ -70,6 +67,6 @@ som en grund för att identifiera hudfärg i denna rapport.
 
 \subsubsection{SPM --- Skin Probability Map}
 
-Förklara?
+Förklara? (För vi använder i princip en sådan, eller hur?)
 
 \end{document} 
