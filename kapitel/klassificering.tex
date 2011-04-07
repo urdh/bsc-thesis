@@ -16,6 +16,8 @@ litet (cirka tio stycken).
 Detta ger oss en slags kodbok vilken vi sedan kan använda för att
 klassificera bilder från andra videosekvenser. 
 
+\marginpar{Vikta vissa features?}
+
 Detta görs genom att för varje bild beräkna en egenskapsvektor, som
 sedan jämförs med de sparade vektorerna. Bilden klassificeras sedan
 genom den nyckelbild som ligger närmst i egenskapsrummet enligt något
@@ -26,8 +28,12 @@ nyckelbilder --- dessa heltal skickas sedan till en HMM som avgör om
 videosekvensen faktiskt liknar den gest som definieras av dessa
 sparade nyckelbilder.
 
-Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
-per gest; detta eftersom vi har en HMM per gest.
+%Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
+%per gest; detta eftersom vi har en HMM per gest.
+%
+%\marginpar{Eller, hur ska vi göra egentligen? En eller flera
+% kodböcker? Hur skalar algoritmerna, hur jobbigt blir det? Säger
+% någon referens något om detta?}
 
 \subfile{kapitel/features.tex}
 

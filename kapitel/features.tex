@@ -26,6 +26,9 @@ behövs också.}
 varför? Vi kan ju ha med alla dessa i rapporten men berätta
 vilka vi kastar bort och varför.}
 
+\marginpar{Bounding box är i stort sett irrelevant för rörelser, ska
+vi ha kvar det? (Vi har centroid istället)}
+
 \paragraph{Hausdorffavstånd}
 
 Hausdorffavståndet mellan den bild man klassificerar och ett antal
@@ -72,9 +75,10 @@ med hjälp av den inneslutande lådan.
 Förflyttningen mäts, till skillnad från hastighet och riktning
 (\ref{feat:hastighet} och \ref{feat:riktning}) endast mellan
 nyckelbilder, dvs. var $n$:te bild i videosekvensen (där $n$ är ett
-lämpligt tal). Detta gör att ???
-
-\marginpar{Hur gör man dessa mer oberoende? Gör vi det? Behövs det?}
+lämpligt tal). Detta gör att vi får en egenskap som representerar den
+övergripande rörelsen i gesten, medans brus i form av små rörelser
+försvinner. Bruset fångas istället at hastighet och riktning, om det
+skulle vara relevant.
 
 \subparagraph{Inneslutande låda}
 
@@ -98,7 +102,7 @@ mittpunkten i $x$- och $y$-led:
 \end{gather*}
 
 Dessa egenskaper kan vi sedan använda för att beräkna förflyttning i
-$x$- och $y$-led:
+$x$- och $y$-led enligt
 
 \begin{gather*}
   \Delta (A^n) =
@@ -112,6 +116,8 @@ $x$- och $y$-led:
     \textrm{Box}_{cy}(A^n) - \textrm{Box}_{cy}(A^{n-1})
   \end{pmatrix}
 \end{gather*}
+
+där $A^n$ representerar den $n$:te nyckelbilden.
 
 \subparagraph{Centroid}
 
@@ -140,12 +146,8 @@ Med denna beräkning utförd kan centroidförflyttningen definieras enligt
     \Delta x_c(A^n) \\[3pt]
     \Delta y_c(A^n)
    \end{pmatrix}
-   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right)
+   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right).
 \end{equation*}
-
-\marginpar{Definiera nyckelbild och $A^n$-notation tidigare!}
-
-där $A^n$ är den $n$:te nyckelbilden.
 
 \paragraph{Vinkel}
 \label{feat:vinkel}
@@ -225,14 +227,14 @@ definieras på det naturliga sättet:
 \paragraph{Riktning}
 \label{feat:riktning}
 
-Även riktningen är nära relaterad till förflyttningen, och utgör ett
+Även riktningen (en vinkel) är nära relaterad till förflyttningen, och utgör ett
 komplement till hastigheten. På samma sätt som hastigheten ger denna
 egenskap ett mer kontinuerligt men även brusigare mått på handens
 rörelse i en gest. Definitionen är naturlig:
 
 \begin{equation*}
-  \Theta(A^n) = \sin\left(\arctan\!2\left(
-  \Delta y(A^n), \Delta x(A^n)\right)\right)
+  \Theta(A^n) = \arctan\!2\left(
+  \Delta y(A^n), \Delta x(A^n)\right)
 \end{equation*}
 
 där $\arctan$-funktionen med två argument definieras av
@@ -277,6 +279,30 @@ fyrkantigheten avviker från detta värde desto mer avlång är gesten.
 Notera dock att detta mått är låst till rutnätet, och att
 excentriciteten mäter i princip samma sak men utgår från den
 omslutande ellipsen och därmed inte är låst till rutnätet.
+
+\subsubsection{Normalisering och viktning}
+
+För att bättre kunna jämföra egenskaperna och visualisera hur det
+förhåller sig till varandra kan man normalisera dem, till exempel så
+att de alltid (eller oftast) antar värden mellan $-1$ och $1$. För
+exempelvis vinklar är detta enkelt (applicera helt enkelt en
+trigonometrisk funktion, t.ex. $\cos(x)$), för andra egenskaper är det
+irrelevant eftersom de redan faller inom detta intervall (detta gäller
+de flesta kvoterna, som antar värden mellan 0 och 1), men för några
+egenskaper är det icketrivialt.
+
+För att normalisera hastigheterna behöver man ett bra ungefärligt mått
+som är konstant över olika gester. Vi har funnit att en fjärdedel av
+bildbredden ger en bra normalisering för hastigheter, förutsatt att
+bildformatet är 4:3 --- det är osannolikt att en hand rör sig längre
+än så mellan bilder, även när det gäller nyckelbilder.
+
+När vi sedan ska klassificera bilderna är det givetvis relevant att
+vikta måtten; detta gör stor skillnad i avståndet och reflekterar
+hur relativt viktiga de olika egenskaperna är.
+
+\notes{Vilka vikter ska vi ha?
+Hur kommer vi fram till dessa?}
 
 \end{document} 
 
