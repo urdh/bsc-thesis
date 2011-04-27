@@ -7,10 +7,20 @@ För att skilja pixlar med hud från bakgrundspixlar, vilket är ett
 centralt problem inom gestigenkänning, används en modell där pixelfärgen antas
 bero stokastiskt på om det är en hud- eller
 bakgrundspixel. Pixelfärgen antas vara en multivariat normalfördelad
-slumpvariabel, från någon av fem fördelningar; fyra för olika
-hudfärger och en för icke-hud.
+slumpvariabel, där fördelningen beror på om pixeln innehåller hud
+eller inte. För att täcka olika hudfärger kan en uppsättning olika
+fördelningar för hudfärger användas (\cite{Elmezain08}), där en total
+sannolikhetsfördelning sedan är en linjärkombination av dessa. Det
+samma kan göras med sannolikhetsfördelningen för pixlar som inte
+innehåller hud. I vårt arbete har vi dock avänt en enda fördelning för
+hud, och ''ohudsfördelningen'' har antagits vara konstant. Detta då en
+uppskattad normalfördelning konsekvent fick alldeles för liten
+varians. Detta resultat strämmer överens med Elmezain et al, som även
+de hade mindre varians bland pixlar som inte innehöll hud än de som
+innehöll hud.
 
-För att bestämma väntevärdesvektorn och kovariansmatrisen krävs ett
+För att bestämma väntevärdesvektorn och kovariansmatrisen i en
+uppskattad normalfördelning krävs ett
 antal datapunkter, med vilka vi kan uppskatta parametrarna med MLE.
 
 Den mulitvariata fördelningen ges av
@@ -58,8 +68,7 @@ hudfördelningar och en icke-hud-fördelning. De fyra hudfördelningarna
 optimerades genom att varje pixel sorterades till en
 ursprungsfördelning, varefter parametrarna uppdaterades, och alla
 pixlar sorterades om efter de uppkomna fördelningarna --- detta gjordes
-iterativt till konvergens. Deras ursprungsfördelningar har använts
-som en grund för att identifiera hudfärg i denna rapport.
+iterativt till konvergens.
 
 %Sådana beräkningar gjordes av \citeasnoun{Elmezain08} på 18972
 %hud-pixlar och 88320 icke-hud-pixlar. Deras resultat har vi sedan
@@ -67,6 +76,25 @@ som en grund för att identifiera hudfärg i denna rapport.
 
 \subsubsection{SPM --- Skin Probability Map}
 
-Förklara? (För vi använder i princip en sådan, eller hur?)
+För varje pixelfärg kan sannolikheten för att pixeln föreställer hud
+respektive ohud bestämmas med fördelningarna ovan, med en korrektion
+för att det i allmänhet är troligare att pixlar är ohud än hud. Detta
+innebär att om kvoten
+\begin{equation*}
+\frac{P(hud|färg)}{P(ohud|färg)}=\frac{P(färg|hud)P(hud)}{P(färg)}\frac{P(färg}{P(ohud)P(ohud|färg)}=\frac{P(färg|hud)P(hud)}{P(färg|ohud)P(ohud)}
+\end{equation*}
+är större än ett, så sägs pixeln föreställa hud. Kvoten
+$P(hud)/P(ohud)$ sätts för att ange hur mycket vanligare ohud-pixlar
+är i bilderna. Då vår sannolikhetsfördelning för ohud är en så grov
+uppskattning, har denna kvot fått korrigeras för hand för att optimera
+resultatet.
+
+Problemet med denna uträkning är att sannolikheten är tidskrävande att
+räkna ut, och därför olämplig att göra för varje pixel i varje bild i
+filmen. Detta löses genom att göra beräkningen en gång för alla för
+varje tänkbar färg ($256^2$ stycken). Resultatet sparas sedan i en
+matris 256x256-matris, där färgen blir en koordinat. Denna matris
+kallas för en Skin Probability Map, och genom att slå i den kan man
+direkt se om en pixel ska klassas som hud eller ej.
 
 \end{document} 
