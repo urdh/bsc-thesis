@@ -1,7 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{Klassificering av hudfärg}
+\subsection{Klassificering av hudfärg och urskiljning av händer}
 
 För att skilja pixlar med hud från bakgrundspixlar, vilket är ett
 centralt problem inom gestigenkänning, används en modell där pixelfärgen antas
@@ -97,4 +97,36 @@ matris 256x256-matris, där färgen blir en koordinat. Denna matris
 kallas för en Skin Probability Map, och genom att slå i den kan man
 direkt se om en pixel ska klassas som hud eller ej.
 
+\subsubsection{Urskiljning av handen}
+När väl hudpixlarna i figuren urskiljts återstår att plocka ut
+vad som är handen som ska följas. Det är troligt att man bland
+pixlarna fått med ett antal mindre områden som felaktigt bedömts vara
+hud. Dessutom är ofta huvudet med i bilden, vilket kan ställa till med
+problem. 
+
+Vår lösning på problemet är att först använda den inbyggda
+matlabfunktionen \verb{bwareaopen}, som tar bort sammanhängande 
+områden med för få pixlar. Vad som är en lagom gräns kan naturligtvis
+variera, men vi använder en gräns på 200 pixlar, vilket visar sig
+fungera väldigt bra. Därefter loopar vi igenom bildens kolonner från
+höger för att se om kolonnen innehåller någon hudpixel. Den första
+pixel som nås på detta sätt väljs till att tillhöra handen, och det
+sammanhängande område som pixeln är en del av betraktas som den sökta
+handen. Att på detta sätt jobba sig igenom bilden från höger har
+tidigare gjorts av bl.a. XXX \marginpar{Hitta vem som letade från höger},
+och det har visat sig effektivt. En alternativ metod för att leta från
+vänster är lätt att implementera om man vill kunna använda programmet
+som vänsterhänt, detta kommer dock att kräva en
+separat inlärningsmängd till gestigenkänningen.
+
+Metoden kommer på detta sätt plocka med all hud som hänger samman med
+handen, inklusive armen om man använder programmet kortärmad. För att
+råda bot på detta kan man identifiera handleden och kapa handen
+där. Detta har gjorts av t.ex. XXX \marginpar{Hitta personen som kapat
+handleder}.Detta görs genom att identifiera den största cirkel som får
+plats helt i handen. Denna antas vara centrerad mitt i handen, och
+dess längsta tangent i handen antas vara handleden. Handen är då den
+sida om handleden som cirkeln befinner sig på. Denna metod har vi dock
+inte implementerat, varför vi förutsätter att användaren använder
+långärmad tröja. 
 \end{document} 
