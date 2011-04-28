@@ -80,11 +80,15 @@ För varje pixelfärg kan sannolikheten för att pixeln föreställer hud
 respektive ohud bestämmas med fördelningarna ovan, med en korrektion
 för att det i allmänhet är troligare att pixlar är ohud än hud. Detta
 innebär att om kvoten
-\begin{equation*}
-\frac{P(hud|färg)}{P(ohud|färg)}=\frac{P(färg|hud)P(hud)}{P(färg)}\frac{P(färg}{P(ohud)P(ohud|färg)}=\frac{P(färg|hud)P(hud)}{P(färg|ohud)P(ohud)}
-\end{equation*}
+\begin{multline*}
+\frac{P(\textrm{hud}|\textrm{färg})}{P(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg})}
+ \frac{P(\textrm{färg}}{P(\textrm{ickehud})P(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg}|\textrm{ickehud})
+ P(\textrm{ickehud})}
+\end{multline*}
 är större än ett, så sägs pixeln föreställa hud. Kvoten
-$P(hud)/P(ohud)$ sätts för att ange hur mycket vanligare ohud-pixlar
+$P(\textrm{hud})/P(\textrm{ickehud})$ sätts för att ange hur mycket vanligare ohud-pixlar
 är i bilderna. Då vår sannolikhetsfördelning för ohud är en så grov
 uppskattning, har denna kvot fått korrigeras för hand för att optimera
 resultatet.
@@ -93,7 +97,7 @@ Problemet med denna uträkning är att sannolikheten är tidskrävande att
 räkna ut, och därför olämplig att göra för varje pixel i varje bild i
 filmen. Detta löses genom att göra beräkningen en gång för alla för
 varje tänkbar färg ($256^2$ stycken). Resultatet sparas sedan i en
-matris 256x256-matris, där färgen blir en koordinat. Denna matris
+matris $256\times256$-matris, där färgen blir en koordinat. Denna matris
 kallas för en Skin Probability Map, och genom att slå i den kan man
 direkt se om en pixel ska klassas som hud eller ej.
 
@@ -105,7 +109,7 @@ hud. Dessutom är ofta huvudet med i bilden, vilket kan ställa till med
 problem. 
 
 Vår lösning på problemet är att först använda den inbyggda
-matlabfunktionen \verb{bwareaopen}, som tar bort sammanhängande 
+matlabfunktionen \texttt{bwareaopen}, som tar bort sammanhängande 
 områden med för få pixlar. Vad som är en lagom gräns kan naturligtvis
 variera, men vi använder en gräns på 200 pixlar, vilket visar sig
 fungera väldigt bra. Därefter loopar vi igenom bildens kolonner från
@@ -113,7 +117,7 @@ höger för att se om kolonnen innehåller någon hudpixel. Den första
 pixel som nås på detta sätt väljs till att tillhöra handen, och det
 sammanhängande område som pixeln är en del av betraktas som den sökta
 handen. Att på detta sätt välja objektet längst till höger av de
-intressanta har tidigare gjorts av bl.a. \cite{Nielsen04}. De använde
+intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
 sig dock av det högra av de två största sammanhängande objekten,
 vilket har fördelen att man inte behöver sätta en manuell gräns för
 när ett objekt är ''tillräckligt stort''. En nackdel är att man tvingas
@@ -128,8 +132,8 @@ separat inlärningsmängd till gestigenkänningen.
 Metoden kommer på detta sätt plocka med all hud som hänger samman med
 handen, inklusive armen om man använder programmet kortärmad. För att
 råda bot på detta kan man identifiera handleden och kapa handen
-där. Detta har gjorts av t.ex. Deimel och Schröter
-\cite{Deimel99}. Detta görs genom att identifiera den största cirkel
+där. Detta har gjorts av \citeasnoun{Deimel99}, och
+görs genom att identifiera den största cirkel
 som får plats helt i handen. Denna antas vara centrerad mitt i handen. Då
 cirkeln förstoras något är det längsta cirkelsegment som helt får
 plats i hudområdet placerat vid handleden, och mittpunktstangenten

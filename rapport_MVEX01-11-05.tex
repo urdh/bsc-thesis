@@ -18,18 +18,20 @@
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 \urlstyle{same}
-\usepackage{listings}
+\usepackage{moreverb}
 \usepackage{textcomp}
 \usepackage{harvard}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{fancyhdr}
 \usepackage{paralist}
+\usepackage{parskip}
 
 % Titel här istället för topmatter.tex för att kunna använda i headers
 \newcommand{\titel}{Statistisk bildanalys för människa-dator-interaktion} %Skriv in titeln här
 \newcommand{\undertitel}{Analys av handgester med hjälp av dolda Markovmodeller} %Skriv in undertiteln här, eller lämna tomt
 
 % Fina inställningar
+\frenchspacing
 \citationmode{abbr}
 \setcounter{secnumdepth}{4} % Osäker på dessa två..
 \setcounter{tocdepth}{3}    % Vad blir snyggast - med eller utan?
@@ -55,20 +57,7 @@
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0pt}
 }
-\lstset{
-  language=Matlab,
-  basicstyle=\normalsize
-  numbers=left,
-  numberstyle=\footnotesize,
-  stepnumber=2,
-  numbersep=5pt,
-  backgroundcolor=\color{light-gray},
-  tabsize=4,
-  breaklines=true,
-  breakatwhitespace=false,
-  escapeinside={\%*}{*)},
-  morekeywords={}
-}
+\newenvironment{code}[0]{\medskip\center\boxedverbatim}{\endboxedverbatim\endcenter}
 
 % Kommandon
 \newcommand{\N}{\ensuremath{\mathbbm{N}}}
