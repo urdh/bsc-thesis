@@ -98,7 +98,7 @@ avseende till strukturelementet $S$, enligt \eqref{morf5} och
 
 Operationerna är relativt enkla att implementera i MATLAB:
 
-\begin{lstlisting}
+\begin{code}
 % Erosion: erosion(A,S) motsvarar A \ominus S
 erosion = @(A,S)(filter2(S/sum(S(:)), A) ~= 0);
 % Dilatation: dilation(A,S) motsvarar A \oplus S
@@ -110,7 +110,7 @@ closing = @(A,S)(erosion(dilation(A,S), rot90(S,2)) ~= 0);
 
 %% Yttre rand
 %% Inre rand
-\end{lstlisting}
+\end{code}
 
 \marginpar{Bättre formatering behövs till koden.}
 

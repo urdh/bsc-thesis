@@ -1,0 +1,359 @@
+\documentclass[../rapport_MVEX01-11-05]{subfiles}
+\begin{document}
+
+\subsection{HMM}
+
+En Hidden Markov model (HMM) är en stockastisk signalmodell som
+beskriver ett system bestående av ett ändligt antal tillstånd. Likt en
+vanlig Markovmodell förflyttar man sig sedan efter en given
+sannolikhetsfördelning mellan tillstånden. Det som gör HMMs "hidden",
+eller "dolda", är det faktum att varje tillstånd i sin tur genererar
+symboler efter ännu en sannolikhetsfördelning. Då man i standardfallet
+observerar modellens tillstånd direkt, observaras nu istället de
+symboler som genereras då tillstånden växlar, symboler som motsvarar
+den verkliga process man önskar modellera. Ett förtydligande exempel
+lyder som följer: 
+
+En person har ett antal tärningar, vissa är viktade och avviker därmed
+från den annars uniforma fördelningen. Han kastar en tärning ur sin
+samling och berättar för en kompis hur många ögon tärningen
+visar. Därefter avgör tärningskastaren om han vill byta tärning eller
+inte, och upprepar proceduren. Kompisen får alltså inte se vilken av
+tärningarna som kastas för tillfället, utan får bara ta del av vad
+respektive tärning visar. Denna process skulle kunna beskrivas med
+hjälp av en HMM där varje enskild tärning representerar ett
+tillstånd. Den förstnämnda personen rör sig mellan tärningarna
+(tillstånden) efter eget behag och tillkännager enbart värdet
+(symbolerna) som genereras av dem. 
+
+Problematiken består nu i att konstruera den HMM som bäst beskriver
+processen.  
+
+HMM tillämpat på röst- och gestigenkänning är inget nytt. Redan i
+slutet av 60-talet presenterade Baum och hans kollegor den
+grundläggande teorin (Baum66-72), och i början av 70-talet
+implementerades modellen i samband med röstigenkänning av både Baker
+(\cite{Baker75}) och av Jelinek med kollegor (Jelinek69). I slutet av
+80-talet presenterades en sammanfattande artikel om röstigenkänning
+med hjälp av HMM av Rabiner (Rabiner89), som till stor del ligger till
+grund för följande teoretiska framställning. Tillämpningar gentemot
+gestigenkänning gjordes bland annat av Yamato och kollegor i början av
+90-talet (Yamato92), och av Elmezain och kollegor så sent som 2008
+(Elmezain08). (Kan även nämna Starner98, Rigol98)
+
+\subsubsection{Beståndsdelarna av en HMM}
+
+En HMM karakteriseras av följande:
+\begin{enumerate}
+\item N, antalet tillstånd i modellen. Vi betecknar de olika
+  tillstånden som $S = \{S_1, S_2, \dots, S_N\}$, och tillståndet vid
+  tiden $t$ som $q_t$.
+\item M, antalet distinkta observationssymboler för ett givet
+  tillstånd. De individuella symbolerna beteckner vi som $V =
+  \{v_1,v_2,\dots,v_M\}$.
+\item A, en övergångsmatris där varje element ger sannolikheten att
+  vandra från ett tillstånd till ett annat, 
+\begin{equation*}
+a_{ij} = \textbf{P}[q_{t+1} = S_j | q_t = S_i],\quad 1 \leq i,j \leq N.
+\end{equation*}
+I fallet då man kan nå alla tillstånd från vilket tillstånd som helst
+med ett enda steg har vi alltså $a_{ij} > 0$ för alla $i,j$. 
+\item Sannolikhetsfördelning för observationssymboler givet ett
+  specifikt tillstånd $j$, $B = b_j(k)$, där 
+\begin{align*}
+b_j(k) = \textbf{P}[v_k \text{ vid tiden } t|q_t = S_j] \quad &1 \leq j \leq N\\
+&1 \leq k \leq M.
+\end{align*}
+$B(j,k)$ ger med andra ord sannolikheten att symbolen $v_k$ genereras
+då vi befinner oss i tillstånd $j$.
+\item Sannolikhetsfördelning för begynnelsetillstånd, $\pi =
+  \{\pi_i\}$, där
+\begin{equation*}
+\pi_i = \textbf{P}[q_1 = S_i].
+\end{equation*}
+\end{enumerate}
+Givet parametrarna $M$ och $N$, en specificering av symboler, samt de
+tre sannolikhetsmåtten $A, B$ och $\pi$ är det alltså möjligt att
+fullständigt specificera en HMM. I fortsättningen kommer vi att
+använda oss av den något mer kompakta notationen $\lambda = (A,B,\pi)$
+för att representera parametrarna för en given HMM.
+
+\subsubsection{Grundläggande problem}
+
+För att kunna föra över modellen från teori till praktisk tillämpning
+återstår det dock en del. Huvudsakligen gäller det att finna lösningen
+följande två problem. (Rabiner) (Jack Ferguson) (Rabiner presenterar
+tre grundläggande frågor för implementerandet av en HMM, varav två är
+av intresse för oss.)
+\begin{description}
+\item[Problem 1:] Givet en sekvens av observationer
+  $\{O_1,O_2,\dots,O_t\}$ och en modell $\lambda = (A,B,\pi)$, hur
+  beräknar man $\textbf{P}(\textbf{O}|\lambda)$, dvs sannolikheten att
+  sekvensen genererades av modellen $\lambda$? Mer därtill, hur kan
+  det göras så effektivt som möjligt?, en fråga som skall visa sig
+  vara ytterst viktig.  
+\item[Problem 2:] Hur går man tillväga för att optimera
+  $\textbf{P}(\textbf{O}|\lambda)$ genom att justera
+  modellparametrarna $\lambda = (A,B,\lambda)$? 
+\end{description}
+
+Kan man lösa det första problemet har man möjlighet att uppskatta hur
+väl en modell matchar en viss observationsföljd. Man kan se det som
+ett sätt att poängsätta, och på så sätt jämföra, olika modeller och
+deras relation till en specifik observationsföljd. Denna synvinkel är
+extremt användbar då man ställs inför utmaningen att välja mellan
+flera existerande modeller. 
+Det andra problemet behandlar modelloptimering; hur kan man med en
+grundmodell och en observationsföljd optimera modellen på så sätt att
+sannolikheten att den givna observationsföljden genereras blir
+maximal? Lösningen till detta problem utgör en fundamental del av
+vägen till att på ett framgångsrikt sätt implementera HMMs i
+praktiken. Med hjälp av en "träningssekvens", alltså en följd av
+observationer, kan man sedan "träna" en HMM. Vikten av att
+optimeringsprocessen ger bra resultat är stor eftersom
+träningssekvensen är den främsta kopplingen till det verkliga fenomen
+man önskar modellera.      
+
+\subsubsection{Framåt-bakåt-tekniken}
+
+(Använda bilder i denna sektion?)
+
+En användbar metod introducerades av Baum och hans kollegor, kallad
+\emph{the Forward-Backward procedure} (referera till Baum67): vi
+definierar framåtvariabeln $\alpha_t(i)$ som 
+
+\begin{equation*}
+\alpha_t(i) = \textbf{P}(O_1,O_2,\dots,O_t,q_t = S_i | \lambda),
+\end{equation*}
+
+alltså sannolikheten att ha genererat observationsföljden $\textbf{O}
+= \{O_1,O_2,\dots,O_t$\}, samt befinna sig i tillstånd $S_i$ vid tiden
+$t$, givet en modell $lambda$. En av metodens fördelar är att man med
+hjälp av induktion kan finna $\alpha_t(i)$. Processen utgörs av
+följande tre steg: 
+
+\begin{enumerate}
+\item Initialisering:
+
+\begin{equation*}
+\alpha_1(i) = \pi_iB_i(O_1), \quad 1\leq i \leq N
+\end{equation*}
+
+\item Induktion:
+
+\begin{align*}
+\alpha_{t+1}(j) =
+\left[~\sum_{i=1}^N\alpha_t(i)A_{ij}~\right]B_j(O_{t+1}) \quad &1 \leq t \leq T-1 \\
+&1 \leq j \leq N
+\end{align*}
+
+\item Avslutning:
+
+\begin{equation*}
+\textbf{P}(\textbf{O}|\lambda) = \sum_{i=1}^N\alpha_T(i)
+\end{equation*}
+\end{enumerate}
+
+I steg 1), då $t=1$, initialiseras framåtvariabeln $\alpha_1(i)$ som
+sannolikheten att börja i tillstånd $S_i$ och därefter generera
+observation $O_1$. För $t=2$ använder man induktionssteget. Utgår man
+från steg 1) kan man övertyga sig om att
+$\sum_{i=1}^N\alpha_1(i)A_{ij}$ måste vara den totala sannolikheten
+att hamna i $S_j$ vid $t=2$, efter att ha genererat $O_1$ i föregående
+tillstånd. Efter multiplikation med $B_j(O_{2})$ fås därefter
+sannolikheten att generera $O_2$, då man befinner sig i $S_j$ med en
+observerad symbol $O_1$, eller med andra ord, $\textbf{P}(O_1,O_2,S_j
+= q_2 | \lambda) = \alpha_2(j)$. Fortsätter man på samma vis har man
+slutligen $\alpha_T(i) = \textbf{P}(O_1,O_2,\dots,O_T,S_i = q_T |
+\lambda)$. Steg 3) ger slutligen svaret på problem 1, nämligen
+sannolikheten $\textbf{P}(\textbf{O}|\lambda)$. Detta inses lätt då vi
+använder oss av definitionen av $\alpha_T(i)$, 
+
+\begin{equation*}
+\textbf{P}(\textbf{O}|\lambda) = \sum_{i=1}^N\alpha_T(i) =
+\sum_{i=1}^N\textbf{P}(O_1,O_2,\dots,O_T,q_T = S_i|\lambda). 
+\end{equation*} 
+
+Med andra ord är sannolikheten att generera observationsföljden
+$\textbf{O}$ summan av sannolikheterna att generera $\textbf{O}$ med
+sluttillstånd $S_i$, $1 \leq i \leq N$.
+
+\subsubsection{Iterativ metod för träning av HMM}
+
+Med en lösning till problem 1 i bagaget vänder vi oss till problem 2,
+själva träningen av en HMM. Detta är ett betydligt mer invecklat
+problem än det tidigare, med betydligt fler angreppsvinklar. En
+analytisk lösning till optimeringsproblemet är inte känd, utan man
+tvingas istället använda sig av Baum-Welch-metoden eller
+gradient-tekniker. (Dempster77)(Levinson73). Det är rentav så att
+givet en ändlig observationssekvens så finns det inget optimalt sätt
+att optimera modellens parametrar. Däremot kan man välja $\lambda =
+(A,B,\pi)$ på så sätt att $\textbf{P}(\textbf{O}|\lambda)$ är lokalt
+maximerad. 
+
+
+(BAUM WELCH) På liknande sätt som för framåtvariabeln $\alpha_t(i)$
+definierar vi nu bakåtvariabeln $\beta_t(i)$: 
+
+\begin{equation*}
+\beta_t(i) = \textbf{P}(O_{t+1},O_{t+2},\dots,O_T | q_t = S_i, \lambda).
+\end{equation*} 
+
+$\beta_t(i)$ är alltså sannolikheten för en delsekvens av
+observationer då man startar i tillstånd $S_i$. Processen består i det
+fallet av två steg:
+
+\begin{enumerate}
+\item Initialisering: 
+\begin{equation*}
+\beta_T(i) = 1, \quad 1 \leq i \leq N.
+\end{equation*}
+\item Induktion: 
+\begin{align*}
+\beta_t(i) = \sum\limits_{j=1}^NA_{ij}B_j(O_{t+1})\beta_{t+1}(j), \quad &t =
+T-1,T-2,\dots,1 \\
+&1 \leq i \leq N.
+\end{align*}
+\end{enumerate}  
+
+Inledningsvis definieras $\beta_T(i)$ godtyckligt till $1$, och sedan
+fungerar induktionssteget efter samma princip som framåtvariabeln
+$\alpha$. Dessa variabler kan nu avslutningsvis användas tillsammans
+för att bilda två slutgiltiga variabler, varav den första definieras som 
+
+\begin{equation*}
+\xi_t(i,j) = P(q_t = S_i, q_{t+1} = S_j|\textbf{O},\lambda).
+\end{equation*}
+
+Kort och gott sannolikheten att befinna sig i tillstånd $S_i$ och
+därefter $S_j$. Tack vare framåt- och bakåtvariabeln $\alpha$
+respektive $\beta$ kan man nu uttrycka $\xi_t(i,j)$ som
+
+\begin{equation*}
+\xi_t(i,j) = \frac{\alpha_t(i)A_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\textbf{P}(\textbf{O}|\lambda)}.
+\end{equation*} 
+
+Nämnaren tillkommer för att ge uttrycket ett korrekt sannolikhetsmått, eftersom 
+
+\begin{equation*}
+\sum_{i=1}^N\sum_{j=1}^N\alpha_t(i)A_{ij}b_j(O_{t+1})\beta_{t+1}(j) = \textbf{P}(\textbf{O}|\lambda).
+\end{equation*}
+
+Givet $\xi_t(i,j)$ är steget inte långt till den fjärde variabeln
+$\gamma_t(i)$, uttryckt på följande vis:
+
+\begin{equation*}
+\gamma_t(i) = \sum_{j=1}^N\xi_t(i,j).
+\end{equation*}
+
+Summerar vi sedan $\gamma_t(i)$ över tidsindexet $t$ får vi en storhet
+som kan tolkas som antalet gånger tillståndet $S_i$ har besökts,
+(eller likvärdigt: antalet förflyttningar från tillståndet $S_j$), med
+andra ord:
+
+\begin{equation*}
+\sum_{t=1}^{T-1}\gamma_t(i) = \text{antalet förväntade förflyttningar
+  från tillstånd $S_i$.}
+\end{equation*} 
+
+På samma sätt kan summation över tidsindexet hos variabeln
+$\xi_t(i,j)$ tolkas som 
+
+\begin{equation*}
+\sum_{t=1}^{T-1}\xi_t(i,j) = \text{antalet förväntade förflyttningar
+  från tillstånd $S_i$ till $S_j$.}
+\end{equation*}
+
+(Då $\xi_t(i,j)$ inte är definierad för $t=T$ går summationen endast
+till $t = T -1$.)
+
+Den iterativa metoden som återuppskattar modellens parametrar $A,B$
+och $\lambda$ kan nu skrivas som
+
+\begin{equation*}
+\bar{\lambda} = \text{förväntat antal gånger i tillstånd $S_i$ vid
+  $t=1$} = \gamma_i(i).
+\end{equation*}
+
+\begin{multline*}
+\bar{A}_{ij} = \\ = \frac{\text{förväntat antal förflyttningar från
+    tillstånd $S_i$ till $S_j$}}{\text{förväntat antal förflyttningar
+    från tillstånd $S_i$}} = \\ =
+\frac{\sum_{t=1}^{T-1}\xi_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)}.
+\end{multline*}
+
+\begin{multline*}
+\bar{B}_j(k) = \\ = \frac{\text{förväntat antal gånger i tillstånd $S_j$
+    och observerandes symbol $v_k$}}{\text{förväntat antal gånger i
+    tillstånd $S_j$}} = \\ = \frac{\sum_{\substack{t=1\\s.t~ O_t =
+      v_k}}^{T-1}\gamma_t{j}}{\sum_{t=1}^{T-1}\gamma_t(j)}.
+\end{multline*}
+
+Vänsterleden fås alltså genom att ta den nuvarande modellen $\lambda =
+(A,B,\pi)$, beräkna högerleden, och därigenom erhålla $\bar{\lambda} =
+(\bar{A},\bar{B}, \bar{\pi})$. Baum och hans kollegor visade
+(Baum68,Baker75) att denna iterativa process faktiskt resulterar
+antingen i 1) ett lokalt maximum för $\textbf{P}(\textbf{O}|\lambda)$
+(alltså att $\lambda = \bar{\lambda}$), eller 2) i en förbättrad
+modell $\bar{\lambda}$ på så sätt att
+$\textbf{P}(\textbf{O}|\bar{\lambda}) > \textbf{P}(\textbf{O}|\lambda)$. 
+
+\subsubsection{Olika typer av HMMs}
+
+Då man talar om olika typer av HMMs syftar man först och främst på
+vilken typ av övergångsmatris som används. Hittills har vi bara nämnt
+fallet där $A_{ij} > 0$ för alla $i,j$, även kallad en ergodisk
+modell. (Närmare bestämt innebär ergodicitet i sammanhanget att varje
+tillstånd kan nås från alla andra tillstånd inom ändlig tid.) Om vi
+tänker oss en modell med 4 st tillstånd får vi följaktligen övergångsmatrisen
+
+\begin{equation*}
+A = \begin{bmatrix}
+a_{11} & a_{12} & a_{13} & a_{14}\\
+a_{21} & a_{22} & a_{23} & a_{24}\\
+a_{31} & a_{32} & a_{33} & a_{34}\\
+a_{41} & a_{42} & a_{43} & a_{44}\end{bmatrix}.  
+\end{equation*} 
+
+Det har dock visats att andra typer av modeller i vissa fall presterar
+bättre än den ergodiska. Elmezain och hans kollegor (Elmezain08)
+presenterar t.ex resultat som pekar ut Bakis-modellen, även kallad
+left-right-modellen, som den främsta då det gäller att modellera
+tidsvarierande signaler. Bakis-modellen fungerar på så sätt att den
+inte tillåter förflyttning till ett tidigare tillstånd. Elementen i
+övergångsmatrisen A tvingas med andra ord efterfölja restriktionen
+
+\begin{equation*}
+a_{ij} = 0 \quad\text{om }j<i.
+\end{equation*}
+
+Vidare får sannolikhetsfördelningen för begynnelsetillstånd följande
+utseende
+
+\begin{equation*}
+\pi_i = \begin{cases}
+         1 & \quad\text{om } i = 1\\
+         0 & \quad\text{om } i \neq 1.\end{cases}.
+\end{equation*}  
+
+Man startar alltså alltid i det första tillståndet för att sedan
+stanna kvar i samma tillstånd eller röra sig åt höger. Antalet steg
+man tar är inte begränsat på annat sätt än att det slutgiltiga
+tillståndet $S_N$ inte får passeras. Denna modell användes av Yamato
+och kollegor (Yamato92) och skiljer sig i vissa viktiga avseenden från
+den som Elmezain använder. Elmezain08 tillåter bara förflyttning från
+ett tillstånd till sig självt eller till nästa, ett val som ger upphov
+till övergångsmatrisen
+
+\begin{equation*}
+A = \begin{bmatrix}
+a_{11} & a_{12} & 0 & 0\\
+0 & a_{22} & a_{23} & 0\\
+0 & 0 & a_{33} & a_{34}\\
+0 & 0 & 0 & a_{44}\end{bmatrix}.  
+\end{equation*} 
+
+Utöver dessa varianter finns det självklart otaliga andra då man kan
+sammanbinda de olika tillstånden helt efter eget tycke.  
+
+\end{document}
