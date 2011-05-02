@@ -1,7 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\section{HMM}
+\subsection{HMM}
 
 En Hidden Markov model (HMM) är en stockastisk signalmodell som
 beskriver ett system bestående av ett ändligt antal tillstånd. Likt en
@@ -41,7 +41,7 @@ gestigenkänning gjordes bland annat av Yamato och kollegor i början av
 90-talet (Yamato92), och av Elmezain och kollegor så sent som 2008
 (Elmezain08). (Kan även nämna Starner98, Rigol98)
 
-\subsection{Beståndsdelarna av en HMM}
+\subsubsection{Beståndsdelarna av en HMM}
 
 En HMM karakteriseras av följande:
 \begin{enumerate}
@@ -78,7 +78,7 @@ fullständigt specificera en HMM. I fortsättningen kommer vi att
 använda oss av den något mer kompakta notationen $\lambda = (A,B,\pi)$
 för att representera parametrarna för en given HMM.
 
-\subsection{Grundläggande problem}
+\subsubsection{Grundläggande problem}
 
 För att kunna föra över modellen från teori till praktisk tillämpning
 återstår det dock en del. Huvudsakligen gäller det att finna lösningen
@@ -114,7 +114,7 @@ optimeringsprocessen ger bra resultat är stor eftersom
 träningssekvensen är den främsta kopplingen till det verkliga fenomen
 man önskar modellera.      
 
-\subsection{Framåt-bakåt-tekniken}
+\subsubsection{Framåt-bakåt-tekniken}
 
 (Använda bilder i denna sektion?)
 
@@ -178,7 +178,7 @@ Med andra ord är sannolikheten att generera observationsföljden
 $\textbf{O}$ summan av sannolikheterna att generera $\textbf{O}$ med
 sluttillstånd $S_i$, $1 \leq i \leq N$.
 
-\subsection{Iterativ metod för träning av HMM}
+\subsubsection{Iterativ metod för träning av HMM}
 
 Med en lösning till problem 1 i bagaget vänder vi oss till problem 2,
 själva träningen av en HMM. Detta är ett betydligt mer invecklat
@@ -298,7 +298,7 @@ antingen i 1) ett lokalt maximum för $\textbf{P}(\textbf{O}|\lambda)$
 modell $\bar{\lambda}$ på så sätt att
 $\textbf{P}(\textbf{O}|\bar{\lambda}) > \textbf{P}(\textbf{O}|\lambda)$. 
 
-\subsection{Olika typer av HMMs}
+\subsubsection{Olika typer av HMMs}
 
 Då man talar om olika typer av HMMs syftar man först och främst på
 vilken typ av övergångsmatris som används. Hittills har vi bara nämnt
