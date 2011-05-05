@@ -1,6 +1,6 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsubsection{Egenskaper}
+\subsection{Egenskaper}
 En Hidden Markov Model behöver observationer för att fungera; dessa
 observationer kommer vi att identifiera med hjälp av klassificering av
 nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
@@ -17,18 +17,13 @@ om rörelsegester ska kunna identifieras.
 Många av egenskaperna som beskrivs här kan beräknas effektivt av
 \MATLAB-kommandot \texttt{regionprops}.
 
-\paragraph{Förflyttning}
-\label{feat:forflytt}
+\subsubsection{Inledande definitioner}
 
-Förflyttning är givetvis en grundläggande egenskap hos rörelsegester,
-och kan definieras på två distinkta sätt: med hjälp av centroiden och
-med hjälp av den inneslutande lådan.
-
-Förflyttningen mäts endast mellan
-nyckelbilder, dvs. var $n$:te bild i videosekvensen (där $n$ är ett
-lämpligt tal). Detta gör att vi får en egenskap som representerar den
-övergripande rörelsen i gesten, medans brus i form av små rörelser
-försvinner.
+För beräkning av vissa egenskaper behöver man definiera två
+grundläggande begrepp; den inneslutande lådan och centroiden. Dessa
+två kan användas för att i någon mening hitta ''mitten'' av objektet
+vi undersöker. Den inneslutande lådan kan dessutom användas för vissa
+jämförelser relaterade till area (dvs. densitetsliknande begrepp).
 
 \subparagraph{Inneslutande låda}
 
@@ -43,10 +38,6 @@ och sjätte egenskap; mittpunkt i $x$- och $y$-led:
   \textrm{Box}_{cx}(A) = \textrm{Box}_x(A) + \textrm{Box}_w(A)/2\\
   \textrm{Box}_{cy}(A) = \textrm{Box}_y(A) + \textrm{Box}_h(A)/2
 \end{gather*}
-
-Dessa egenskaper kan vi sedan använda för att beräkna förflyttning i
-$x$- och $y$-led genom att helt enkelt beräkna avståndet (dimensionsvis)
-mellan mittpunkterna i två nyckelbilder.
 
 \subparagraph{Centroid}
 
@@ -66,10 +57,9 @@ där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd,
-med ett $x$- och ett $y$-element, och förflyttningen beräknas som för
-den inneslutande lådan.
+med ett $x$- och ett $y$-element.
 
-\paragraph{Hu-moment}
+\subsubsection{Hu-moment}
 
 Dessa moment definierades först av \citeasnoun{Hu62} och är ett försök att
 göra centralmomenten rotations-, skalnings- och translationsinvarianta och
@@ -115,7 +105,7 @@ där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ ä
 bildens ljusstyrka. I vårt fall gäller att $f\mapsto\left\{0,1\right\}$
 eftersom bilden är binär.
 
-\paragraph{Konvexitet}
+\subsubsection{Konvexitet}
 
 Konvexitet \cite[s.~26]{Rudemo09} är ett användbart dimensionslöst
 mått som i någon mening beskriver hur konvext ett objekt är --- för
@@ -132,7 +122,7 @@ där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
 mening).
 
-\paragraph{Kompakthet}
+\subsubsection{Kompakthet}
 
 Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått som
 beskriver hur kompakt ett objekt är.
@@ -145,7 +135,7 @@ definieras av
   A\right|^2}.
 \end{equation*}
 
-\paragraph{Soliditet}
+\subsubsection{Soliditet}
 \label{feat:soliditet}
 
 Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
@@ -160,7 +150,7 @@ och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
 gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 övriga fingrar riktade uppåt).
 
-\paragraph{Fyrkantighet}
+\subsubsection{Fyrkantighet}
 \label{feat:fyrkantighet}
 
 Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
@@ -177,7 +167,7 @@ Notera dock att detta mått är låst till rutnätet, och att
 excentriciteten mäter i princip samma sak men utgår från den
 omslutande ellipsen och därmed inte är låst till rutnätet.
 
-\paragraph{Excentricitet}
+\subsubsection{Excentricitet}
 
 Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
 fyrkantigheten, \ref{feat:fyrkantighet}), och utgår från den ellips som
@@ -186,7 +176,7 @@ mellan andramomenten i ellipsen genom längden av den längsta axeln. Därmed
 tar måttet, till skillnad från fyrkantigheten, även hänsyn till vilken vinkel
 objektet ligger i gentemot horisontalaxeln.
 
-\paragraph{Utsträckning}
+\subsubsection{Utsträckning}
 
 Utsträckningen mäter hur stor del av den inneslutande lådan som
 faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
@@ -199,17 +189,32 @@ till soliditeten (\ref{feat:soliditet}) och definieras enligt
 
 \subsubsection{Oberoende}
 
+För att kunna utnyttja egenskaperna maximalt är det lämpligt om dessa
+inte innehåller redundant information, dvs. att de är någorlunda
+oberoende. Några av egenskaperna kan förväntas vara beroende, eftersom
+dess definitioner är mycket lika (så är exempelvis fallet med
+soliditet och utsträckning), men för att dra konkreta slutsatser om
+beroende mellan egenskaper måste en statistisk analys utföras.
+
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{bilder/feat-move}
-	\caption{I en rörlig gest finns en del tydliga beroenden mellan egenskaper
-	tydligast i denna gest är (inte oväntat) beroendet mellan centroid- och
-	lådhastighet.}
+	\caption{En statisk gest har som väntat och önskat relativt
+	stora korrelationer mellan egenskaperna.}
 	\label{fig:featmove}
 \end{figure}
-\marginpar{Figuren måste förbättras; färgerna är sämst. Plot från gest 4.}
 
-\notes{Undersök ytterligare vilka egenskaper som verkligen är beroende}
+Det är självklart lämpligt att egenskaperna inom en gest är beroende;
+det visar att egenskaperna är stabila och inte varierar i förhållande
+till varandra inom en enskild gest. Dessa syns i
+figur~\ref{fig:featmove}, och bekräftas av enkla korrelationstest med
+\MATLAB-funktionen \texttt{corrcoef}.
+
+Mellan gester är det dock viktigt att egenskaperna inte är beroende;
+detta innebär att vi har redundant information. Ett
+\texttt{corrcoef}-test på medelvärden av egenskaperna från flera olika
+egenskaper visar, med stor osäkerhet, att det endast är Hu-momenten av
+ordning 4--7 som korrelerar mellan gester.
 
 \subsubsection{Normalisering}
 
@@ -222,19 +227,16 @@ lämpligt att normera all indata utifrån konstanter som beräknas genom
 normering av träningsdata, lämpligtvis genom att anpassa träningsdatan till en
 enkel $N(0,1)$-distribution. Man får då, för varje gest, en
 förskjutningsparameter $\mu$ och en skalningsparameter $\sigma$. Dessa kan
-användas för att senare skala indata:
+användas för att senare normalisera indata:
 
 \begin{equation*}
 	\hat{x} = \frac{x - \mu_x}{\sigma_x}
 \end{equation*}
 
-Dessa parametrar varierar mycket; beräknade utifrån vår testdata ligger $\mu$
-mellan $5\cdot10^{-8}$ och $0,8$, medan $\sigma$ varierar från $6\cdot10^{-6}$
-till $0,4$.
-
 \subsubsection{Observerade värden}
 
-text text
+Ny figur med endast de statiska gesterna, förklara vilka som ser ut
+att fungera bäst för att urskilja gester.
 
 \begin{figure}[htbp]
   \centering
