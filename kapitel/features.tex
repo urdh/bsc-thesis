@@ -1,6 +1,6 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsection{Egenskaper}
+\subsubsection{Egenskaper}
 En Hidden Markov Model behöver observationer för att fungera; dessa
 observationer kommer vi att identifiera med hjälp av klassificering av
 nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
@@ -17,7 +17,7 @@ om rörelsegester ska kunna identifieras.
 Många av egenskaperna som beskrivs här kan beräknas effektivt av
 \MATLAB-kommandot \texttt{regionprops}.
 
-\subsubsection{Inledande definitioner}
+\paragraph{Inledande definitioner}
 
 För beräkning av vissa egenskaper behöver man definiera två
 grundläggande begrepp; den inneslutande lådan och centroiden. Dessa
@@ -59,7 +59,7 @@ $\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd,
 med ett $x$- och ett $y$-element.
 
-\subsubsection{Hu-moment}
+\paragraph{Hu-moment}
 
 Dessa moment definierades först av \citeasnoun{Hu62} och är ett försök att
 göra centralmomenten rotations-, skalnings- och translationsinvarianta och
@@ -105,7 +105,7 @@ där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ ä
 bildens ljusstyrka. I vårt fall gäller att $f\mapsto\left\{0,1\right\}$
 eftersom bilden är binär.
 
-\subsubsection{Konvexitet}
+\paragraph{Konvexitet}
 
 Konvexitet \cite[s.~26]{Rudemo09} är ett användbart dimensionslöst
 mått som i någon mening beskriver hur konvext ett objekt är --- för
@@ -122,7 +122,7 @@ där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
 mening).
 
-\subsubsection{Kompakthet}
+\paragraph{Kompakthet}
 
 Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått som
 beskriver hur kompakt ett objekt är.
@@ -135,7 +135,7 @@ definieras av
   A\right|^2}.
 \end{equation*}
 
-\subsubsection{Soliditet}
+\paragraph{Soliditet}
 \label{feat:soliditet}
 
 Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
@@ -150,7 +150,7 @@ och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
 gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 övriga fingrar riktade uppåt).
 
-\subsubsection{Fyrkantighet}
+\paragraph{Fyrkantighet}
 \label{feat:fyrkantighet}
 
 Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
@@ -167,7 +167,7 @@ Notera dock att detta mått är låst till rutnätet, och att
 excentriciteten mäter i princip samma sak men utgår från den
 omslutande ellipsen och därmed inte är låst till rutnätet.
 
-\subsubsection{Excentricitet}
+\paragraph{Excentricitet}
 
 Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
 fyrkantigheten, \ref{feat:fyrkantighet}), och utgår från den ellips som
@@ -176,7 +176,7 @@ mellan andramomenten i ellipsen genom längden av den längsta axeln. Därmed
 tar måttet, till skillnad från fyrkantigheten, även hänsyn till vilken vinkel
 objektet ligger i gentemot horisontalaxeln.
 
-\subsubsection{Utsträckning}
+\paragraph{Utsträckning}
 
 Utsträckningen mäter hur stor del av den inneslutande lådan som
 faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
@@ -187,7 +187,7 @@ till soliditeten (\ref{feat:soliditet}) och definieras enligt
   \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
 \end{equation*}
 
-\subsubsection{Oberoende}
+\paragraph{Oberoende}
 
 För att kunna utnyttja egenskaperna maximalt är det lämpligt om dessa
 inte innehåller redundant information, dvs. att de är någorlunda
@@ -216,7 +216,7 @@ detta innebär att vi har redundant information. Ett
 egenskaper visar, med stor osäkerhet, att det endast är Hu-momenten av
 ordning 4--7 som korrelerar mellan gester.
 
-\subsubsection{Normalisering}
+\paragraph{Normalisering}
 
 För att kunna destillera träningsdata till färre observationer och sedan
 kunna identifiera testdata enligt dessa på ett bra sätt använder vi
@@ -233,7 +233,7 @@ användas för att senare normalisera indata:
 	\hat{x} = \frac{x - \mu_x}{\sigma_x}
 \end{equation*}
 
-\subsubsection{Observerade värden}
+\paragraph{Observerade värden}
 
 Ny figur med endast de statiska gesterna, förklara vilka som ser ut
 att fungera bäst för att urskilja gester.
