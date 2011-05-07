@@ -1,4 +1,4 @@
-\documentclass[a4wide,twoside]{article}
+\documentclass[a4wide,twoside,draft]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage[T1]{fontenc}
@@ -34,13 +34,13 @@
 % Fina inställningar
 \frenchspacing
 \citationmode{abbr}
-\setcounter{secnumdepth}{4} % Osäker på dessa två..
+\setcounter{secnumdepth}{3} % Osäker på dessa två..
 \setcounter{tocdepth}{3}    % Vad blir snyggast - med eller utan?
 \definecolor{light-gray}{gray}{0.95}
 \let\oldparagraph=\paragraph
 \let\oldsubparagraph=\subparagraph
 \renewcommand{\paragraph}[1]{\oldparagraph[#1]{#1.}}
-\renewcommand{\subparagraph}[1]{\oldsubparagraph[#1]{\itshape#1.}}
+\renewcommand{\subparagraph}[1]{\oldsubparagraph[#1]{\normalfont\itshape#1.}}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newcommand{\notes}[1]{{\color{BrickRed}\textbf{Anteckning: }\color{Red}#1}}
 \renewcommand{\subsectionmark}[1]{\markright{\thesubsection~\textit{#1}}{}}
@@ -94,7 +94,7 @@
 \subfile{kapitel/problem.tex}
 \subfile{kapitel/avgransning.tex}
 
-\newpage
+\cleardoublepage
 
 % Huvuddel
 % Ändra inbördes ordning på allt det här så att det blir logiskt.
@@ -104,7 +104,7 @@
 \subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/features.tex}
 \subfile{kapitel/HMM.tex}
-\newpage
+\cleardoublepage
 
 \section{Metod}
 %\subfile{kapitel/metod.tex}
@@ -113,13 +113,13 @@
 %meffe: Generering av kodbok
 %david: test av kNN
 \subfile{kapitel/resultat_hudklassificering.tex}
-\subfile{kapitel/resultat_egenskaper.tex}
+\subfile{kapitel/resultat_features.tex}
 \subfile{kapitel/resultat_knn.tex}
-\newpage
+\cleardoublepage
 
 \section{Resultat}
 \subfile{kapitel/resultat.tex}
-\newpage
+\cleardoublepage
 
 \section{Diskussion}
 %\subfile{kapitel/diskussion.tex}

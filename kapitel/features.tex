@@ -1,6 +1,8 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsubsection{Egenskaper}
+\subsection{Kvantitativa mått på handens geometri}
+\notes{Egenskaper är, blah blah blah}
+
 En Hidden Markov Model behöver observationer för att fungera; dessa
 observationer kommer vi att identifiera med hjälp av klassificering av
 nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
@@ -16,6 +18,29 @@ om rörelsegester ska kunna identifieras.
 
 Många av egenskaperna som beskrivs här kan beräknas effektivt av
 \MATLAB-kommandot \texttt{regionprops}.
+
+\subsubsection{Egenskapsrummet}
+
+\subsubsection{Normering och viktning för \knn}
+
+\notes{Vadå ''vi''? Inget vi i teorin!}
+
+För att kunna destillera träningsdata till färre observationer och sedan
+kunna identifiera testdata enligt dessa på ett bra sätt använder vi
+$k$-nearest-neighbour-metoden. Eftersom denna grundar sig på euklidiskt
+avstånd över egenskapsrummet är det viktigt att alla egenskaper antar värden
+i ungefär samma storleksordning. För att se till att så är fallet är det
+lämpligt att normera all indata utifrån konstanter som beräknas genom
+normering av träningsdata, lämpligtvis genom att anpassa träningsdatan till en
+enkel $N(0,1)$-distribution. Man får då, för varje gest, en
+förskjutningsparameter $\mu$ och en skalningsparameter $\sigma$. Dessa kan
+användas för att senare normalisera indata:
+
+\begin{equation*}
+	\hat{x} = \frac{x - \mu_x}{\sigma_x}
+\end{equation*}
+
+\subsubsection{Användbara egenskaper}
 
 \paragraph{Inledande definitioner}
 
@@ -186,66 +211,6 @@ till soliditeten (\ref{feat:soliditet}) och definieras enligt
   \textrm{utsträckning}(A) =
   \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
 \end{equation*}
-
-\paragraph{Oberoende}
-
-För att kunna utnyttja egenskaperna maximalt är det lämpligt om dessa
-inte innehåller redundant information, dvs. att de är någorlunda
-oberoende. Några av egenskaperna kan förväntas vara beroende, eftersom
-dess definitioner är mycket lika (så är exempelvis fallet med
-soliditet och utsträckning), men för att dra konkreta slutsatser om
-beroende mellan egenskaper måste en statistisk analys utföras.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{bilder/feat-move}
-	\caption{En statisk gest har som väntat och önskat relativt
-	stora korrelationer mellan egenskaperna.}
-	\label{fig:featmove}
-\end{figure}
-
-Det är självklart lämpligt att egenskaperna inom en gest är beroende;
-det visar att egenskaperna är stabila och inte varierar i förhållande
-till varandra inom en enskild gest. Dessa syns i
-figur~\ref{fig:featmove}, och bekräftas av enkla korrelationstest med
-\MATLAB-funktionen \texttt{corrcoef}.
-
-Mellan gester är det dock viktigt att egenskaperna inte är beroende;
-detta innebär att vi har redundant information. Ett
-\texttt{corrcoef}-test på medelvärden av egenskaperna från flera olika
-egenskaper visar, med stor osäkerhet, att det endast är Hu-momenten av
-ordning 4--7 som korrelerar mellan gester.
-
-\paragraph{Normalisering}
-
-För att kunna destillera träningsdata till färre observationer och sedan
-kunna identifiera testdata enligt dessa på ett bra sätt använder vi
-$k$-nearest-neighbour-metoden. Eftersom denna grundar sig på euklidiskt
-avstånd över egenskapsrummet är det viktigt att alla egenskaper antar värden
-i ungefär samma storleksordning. För att se till att så är fallet är det
-lämpligt att normera all indata utifrån konstanter som beräknas genom
-normering av träningsdata, lämpligtvis genom att anpassa träningsdatan till en
-enkel $N(0,1)$-distribution. Man får då, för varje gest, en
-förskjutningsparameter $\mu$ och en skalningsparameter $\sigma$. Dessa kan
-användas för att senare normalisera indata:
-
-\begin{equation*}
-	\hat{x} = \frac{x - \mu_x}{\sigma_x}
-\end{equation*}
-
-\paragraph{Observerade värden}
-
-Ny figur med endast de statiska gesterna, förklara vilka som ser ut
-att fungera bäst för att urskilja gester.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{bilder/feats-1+6+7}
-  \caption{De statiska gesterna är betydligt svårare att skilja på än
-  de rörliga, vilket illustreras av de tre tydligast grupperande
-  egenskaperna.}
-  \label{fig:feats167}
-\end{figure}
 
 \end{document} 
 
