@@ -69,6 +69,7 @@
 \newcommand{\rd}{\ensuremath{\mathrm{d}}}
 \newcommand{\id}{\ensuremath{\,\rd}}
 \newcommand{\MATLAB}{MAT\-LAB}
+\newcommand{\knn}{$k$-NN}
 
 \begin{document}
 
@@ -88,26 +89,44 @@
 % Inledning
 \pagenumbering{arabic}
 \section{Inledning}
-\subfile{kapitel/inledning.tex} %section
+\subfile{kapitel/inledning.tex}
+\subfile{kapitel/bakgrund.tex}
+\subfile{kapitel/problem.tex}
+\subfile{kapitel/avgransning.tex}
+
 \newpage
 
 % Huvuddel
 % Ändra inbördes ordning på allt det här så att det blir logiskt.
 % Ta även bort kapitel som vi inte ska ha, och lägg till nya.
 \section{Teori}
-\subfile{kapitel/fargrymder.tex}
-\subfile{kapitel/hudklassificering.tex}
-\subfile{kapitel/bildanalys.tex}
-\subfile{kapitel/gesterinlarning.tex}
 \subfile{kapitel/klassificering.tex}
+\subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/features.tex}
 \subfile{kapitel/HMM.tex}
 \newpage
 
-% Slutsats/Diskussion
+\section{Metod}
+%\subfile{kapitel/metod.tex}
+\subfile{kapitel/gesterinlarning.tex}
+%datainsamling och analys
+%meffe: Generering av kodbok
+%david: test av kNN
+\subfile{kapitel/resultat_hudklassificering.tex}
+\subfile{kapitel/resultat_egenskaper.tex}
+\subfile{kapitel/resultat_knn.tex}
+\newpage
+
 \section{Resultat}
 \subfile{kapitel/resultat.tex}
 \newpage
+
+\section{Diskussion}
+%\subfile{kapitel/diskussion.tex}
+%\subfile{kapitel/diskussion_xxx.tex}
+%\subfile{kapitel/diskussion_yyy.tex}
+
+\cleardoublepage
 
 % Källförteckning
 \pagestyle{plain}

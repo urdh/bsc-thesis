@@ -1,6 +1,9 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsection{Klassificering}
+\subsection{Statistisk klassificering}
+\notes{Introduktion till klassificering, som vi använder till hud, knn, hmm}
+
+\notes{bort med hmm-specifikt, eller flytta till HMM?}
 En HMM behöver distinkta observationer för att fungera; dessa
 observationer kommer vi att identifiera med hjälp av klassificering av
 nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
@@ -27,28 +30,6 @@ någon mening projicerar videosekvensen på mängden av sparade
 nyckelbilder --- dessa heltal skickas sedan till en HMM som avgör om
 videosekvensen faktiskt liknar den gest som definieras av dessa
 sparade nyckelbilder.
-
-\subsection{$k$-nearest-neighbour}
-
-%Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
-%per gest; detta eftersom vi har en HMM per gest.
-%
-%\marginpar{Eller, hur ska vi göra egentligen? En eller flera
-% kodböcker? Hur skalar algoritmerna, hur jobbigt blir det? Säger
-% någon referens något om detta?}
-
-%FIGUR
-%http://en.wikipedia.org/wiki/File:KnnClassification.svg
-\begin{figure}[!htpb]
-    \begin{center}
-%\includegraphics[width=\columnwidth]{bilder/2000px-KnnClassification.jpg}
-    \end{center}
-    \caption{kNN-klassificering av den runda observationen i mitten i ett rum
-    med två klasser, trianglar och kvadrater. Majoritetsomröstning
-    med $k=3$ leder till att den runda klassas som triangel, medan $k=5$ leder
-    till klassificering som kvadrat. \copyright Antti Ajanki, 2007}
-    \label{fig:knn-overview}
-\end{figure}
 
 \end{document} 
 
