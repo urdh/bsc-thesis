@@ -1,4 +1,4 @@
-\documentclass[a4wide,twoside,draft]{article}
+\documentclass[a4wide,twoside]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage[T1]{fontenc}
@@ -61,11 +61,11 @@
 \newenvironment{code}[0]{\medskip\center\boxedverbatim}{\endboxedverbatim\endcenter}
 
 % Kommandon
-\newcommand{\N}{\ensuremath{\mathbbm{N}}}
-\newcommand{\Z}{\ensuremath{\mathbbm{Z}}}
-\newcommand{\Q}{\ensuremath{\mathbbm{Q}}}
-\newcommand{\R}{\ensuremath{\mathbbm{R}}}
-\newcommand{\C}{\ensuremath{\mathbbm{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
 \newcommand{\rd}{\ensuremath{\mathrm{d}}}
 \newcommand{\id}{\ensuremath{\,\rd}}
 \newcommand{\MATLAB}{MAT\-LAB}
@@ -112,13 +112,13 @@
 %datainsamling och analys
 %meffe: Generering av kodbok
 %david: test av kNN
-\subfile{kapitel/resultat_hudklassificering.tex}
-\subfile{kapitel/resultat_features.tex}
-\subfile{kapitel/resultat_knn.tex}
 \cleardoublepage
 
 \section{Resultat}
 \subfile{kapitel/resultat.tex}
+\subfile{kapitel/resultat_hudklassificering.tex}
+\subfile{kapitel/resultat_features.tex}
+\subfile{kapitel/resultat_knn.tex}
 \cleardoublepage
 
 \section{Diskussion}
