@@ -26,6 +26,7 @@
 \usepackage{paralist}
 \usepackage{parskip}
 \usepackage{booktabs}
+\usepackage{xspace}
 
 % Titel här istället för topmatter.tex för att kunna använda i headers
 \newcommand{\titel}{Statistisk bildanalys av handgester för människa-dator-interaktion} %Skriv in titeln här
@@ -61,15 +62,14 @@
 \newenvironment{code}[0]{\medskip\center\boxedverbatim}{\endboxedverbatim\endcenter}
 
 % Kommandon
-\newcommand{\N}{\ensuremath{\mathbb{N}}}
-\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
-\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
-\newcommand{\R}{\ensuremath{\mathbb{R}}}
-\newcommand{\C}{\ensuremath{\mathbb{C}}}
-\newcommand{\rd}{\ensuremath{\mathrm{d}}}
-\newcommand{\id}{\ensuremath{\,\rd}}
-\newcommand{\MATLAB}{MAT\-LAB}
-\newcommand{\knn}{$k$-NN}
+\newcommand{\vect}[1]{\ensuremath{\vec{#1}}}  % Vektorer
+\newcommand{\N}{\ensuremath{\mathcal{N}}}     % Normalfördelning
+\newcommand{\Prob}{\ensuremath{\mathrm{P}}}   % Sannolikhet av
+\newcommand{\R}{\ensuremath{\mathbb{R}}}      % Reella tal
+\newcommand{\rd}{\ensuremath{\mathrm{d}}}     % 'rakt' d
+\newcommand{\id}{\ensuremath{\,\rd}}          % Integral-d
+\newcommand{\MATLAB}{MAT\-LAB\xspace}         % MATLAB
+\newcommand{\knn}{$k$-NN\xspace}              % kNN
 
 \begin{document}
 
