@@ -28,6 +28,8 @@
 \usepackage{booktabs}
 \usepackage{xspace}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up,tableposition=above]{caption,subfig}
+%\usepackage{afterpage}
+\usepackage{slashbox}
 
 % Titel här istället för topmatter.tex för att kunna använda i headers
 \newcommand{\titel}{Statistisk bildanalys av handgester för människa-dator-interaktion} %Skriv in titeln här
@@ -61,6 +63,7 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 \newenvironment{code}[0]{\medskip\center\boxedverbatim}{\endboxedverbatim\endcenter}
+%\afterpage{\clearpage}
 
 % Kommandon
 \newcommand{\vect}[1]{\ensuremath{\vec{#1}}}  % Vektorer
