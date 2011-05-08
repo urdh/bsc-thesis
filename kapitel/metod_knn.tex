@@ -3,25 +3,33 @@
 
 \subsection{Klassificering av gester} 
 \subsubsection{Konstruktion av prototypmängd för \knn}
-SKRIV DETTA
+Genom att plocka ut tre femtedelar av de filmade gesterna får vi en
+representativ inlärningsmängd. Ur denna tar vi sedan den första bildrutan i
+varje film, då de efterföljande är alltför lika för att tillföra något. Vi
+sparar dessa bilders egenskapsvektorer i en matris. Varje gest får 24 punkter i
+egenskapsrummet. Till matrisen har vi även lagt två kolonner som identifierar
+raden, en som specificerar gesten och en som säger vilken filmsekvens den härrör
+ur. På så vis kan vi alltid spåra felklassificerade gester.
 
-\subsubsection{Implementation av \knn}
-Sökningen i egenskapsrummet kan göras på flera sätt. En effektiv metod är
-algoritmen $k$d-tree som finns i MATLAB:s funktion {\tt knnsearch}.
+De övriga två femtedelarna av filmerna används som testmängd. Här använde vi oss
+av de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
+En oberoende testmängd är viktigt för att kunna säga att klassificeraren är
+stark. Vi testade dessutom med ytterligare personer som överhuvdtaget inte
+existerade i vår inlärningsmängd.
 
+\subsubsection{Implementation och test av \knn}
 Klassificeringen av testfilmernas gester genomfördes med hjälp av MATLABs
-inbyggda funktion \texttt{knnsearch}. Med hjälp av den skapade kodboken var det
-nu fritt fram att köra testfilmernas bilder, eller närmare bestämt deras
-egenskapsvektorer, genom funktionen och därmed finna de $k$ närmaste indexen.
+inbyggda funktion \texttt{knnsearch}. Med hjälp av den nyligen skapade
+inlärningsmängden som grund kunde vi nu köra testfilmernas bilder,
+eller närmare bestämt deras egenskapsvektorer, genom funktionen och därmed finna de $k$ närmaste indexen.
 Detta följdes av en majoritetsomröstning där det index som förekom flest gånger
 avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta
 klassificeringar lagrades även för vilka andra gester den aktuella gesten
 felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur
-gesternas eventuella snarlikhet påverkade resultatet. (Nämna hur många av
-testfilmernas bilder vi använder?)  
+gesternas eventuella snarlikhet påverkade resultatet.
 
 \subsubsection{Optimering av antal egenskaper och grannar i \knn}
-Upp till denna punkt har vi dock endast definierat ett antal egenskaper utan att
+Upp till denna punkt har vi endast definierat ett antal egenskaper utan att
 diskutera huruvida de är användbara som klassificerare eller inte. Att finna
 klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är
 fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets
@@ -44,7 +52,7 @@ använda, var utformad på så sätt att vi först identifierade den egenskap so
 ensam gav störst antal korrekta klassificeringar. Därefter identifierades
 egenskapen som tillsammans med den första gav bäst resultat, osv. Detta
 upprepades tills det att samtliga egenskaper var inkluderade. Då detta
-inträffade lät vi ändra värdet av $k$, alltså parametern i kNN-metoden, följt av
+inträffade lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, följt av
 att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen
 arbetade alltså i linje med följande flowchart:  
 
