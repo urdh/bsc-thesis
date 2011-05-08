@@ -64,9 +64,10 @@
 }
 \newenvironment{code}[0]{\medskip\center\boxedverbatim}{\endboxedverbatim\endcenter}
 %\afterpage{\clearpage}
+\expandafter\def\expandafter\quote\expandafter{\quote\small}
 
 % Kommandon
-\newcommand{\vect}[1]{\ensuremath{\vec{#1}}}  % Vektorer
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}  % Vektorer
 \newcommand{\N}{\ensuremath{\mathcal{N}}}     % Normalfördelning
 \newcommand{\Prob}{\ensuremath{\mathrm{P}}}   % Sannolikhet av
 \newcommand{\R}{\ensuremath{\mathbb{R}}}      % Reella tal
