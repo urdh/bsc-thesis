@@ -184,9 +184,9 @@ till soliditeten och definieras enligt
 
 \subsubsection{Normering och viktning för \knn}
 
-Eftersom \knn-metoden använder det euklidiska avståndet mellan punkter i 
+Många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 
 egenskapsrummet är det viktigt att egenskaperna som används varierar över
-ungefär samma värdemängd. Eftersom inte är fallet från början måste indata
+ungefär samma värdemängd. Eftersom så inte är fallet från början måste indata
 normeras.
 
 Man kan exempelvis skala all indata så att den anpassas till en enkel
@@ -203,7 +203,7 @@ att även den passar in i det nya, uniforma egenskapsrummet:
 	\hat{x} = \frac{x - \mu_x}{\sigma_x}
 \end{equation*}
 
-Vill man därefter optimera \knn-metoden och se till att den tar större hänsyn
+Vill man därefter optimera klassificeraren och se till att den tar större hänsyn
 till vissa gester kan man även införa en viktningskonstant $w_x$. En stor
 sådan gör att egenskapen har större betydelse (eftersom avståndet då ökar
 snabbare). Denna konstant appliceras lämpligen direkt efter normeringen.
