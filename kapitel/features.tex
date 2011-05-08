@@ -1,6 +1,6 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsection{Kvantitativa mått på handens geometri}
+\subsection{Kvantitativa mått på handens geometri}\label{sec:features}
 
 För att på något sätt kunna kvantifiera den data en binär bild på en hand 
 innehåller och tolka den på ett bra sätt måste denna data transformeras till
@@ -50,16 +50,16 @@ mittpunkten i $x$- och $y$-led.
 Centroiden är masscentrum för ett område, och beräknas enligt
 \begin{equation*}
   \textrm{centroid}(A) = \left\lfloor\frac{
-    \sum\limits_{a\in A}m_a\vec{r}_a
+    \sum\limits_{a\in A}m_a\vect{r}_a
   }{
     \sum\limits_{a\in A}m_a
   }\right\rfloor =
   \left\lfloor\sum\limits_{a\in
-  A}\frac{\vec{r}_a}{\textrm{Area}(A)}\right\rfloor,
+  A}\frac{\vect{r}_a}{\textrm{Area}(A)}\right\rfloor,
 \end{equation*}
 där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
-$\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
+$\vect{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
 
 \paragraph{Hu-moment}
@@ -186,7 +186,7 @@ ungefär samma värdemängd. Eftersom inte är fallet från början måste indat
 normeras.
 
 Man kan exempelvis skala all indata så att den anpassas till en enkel
-$N(0,1)$-distribution, antingen genom att räkna ut förskjutningsparametern
+$\N(0,1)$-distribution, antingen genom att räkna ut förskjutningsparametern
 $\mu$ och skalningsparametern $\sigma$ utifrån den faktiska värdemängden hos
 egenskaperna, eller genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
 utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana

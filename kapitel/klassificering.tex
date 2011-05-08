@@ -1,35 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsection{Statistisk klassificering}
+\subsection{Statistisk klassificering}\label{sec:klassificering}
 \notes{Introduktion till klassificering, som vi använder till hud, knn, hmm}
-
-\notes{bort med hmm-specifikt, eller flytta till HMM?}
-En HMM behöver distinkta observationer för att fungera; dessa
-observationer kommer vi att identifiera med hjälp av klassificering av
-nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
-med hjälp av den binära hudkartan för motsvarande bild.
-
-Själva klassificeringen är mycket enkel. Vi utgår från ett vektorrum
-av egenskaper, där varje egenskap representerar en dimension. I detta
-vektorrum placerar vi ut nyckelbilder från förinspelade gester, genom
-att för varje (nyckel)bild i videosekvensen beräkna alla egenskaper.
-Efter detta gallras nyckelbilderna ut, så att de som ligger allt för
-nära varandra tas bort, tills antalet nyckelbilder är tillräckligt
-litet (cirka tio stycken).
-Detta ger oss en slags kodbok vilken vi sedan kan använda för att
-klassificera bilder från andra videosekvenser. 
-
-\marginpar{Vikta vissa features?}
-
-Detta görs genom att för varje bild beräkna en egenskapsvektor, som
-sedan jämförs med de sparade vektorerna. Bilden klassificeras sedan
-genom den nyckelbild som ligger närmst i egenskapsrummet enligt något
-lämpligt mått (exempelvis det euklidiska avståndet). Detta gör att vi
-får en stadig ström av heltal (en per bild i videosekvensen) som i
-någon mening projicerar videosekvensen på mängden av sparade
-nyckelbilder --- dessa heltal skickas sedan till en HMM som avgör om
-videosekvensen faktiskt liknar den gest som definieras av dessa
-sparade nyckelbilder.
 
 \end{document} 
 
