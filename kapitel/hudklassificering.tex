@@ -3,7 +3,21 @@
 
 \subsection{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
 
-\subsubsection{Färgrymder}
+Delproblemen som uppstår i videobaserad gestigenkänning är två, och
+det första handlar i princip om att kunna se handen. För att göra detta
+måste först bilden behandlas och bildpunkterna klassificeras som hud eller
+icke-hud, och sedan måste bildpunkterna som är hud klassificeras som händer
+eller ickehänder.
+
+Den första biten hanteras enklast genom att transformera bilden till en
+lämplig färgrymd, sedan kan diverse statistiska metoder användas för att
+markera bildpunkterna. Detta förklaras närmre i \ref{sec:klassificering:fargrymder}
+och \ref{sec:klassificering:hud}. Nästa bit är svårare; det finns många
+mer eller mindre statistiska metoder för att göra detta. Då dessa inte är
+särskilt intressanta rent teorimässigt förklaras de först i
+\ref{sec:metod_hud:urskiljning}.
+
+\subsubsection{Färgrymder}\label{sec:klassificering:fargrymder}
 
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
 basvektorer är grundfärger i färsystemet. För att kunna representera alla färger
@@ -34,20 +48,19 @@ representerar ljusstyrka ($Y$) och två som representerar ''chroma''
 (färg), $C_b$ och $C_r$. Enligt den standard International
 Telecommunication Union publicerat \cite{ITU-BT601} ges
 linjärtransformationen av
-
 \begin{equation*}
   \label{eq:farg:ycbcr}
   \begin{gathered}
-  Y   = 16  + ( 65.481R + 128.553G + 24.966B)\\
-  C_b = 128 + (-37.797R - 74.203G  + 112.0B )\\
-  C_r = 128 + (112.0R   - 93.786G  - 18.214B)
+  Y   = 16  + ( 65.481R + 128.553G + 24.966B),\\
+  C_b = 128 + (-37.797R - 74.203G  + 112.0B ),\\
+  C_r = 128 + (112.0R   - 93.786G  - 18.214B).
   \end{gathered}
 \end{equation*}
 
 där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
 färgens värde i RGB-rymden.
 
-\subsubsection{Sannolikhetsfördelning för hudfärg}
+\subsubsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
 
 För att skilja bildpunkter med hud från bakgrunden, vilket är ett
 centralt problem inom gestigenkänning, kan flera olika statistiska
