@@ -1,31 +1,48 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-CARS-tratten, tydlig introduktion, tempus, inget talspråk eller osäkra
-uttalanden, introducera referenser.
+	
+Moderna och innovativa gränssnitt för interaktion med datorer har länge varit
+en synlig vision inom filmindustrin. Redan på mitten av nittiotalet hänfördes
+tittare av 3d-gränssnitt i filmen Hackers, och i början av 2000-talet visade
+scener i Minority Report hur Tom Cruise styr ett ett operativsystem med endast
+sina händer, med hjälp av två trådlösa handskar.
 
-1. Övergripande om vårt område och vad det handlar om (ca ett stycke)
+Denna framtidsvision kan
+ligga mycket närmre än vad Spielberg förväntat sig. Redan i början av
+nittiotalet gjordes försök att tolka mänskliga rörelser i bildsekvenser
+\cite{Yamato92}, och sedan dess har intresset i forskarvärlden bara ökat.
+Handgester för kommunikation med datorer är alltså inte längre något som
+hör hemma i filmens värld, utan kan snart vara en verklighet.
 
-2. Identifiera problemet och förklara varför det kräver vår uppmärksamhet
+Det finns två angreppsmetoder till detta problem; den mer fysiskt krävande
+metoden med sensorfyllda handskar och den mer lättillgängliga visionsbaserade
+metoden som använder data från exempelvis webbkameror. Den senare har
+fördelen att gemene man kan utnyttja lösningen utan några extra hårdvarukrav.
 
-3:
+För den visionsbaserade tankegången är det mest grundläggande problemet
+är att över huvud taget kunna identifiera en människas hud i bilder, och det
+problemet har många lösningar. Metoderna förfinas hela tiden, men i stort har
+det inte hänt något revolutionerande sedan början av 2000-talet
+\cite{Sebe04,Kruppa02,Albiol01,Brand00}, med några få undantag
+\citeaffixed{Hassanpour08,Khan10}{t.ex.}. När man väl löst detta problem måste datorn
+även kunna tolka handens form och rörelser. Detta är ett svårare problem, men
+har också behandlats flitigt \cite{Pavlovic97,Garg09,Nielsen04,Zabulis09}.
 
-Denna rapport behandlar både hudigenkänning, ett grundläggande problem
-inom maskinseende som på senare tid fått möta stora förbättringar
-\cite{Kakumanu07}, samt den mer komplexa gestigenkänningen, ett ämne
-som behandlats under en längre tid \cite{Zabulis09}.
+Trots denna uppmärksamhet från forskarvärden och även den kommersiella sektorn
+på senare tid (se t.ex.~Kinect) så fortsätter gestigenkänning vara något som
+kräver extern, ofta dyr hårdvara eller mycket kontrollerade miljöer för att
+fungera bra. Detta problem kan endast lösas genom att implementera ett
+videobaserat system som är tillräckligt robust för att kunna identifiera
+handgester i mycket varierande miljöer.
 
-Under kontrollerade former kan hudigenkänning anses vara ett löst
-problem; denna rapport kommer ingående förklara hur man kan använda
-multivariata sannolikhetsfördelningar för att skapa en s.k. Skin
-Probability Map --- en kombination av metoder som använts av
-\citeasnoun{Brand00} och \citeasnoun{Hassanpour08} --- för att på ett
-effektivt sätt kunna klassificera hud i videosekvenser.
-\marginpar{Eventuellt även background separation här?}
+Denna rapport behandlar både hudigenkänning och gestigenkänning, och ger en
+robust lösning på gestigenkänningsproblemet i dess enklaste form, då
+datorn endast förväntas känna igen statiska gester. Detta görs med hjälp av
+Gaussian Mixture Models för hudklassificering och \knn-metoden för tolkning
+av handgester utifrån en stor mängd egenskaper som extraheras ur bilddata.
+Vidare lägger den en
+teoretisk grund för att även kunna känna igen rörliga gester med hjälp av
+så kallade gömda Markovmodeller.
 
-Rapporten kommer även att visa hur man kan använda Hidden Markov
-Models likt \citeasnoun{Elmezain08} för att identifiera en stor mängd
-gester baserat på en mängd relevanta egenskaper som kan extraheras ur
-bilddata, till exempel centroidhastighet, Hausdorffavstånd
-\citeaffixed{Nielsen04}{enligt} och konvexitet.
 \end{document} 
 %TODO: mer todo
