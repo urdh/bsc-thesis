@@ -5,7 +5,7 @@
 
 \subsubsection{Färgrymder}
 
-Färg kan matematiskt beskrivas som vektorer i ett färgrum, vars
+En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
 basvektorer är grundfärger i färsystemet. För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
 det räcka --- kanske till och med vara fördelaktigt --- med ett
@@ -50,34 +50,35 @@ färgens värde i RGB-rymden.
 \subsubsection{Sannolikhetsfördelning för hudfärg}
 
 För att skilja bildpunkter med hud från bakgrunden, vilket är ett
-centralt problem inom gestigenkänning, kan flera olika statistiska metoder
-appliceras. Man har till exempel gjort försök med skogar av slumpmässiga träd
-\cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller \cite{Kruppa02}
+centralt problem inom gestigenkänning, kan flera olika statistiska
+metoder
+appliceras. Man har till exempel gjort försök med skogar av
+slumpmässiga träd
+\cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller
+\cite{Kruppa02}
 och luddig aritmetik \cite{Shang10} --- en större undersökning av metoder
 för huddetektion gjordes av \citeasnoun{Kakumanu07}.
 
 En enklare metod som nått relativt stor framgång är den som baseras på
 Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, det vill säga
-en modell där bildpunktens färg antas bero stokastiskt på om bildpunkten
-är hud eller inte.
+en modell där bildpunktens färg antas bero stokastiskt på om
+bildpunkten föreställer hud eller inte.
 
 Färgen antas då vara en multivariat normalfördelad
-stokastisk variabel, där fördelningen beror på om bildpunkten innehåller hud
-eller inte. För att täcka olika hudfärger kan en uppsättning olika
+stokastisk variabel, där fördelningens parametrar alltså beror på om
+pixeln motsvarar hud eller inte. För att täcka olika hudfärger kan en
+uppsättning olika
 fördelningar för hudfärger användas, där en total
 sannolikhetsfördelning sedan är en linjärkombination av dessa. Detsamma
 kan göras med sannolikhetsfördelningen för bildpunkter som inte
-innehåller hud. Det enklaste är dock att använda en enda fördelning för
-hud, och anta att ''ickehudsfördelningen'' är konstant. Att använda flera
-fördelningar för huden ger konsekvent liten varians för ickehud, vilket visats
-av bland annat \citeasnoun{Elmezain08}.
+innehåller hud.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen i en
 uppskattad normalfördelning krävs ett
-antal datapunkter, med vilka vi kan uppskatta parametrarna med maximum
+antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
 likelihood-metoden.
 
-Den mulitvariata fördelningen ges, eftersom det är en normalfördelning, av
+Fördelningen gess allmänt av
 \begin{equation*}
   p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
 \end{equation*}
@@ -101,27 +102,22 @@ samt derivatan med avseende på $\Sigma^{-1}$,
   -\sum_{i=1}^N\frac{(x_i-\mu)(x_i-\mu)^T}{2}.
 \end{equation*}
 
-Sätter vi dem i tur och ordning till noll får vi uppskattningarna $\hat\mu$ och $\hat\Sigma$:
+Sätter man dem i tur och ordning till noll fås uppskattningarna
+$\hat\mu$ och $\hat\Sigma$:
 \notes{Hur då? Det är \emph{inte} uppenbart!}
 \begin{gather*}
   \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
   \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
 \end{gather*}
 
-\citeasnoun{Elmezain08} studerade $18\;972$
-bildpunkter med hud och $88\;320$ utan, och delade in dessa i fyra
-hudfördelningar och en ickehudfördelning. De fyra hudfördelningarna
-optimerades genom att varje bildpunkt sorterades till en
-ursprungsfördelning, varefter parametrarna uppdaterades och alla
-bildpunkter sorterades om efter de uppkomna fördelningarna --- detta gjordes
-iterativt till konvergens.
+För att ytterligare förbättra fördelningarna kan de antas vara
+sammansatta av flera fördelningar. En iterativ metod för optimering av
+sådana fördelningar beskrivs av \citeasnoun{Elmezain08}
 
-\subsubsection{Hudfärgskarta}
-
-För varje pixelfärg kan sannolikheten för att pixeln föreställer hud
-respektive ickehud bestämmas med fördelningarna ovan, med en korrektion
-för att det i allmänhet är troligare att pixlar är ickehud än hud. Detta
-innebär att om kvoten
+För varje pixelfärg kan alltså sannolikheten för att färgen ska
+förekomma då pixeln föreställer hud
+respektive ickehud bestämmas. Med denna information kan man bestämma
+att om kvoten 
 \begin{multline*}
 \frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
@@ -129,62 +125,9 @@ innebär att om kvoten
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})
  P(\textrm{ickehud})}
 \end{multline*}
-är större än ett, så sägs pixeln föreställa hud. Kvoten
-$\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ sätts för att ange hur mycket vanligare
-bildpunkter med ickehud är i bilderna, och måste sannolikt uppskattas i 
-tillämpningar.
+är större än ett, så sägs pixeln föreställa hud. 
 
-Sannolikheten är dock tidskrävande att räkna ut, varför beräkningen
-är direkt olämplig att göra för varje bildpunkt i varje bild i en
-filmsekvens. Detta löses genom att göra beräkningen en enda gång för
-varje tänkbar färg ($256^2$ stycken i $C_bC_r$-rymden). Resultatet sparas
-sedan i en $256\times256$-matris, där färgvärdet används som koordinater.
-Denna matris, eller ''Skin Probability Map'', kan man sedan slå upp
-färgvärden för att direkt få veta sannolikheten för att dessa är hud.
-
-\subsubsection{Urskiljning av handen}
-
-När väl hudpixlarna i figuren urskiljts återstår att plocka ut
-vad som är handen som ska följas. Det är troligt att man bland
-pixlarna fått med ett antal mindre områden som felaktigt bedömts vara
-hud. Dessutom är ofta huvudet med i bilden, vilket kan ställa till med
-problem. 
-
-Vår lösning på problemet är att först använda den inbyggda
-matlabfunktionen \texttt{bwareaopen}, som tar bort sammanhängande 
-områden med för få pixlar. Vad som är en lagom gräns kan naturligtvis
-variera, men vi använder en gräns på 200 pixlar, vilket visar sig
-fungera väldigt bra. Därefter loopar vi igenom bildens kolonner från
-höger för att se om kolonnen innehåller någon hudpixel. Den första
-pixel som nås på detta sätt väljs till att tillhöra handen, och det
-sammanhängande område som pixeln är en del av betraktas som den sökta
-handen. Att på detta sätt välja objektet längst till höger av de
-intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
-sig dock av det högra av de två största sammanhängande objekten,
-vilket har fördelen att man inte behöver sätta en manuell gräns för
-när ett objekt är ''tillräckligt stort''. En nackdel är att man tvingas
-söka igenom hela bilden, samt att den är något svårare att
-implementera.
-
-En alternativ metod för att leta från
-vänster är lätt att implementera om man vill kunna använda programmet
-som vänsterhänt, detta kommer dock att kräva en
-separat inlärningsmängd till gestigenkänningen.
-
-Metoden kommer på detta sätt plocka med all hud som hänger samman med
-handen, inklusive armen om man använder programmet kortärmad. För att
-råda bot på detta kan man identifiera handleden och kapa handen
-där. Detta har gjorts av \citeasnoun{Deimel99}, och
-görs genom att identifiera den största cirkel
-som får plats helt i handen. Denna antas vara centrerad mitt i handen. Då
-cirkeln förstoras något är det längsta cirkelsegment som helt får
-plats i hudområdet placerat vid handleden, och mittpunktstangenten
-till segmentet är då handleden. Handen utgörs då av hudområdet på den
-sida om handleden som cirkeln befinner sig på. Denna metod har vi dock
-inte implementerat, varför vi förutsätter att användaren använder
-långärmad tröja. 
-
-\subsubsection{Morfologiska operationer}
+\subsubsection{Morfologiska operationer}\label{sec:morph}
 
 Morfologiska operationer kan användas för att modifiera ''objekt'' i
 binära bilder, till exempel för att rensa bort brus eller för att

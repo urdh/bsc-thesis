@@ -1,0 +1,66 @@
+\subsection{Hud- och handidentifiering}
+
+\subsubsection{Klassificering av hud}
+Med de färgfördelningar som användes av \citeasnoun{Elmezain08}
+som utgångspunkt gjorde vi vissa manuella korrigeringar för att få ut
+en så tydlig bild av handen som möjligt utan att få med störande
+bakgrundsdetaljer. Kvoten $\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$, som sattes
+manuellt, anger hur mycket vanligare bildpunkter med ickehud är i
+bilderna. Även denna korrigerades för att nå en tillräcklig träffandel.
+
+Sannolikheten för att en viss färg uppkommit från hud respektive
+icke-hud är dock tidskrävande att räkna ut, varför beräkningen
+är direkt olämplig att göra för varje bildpunkt i varje bild i en
+filmsekvens. Detta lötses genom att göra beräkningen en enda gång för
+varje tänkbar färg ($256^2$ stycken i $C_bC_r$-rymden). Resultatet sparades
+sedan i en $256\times256$-matris, där färgvärdet används som koordinater.
+I denna matris, eller ''hudfärgskarta'', kan man sedan slå upp
+färgvärden för att direkt få veta sannolikheten för att dessa är
+hud'. Metoden är har visats effektiv av \citeasnoun{Brand00}
+
+\subsubsection{Urskiljning av handen}
+
+När väl hudpixlarna i figuren urskiljts återstår att plocka ut
+vad som är handen som ska följas. Det är troligt att man bland
+pixlarna fått med ett antal mindre områden som felaktigt bedömts vara
+hud. Dessutom är ofta huvudet med i bilden, vilket kan ställa till med
+problem. 
+
+Vår lösning på problemet är att först använda den inbyggda
+matlabfunktionen \texttt{bwareaopen}, som är en inbyggd marfologisk
+öppningsfunktion. Till skillnad från metoden beskrivet i
+\ref{sec:morph} ställer \texttt{bwareaopen} inga
+krav på områdets form utan endast area. Vad som är en lämplig area
+varierar med upplösning och
+och avstånd till kameran, vi använder en gräns på 200
+pixlar. Detta fungerar bra även för relativt stort avstånd till
+kameran med vår upplösning ($320\cross240$ pixlar). Därefter loopar vi
+igenom bildens kolonner från
+höger för att se om kolonnen innehåller någon hudpixel. Den första
+pixel som nås på detta sätt väljs till att tillhöra handen, och det
+sammanhängande område som pixeln är en del av betraktas som den sökta
+handen. Att på detta sätt välja objektet längst till höger av de
+intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
+sig dock av det högra av de två största sammanhängande objekten,
+vilket har fördelen att man inte behöver sätta en manuell gräns för
+när ett objekt är ''tillräckligt stort''. En nackdel är att man tvingas
+söka igenom hela bilden, att den är något svårare att
+implementera samt att den endast fungerar då både huvud och hand finns
+i bilden.
+
+En alternativ metod för att leta från
+vänster är lätt att implementera om man vill kunna använda programmet
+som vänsterhänt, detta kommer dock att kräva en
+separat inlärningsmängd till gestigenkänningen.
+
+Metoden plockar med all hud som hänger samman med
+handen, inklusive armen om personen framför kameran bär kortärmad tröja. För att
+råda bot på detta kan man identifiera handleden och kapa handen
+där. Detta har gjordes av \citeasnoun{Deimel99} genom att identifiera den största cirkel
+som får plats helt i handen. Denna antas vara centrerad mitt i handen. Då
+cirkeln förstoras något är det längsta cirkelsegment som helt får
+plats i hudområdet placerat vid handleden, och mittpunktstangenten
+till segmentet är då handleden. Handen utgörs då av hudområdet på den
+sida om handleden som cirkeln befinner sig på. Denna metod har vi dock
+inte implementerat, varför vi kräver att den filmade bär
+långärmad tröja. 
