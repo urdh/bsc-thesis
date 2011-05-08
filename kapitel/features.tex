@@ -5,9 +5,9 @@
 För att på något sätt kunna kvantifiera den data en binär bild på en hand 
 innehåller och tolka den på ett bra sätt måste denna data transformeras till
 något meningsfullt. Det finns många sätt att göra detta --- man kan t.ex.~
-beräkna bildens egenvärden \ref{Funck02}, använda filter för att hitta
-fingertoppar \ref{Noelker97}, eller jämföra bilden med lagrade prototypbilder
-och studera Hausdorff-avståndet till dessa \ref{Nielsen04}. En enklare metod
+beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
+fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
+och studera Hausdorff-avståndet till dessa \cite{Nielsen04}. En enklare metod
 är att beräkna ett antal olika egenskaper baserat på den binära bilden.
 
 Dessa egenskaper består av mått med enkla definitioner baserade på area,
@@ -61,6 +61,10 @@ där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vect{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
+
+Man kan dessutom definiera ett centroidläge, centroidens avvikelse från
+den inneslutande lådans övre vänstra hörn, som avståndet mellan centroiden
+och lådans vänstra hörn genom lådans bredd/höjd.
 
 \paragraph{Hu-moment}
 
@@ -180,9 +184,9 @@ till soliditeten och definieras enligt
 
 \subsubsection{Normering och viktning för \knn}
 
-Eftersom \knn-metoden använder det euklidiska avståndet mellan punkter i 
+Många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 
 egenskapsrummet är det viktigt att egenskaperna som används varierar över
-ungefär samma värdemängd. Eftersom inte är fallet från början måste indata
+ungefär samma värdemängd. Eftersom så inte är fallet från början måste indata
 normeras.
 
 Man kan exempelvis skala all indata så att den anpassas till en enkel
@@ -199,7 +203,7 @@ att även den passar in i det nya, uniforma egenskapsrummet:
 	\hat{x} = \frac{x - \mu_x}{\sigma_x}
 \end{equation*}
 
-Vill man därefter optimera \knn-metoden och se till att den tar större hänsyn
+Vill man därefter optimera klassificeraren och se till att den tar större hänsyn
 till vissa gester kan man även införa en viktningskonstant $w_x$. En stor
 sådan gör att egenskapen har större betydelse (eftersom avståndet då ökar
 snabbare). Denna konstant appliceras lämpligen direkt efter normeringen.
