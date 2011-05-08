@@ -8,13 +8,19 @@ prototypobjekt i egenskapsrummet tilldelar en klass observerad punkt i rummet.
 Prototypobjekten är en redan klassificerad inlärningsmängd, och vi undrar vilken
 av dessa klasser vår observation tillhör.
 
-Klasserna är här olika statiska gester, eller olika grupper i featurerummet. För varje observerad bildruta ska vi alltså undersöka om den hör till någon av de kända klasserna.
+Klasserna är här olika statiska gester, eller olika grupper i featurerummet. För
+varje observerad bildruta ska vi alltså undersöka om den hör till någon av de
+kända klasserna.
 
 Avståndet som används är det euklidiska, dvs
 \begin{equation*}
     d = |\vect{x}-\vect{x_0}|^{1/n}
 \end{equation*}
-där $n$ är dimensionen på egenskapsrummet. Genom en uttömmande sökning i featurerummet letar vi efter de $k$ närmsta grannarna. Om $k$ är större än ett avgörs klasstillhörigheten genom majoritetsomröstning, dvs. den klass med flest nära grannar vinner, se figur \ref{fig:knn-overview}.
+
+där $n$ är dimensionen på egenskapsrummet. Genom en uttömmande sökning i
+featurerummet letar vi efter de $k$ närmsta grannarna. Om $k$ är större än ett
+avgörs klasstillhörigheten genom majoritetsomröstning, dvs. den klass med flest
+nära grannar vinner, se figur \ref{fig:knn-overview}.
 
 \begin{figure}[!htb]
     \begin{center}
@@ -27,9 +33,13 @@ där $n$ är dimensionen på egenskapsrummet. Genom en uttömmande sökning i fe
     \label{fig:knn-overview}
 \end{figure}
 
-För att metoden ska fungera krävs att alla klasser är representerade med lika många prototypobjekt. Annars får vissa klasser större vikt och kommer med högre sannolikhet att väljas.
-
-\notes{referenser?}
+För att metoden ska fungera krävs att alla klasser är representerade med lika
+många prototypobjekt. Annars får vissa klasser större vikt och kommer med högre
+sannolikhet att väljas. Metoden bygger också på att en stor mängd data finns
+tillgänglig. Prototypmängden representerar den sanna fördelningen hos datamängden
+och är därför ofta att föredra framför en Gaussian Mixture Model, där varje klass
+approximeras med sina anpassade parametrar.
+\notes{cite Röding?}
 
 %Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
 %per gest; detta eftersom vi har en HMM per gest.
@@ -40,6 +50,5 @@ För att metoden ska fungera krävs att alla klasser är representerade med lika
 
 %FIGUR
 %http://en.wikipedia.org/wiki/File:KnnClassification.svg
-
 
 \end{document}
