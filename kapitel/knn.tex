@@ -14,10 +14,10 @@ kända klasserna.
 
 Avståndet som används är det euklidiska, dvs
 \begin{equation*}
-    d = |\vect{x}-\vect{x_0}|^{1/n}
+    d = \left(\sum_{i=1}^n(\vect{x}_i-\vect{x_0}_i)^2\right)^{1/2}
 \end{equation*}
-
-där $n$ är dimensionen på egenskapsrummet. Genom en uttömmande sökning i
+där $n$ är dimensionen på egenskapsrummet, $\vect{x}$ är koordinaterna för en
+prototyp och $\vect{x_0}$ är observationen. Genom en uttömmande sökning i
 featurerummet letar vi efter de $k$ närmsta grannarna. Om $k$ är större än ett
 avgörs klasstillhörigheten genom majoritetsomröstning, dvs. den klass med flest
 nära grannar vinner, se figur \ref{fig:knn-overview}.

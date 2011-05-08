@@ -1,14 +1,60 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-Klassificera gester samt optimera valet av egenskaper. 
+\subsection{Klassificering av gester} 
+\subsubsection{Konstruktion av prototypmängd för \knn}
+SKRIV DETTA
 
-Klassificeringen av testfilmernas gester genomfördes med hjälp av Matlabs inbyggda funktion \verb{knnsearch}. Med hjälp av den skapade kodboken var det nu fritt fram att köra testfilmernas bilder, eller närmare bestämt deras egenskapsvektorer, genom funktionen och därmed finna de $k$ närmaste indexen. Detta följdes av en majoritetsomröstning där det index som förekom flest gånger avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta klassificeringar lagrades även för vilka andra gester den aktuella gesten felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur gesternas eventuella snarlikhet påverkade resultatet. (Nämna hur många av testfilmernas bilder vi använder?)  
+\subsubsection{Implementation av \knn}
+Sökningen i egenskapsrummet kan göras på flera sätt. En effektiv metod är
+algoritmen $k$d-tree som finns i MATLAB:s funktion {\tt knnsearch}.
 
-Upp till denna punkt har vi dock endast definierat ett antal egenskaper utan att diskutera huruvida de är användbara som klassificerare eller inte. Att finna klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man eliminera de egenskaper som rentav försämrar chanserna till en korrekt klassificering. Det kan handla om egenskaper som är överdrivet utspridda i vektorrummet eller instabila egenskaper som förorenar datan med slumpmässiga variationer. Då vi först tog oss an problemet att finna de bäst klassificerande egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att helt enkelt testa olika permutationsföljder av egenskaper, följder av en viss längd. Att detta ger upphov till enorma beräkningskrav är tydligt då man som i vårat fall behandlar femton stycken egenskaper. Den andra angreppsvinkeln utnyttjar möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en större inverkan. Denna metod har i större utsträckning använts inom röst/gestigenkänning med exempel som (REFERENSER). Man optimerar alltså viktfördelninger för att ett nå så bra resultat som möjligt, följt av att man utesluter de egenskaper som inte bidrar till diskrimineringen. (Nämna att vi testade denna variant?) Den tredje metoden, och den vi slutligen kom att använda, var utformad på så sätt att vi först identifierade den egenskap som ensam gav störst antal korrekta klassificeringar. Därefter identifierades egenskapen som tillsammans med den första gav bäst resultat, osv. Detta upprepades tills det att samtliga egenskaper var inkluderade. Då detta inträffade lät vi ändra värdet av $k$, alltså parametern i kNN-metoden, följt av att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen arbetade alltså i linje med följande flowchart:  
+Klassificeringen av testfilmernas gester genomfördes med hjälp av MATLABs
+inbyggda funktion \texttt{knnsearch}. Med hjälp av den skapade kodboken var det
+nu fritt fram att köra testfilmernas bilder, eller närmare bestämt deras
+egenskapsvektorer, genom funktionen och därmed finna de $k$ närmaste indexen.
+Detta följdes av en majoritetsomröstning där det index som förekom flest gånger
+avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta
+klassificeringar lagrades även för vilka andra gester den aktuella gesten
+felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur
+gesternas eventuella snarlikhet påverkade resultatet. (Nämna hur många av
+testfilmernas bilder vi använder?)  
+
+\subsubsection{Optimering av antal egenskaper och grannar i \knn}
+Upp till denna punkt har vi dock endast definierat ett antal egenskaper utan att
+diskutera huruvida de är användbara som klassificerare eller inte. Att finna
+klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är
+fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets
+prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man
+eliminera de egenskaper som rentav försämrar chanserna till en korrekt
+klassificering. Det kan handla om egenskaper som är överdrivet utspridda i
+vektorrummet eller instabila egenskaper som förorenar datan med slumpmässiga
+variationer. Då vi först tog oss an problemet att finna de bäst klassificerande
+egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att helt
+enkelt testa olika permutationsföljder av egenskaper, följder av en viss längd.
+Att detta ger upphov till enorma beräkningskrav är tydligt då man som i vårat
+fall behandlar femton stycken egenskaper. Den andra angreppsvinkeln utnyttjar
+möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en
+större inverkan. Denna metod har i större utsträckning använts inom
+röst/gestigenkänning med exempel som (REFERENSER). Man optimerar alltså
+viktfördelninger för att ett nå så bra resultat som möjligt, följt av att man
+utesluter de egenskaper som inte bidrar till diskrimineringen. (Nämna att vi
+testade denna variant?) Den tredje metoden, och den vi slutligen kom att
+använda, var utformad på så sätt att vi först identifierade den egenskap som
+ensam gav störst antal korrekta klassificeringar. Därefter identifierades
+egenskapen som tillsammans med den första gav bäst resultat, osv. Detta
+upprepades tills det att samtliga egenskaper var inkluderade. Då detta
+inträffade lät vi ändra värdet av $k$, alltså parametern i kNN-metoden, följt av
+att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen
+arbetade alltså i linje med följande flowchart:  
 
 (BEHÖVER EPISK FLOWCHART)
 
-I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån användandet av endast den främsta egenskapen, de två främsta, osv, upp till samtliga femton egenskaper. Vi lät även $k$ variera mellan 1 och 13 för att få en uppfattning av dess inverkan. Trots att algoritmen är krävande att köra bör det nämnas att den inte är inte är lika beräkningsintensiv som de två förstnämnda. 
+I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån
+användandet av endast den främsta egenskapen, de två främsta, osv, upp till
+samtliga femton egenskaper. Vi lät även $k$ variera mellan 1 och 13 för att få
+en uppfattning av dess inverkan. Trots att algoritmen är krävande att köra bör
+det nämnas att den inte är inte är lika beräkningsintensiv som de två
+förstnämnda. 
 
 \end{document}
