@@ -1,18 +1,15 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{Klassificering av hudfärg och urskiljning av händer}
+\subsection{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
 
 \subsubsection{Färgrymder}
 
 Färg kan beskrivas matematiskt som vektorer i ett färgrum, vars
 basvektorer är färgkomponenter. För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
-det räcka --- kanske till och med vara fördelaktigt -- med ett
+det räcka --- kanske till och med vara fördelaktigt --- med ett
 tvådimensionellt färgrum \cite{Kakumanu07}.
-
-\marginpar{Hur mycket ska vi förklara RGB, HSI et al. om vi inte
-använder dem egentligen?}
 
 Vilken färgrymd som är bäst för just hudklassificering beror på
 situation. RGB-liknande färgrymder har använts av bland annat
@@ -26,7 +23,8 @@ Ortogonala färgrymder har däremot nått stor användning för
 hudklassificering \cite{Hsu02,Elmezain08,Hassanpour08} eftersom de
 både separerar färg från ljusstyrka och är linjärtransformationer av
 RGB och därmed prestandamässigt lämpliga för realtidsapplikationer.
-Det är en sådan färgrymd vi valt att använda: $YC_bC_r$.
+En ortogonal färgrymd som har stor utbredning och som även visat
+sig vara mycket bra \cite{Kakumanu07} är $YC_bC_r$.
 
 \subsubsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
 
@@ -51,36 +49,41 @@ färgens värde i RGB-rymden.
 
 \subsubsection{Sannolikhetsfördelning för hudfärg}
 
-För att skilja pixlar med hud från bakgrundspixlar, vilket är ett
-centralt problem inom gestigenkänning, används en modell där pixelfärgen antas
-bero stokastiskt på om det är en hud- eller
-bakgrundspixel. Pixelfärgen antas vara en multivariat normalfördelad
-slumpvariabel, där fördelningen beror på om pixeln innehåller hud
+För att skilja bildpunkter med hud från bakgrunden, vilket är ett
+centralt problem inom gestigenkänning, kan flera olika statistiska metoder
+appliceras. Man har till exempel gjort försök med skogar av slumpmässiga träd
+\cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller \cite{Kruppa02}
+och luddig aritmetik \cite{Shang10} --- en större undersökning av metoder
+för huddetektion gjordes av \citeasnoun{Kakumanu07}.
+
+En enklare metod som nått relativt stor framgång är den som baseras på
+Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, det vill säga
+en modell där bildpunktens färg antas bero stokastiskt på om bildpunkten
+är hud eller inte.
+
+Färgen antas då vara en multivariat normalfördelad
+stokastisk variabel, där fördelningen beror på om bildpunkten innehåller hud
 eller inte. För att täcka olika hudfärger kan en uppsättning olika
-fördelningar för hudfärger användas (\cite{Elmezain08}), där en total
-sannolikhetsfördelning sedan är en linjärkombination av dessa. Det
-samma kan göras med sannolikhetsfördelningen för pixlar som inte
-innehåller hud. I vårt arbete har vi dock avänt en enda fördelning för
-hud, och ''ohudsfördelningen'' har antagits vara konstant. Detta då en
-uppskattad normalfördelning konsekvent fick alldeles för liten
-varians. Detta resultat strämmer överens med Elmezain et al, som även
-de hade mindre varians bland pixlar som inte innehöll hud än de som
-innehöll hud.
+fördelningar för hudfärger användas, där en total
+sannolikhetsfördelning sedan är en linjärkombination av dessa. Detsamma
+kan göras med sannolikhetsfördelningen för bildpunkter som inte
+innehåller hud. Det enklaste är dock att använda en enda fördelning för
+hud, och anta att ''ickehudsfördelningen'' är konstant. Att använda flera
+fördelningar för huden ger konsekvent liten varians för ickehud, vilket visats
+av bland annat \citeasnoun{Elmezain08}.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen i en
 uppskattad normalfördelning krävs ett
-antal datapunkter, med vilka vi kan uppskatta parametrarna med MLE.
+antal datapunkter, med vilka vi kan uppskatta parametrarna med maximum
+likelihood-metoden.
 
-Den mulitvariata fördelningen ges av
-
+Den mulitvariata fördelningen ges, eftersom det är en normalfördelning, av
 \begin{equation*}
   p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
 \end{equation*}
-
 med kovariansmatris $\Sigma$ och väntevärde $\mu$.
 Givet $N$ datapunkter $x_i,\:1\leq i\leq N$ ges den logaritmerade
 sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$ av
-
 \begin{equation*}
   \begin{aligned}
   l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
@@ -89,65 +92,55 @@ sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$ av
 \end{equation*}
 
 Vi kan därefter beräkna derivatan med avseende på $\mu$,
-
 \begin{equation*}
   \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1},
 \end{equation*}
-
 samt derivatan med avseende på $\Sigma^{-1}$,
-
 \begin{equation*}
   \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma
   -\sum_{i=1}^N\frac{(x_i-\mu)(x_i-\mu)^T}{2}.
 \end{equation*}
 
 Sätter vi dem i tur och ordning till noll får vi uppskattningarna $\hat\mu$ och $\hat\Sigma$:
-
-\marginpar{Hur då? Det är \emph{inte} uppenbart!}
-
+\notes{Hur då? Det är \emph{inte} uppenbart!}
 \begin{gather*}
   \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
   \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
 \end{gather*}
 
-\citeasnoun{Elmezain08} studerade $18\:972$
-hud-pixlar och $88\:320$ icke-hud-pixlar, och delade in dessa i fyra
-hudfördelningar och en icke-hud-fördelning. De fyra hudfördelningarna
-optimerades genom att varje pixel sorterades till en
-ursprungsfördelning, varefter parametrarna uppdaterades, och alla
-pixlar sorterades om efter de uppkomna fördelningarna --- detta gjordes
+\citeasnoun{Elmezain08} studerade $18\;972$
+bildpunkter med hud och $88\;320$ utan, och delade in dessa i fyra
+hudfördelningar och en ickehudfördelning. De fyra hudfördelningarna
+optimerades genom att varje bildpunkt sorterades till en
+ursprungsfördelning, varefter parametrarna uppdaterades och alla
+bildpunkter sorterades om efter de uppkomna fördelningarna --- detta gjordes
 iterativt till konvergens.
-
-%Sådana beräkningar gjordes av \citeasnoun{Elmezain08} på 18972
-%hud-pixlar och 88320 icke-hud-pixlar. Deras resultat har vi sedan
-%använt i vårt arbete.
 
 \subsubsection{Hudfärgskarta}
 
 För varje pixelfärg kan sannolikheten för att pixeln föreställer hud
-respektive ohud bestämmas med fördelningarna ovan, med en korrektion
-för att det i allmänhet är troligare att pixlar är ohud än hud. Detta
+respektive ickehud bestämmas med fördelningarna ovan, med en korrektion
+för att det i allmänhet är troligare att pixlar är ickehud än hud. Detta
 innebär att om kvoten
 \begin{multline*}
-\frac{P(\textrm{hud}|\textrm{färg})}{P(\textrm{ickehud}|\textrm{färg})}=\\
-=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg})}
- \frac{P(\textrm{färg}}{P(\textrm{ickehud})P(\textrm{ickehud}|\textrm{färg})}=\\
-=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg}|\textrm{ickehud})
+\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
+ \frac{\Prob(\textrm{färg}}{\Prob(\textrm{ickehud})\Prob(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})
  P(\textrm{ickehud})}
 \end{multline*}
 är större än ett, så sägs pixeln föreställa hud. Kvoten
-$P(\textrm{hud})/P(\textrm{ickehud})$ sätts för att ange hur mycket vanligare ohud-pixlar
-är i bilderna. Då vår sannolikhetsfördelning för ohud är en så grov
-uppskattning, har denna kvot fått korrigeras för hand för att optimera
-resultatet.
+$\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ sätts för att ange hur mycket vanligare
+bildpunkter med ickehud är i bilderna, och måste sannolikt uppskattas i 
+tillämpningar.
 
-Problemet med denna uträkning är att sannolikheten är tidskrävande att
-räkna ut, och därför olämplig att göra för varje pixel i varje bild i
-filmen. Detta löses genom att göra beräkningen en gång för alla för
-varje tänkbar färg ($256^2$ stycken). Resultatet sparas sedan i en
-matris $256\times256$-matris, där färgen blir en koordinat. Denna matris
-kallas för en Skin Probability Map, och genom att slå i den kan man
-direkt se om en pixel ska klassas som hud eller ej.
+Sannolikheten är dock tidskrävande att räkna ut, varför beräkningen
+är direkt olämplig att göra för varje bildpunkt i varje bild i en
+filmsekvens. Detta löses genom att göra beräkningen en enda gång för
+varje tänkbar färg ($256^2$ stycken i $C_bC_r$-rymden). Resultatet sparas
+sedan i en $256\times256$-matris, där färgvärdet används som koordinater.
+Denna matris, eller ''Skin Probability Map'', kan man sedan slå upp
+färgvärden för att direkt få veta sannolikheten för att dessa är hud.
 
 \subsubsection{Urskiljning av handen}
 
