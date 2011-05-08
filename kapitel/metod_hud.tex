@@ -1,10 +1,14 @@
 \subsection{Hud- och handidentifiering}
 
 \subsubsection{Klassificering av hud}
-Med de färgfördelningar som användes av \citeasnoun{Elmezain08}
-som utgångspunkt gjorde vi vissa manuella korrigeringar för att få ut
-en så tydlig bild av handen som möjligt utan att få med störande
-bakgrundsdetaljer. Kvoten $\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$, som sattes
+I 44 bilder tagna med webkameran separerades huden från resten av
+bilden manuellt med hjälp av fotoredigeringsprogramvara. Baserat på
+dessa pixlar bestämdes sedan en sannolikhetsfördelning för både hud
+och icke-hud. Dessa fördelningar jämfördes sedan med de presenterade
+av \citeasnoun{Elmezain08}.
+
+Kvoten $\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ (se
+\ref{sec:hudklassificering}), som sattes
 manuellt, anger hur mycket vanligare bildpunkter med ickehud är i
 bilderna. Även denna korrigerades för att nå en tillräcklig träffandel.
 
