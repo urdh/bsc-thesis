@@ -123,13 +123,15 @@ $\hat\mu$ och $\hat\Sigma$:
 \end{gather*}
 
 För att ytterligare förbättra fördelningarna kan de antas vara
-sammansatta av flera fördelningar. En iterativ metod för optimering av
+en linjärkombination av flera normalfördelningar. En iterativ metod för optimering av
 sådana fördelningar beskrivs av \citeasnoun{Elmezain08}.
 
-För varje bildpunktsfärg kan alltså sannolikheten för att färgen ska
+För varje bildpunktsfärg kan med dessa fördelningar sannolikheten för att färgen ska
 förekomma då bildpunkten föreställer hud
-respektive ickehud bestämmas. Med denna information kan man bestämma
-att om kvoten 
+respektive ickehud bestämmas. Det är rimligt att klassa en pixel som
+hud om det gäller att
+$\Prob(\textrm{hud}|\textrm{färg})>\Prob(\textrm{ickehud}|\textrm{färg})$
+. Det innebär att om kvoten
 \begin{multline*}
 \frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
@@ -155,7 +157,7 @@ Strukturelementet kan dessutom förflyttas så att dess referenspixel
 ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
 strukturelement för $S_{i,j}$.
 
-\emph{Erosionen}, som eroderar bort delar av de svarta områdena genom
+\emph{Erosionen} eroderar bort delar av de svarta områdena genom
 att endast behålla de pixlar vars ''omgivning'' (definierad av mängden
 $S_{i,j}$) ligger helt i mängden $A$. Vad operationen egentligen gör är alltså
 att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras enligt
