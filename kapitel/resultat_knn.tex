@@ -4,15 +4,16 @@
 \subsection{Klassificering av gester med hjälp av \knn}
 Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91,5\%.
 Denna andel uppnåddes då samtliga gester var inkluderade. Antalet aktiverade
-egenskaper var 10 och värdet på $k$ i \knn-metoden var 7. Egenskaperna som
-användes var det första, andra, tredje och sjunde Hu-momentet, centroidens
-position i den inneslutande lådan, fyrkantighet, soliditet, excentricitet,
-konvexitet samt utsträckning. Figur~\ref{fig:knn-optimering} visar hur andelen korrekta
+egenskaper var 10 och antalet närmsta grannar i \knn-metoden var 7 --- denna
+konfiguration nåddes genom optimering i $k$-led och av mängden inkluderade
+egenskaper. Egenskaperna som
+användes är listade i tabell~\ref{tab:bestfeats}.
+Figur~\ref{fig:knn-optimering} visar mer exakt hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0]{bilder/feats-10+11}
+  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/feats-10+11}
   \caption{Träningsmängden för ett urval av gester plottat mot de två starkaste
   egenskaperna.}
   \label{fig:feats1011}
@@ -20,9 +21,10 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
     \begin{center}
-        \includegraphics[trim=2cm 2cm 2cm 2cm, width=\columnwidth]{bilder/knn_optimering}
+        \includegraphics[trim=2cm 2cm 2cm 1.8cm,width=\columnwidth,clip=true]{bilder/knn_optimering}
     \end{center}
-    \caption{SKRIV MIG}
+    \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
+och värder på $k$ ger ett tydligt minimum då $k=7$ och 10 egenskaper inkluderades}
     \label{fig:knn-optimering}
 \end{figure}
 
@@ -32,39 +34,69 @@ fem. Därefter planar andelen ut för att återigen stiga då
 fler än 10 egenskaper används. Andelen felklassificeringar
 minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
 öka då värdet ökar från 7 till 13. Med det optimala
-valet av egenskaper och $k$ blev prestandan för respektive gest
+valet av egenskaper och $k$ presterade metoden enligt
+tabell~\ref{tab:tolkningsmatris} och tabell~\ref{tab:prestanda}.
 
 \notes{(Inkludera resultat där problemgester är borttagna?)}
 
-\notes{(i ordning: det tredje Hu-momentet, det andra Hu-momentet, centroidens
-y-position i den inneslutande lådan, fyrkantighet, soliditet,
-excentricitet, konvexitet, första Hu-momentet, utsträckning och det
-sjunde Hu-momentet.) Finns i tabell~\ref{tab:bestfeats}} 
+\begin{table}[tbp]
+	\centering
+	\label{tab:prestanda}
+	\caption{SKRIV MIG!!!}
+	\begin{tabular}{c c c}
+		\toprule 
+		Försöksgest & Feltyp 1 & Feltyp 2 \\
+		\midrule 
+		A & & \\
+		B & & \\
+		C & & \\
+		D & & \\
+		E & & \\
+		Sten & & \\
+		Sax & & \\
+		Påse & & \\
+		Spock & & \\
+		Seger & & \\
+		\bottomrule 
+	\end{tabular}
+\end{table}
 
 \begin{table}[tbp]
 	  \centering
 		\label{tab:tolkningsmatris}
-		\caption{SKRIV MIG!}
+		\caption{Vid försök misstolkas en del gester betydligt oftare än
+		andra. Notera att raderna inte adderar till 100 eftersom värdena är
+		avrundade.}
     \includegraphics[trim=2cm 15cm 6cm 2.5cm,clip=true,width=8cm]{bilder/tolkningsmatris.pdf}
-		%\begin{tabular}{l|cccccccccc}
-		%\backslashbox{Verklig}{Tolkad} & a & b & c & d & e & Sten & Sax & Påse & Spock & Seger\\
-		%\toprule
-		%a & 86 &  & 5 &  & 2 &  &  & 6 &  & 2 \\ 
-		%b &  & 89 &  &  &  &  &  &  &  & 11 \\ 
-		%c & &  & 100 &  &  &  &  &  &  &  \\ 
-		%d &  &  &  & 100 &  &  &  &  &  &  \\ 
-		%e & 9 &  & 3 &  & 70 & 14 & 2 & 2 &  &  \\ 
-		%Sten & &  &  &  &  & 94 &  &  & 6 &  \\ 
-		%Sax & &  &  &  &  & 5 & 84 & 3 & 8 &  \\ 
-		%Påse & 2 &  &  &  &  & 6 & 2 & 91 &  &  \\ 
-		%Spock &  &  &  &  &  &  &  &  & 100 &  \\ 
-		%Seger & &  &  &  &  &  &  &  &  & 100 \\  
-		%\end{tabular}
 \end{table}
 
-%\notes{Jag vill ha den som \LaTeX{} men inte som en ''ful'' tabell. Det verkar
-%finnas ett paket \texttt{slashbox} som gÃ¶r den sneda biten, i komination med
-%typ \texttt{colortbl} kan det bli hyfsat okej. Men riktiga tabeller ska vi nog
-%anvÃ¤nda \texttt{booktabs till}.}
+\begin{table}[tb]
+	\centering
+	\caption{De tio bästa egenskaperna}
+	\label{tab:bestfeats}
+	\begin{tabular}{ll}
+		\toprule
+		Ranking & Egenskap \\
+		\midrule
+		1 & Hu-moment 3 \\
+		2 & Hu-moment 2 \\
+		3 & Centroidläge, Y-led \\
+		4 & Fyrkantighet \\
+		5 & Soliditet \\
+		6 & Excentricitet \\
+		7 & Konvexitet \\
+		8 & Hu-moment 1 \\
+		9 & Utsträckning \\
+		10 & Hu-moment 7 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsubsection{Egenskaper}\label{sec:resultat_features}
+
+Egenskaperna vi använt har visat sig vara mycket bra, upp till en viss gräns.
+Figur~\ref{fig:knn-optimering} visar att optimering av vilka egenskaper som
+inkluderas ger ett distinkt minimum redan vid tio egenskaper --- dessa tio
+bästa listas i tabell~\ref{tab:bestfeats}.
 
 \end{document}
