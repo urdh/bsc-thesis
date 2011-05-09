@@ -1,312 +1,214 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsubsection{Egenskaper}
-En Hidden Markov Model behöver observationer för att fungera; dessa
-observationer kommer vi att identifiera med hjälp av klassificering av
-nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
-med hjälp av den binära hudkartan för motsvarande bild.
+\subsection{Kvantitativa mått på handens geometri}\label{sec:features}
 
-För att kunna applicera metoden även vid stora variationer --- olika
-personer, avstånd till kameran, uppställningar osv. --- är det viktigt
-att endast andvända egenskaper som är oberoende av sådana variabler.
-Position och absolut storlek är exempel på egenskaper som inte bör
-användas, eftersom dessa kan variera mycket även inom en specifik
-gest. Hastighet kan räknas in i denna grupp men måste ändå användas
-om rörelsegester ska kunna identifieras. Det är dock möjligt att på
-olika sätt göra denna egenskap mer oberoende.
+För att på något sätt kunna kvantifiera den data en binär bild på en hand 
+innehåller och tolka den på ett bra sätt måste denna data transformeras till
+något meningsfullt. Det finns många sätt att göra detta --- man kan t.ex.~
+beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
+fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
+och sedan studera Hausdorff-avståndet till dessa \cite{Nielsen04}.
+En enklare metod
+är att beräkna ett antal olika egenskaper baserat på den binära bilden.
 
-Många av egenskaperna som beskrivs här kan beräknas effektivt av
-\MATLAB-kommandot \texttt{regionprops}.
+Dessa egenskaper består av mått med enkla definitioner baserade på area,
+omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
+därför användas av t.ex.~\knn-algoritmen för att skilja mellan olika rörelseoberoende
+gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
+uppsättning egenskaper inte användas direkt i tillämpningar som involverar
+rörelsegester, utan måste kompletteras av exempelvis hastighets- eller
+riktningsegenskaper.
 
-\marginpar{Flytta runt egenskaperna så att de dyker upp i en logisk
-ordning (definitionsmässigt etc). Rent allmänt bättre namn på allt
-behövs också.}
+\subsubsection{Egenskapsrummet}
 
-\marginpar{Hur oberoende är egenskaperna? Vilka kastar vi, och
-varför? Vi kan ju ha med alla dessa i rapporten men berätta
-vilka vi kastar bort och varför.}
+Egenskapsrummet är ett $\R^n$-rum där varje dimension representerar en
+egenskap. Detta rum kan man sedan använda för att beräkna ''avstånd'' i
+någon mening mellan olika bilder och gester. Egenskaperna baseras som sagt
+på olika grundläggande mått hos den binära bilden, och ett antal användbara
+egenskaper presenteras nedan.
+Många av egenskaperna som beskrivs kan beräknas effektivt av
+\MATLAB-funktionen \texttt{regionprops}.
 
-\marginpar{Bounding box är i stort sett irrelevant för rörelser, ska
-vi ha kvar det? (Vi har centroid istället)}
+\paragraph{Inledande definitioner}
 
-\paragraph{Hausdorffavstånd}
-
-Hausdorffavståndet mellan den bild man klassificerar och ett antal
-lagrade och förklassificerade gester kan användas som en egenskap för
-klassificering \cite{Nielsen04}. Måttet mäter i någon mening avståndet
-mellan två punktmängder $A$ och $B$ (i detta fallet mängderna som definieras av
-randen till våra handområden) och definieras av
-
-\begin{equation*}
-  H(A, B) = \max\left(h(A,B),h(B, A)\right)
-\end{equation*}
-
-där
-
-\begin{equation*}
-  h(A, B) = \max\limits_{a\in A}\min\limits_{b\in
-  B}\left|\left|a-b\right|\right|.
-\end{equation*}
-
-Detta mått kan användas som egenskap endast om man har något att
-jämföra med. Med en databas av referensbilder, sparade mängder $B_n$ från redan kända
-och klassificerade gester, kan man skapa $n$ egenskaper bestående av
-värdet $H(A,B_n)$, där $A$ är motsvarande mängd för bilden som för
-tillfället klassificeras.
-
-För att Hausdorffavståndet ska bli ett oberoende mått måste man
-förbehandla bilden på ett lämpligt sätt. Genom att först rotera
-handområdet enligt dess vinkel mot horisontalplanet (se nedan)
-och sedan skala området så att det fyller ett
-område på exempelvis $200\times200$ bildpunkter, utan hänsyn till
-längd-bredd-förhållande, eliminerar man alla beroende variabler. Att
-vinkeln elimineras trots att den har betydelse är irrelevant så länge
-man inkluderar den som en separat egenskap.
-
-Givetvis måste även refensbilden $B_n$ utsättas för likvärdig behandling.
-
-\paragraph{Förflyttning}
-\label{feat:forflytt}
-
-Förflyttning är givetvis en grundläggande egenskap hos rörelsegester,
-och kan definieras på två distinkta sätt: med hjälp av centroiden och
-med hjälp av den inneslutande lådan.
-
-Förflyttningen mäts, till skillnad från hastighet och riktning
-(\ref{feat:hastighet} och \ref{feat:riktning}) endast mellan
-nyckelbilder, dvs. var $n$:te bild i videosekvensen (där $n$ är ett
-lämpligt tal). Detta gör att vi får en egenskap som representerar den
-övergripande rörelsen i gesten, medans brus i form av små rörelser
-försvinner. Bruset fångas istället at hastighet och riktning, om det
-skulle vara relevant.
+För beräkning av vissa egenskaper behöver man definiera två
+grundläggande begrepp; den inneslutande lådan och centroiden. Dessa
+två kan användas för att i någon mening hitta ''mitten'' av objektet
+vi undersöker. Den inneslutande lådan kan dessutom användas för vissa
+jämförelser relaterade till area (dvs. densitetsliknande begrepp).
 
 \subparagraph{Inneslutande låda}
 
 Den inneslutande lådan är den minsta rektangeln som innehåller hela
-objektet. Denna kan effektivt beräknas genom att lokalisera
-extrempunkterna i $x$- och $y$-led, dvs. de punkter närmst kanterna
-som är en del av objektet. Lådan har fyra egenskaper:
-\begin{inparaenum}[\itshape 1\upshape)]
-  \item bredd, $\textrm{Box}_w(A)$;
-  \item höjd, $\textrm{Box}_h(A)$;
-  \item position i $x$-led, $\textrm{Box}_x(A)$; och
-  \item position i $y$-led, $\textrm{Box}_y(A)$.
-\end{inparaenum}
-
-Utifrån dessa kan vi även beräkna en femte och sjätte egenskap;
-mittpunkten i $x$- och $y$-led:
-
-\begin{gather*}
-  \textrm{Box}_{cx}(A) = \textrm{Box}_x(A) + \textrm{Box}_w(A)/2\\
-  \textrm{Box}_{cy}(A) = \textrm{Box}_y(A) + \textrm{Box}_h(A)/2
-\end{gather*}
-
-Dessa egenskaper kan vi sedan använda för att beräkna förflyttning i
-$x$- och $y$-led enligt
-
-\begin{gather*}
-  \Delta (A^n) =
-  \begin{pmatrix}
-    \Delta x(A^n)\\[3pt]
-    \Delta y(A^n)
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \textrm{Box}_{cx}(A^n) - \textrm{Box}_{cx}(A^{n-1})\\[3pt]
-    \textrm{Box}_{cy}(A^n) - \textrm{Box}_{cy}(A^{n-1})
-  \end{pmatrix}
-\end{gather*}
-
-där $A^n$ representerar den $n$:te nyckelbilden.
+objektet (se figur \ref{fig:boundingbox}),
+och kan effektivt beräknas genom att lokalisera
+extrempunkterna i $x$- och $y$-led. Lådan har fyra mått: bredd, höjd samt
+position i $x$- och $y$-led. Utifrån dessa kan vi även beräkna
+mittpunkten i $x$- och $y$-led.
 
 \subparagraph{Centroid}
 
-Centroiden är masscentrum för området, och beräknas enligt
-
+Centroiden är masscentrum för ett område, och beräknas enligt
 \begin{equation*}
   \textrm{centroid}(A) = \left\lfloor\frac{
-    \sum\limits_{a\in A}m_a\vec{r}_a
+    \sum\limits_{a\in A}m_a\vect{r}_a
   }{
     \sum\limits_{a\in A}m_a
   }\right\rfloor =
   \left\lfloor\sum\limits_{a\in
-  A}\frac{\vec{r}_a}{\textrm{Area}(A)}\right\rfloor,
+  A}\frac{\vect{r}_a}{\textrm{Area}(A)}\right\rfloor,
 \end{equation*}
-
 där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
-$\vec{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
-x\rfloor$ avrundar $x$ nedåt till närmsta heltal.
+$\vect{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
+x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
 
-Med denna beräkning utförd kan centroidförflyttningen definieras enligt
-
-\begin{equation*}
-  \Delta_c(A^n) = 
-  \begin{pmatrix}
-    \Delta x_c(A^n) \\[3pt]
-    \Delta y_c(A^n)
-   \end{pmatrix}
-   = \left(\textrm{centroid}(A^n)-\textrm{centroid}(A^{n-1})\right).
-\end{equation*}
+Man kan dessutom definiera ett centroidläge, centroidens avvikelse från
+den inneslutande lådans övre vänstra hörn, som avståndet mellan centroiden
+och lådans övre vänstra hörn genom lådans bredd/höjd.
 
 \paragraph{Hu-moment}
 
-\notes{Referens \cite{Hu62}, definition}
+Dessa moment definierades först av \citeasnoun{Hu62} och är ett försök att
+göra centralmomenten rotations-, skalnings- och translationsinvarianta och
+därmed mer användbara. Sju Hu-moment definieras \cite[s.~185]{Hu62}:
+\begin{align*}
+	I_1 =& \;\mu_{20} + \mu_{02}\\
+	I_2 =& \left(\mu_{20} - \mu_{02}\right)^2 + 4\mu^2_{11}\\
+	I_3 =& \left(\mu_{30} - 3\mu_{12}\right)^2 +
+	       \left(3\mu_{21} - \mu_{03}\right)^2\\
+	I_4 =& \left(\mu_{30} + \mu{12}\right)^2 +
+ 	       \left(\mu_{21} + \mu_{03}\right)^2\\
+	I_5 =& \left(\mu_{30} - 3\mu_{12}\right)
+	       \left(\mu_{30} + \mu_{12}\right)
+	       \left(\left(\mu_{30}+\mu{12}\right)^2 -
+	       3\left(\mu{21}+\mu{03}\right)^2\right) + \\
+ 	    &+ \left(3\mu_{21} - \mu_{03}\right)\left(\mu_{21} + \mu_{03}\right)
+	       \left(3\left(\mu_{30} + \mu{12}\right)^2 -
+	       \left(\mu_{21} + \mu_{03}\right)^2\right)\\
+	I_6 =& \left(\mu_{20}-\mu_{02}\right)
+	       \left(\left(\mu_{30}+\mu_{12}\right)^2 -
+	       \left(\mu_{21}+\mu_{03}\right)^2\right) + \\
+	    &+ 4\mu_{11}\left(\mu_{30}+\mu_{12}\right)
+	       \left(\mu_{21}+\mu_{03}\right)\\
+	I_7 =& \left(3\mu_{21}-\mu_{03}\right)\left(\mu_{30}-\mu_{12}\right)
+	       \left(\left(\mu_{30}+\mu_{12}\right)^2 - 
+	       3\left(\mu_{21}+\mu_{03}\right)^2\right) - \\
+	    &- \left(\mu_{30} - 3\mu_{12}\right)\left(\mu_{21}+\mu_{03}\right)
+	       \left(3\left(\mu_{30}+\mu_{12}\right)^2 - 
+  	     \left(\mu_{21}+\mu_{03}\right)^2\right)
+\end{align*}
 
-\paragraph{Vinkel}
-\label{feat:vinkel}
-
-Vinkeln mellan objektet och horisontalaxeln kan användas för att
-beskriva handens rotation, och är ett viktigt mått för
-gestigenkänning. Måttet definieras som vinkeln mellan horisontalaxeln
-och den längsta av axlarna i den ellips som har samma andramoment som
-området, och löper från $-90$\textdegree{} till $90$\textdegree{}.
-
-\marginpar{Hur definieras andramomenten?}
-
-\marginpar{Även: vinkelskillnad}
-
-\marginpar{Cosinus av vinkeln? I så fall; varför?}
+Centralmomenten $\mu_{pq}$ definieras av
+\begin{equation*}
+	\mu_{pq} = \sum\limits_x\sum\limits_y
+	           \left(x-\bar{x}\right)^p
+	           \left(y-\bar{y}\right)^q
+	           f(x,y)
+\end{equation*}
+där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
+bildens ljusstyrka. För binära bilder gäller att $f\mapsto\left\{0,1\right\}$.
 
 \paragraph{Konvexitet}
 
-Konvexitet \cite[s.~26]{Rudemo09} är ett användbart dimensionslöst
+Konvexitet \cite[s.~26]{Rudemo09} är ett dimensionslöst
 mått som i någon mening beskriver hur konvext ett objekt är --- för
 gestigenkänning är detta ett relevant mått på huruvida fingrarna är
 utsträckta eller inte, men även på om de sitter tätt ihop (ex.
 stopptecken) eller löst konfigurerade (ex. segertecken). Det
 definieras av
-
 \begin{equation*}
-  \textrm{konvexitet}(A) = \frac{\partial A_h}{\partial A}
+  \textrm{konvexitet}(A) = \frac{\left|\partial A_h\right|}{\left|\partial A\right|}
 \end{equation*}
-
 där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
-mening).
+mening). Detta innebär i princip att $\left|\partial A\right|$ betecknar
+$A$s omkrets.
 
 \paragraph{Kompakthet}
 
-Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått som
-beskriver hur kompakt ett objekt är, dvs. hur ''rak'' områdets rand
-är. Cirkeln är det mest kompakta objektet, ju fler irregulariteter
-randen innehåller desto mindre blir kompaktheten. Kompakthet
-definieras av
-
+Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått, som
+beskriver hur kompakt ett objekt är.
+Cirkeln är det mest kompakta objektet, och ju fler irregulariteter
+randen innehåller (jämfört med en cirkel) desto mindre blir kompaktheten.
+Kompakthet definieras av
 \begin{equation*}
-  \textrm{kompakthet}(A) = \frac{\textrm{Area}(A)}{\left(\partial
-  A\right)^2}.
+  \textrm{kompakthet}(A) = \frac{\textrm{Area}(A)}{\left|\partial
+  A\right|^2}.
 \end{equation*}
 
 \paragraph{Soliditet}
-\label{feat:soliditet}
 
 Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
-definieras av ration mellan objektets area och det konvexa skalets
+definieras av kvoten mellan objektets area och det konvexa skalets
 area enligt
-
 \begin{equation*}
   \textrm{soliditet}(A) = \frac{\textrm{Area}(A)}{\textrm{Area}(A_h)},
 \end{equation*}
-
 och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
 gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 övriga fingrar riktade uppåt).
 
+\paragraph{Fyrkantighet}
 
-\paragraph{Hastighet}
-\label{feat:hastighet}
-
-Hastigheten är nära relaterad till förflyttningen
-(\ref{feat:forflytt}), men uppmäts jämfört med föregående bild
-istället för föregående nyckelbild. Detta ger ett mer kontinuerligt
-mått, men även större påverkan från små brusrörelser. Hastigheten
-definieras på det naturliga sättet:
-
+Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
+inneslutande lådan är, och på så sätt mäter den hur ''utsträckt'' en
+gest är. Dess definition är mycket enkel:
 \begin{equation*}
-  v(A^n) = \sqrt{\left(\Delta x(A^n) \right)^2
-               + \left(\Delta y(A^n) \right)^2}
+  \textrm{fyrkantighet}(A) = \frac{\textrm{Box}_w(A)}{\textrm{Box}_h(A)}.
 \end{equation*}
 
-\paragraph{Riktning}
-\label{feat:riktning}
-
-Även riktningen (en vinkel) är nära relaterad till förflyttningen, och utgör ett
-komplement till hastigheten. På samma sätt som hastigheten ger denna
-egenskap ett mer kontinuerligt men även brusigare mått på handens
-rörelse i en gest. Definitionen är naturlig:
-
-\begin{equation*}
-  \Theta(A^n) = \arctan\!2\left(
-  \Delta y(A^n), \Delta x(A^n)\right)
-\end{equation*}
-
-där $\arctan$-funktionen med två argument definieras av
-
-\begin{equation*}
-  \arctan\!2\left(y,x\right) = 2\arctan\left(
-  \frac{y}{\sqrt{x^2+y^2}+x}
-  \right).
-\end{equation*}
+En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
+fyrkantigheten avviker från detta värde desto mer avlång är gesten.
+Notera dock att detta mått är låst till $x/y$-led,
+och att
+excentriciteten mäter i princip samma sak men utgår från
+andramomenten och därmed tar hänsyn till objektets vinkel.
 
 \paragraph{Excentricitet}
 
 Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
-fyrkantigheten, \ref{feat:fyrkantighet}), och utgår från samma ellips
-som vinkeln (\ref{feat:vinkel}). Excenticiteten definieras av avståndet
-mellan andramomenten i ellipsen genom längden av den längsta axeln.
+fyrkantigheten), men utgår från den ellips
+vars andramoment är samma som objektets. Excenticiteten definieras av avståndet
+mellan andramomenten i ellipsen genom längden av den längsta axeln. Därmed
+tar måttet, till skillnad från fyrkantigheten, även hänsyn till vilken vinkel
+objektet ligger i gentemot horisontalaxeln.
 
 \paragraph{Utsträckning}
 
 Utsträckningen mäter hur stor del av den inneslutande lådan som
 faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
-till soliditeten (\ref{feat:soliditet}) och definieras enligt
-
+till konvexiteten och definieras enligt
 \begin{equation*}
   \textrm{utsträckning}(A) =
   \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
 \end{equation*}
 
-\paragraph{Fyrkantighet}
-\label{feat:fyrkantighet}
+\subsubsection{Normering och viktning för klassificering}
 
-Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
-inneslutande lådan är, och på så sätt mäter det hur ''utsträckt'' en
-gest är. Dess definition är mycket enkel:
+Eftersom många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 
+egenskapsrummet är det viktigt att egenskaperna som används varierar över
+ungefär samma värdemängd. Så är inte är fallet från början och därför måste indata
+normeras.
 
+Man kan exempelvis skala all indata så att den anpassas till en enkel
+$\N(0,1)$-distribution, antingen genom att räkna ut förskjutningsparametern
+$\mu$ och skalningsparametern $\sigma$ utifrån den faktiska värdemängden hos
+egenskaperna, eller genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
+utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana
+parametrar per egenskap i egenskapsrummet). Eftersom en del av egenskaperna har
+oändlig värdemängd är det sannolikt mer lämpligt att göra det sistnämnda.
+
+Man kan därefter använda dessa parametrar för att normalisera ny indata, så
+att även den passar in i det nya, uniforma egenskapsrummet:
 \begin{equation*}
-  \textrm{fyrkantighet}(A) = \frac{\textrm{Box}_w(A)}{\textrm{Box}_h(A)}
+	\hat{x} = \frac{x - \mu_x}{\sigma_x}
 \end{equation*}
 
-En perfekt kvadratisk låda har alltså fyrkantighet 1, och ju mer
-fyrkantigheten avviker från detta värde desto mer avlång är gesten.
-Notera dock att detta mått är låst till rutnätet, och att
-excentriciteten mäter i princip samma sak men utgår från den
-omslutande ellipsen och därmed inte är låst till rutnätet.
-
-\subsubsection{Normalisering och viktning}
-
-För att bättre kunna jämföra egenskaperna och visualisera hur det
-förhåller sig till varandra kan man normalisera dem, till exempel så
-att de alltid (eller oftast) antar värden mellan $-1$ och $1$. För
-exempelvis vinklar är detta enkelt (applicera helt enkelt en
-trigonometrisk funktion, t.ex. $\cos(x)$), för andra egenskaper är det
-irrelevant eftersom de redan faller inom detta intervall (detta gäller
-de flesta kvoterna, som antar värden mellan 0 och 1), men för några
-egenskaper är det icketrivialt.
-
-För att normalisera hastigheterna behöver man ett bra ungefärligt mått
-som är konstant över olika gester. Vi har funnit att en fjärdedel av
-bildbredden ger en bra normalisering för hastigheter, förutsatt att
-bildformatet är 4:3 --- det är osannolikt att en hand rör sig längre
-än så mellan bilder, även när det gäller nyckelbilder.
-
-När vi sedan ska klassificera bilderna är det givetvis relevant att
-vikta måtten; detta gör stor skillnad i avståndet och reflekterar
-hur relativt viktiga de olika egenskaperna är.
-
-\notes{Vilka vikter ska vi ha?
-Hur kommer vi fram till dessa?}
+Vill man därefter optimera klassificeraren och se till att den tar större hänsyn
+till vissa gester kan man även införa en viktningskonstant $w_x$. En stor
+sådan gör att egenskapen har större betydelse (eftersom avståndet då ökar
+snabbare). Denna konstant appliceras lämpligen direkt efter normeringen.
 
 \end{document} 
 

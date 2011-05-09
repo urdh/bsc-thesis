@@ -1,41 +1,24 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-\subsection{Klassificering}
-En HMM behöver distinkta observationer för att fungera; dessa
-observationer kommer vi att identifiera med hjälp av klassificering av
-nyckelbilder ur videon utifrån ett antal egenskaper vi identifierar
-med hjälp av den binära hudkartan för motsvarande bild.
+\subsection{Statistisk klassificering}\label{sec:klassificering}
 
-Själva klassificeringen är mycket enkel. Vi utgår från ett vektorrum
-av egenskaper, där varje egenskap representerar en dimension. I detta
-vektorrum placerar vi ut nyckelbilder från förinspelade gester, genom
-att för varje (nyckel)bild i videosekvensen beräkna alla egenskaper.
-Efter detta gallras nyckelbilderna ut, så att de som ligger allt för
-nära varandra tas bort, tills antalet nyckelbilder är tillräckligt
-litet (cirka tio stycken).
-Detta ger oss en slags kodbok vilken vi sedan kan använda för att
-klassificera bilder från andra videosekvenser. 
+Klassificering är ett viktigt statistiskt verktyg, speciellt när det gäller
+kvantitativ analys. Beroende på tillfälle finns det olika metoder för
+klassificering; enkla sannolikhetsbaserade metoder som Gaussian Mixture
+Models eller mer deterministiska metoder så som \knn-metoden.
 
-\marginpar{Vikta vissa features?}
+Klassificering handlar egentligen om att göra en kvalificerad gissning
+i någon fråga, t.ex.~om en bildpunkt innehåller hud, eller om ett område har
+en viss form. I denna mening måste man alltid ha ''träningsdata'' att jämföra med
+till sin
+klassificerare, även om det inte alltid handlar om faktisk träning. Angreppssätt
+så som HMM, skogar av slumpmässiga träd, genetiska metoder och liknande kräver
+träning i form av att känd data matas in i klassificeraren varpå denne
+konstruerar en struktur som används för framtida klassificering.
+Enklare metoder så som \knn 
+kräver endast känd data att jämföra med; denna data är då prototypdata.
 
-Detta görs genom att för varje bild beräkna en egenskapsvektor, som
-sedan jämförs med de sparade vektorerna. Bilden klassificeras sedan
-genom den nyckelbild som ligger närmst i egenskapsrummet enligt något
-lämpligt mått (exempelvis det euklidiska avståndet). Detta gör att vi
-får en stadig ström av heltal (en per bild i videosekvensen) som i
-någon mening projicerar videosekvensen på mängden av sparade
-nyckelbilder --- dessa heltal skickas sedan till en HMM som avgör om
-videosekvensen faktiskt liknar den gest som definieras av dessa
-sparade nyckelbilder.
-
-%Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
-%per gest; detta eftersom vi har en HMM per gest.
-%
-%\marginpar{Eller, hur ska vi göra egentligen? En eller flera
-% kodböcker? Hur skalar algoritmerna, hur jobbigt blir det? Säger
-% någon referens något om detta?}
-
-\subfile{kapitel/features.tex}
+\notes{Behövs det mer här?}
 
 \end{document} 
 

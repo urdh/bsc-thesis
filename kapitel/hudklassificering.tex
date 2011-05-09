@@ -1,144 +1,202 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{Klassificering av hudfärg och urskiljning av händer}
+\subsection{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
 
-För att skilja pixlar med hud från bakgrundspixlar, vilket är ett
-centralt problem inom gestigenkänning, används en modell där pixelfärgen antas
-bero stokastiskt på om det är en hud- eller
-bakgrundspixel. Pixelfärgen antas vara en multivariat normalfördelad
-slumpvariabel, där fördelningen beror på om pixeln innehåller hud
-eller inte. För att täcka olika hudfärger kan en uppsättning olika
-fördelningar för hudfärger användas (\cite{Elmezain08}), där en total
-sannolikhetsfördelning sedan är en linjärkombination av dessa. Det
-samma kan göras med sannolikhetsfördelningen för pixlar som inte
-innehåller hud. I vårt arbete har vi dock avänt en enda fördelning för
-hud, och ''ohudsfördelningen'' har antagits vara konstant. Detta då en
-uppskattad normalfördelning konsekvent fick alldeles för liten
-varians. Detta resultat strämmer överens med Elmezain et al, som även
-de hade mindre varians bland pixlar som inte innehöll hud än de som
-innehöll hud.
+Delproblemen som uppstår i videobaserad gestigenkänning är två, och
+det första handlar i princip om att kunna se handen. För att göra detta
+måste först bilden behandlas och bildpunkterna klassificeras som hud eller
+icke-hud, och sedan måste bildpunkterna som är hud klassificeras som händer
+eller ickehänder.
+
+Den första biten hanteras enklast genom att transformera bilden till en
+lämplig färgrymd, sedan kan diverse statistiska metoder användas för att
+markera bildpunkterna. Detta förklaras närmre i \ref{sec:klassificering:fargrymder}
+och \ref{sec:klassificering:hud}. Nästa bit är svårare; det finns många
+mer eller mindre statistiska metoder för att göra detta. Då dessa inte är
+särskilt intressanta rent teorimässigt förklaras de först i
+\ref{sec:metod_hud:urskiljning}.
+
+\subsubsection{Färgrymder}\label{sec:klassificering:fargrymder}
+
+En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
+basvektorer är grundfärger i färgsystemet. För att kunna representera alla färger
+behöver man ett tredimensionellt färgrum, men i vissa situationer kan
+det räcka --- kanske till och med vara fördelaktigt --- med ett
+tvådimensionellt färgrum \cite{Kakumanu07}.
+
+Vilken färgrymd som är bäst för just hudklassificering beror på
+situation. RGB-liknande färgrymder har använts av bland annat
+\citeasnoun{Lockton02} och \citeasnoun{Sebe04}, och ter sig lämplig
+eftersom det är denna färgrymd som används i datorer. Perceptuella
+färgrymder som separerar kulör och styrka, till exempel HSL, har inte
+rönt någon större framgång eftersom de är prestandamässigt olämpliga
+att använda i realtidstillämpningar.
+
+Ortogonala färgrymder har däremot nått stor användning för
+hudklassificering \cite{Hsu02,Elmezain08,Hassanpour08} eftersom de
+både separerar färg från ljusstyrka och är linjärtransformationer av
+RGB och därmed prestandamässigt lämpliga för realtidsapplikationer.
+En ortogonal färgrymd som har stor utbredning och som även visat
+sig vara mycket bra \cite{Kakumanu07} är $YC_bC_r$.
+
+\subsubsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
+
+$YC_bC_r$-rymden är ett försök att ortogonalisera RGB-rymden genom en
+linjärtransformation, vilken resulterar i en basvektor som
+representerar ljusstyrka ($Y$) och två som representerar ''chroma''
+(färg), $C_b$ och $C_r$. Enligt den standard International
+Telecommunication Union publicerat \cite{ITU-BT601} ges
+linjärtransformationen av
+\begin{equation*}
+  \label{eq:farg:ycbcr}
+  \begin{gathered}
+  Y   = 16  + ( 65.481R + 128.553G + 24.966B)\\
+  C_b = 128 + (-37.797R - 74.203G  + 112.0B )\\
+  C_r = 128 + (112.0R   - 93.786G  - 18.214B)
+  \end{gathered}
+\end{equation*}
+där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
+färgens värde i RGB-rymden.
+
+\subsubsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
+
+För att skilja bildpunkter med hud från bakgrunden, vilket är ett
+centralt problem inom gestigenkänning, kan flera olika statistiska
+metoder
+appliceras. Man har till exempel gjort försök med skogar av
+slumpmässiga träd
+\cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller
+\cite{Kruppa02}
+och luddig aritmetik \cite{Shang10} --- en större undersökning av metoder
+för huddetektion gjordes av \citeasnoun{Kakumanu07}.
+
+En enklare metod som nått relativt stor framgång är den som baseras på
+Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, det vill säga
+en modell där bildpunktens färg antas bero stokastiskt på om
+bildpunkten föreställer hud eller inte.
+
+Färgen antas då vara en multivariat normalfördelad
+stokastisk variabel, där fördelningens parametrar alltså beror på om
+pixeln motsvarar hud eller inte. För att täcka olika hudfärger kan en
+uppsättning olika
+fördelningar för hudfärger användas, där den totala
+sannolikhetsfördelning sedan är en linjärkombination av dessa. Detsamma
+kan göras med sannolikhetsfördelningen för bildpunkter som inte
+innehåller hud.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen i en
 uppskattad normalfördelning krävs ett
-antal datapunkter, med vilka vi kan uppskatta parametrarna med MLE.
+antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
+likelihood-metoden.
 
-Den mulitvariata fördelningen ges av
-
+Fördelningen ges av
 \begin{equation*}
-  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
+  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2}
 \end{equation*}
-
 med kovariansmatris $\Sigma$ och väntevärde $\mu$.
-Givet $N$ datapunkter $x_i,\:1\leq i\leq N$ ges den logaritmerade
-sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$ av
-
+Givet $N$ datapunkter $\vect{x}_i,\:1\leq i\leq N$ ges den logaritmerade
+sannolikheten $l(\mu,\Sigma|\vect{x}_1,{\ldots} ,\vect{x}_N)$ av
 \begin{equation*}
   \begin{aligned}
-  l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
-                              &-\sum_{i=1}^N\frac{(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)}{2}.
+  l(\mu,\Sigma|\vect{x}_1,...,\vect{x}_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
+                              &-\sum_{i=1}^N\frac{(\vect{x}_i-\mu)^T\Sigma^{-1}(\vect{x}_i-\mu)}{2}.
   \end{aligned}
 \end{equation*}
 
 Vi kan därefter beräkna derivatan med avseende på $\mu$,
-
 \begin{equation*}
-  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1},
+  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(\vect{x}_i-\mu)^T\Sigma^{-1},
 \end{equation*}
-
 samt derivatan med avseende på $\Sigma^{-1}$,
-
 \begin{equation*}
   \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma
-  -\sum_{i=1}^N\frac{(x_i-\mu)(x_i-\mu)^T}{2}.
+  -\sum_{i=1}^N\frac{(\vect{x}_i-\mu)(\vect{x}_i-\mu)^T}{2}.
 \end{equation*}
 
-Sätter vi dem i tur och ordning till noll får vi uppskattningarna $\hat\mu$ och $\hat\Sigma$:
-
-\marginpar{Hur då? Det är \emph{inte} uppenbart!}
-
+Sätter man dem i tur och ordning till noll fås uppskattningarna
+$\hat\mu$ och $\hat\Sigma$:
+\notes{Hur då? Det är \emph{inte} uppenbart!}
 \begin{gather*}
-  \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
-  \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
+  \hat\mu    =\frac{1}{N}\sum_{i=1}^N\vect{x}_i\\
+  \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(\vect{x}_i-\hat\mu)(\vect{x}_i-\hat\mu)^T
 \end{gather*}
 
-\citeasnoun{Elmezain08} studerade $18\:972$
-hud-pixlar och $88\:320$ icke-hud-pixlar, och delade in dessa i fyra
-hudfördelningar och en icke-hud-fördelning. De fyra hudfördelningarna
-optimerades genom att varje pixel sorterades till en
-ursprungsfördelning, varefter parametrarna uppdaterades, och alla
-pixlar sorterades om efter de uppkomna fördelningarna --- detta gjordes
-iterativt till konvergens.
+För att ytterligare förbättra fördelningarna kan de antas vara
+sammansatta av flera fördelningar. En iterativ metod för optimering av
+sådana fördelningar beskrivs av \citeasnoun{Elmezain08}.
 
-%Sådana beräkningar gjordes av \citeasnoun{Elmezain08} på 18972
-%hud-pixlar och 88320 icke-hud-pixlar. Deras resultat har vi sedan
-%använt i vårt arbete.
-
-\subsubsection{SPM --- Skin Probability Map}
-
-För varje pixelfärg kan sannolikheten för att pixeln föreställer hud
-respektive ohud bestämmas med fördelningarna ovan, med en korrektion
-för att det i allmänhet är troligare att pixlar är ohud än hud. Detta
-innebär att om kvoten
+För varje bildpunktsfärg kan alltså sannolikheten för att färgen ska
+förekomma då bildpunkten föreställer hud
+respektive ickehud bestämmas. Med denna information kan man bestämma
+att om kvoten 
 \begin{multline*}
-\frac{P(\textrm{hud}|\textrm{färg})}{P(\textrm{ickehud}|\textrm{färg})}=\\
-=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg})}
- \frac{P(\textrm{färg}}{P(\textrm{ickehud})P(\textrm{ickehud}|\textrm{färg})}=\\
-=\frac{P(\textrm{färg}|\textrm{hud})P(\textrm{hud})}{P(\textrm{färg}|\textrm{ickehud})
+\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
+ \frac{\Prob(\textrm{färg}}{\Prob(\textrm{ickehud})\Prob(\textrm{ickehud}|\textrm{färg})}=\\
+=\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})
  P(\textrm{ickehud})}
 \end{multline*}
-är större än ett, så sägs pixeln föreställa hud. Kvoten
-$P(\textrm{hud})/P(\textrm{ickehud})$ sätts för att ange hur mycket vanligare ohud-pixlar
-är i bilderna. Då vår sannolikhetsfördelning för ohud är en så grov
-uppskattning, har denna kvot fått korrigeras för hand för att optimera
-resultatet.
+är större än ett, så sägs bildpunkten föreställa hud. 
 
-Problemet med denna uträkning är att sannolikheten är tidskrävande att
-räkna ut, och därför olämplig att göra för varje pixel i varje bild i
-filmen. Detta löses genom att göra beräkningen en gång för alla för
-varje tänkbar färg ($256^2$ stycken). Resultatet sparas sedan i en
-matris $256\times256$-matris, där färgen blir en koordinat. Denna matris
-kallas för en Skin Probability Map, och genom att slå i den kan man
-direkt se om en pixel ska klassas som hud eller ej.
+\subsubsection{Morfologiska operationer}\label{sec:morph}
 
-\subsubsection{Urskiljning av handen}
-När väl hudpixlarna i figuren urskiljts återstår att plocka ut
-vad som är handen som ska följas. Det är troligt att man bland
-pixlarna fått med ett antal mindre områden som felaktigt bedömts vara
-hud. Dessutom är ofta huvudet med i bilden, vilket kan ställa till med
-problem. 
+Morfologiska operationer kan användas för att modifiera ''objekt'' i
+binära bilder, till exempel för att rensa bort brus eller för att
+mjuka upp kanter. Det finns fyra grundläggande morfologiska
+operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
+\emph{stängning} \cite[s.~25]{Rudemo09}.
 
-Vår lösning på problemet är att först använda den inbyggda
-matlabfunktionen \texttt{bwareaopen}, som tar bort sammanhängande 
-områden med för få pixlar. Vad som är en lagom gräns kan naturligtvis
-variera, men vi använder en gräns på 200 pixlar, vilket visar sig
-fungera väldigt bra. Därefter loopar vi igenom bildens kolonner från
-höger för att se om kolonnen innehåller någon hudpixel. Den första
-pixel som nås på detta sätt väljs till att tillhöra handen, och det
-sammanhängande område som pixeln är en del av betraktas som den sökta
-handen. Att på detta sätt välja objektet längst till höger av de
-intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
-sig dock av det högra av de två största sammanhängande objekten,
-vilket har fördelen att man inte behöver sätta en manuell gräns för
-när ett objekt är ''tillräckligt stort''. En nackdel är att man tvingas
-söka igenom hela bilden, samt att den är något svårare att
-implementera.
+Dessa definieras som operationer på mängder; specifikt mängden $A$
+av alla svarta pixlar i bilden vi behandlar, dvs. alla pixlar som är
+''avstängda'' och mängden $S$ som representerar ett strukturelement
+som i någon mening förändrar hur operationen verkar på bilden.
+Strukturelementet kan dessutom förflyttas så att dess referenspixel
+ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
+strukturelement för $S_{i,j}$.
 
-En alternativ metod för att leta från
-vänster är lätt att implementera om man vill kunna använda programmet
-som vänsterhänt, detta kommer dock att kräva en
-separat inlärningsmängd till gestigenkänningen.
+\emph{Erosionen}, som eroderar bort delar av de svarta områdena genom
+att endast behålla de pixlar vars ''omgivning'' (definierad av mängden
+$S_{i,j}$) ligger helt i mängden $A$. Vad operationen egentligen gör är alltså
+att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras enligt
+\begin{equation*}
+  A\ominus S = \{(i,j)\;:\;S_{i,j}\subseteq A\}.
+\end{equation*}
 
-Metoden kommer på detta sätt plocka med all hud som hänger samman med
-handen, inklusive armen om man använder programmet kortärmad. För att
-råda bot på detta kan man identifiera handleden och kapa handen
-där. Detta har gjorts av \citeasnoun{Deimel99}, och
-görs genom att identifiera den största cirkel
-som får plats helt i handen. Denna antas vara centrerad mitt i handen. Då
-cirkeln förstoras något är det längsta cirkelsegment som helt får
-plats i hudområdet placerat vid handleden, och mittpunktstangenten
-till segmentet är då handleden. Handen utgörs då av hudområdet på den
-sida om handleden som cirkeln befinner sig på. Denna metod har vi dock
-inte implementerat, varför vi förutsätter att användaren använder
-långärmad tröja. 
+Dess motsats, \emph{dilatation}, agerar som
+en erosion på komplementet till $A$ och definieras enligt
+\begin{equation*}
+  A\oplus S = (A^C\ominus S)^C.
+\end{equation*}
+
+Dessa operationer är i sig inte särskilt användbara då de förändrar
+arean av objektet i bilderna. Operationerna kan dock kombineras för
+att skapa operationer som i någon mening endast 
+''mjukar upp'' objektet i bilden utan att förändra deras area markant.
+Eftersom erosion och dilatation är motsatser kan dessa appliceras i
+följd för att behandla bilden och
+sedan återställa den. Detta ger upphov till två nya operationer:
+\emph{öppning} och \emph{stängning}.
+
+En öppning är en erosion följd av en dilatation, enligt
+\begin{equation*}
+  \phi_S(A)=(A\ominus S)\oplus S'.
+\end{equation*}
+
+Detta resulterar i att svart ''brus'', dvs.~svarta områden som inte kan täckas
+av $S$, försvinner i
+första steget varefter större svarta områdena utökas till sin ursprungliga
+storlek i det andra
+steget. Operationen ''öppnar upp'' vita områden.
+
+En stängning består av motsatt procedur, enligt
+\begin{equation*}
+  \Phi_S(A)=(A\oplus S)\ominus S',
+\end{equation*}
+och ger även motsatt resultat (svarta områden ''öppnas upp'').
+
+De
+båda operationerna använder utöver $A$ och $S$ även $S'$, vilket är
+$S$ roterad 180\textdegree{} runt sin referenspixel.
+
 \end{document} 
