@@ -198,13 +198,11 @@ egenskapsrummet är det viktigt att egenskaperna som används varierar över
 ungefär samma värdemängd. Så är inte är fallet från början och därför måste indata
 normeras.
 
-Man kan exempelvis skala all indata så att den anpassas till en enkel
-$\N(0,1)$-distribution, antingen genom att räkna ut förskjutningsparametern
-$\mu$ och skalningsparametern $\sigma$ utifrån den faktiska värdemängden hos
-egenskaperna, eller genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
+Man kan exempelvis skala all indata så att den anpassas till en $\N(0,1)$-distribution, genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
 utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana
-parametrar per egenskap i egenskapsrummet). Eftersom en del av egenskaperna har
-oändlig värdemängd är det sannolikt mer lämpligt att göra det sistnämnda.
+parametrar per egenskap i egenskapsrummet). Denna metod kommer inte
+att göra icke normalfördelade egenskaper normalfördelade, men alla
+egenskapers varians kommer begränsas.
 
 Man kan därefter använda dessa parametrar för att normalisera ny indata, så
 att även den passar in i det nya, uniforma egenskapsrummet:
