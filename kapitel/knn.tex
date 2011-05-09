@@ -3,14 +3,16 @@
 
 \subsection{$k$-nearest-neighbour}\label{sec:knn}
 
-\knn eller $k$ närmsta grannar är en klassificeringsmetod som baserat på
-prototypobjekt i egenskapsrummet tilldelar en klass observerad punkt i rummet.
-Prototypobjekten är en redan klassificerad inlärningsmängd, och vi undrar vilken
-av dessa klasser vår observation tillhör.
+\knn eller $k$ närmsta grannar är en klassificeringsmetod som baserat
+på
+prototypobjekt i egenskapsrummet tilldelar en klass till en observerad
+punkt i rummet.
+Prototypobjekten är redan klassificerade objekt i en inlärningsmängd,
+och uppgiften är att bestämma vilken klass ett nytt testobjekt tillhör.
 
-Klasserna är här olika statiska gester, eller olika grupper i egenskapsrummet. För
-varje observerad bildruta ska vi alltså undersöka om den hör till någon av de
-kända klasserna.
+Klasserna är här olika statiska gester, eller olika grupper i
+egenskapsrummet. För
+varje observerad bildruta undersöker man alltså vilken klass den tillhör.
 
 Avståndet som används är det euklidiska, dvs
 \begin{equation*}
@@ -36,8 +38,10 @@ nära grannar vinner, se figur \ref{fig:knn-overview}.
 För att metoden ska fungera krävs att alla klasser är representerade med lika
 många prototypobjekt, annars får vissa klasser större vikt och kommer med högre
 sannolikhet att väljas. Metoden bygger också på att en stor mängd data finns
-tillgänglig --- prototypmängden representerar då den sanna fördelningen hos datamängden
-och är därför ofta att föredra framför en Gaussian Mixture Model, där varje klass
+tillgänglig --- prototypmängden representerar då den sanna
+fördelningen hos datamängden
+och är därför ofta att föredra framför en Gaussian Mixture Model, där
+varje klass
 approximeras av sina anpassade parametrar.
 \notes{cite Röding?}
 
