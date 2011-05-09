@@ -2,64 +2,80 @@
 \begin{document}
 
 \subsection{Klassificering av gester} 
+\notes{intro?}
+
 \subsubsection{Konstruktion av prototypmängd för \knn}
-Genom att plocka ut tre femtedelar av de filmade gesterna får vi en
-representativ inlärningsmängd. Ur denna tar vi sedan den första bildrutan i
-varje film, då de efterföljande är alltför lika för att tillföra något. Vi
-sparar dessa bilders egenskapsvektorer i en matris. Varje gest får 24 punkter i
-egenskapsrummet. Till matrisen har vi även lagt två kolonner som identifierar
-raden, en som specificerar gesten och en som säger vilken filmsekvens den härrör
-ur. På så vis kan vi alltid spåra felklassificerade gester.
+Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
+representativ inlärningsmängd. Ur denna tog vi sedan den första bildrutan i
+varje film, då de efterföljande var allt för lika för att tillföra något. Vi
+sparade dessa bilders egenskapsvektorer i en matris --- varje gest 
+fick därmed 24 punkter i
+egenskapsrummet. Till matrisen hade vi även lagt två kolonner som identifierade
+varje rad, en som specificerade gesten och en som sade vilken filmsekvens den
+hämtats ur. På så vis kunde vi hela tiden spåra felklassificerade gester.
 
-De övriga två femtedelarna av filmerna används som testmängd. Här använde vi oss
+De övriga två femtedelarna av filmerna användes som testmängd. Här använde vi oss
 av de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
-En oberoende testmängd är viktigt för att kunna säga att klassificeraren är
-stark. Vi testade dessutom med ytterligare personer som överhuvdtaget inte
-existerade i vår inlärningsmängd.
+En oberoende testmängd är viktigt för att kunna säga om klassificeraren är
+stark eller inte. Vi testade dessutom med ytterligare personer som
+inte redan existerade i vår inlärningsmängd.
 
-\subsubsection{Implementation och test av \knn}
-Klassificeringen av testfilmernas gester genomfördes med hjälp av MATLABs
-inbyggda funktion \texttt{knnsearch}. Med hjälp av den nyligen skapade
-inlärningsmängden som grund kunde vi nu köra testfilmernas bilder,
-eller närmare bestämt deras egenskapsvektorer, genom funktionen och därmed finna de $k$ närmaste indexen.
-Detta följdes av en majoritetsomröstning där det index som förekom flest gånger
-avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta
-klassificeringar lagrades även för vilka andra gester den aktuella gesten
-felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur
-gesternas eventuella snarlikhet påverkade resultatet.
+%% Förklarar snarare vad KNN är än vad vi gjort?
+%\subsubsection{Implementation och test av \knn}
+%Klassificeringen av testfilmernas gester genomfördes med hjälp av \MATLAB{}s
+%inbyggda funktion \texttt{knnsearch}. Med hjälp av den nyligen skapade
+%inlärningsmängden som grund kunde vi köra testfilmernas bilder,
+%eller närmare bestämt deras egenskapsvektorer genom algoritmen och därmed
+%finna de $k$ närmsta prototyperna.
+%
+%Detta följdes av en majoritetsomröstning där det index som förekom flest gånger
+%avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta
+%klassificeringar lagrades även för vilka andra gester den aktuella gesten
+%felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur
+%gesternas eventuella snarlikhet påverkade resultatet.
 
 \subsubsection{Optimering av antal egenskaper och grannar i \knn}
-Upp till denna punkt har vi endast definierat ett antal egenskaper utan att
-diskutera huruvida de är användbara som klassificerare eller inte. Att finna
+Upp till denna punkt hade vi endast definierat ett antal egenskaper utan att
+diskutera huruvida de var användbara som klassificerare eller inte. Att finna
 klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är
 fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets
 prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man
-eliminera de egenskaper som rentav försämrar chanserna till en korrekt
-klassificering. Det kan handla om egenskaper som är överdrivet utspridda i
+eliminera de egenskaper som kanske rentav försämrar chanserna till en korrekt
+klassificering.Det kan handla om egenskaper som är överdrivet utspridda i
 vektorrummet eller instabila egenskaper som förorenar datan med slumpmässiga
-variationer. Då vi först tog oss an problemet att finna de bäst klassificerande
+variationer.
+
+Då vi först tog oss an problemet att finna de bäst klassificerande
 egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att helt
-enkelt testa olika permutationsföljder av egenskaper, följder av en viss längd.
-Att detta ger upphov till enorma beräkningskrav är tydligt då man som i vårat
-fall behandlar femton stycken egenskaper. Den andra angreppsvinkeln utnyttjar
+enkelt testa olika långa permutationsföljder av egenskaper ---
+men att detta ger upphov till enorma beräkningskrav är tydligt. 
+Den andra angreppsvinkeln utnyttjar
 möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en
-större inverkan. Denna metod har i större utsträckning använts inom
-röst/gestigenkänning med exempel som (REFERENSER). Man optimerar alltså
+större inverkan. Denna metod har tidigare använts inom
+röst/gestigenkänning med exempel som \notes{(REFERENSER)}. Man optimerar då
 viktfördelninger för att ett nå så bra resultat som möjligt, följt av att man
-utesluter de egenskaper som inte bidrar till diskrimineringen. (Nämna att vi
-testade denna variant?) Den tredje metoden, och den vi slutligen kom att
-använda, var utformad på så sätt att vi först identifierade den egenskap som
+utesluter de egenskaper som inte bidrar till diskrimineringen. Vi experimenterade
+med denna metod lite kort, men konstaterade snart att den var allt för 
+beräkningsintensiv för våra tillämpningar.
+
+Den tredje metoden --- som vi slutligen kom att
+använda --- var utformad på så sätt att vi först identifierade den egenskap som
 ensam gav störst antal korrekta klassificeringar. Därefter identifierades
-egenskapen som tillsammans med den första gav bäst resultat, osv. Detta
+egenskapen som tillsammans med den första gav bäst resultat --- detta
 upprepades tills det att samtliga egenskaper var inkluderade. Då detta
 inträffade lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, följt av
 att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen
-arbetade alltså i linje med följande flowchart:  
+arbetade alltså i linje med flödesschemat i figur~\ref{fig:knn-flowchart}. 
 
-(BEHÖVER EPISK FLOWCHART)
+\begin{figure}[tbp]
+	\centering 
+	%\includegraphics...
+	\caption{\notes{FLOWCHART!}}
+	\label{fig:knn-flowchart}
+\end{figure}
 
 I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån
-användandet av endast den främsta egenskapen, de två främsta, osv, upp till
+endast den främsta egenskapen, de två främsta och så vidare upp till
 samtliga femton egenskaper. Vi lät även $k$ variera mellan 1 och 13 för att få
 en uppfattning av dess inverkan. Trots att algoritmen är krävande att köra bör
 det nämnas att den inte är inte är lika beräkningsintensiv som de två
