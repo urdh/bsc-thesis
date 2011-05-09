@@ -8,7 +8,7 @@ prototypobjekt i egenskapsrummet tilldelar en klass observerad punkt i rummet.
 Prototypobjekten är en redan klassificerad inlärningsmängd, och vi undrar vilken
 av dessa klasser vår observation tillhör.
 
-Klasserna är här olika statiska gester, eller olika grupper i featurerummet. För
+Klasserna är här olika statiska gester, eller olika grupper i egenskapsrummet. För
 varje observerad bildruta ska vi alltså undersöka om den hör till någon av de
 kända klasserna.
 
@@ -34,11 +34,11 @@ nära grannar vinner, se figur \ref{fig:knn-overview}.
 \end{figure}
 
 För att metoden ska fungera krävs att alla klasser är representerade med lika
-många prototypobjekt. Annars får vissa klasser större vikt och kommer med högre
+många prototypobjekt, annars får vissa klasser större vikt och kommer med högre
 sannolikhet att väljas. Metoden bygger också på att en stor mängd data finns
-tillgänglig. Prototypmängden representerar den sanna fördelningen hos datamängden
+tillgänglig --- prototypmängden representerar då den sanna fördelningen hos datamängden
 och är därför ofta att föredra framför en Gaussian Mixture Model, där varje klass
-approximeras med sina anpassade parametrar.
+approximeras av sina anpassade parametrar.
 \notes{cite Röding?}
 
 %Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok

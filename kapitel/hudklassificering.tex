@@ -20,7 +20,7 @@ särskilt intressanta rent teorimässigt förklaras de först i
 \subsubsection{Färgrymder}\label{sec:klassificering:fargrymder}
 
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
-basvektorer är grundfärger i färsystemet. För att kunna representera alla färger
+basvektorer är grundfärger i färgsystemet. För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
 det räcka --- kanske till och med vara fördelaktigt --- med ett
 tvådimensionellt färgrum \cite{Kakumanu07}.
@@ -51,12 +51,11 @@ linjärtransformationen av
 \begin{equation*}
   \label{eq:farg:ycbcr}
   \begin{gathered}
-  Y   = 16  + ( 65.481R + 128.553G + 24.966B),\\
-  C_b = 128 + (-37.797R - 74.203G  + 112.0B ),\\
-  C_r = 128 + (112.0R   - 93.786G  - 18.214B).
+  Y   = 16  + ( 65.481R + 128.553G + 24.966B)\\
+  C_b = 128 + (-37.797R - 74.203G  + 112.0B )\\
+  C_r = 128 + (112.0R   - 93.786G  - 18.214B)
   \end{gathered}
 \end{equation*}
-
 där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
 färgens värde i RGB-rymden.
 
@@ -81,7 +80,7 @@ Färgen antas då vara en multivariat normalfördelad
 stokastisk variabel, där fördelningens parametrar alltså beror på om
 pixeln motsvarar hud eller inte. För att täcka olika hudfärger kan en
 uppsättning olika
-fördelningar för hudfärger användas, där en total
+fördelningar för hudfärger användas, där den totala
 sannolikhetsfördelning sedan är en linjärkombination av dessa. Detsamma
 kan göras med sannolikhetsfördelningen för bildpunkter som inte
 innehåller hud.
@@ -91,44 +90,44 @@ uppskattad normalfördelning krävs ett
 antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
 likelihood-metoden.
 
-Fördelningen gess allmänt av
+Fördelningen ges av
 \begin{equation*}
-  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(x-\mu)^T\Sigma^{-1}(x-\mu)/2}
+  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2}
 \end{equation*}
 med kovariansmatris $\Sigma$ och väntevärde $\mu$.
-Givet $N$ datapunkter $x_i,\:1\leq i\leq N$ ges den logaritmerade
-sannolikheten $l(\mu,\Sigma|x_1,{\ldots} ,x_N)$ av
+Givet $N$ datapunkter $\vect{x}_i,\:1\leq i\leq N$ ges den logaritmerade
+sannolikheten $l(\mu,\Sigma|\vect{x}_1,{\ldots} ,\vect{x}_N)$ av
 \begin{equation*}
   \begin{aligned}
-  l(\mu,\Sigma|x_1,...,x_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
-                              &-\sum_{i=1}^N\frac{(x_i-\mu)^T\Sigma^{-1}(x_i-\mu)}{2}.
+  l(\mu,\Sigma|\vect{x}_1,...,\vect{x}_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
+                              &-\sum_{i=1}^N\frac{(\vect{x}_i-\mu)^T\Sigma^{-1}(\vect{x}_i-\mu)}{2}.
   \end{aligned}
 \end{equation*}
 
 Vi kan därefter beräkna derivatan med avseende på $\mu$,
 \begin{equation*}
-  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(x_i-\mu)^T\Sigma^{-1},
+  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(\vect{x}_i-\mu)^T\Sigma^{-1},
 \end{equation*}
 samt derivatan med avseende på $\Sigma^{-1}$,
 \begin{equation*}
   \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma
-  -\sum_{i=1}^N\frac{(x_i-\mu)(x_i-\mu)^T}{2}.
+  -\sum_{i=1}^N\frac{(\vect{x}_i-\mu)(\vect{x}_i-\mu)^T}{2}.
 \end{equation*}
 
 Sätter man dem i tur och ordning till noll fås uppskattningarna
 $\hat\mu$ och $\hat\Sigma$:
 \notes{Hur då? Det är \emph{inte} uppenbart!}
 \begin{gather*}
-  \hat\mu    =\frac{1}{N}-\sum_{i=1}^Nx_i\\
-  \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(x_i-\hat\mu)(x_i-\hat\mu)^T
+  \hat\mu    =\frac{1}{N}\sum_{i=1}^N\vect{x}_i\\
+  \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(\vect{x}_i-\hat\mu)(\vect{x}_i-\hat\mu)^T
 \end{gather*}
 
 För att ytterligare förbättra fördelningarna kan de antas vara
 sammansatta av flera fördelningar. En iterativ metod för optimering av
-sådana fördelningar beskrivs av \citeasnoun{Elmezain08}
+sådana fördelningar beskrivs av \citeasnoun{Elmezain08}.
 
-För varje pixelfärg kan alltså sannolikheten för att färgen ska
-förekomma då pixeln föreställer hud
+För varje bildpunktsfärg kan alltså sannolikheten för att färgen ska
+förekomma då bildpunkten föreställer hud
 respektive ickehud bestämmas. Med denna information kan man bestämma
 att om kvoten 
 \begin{multline*}
@@ -138,7 +137,7 @@ att om kvoten
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})
  P(\textrm{ickehud})}
 \end{multline*}
-är större än ett, så sägs pixeln föreställa hud. 
+är större än ett, så sägs bildpunkten föreställa hud. 
 
 \subsubsection{Morfologiska operationer}\label{sec:morph}
 
@@ -146,7 +145,7 @@ Morfologiska operationer kan användas för att modifiera ''objekt'' i
 binära bilder, till exempel för att rensa bort brus eller för att
 mjuka upp kanter. Det finns fyra grundläggande morfologiska
 operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
-\emph{stängning} \cite[ss.~25]{Rudemo09}.
+\emph{stängning} \cite[s.~25]{Rudemo09}.
 
 Dessa definieras som operationer på mängder; specifikt mängden $A$
 av alla svarta pixlar i bilden vi behandlar, dvs. alla pixlar som är
@@ -171,9 +170,9 @@ en erosion på komplementet till $A$ och definieras enligt
 \end{equation*}
 
 Dessa operationer är i sig inte särskilt användbara då de förändrar
-arean av objekten i bilderna. Operationerna kan dock kombineras för
+arean av objektet i bilderna. Operationerna kan dock kombineras för
 att skapa operationer som i någon mening endast 
-''mjukar upp'' objekten i bilden utan att förändra deras area markant.
+''mjukar upp'' objektet i bilden utan att förändra deras area markant.
 Eftersom erosion och dilatation är motsatser kan dessa appliceras i
 följd för att behandla bilden och
 sedan återställa den. Detta ger upphov till två nya operationer:
@@ -184,8 +183,10 @@ En öppning är en erosion följd av en dilatation, enligt
   \phi_S(A)=(A\ominus S)\oplus S'.
 \end{equation*}
 
-Detta resulterar i att svart ''brus'', dvs.~svarta områden som inte kan täckas av $S$, försvinner i
-första steget varefter större svarta områdena utökas igen i det andra
+Detta resulterar i att svart ''brus'', dvs.~svarta områden som inte kan täckas
+av $S$, försvinner i
+första steget varefter större svarta områdena utökas till sin ursprungliga
+storlek i det andra
 steget. Operationen ''öppnar upp'' vita områden.
 
 En stängning består av motsatt procedur, enligt

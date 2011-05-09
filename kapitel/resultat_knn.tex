@@ -3,14 +3,14 @@
 
 \subsection{Klassificering av gester med hjälp av \knn}
 Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91,5\%.
-Denna procent uppnåddes då samtliga gester var inkluderade, antalet aktiverade
-egenskaper var 10 och värdet på $k$ i kNN-metoden var 7. Egenskaperna som
+Denna andel uppnåddes då samtliga gester var inkluderade, antalet aktiverade
+egenskaper var 10 och värdet på $k$ i \knn-metoden var 7. Egenskaperna som
 användes var det första, andra, tredje och sjunde Hu-momentet, centroidens
 position i den inneslutande lådan, fyrkantighet, soliditet, excentricitet,
-konvexitet och utsträckning. Följande plot visar hur andelen korrekta
-klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$:
+konvexitet och utsträckning. Figur~\ref{fig:knn-optimering} visar hur andelen korrekta
+klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
-\begin{figure}[!htpb]
+\begin{figure}[tb]
     \begin{center}
         \includegraphics[trim=2cm 2cm 2cm 2cm, width=\columnwidth]{bilder/knn_optimering}
     \end{center}
@@ -33,11 +33,11 @@ y-position i den inneslutande lådan, fyrkantighet, soliditet,
 excentricitet, konvexitet, första Hu-momentet, utsträckning och det
 sjunde Hu-momentet.) Finns i tabell~\ref{tab:bestfeats}} 
 
-\begin{table}
+\begin{table}[tb]
 	  \centering
 		\label{tab:tolkningsmatris}
 		\caption{SKRIV MIG!}
-    \includegraphics[trim=0 0 0 2.5cm]{bilder/tolkningsmatris.pdf}
+    \includegraphics[trim=2cm 15cm 6cm 2.5cm,clip=true]{bilder/tolkningsmatris.pdf}
 		%\begin{tabular}{l|cccccccccc}
 		%\backslashbox{Verklig}{Tolkad} & a & b & c & d & e & Sten & Sax & Påse & Spock & Seger\\
 		%\toprule

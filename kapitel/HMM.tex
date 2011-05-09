@@ -6,8 +6,8 @@
 En Hidden Markov model (HMM) är en stockastisk signalmodell som
 beskriver ett system bestående av ett ändligt antal tillstånd. Likt en
 vanlig Markovmodell förflyttar man sig sedan efter en given
-sannolikhetsfördelning mellan tillstånden. Det som gör HMMs ''hidden'',
-eller ''dolda'' är det faktum att varje tillstånd i sin tur genererar
+sannolikhetsfördelning mellan tillstånden --- det som gör HMMs 
+''dolda'' är det faktum att varje tillstånd i sin tur genererar
 symboler efter ännu en sannolikhetsfördelning. Då man i standardfallet
 observerar modellens tillstånd direkt, observaras nu istället de
 symboler som genereras då tillstånden växlar, symboler som motsvarar
@@ -28,14 +28,14 @@ tillstånd. Den förstnämnda personen rör sig mellan tärningarna
 (symbolerna) som genereras av dem. 
 \end{quote}
 
-Problematiken består nu i att konstruera den HMM som bäst beskriver
+Problematiken består då i att konstruera den HMM som bäst beskriver
 processen.  
 
 HMM tillämpat på röst- och gestigenkänning är inget nytt. Redan i
 slutet av 60-talet presenterade \citeasnoun{Baum66-72} den
 grundläggande teorin, och i början av 70-talet
 implementerades modellen i samband med röstigenkänning av både
-\citeasnoun{Baker75} och av \citeasnoun{Jelinek69}. I slutet av
+\citeasnoun{Baker75} och \citeasnoun{Jelinek69}. I slutet av
 80-talet presenterades en sammanfattande artikel om röstigenkänning
 med hjälp av HMM \cite{Rabiner89}, som till stor del ligger till
 grund för följande teoretiska framställning. Tillämpningar gentemot
@@ -46,34 +46,36 @@ och så sent som 2008 av \citeasnoun{Elmezain08}.
 \subsubsection{Beståndsdelarna av en HMM}
 
 En HMM karakteriseras av följande:
-\begin{enumerate}
-\item N, antalet tillstånd i modellen. Vi betecknar de olika
+\begin{itemize}
+\item $N$, antalet tillstånd i modellen. Vi betecknar de olika
   tillstånden som $S = \{S_1, S_2, \dots, S_N\}$, och tillståndet vid
   tiden $t$ som $q_t$.
-\item M, antalet distinkta observationssymboler för ett givet
-  tillstånd. De individuella symbolerna beteckner vi som $V =
+\item $M$, antalet distinkta observationssymboler för ett givet
+  tillstånd. De individuella symbolerna betecknar vi som $V =
   \{v_1,v_2,\dots,v_M\}$.
-\item A, en övergångsmatris där varje element ger sannolikheten att
+\item $A$, en övergångsmatris där varje element ger sannolikheten att
   vandra från ett tillstånd till ett annat, 
 \begin{equation*}
 a_{ij} = \Prob(q_{t+1} = S_j|q_t = S_i),\quad 1 \leq i,j \leq N.
 \end{equation*}
+
 I fallet då man kan nå alla tillstånd från vilket tillstånd som helst
-med ett enda steg har vi alltså $a_{ij} > 0$ för alla $i,j$. 
+med ett enda steg har vi alltså $a_{ij} > 0,\;\forall i,j$. 
 \item Sannolikhetsfördelning för observationssymboler givet ett
   specifikt tillstånd $j$, $B = b_j(k)$, där 
 \begin{align*}
 b_j(k) = \Prob(v_k \text{ vid tiden } t|q_t = S_j) \quad &1 \leq j \leq N\\
 &1 \leq k \leq M.
 \end{align*}
+
 $B(j,k)$ ger med andra ord sannolikheten att symbolen $v_k$ genereras
 då vi befinner oss i tillstånd $j$.
-\item Sannolikhetsfördelning för begynnelsetillstånd, $\pi =
+\item Sannolikhetsfördelningen för ett begynnelsetillstånd, $\pi =
   \{\pi_i\}$, där
 \begin{equation*}
 \pi_i = \Prob(q_1 = S_i).
 \end{equation*}
-\end{enumerate}
+\end{itemize}
 Givet parametrarna $M$ och $N$, en specificering av symboler, samt de
 tre sannolikhetsmåtten $A, B$ och $\pi$ är det alltså möjligt att
 fullständigt specificera en HMM. I fortsättningen kommer vi att
@@ -88,7 +90,7 @@ tre grundläggande frågor för implementerandet av en HMM, varav följande
 två är av intresse i den här rapporten:
 \begin{description}
 \item[Problem 1:] Givet en sekvens av observationer
-  $\{O_1,O_2,\dots,O_t\}$ och en modell $\lambda = (A,B,\pi)$, hur
+  $\vect{O}=\{O_1,O_2,\dots,O_t\}$ och en modell $\lambda = (A,B,\pi)$, hur
   beräknar man $\Prob(\vect{O}|\lambda)$, dvs sannolikheten att
   sekvensen genererades av modellen $\lambda$? Mer därtill, hur kan
   det göras så effektivt som möjligt?, en fråga som skall visa sig
@@ -120,14 +122,14 @@ man önskar modellera.
 \notes{Använda bilder i denna sektion?}
 
 En användbar metod introducerades av \citeasnoun{Baum67}, kallad
-\emph{the Forward-Backward procedure}. Vi
+\emph{forward-backward}-proceduren. Vi
 definierar framåtvariabeln $\alpha_t(i)$ som 
 \begin{equation*}
 \alpha_t(i) = \Prob(O_1,O_2,\dots,O_t,q_t = S_i | \lambda),
 \end{equation*}
 alltså sannolikheten att ha genererat observationsföljden $\textbf{O}
 = \{O_1,O_2,\dots,O_t$\}, samt befinna sig i tillstånd $S_i$ vid tiden
-$t$, givet en modell $lambda$. En av metodens fördelar är att man med
+$t$, givet en modell $\lambda$. En av metodens fördelar är att man med
 hjälp av induktion kan finna $\alpha_t(i)$. Processen utgörs av
 följande tre steg: 
 
@@ -161,7 +163,7 @@ sannolikheten att generera $O_2$, då man befinner sig i $S_j$ med en
 observerad symbol $O_1$, eller med andra ord, $\Prob(O_1,O_2,S_j
 = q_2 | \lambda) = \alpha_2(j)$. Fortsätter man på samma vis har man
 slutligen $\alpha_T(i) = \Prob(O_1,O_2,\dots,O_T,S_i = q_T |
-\lambda)$. Steg 3) ger slutligen svaret på problem 1, nämligen
+\lambda)$. Steg 3 ger slutligen svaret på problem 1, nämligen
 sannolikheten $\Prob(\vect{O}|\lambda)$. Detta inses lätt då vi
 använder oss av definitionen av $\alpha_T(i)$, 
 \begin{equation*}
@@ -257,13 +259,13 @@ Den iterativa metoden som återuppskattar modellens parametrar $A,B$
 och $\lambda$ kan nu skrivas som
 \begin{equation*}
 \bar{\lambda} = \text{förväntat antal gånger i tillstånd $S_i$ vid
-  $t=1$} = \gamma_i(i).
+  $t=1$} = \gamma_i(i),
 \end{equation*}
 \begin{multline*}
 \bar{A}_{ij} = \\ = \frac{\text{förväntat antal förflyttningar från
     tillstånd $S_i$ till $S_j$}}{\text{förväntat antal förflyttningar
     från tillstånd $S_i$}} = \\ =
-\frac{\sum_{t=1}^{T-1}\xi_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)}.
+\frac{\sum_{t=1}^{T-1}\xi_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)},
 \end{multline*}
 \begin{multline*}
 \bar{B}_j(k) = \\ = \frac{\text{förväntat antal gånger i tillstånd $S_j$
@@ -283,30 +285,30 @@ visade att denna iterativa process faktiskt resulterar antingen i
   $\Prob(\vect{O}|\bar{\lambda}) > \Prob(\vect{O}|\lambda)$
 \end{inparaenum}. 
 
-\subsubsection{Olika typer av HMMs}
-
-Då man talar om olika typer av HMMs syftar man först och främst på
-vilken typ av övergångsmatris som används. Hittills har vi bara nämnt
-fallet där $A_{ij} > 0$ för alla $i,j$, även kallad en ergodisk
-modell. (Närmare bestämt innebär ergodicitet i sammanhanget att varje
-tillstånd kan nås från alla andra tillstånd inom ändlig tid.) Om vi
-tänker oss en modell med 4 st tillstånd får vi följaktligen övergångsmatrisen
-\begin{multline*}
-\bar{B}_j(k) = \\ =
-\frac{\text{förväntat antal gånger i tillstånd $S_j$
-    och observerandes symbol $v_k$}}{\text{förväntat antal gånger i
-    tillstånd $S_j$}} = \\ = \frac{\sum_{\substack{t=1\\s.t~ O_t =
-      v_k}}^{T-1}\gamma_t{j}}{\sum_{t=1}^{T-1}\gamma_t(j)}.
-\end{multline*}
-
-Vänsterleden fås alltså genom att ta den nuvarande modellen $\lambda =
-(A,B,\pi)$, beräkna högerleden, och därigenom erhålla $\bar{\lambda} =
-(\bar{A},\bar{B}, \bar{\pi})$. Baum och hans kollegor visade
-(Baum68,Baker75) att denna iterativa process faktiskt resulterar
-antingen i 1) ett lokalt maximum för $\Prob(\vect{O}|\lambda)$
-(alltså att $\lambda = \bar{\lambda}$), eller 2) i en förbättrad
-modell $\bar{\lambda}$ på så sätt att
-$\Prob(\vect{O}|\bar{\lambda}) > \Prob(\vect{O}|\lambda)$. 
+%\subsubsection{Olika typer av HMMs}
+%
+%Då man talar om olika typer av HMMs syftar man först och främst på
+%vilken typ av övergångsmatris som används. Hittills har vi bara nämnt
+%fallet där $A_{ij} > 0$ för alla $i,j$, även kallad en ergodisk
+%modell. (Närmare bestämt innebär ergodicitet i sammanhanget att varje
+%tillstånd kan nås från alla andra tillstånd inom ändlig tid.) Om vi
+%tänker oss en modell med 4 st tillstånd får vi följaktligen övergångsmatrisen
+%\begin{multline*}
+%\bar{B}_j(k) = \\ =
+%\frac{\text{förväntat antal gånger i tillstånd $S_j$
+%    och observerandes symbol $v_k$}}{\text{förväntat antal gånger i
+%    tillstånd $S_j$}} = \\ = \frac{\sum_{\substack{t=1\\s.t~ O_t =
+%      v_k}}^{T-1}\gamma_t{j}}{\sum_{t=1}^{T-1}\gamma_t(j)}.
+%\end{multline*}
+%
+%Vänsterleden fås alltså genom att ta den nuvarande modellen $\lambda =
+%(A,B,\pi)$, beräkna högerleden, och därigenom erhålla $\bar{\lambda} =
+%(\bar{A},\bar{B}, \bar{\pi})$. Baum och hans kollegor visade
+%(Baum68,Baker75) att denna iterativa process faktiskt resulterar
+%antingen i 1) ett lokalt maximum för $\Prob(\vect{O}|\lambda)$
+%(alltså att $\lambda = \bar{\lambda}$), eller 2) i en förbättrad
+%modell $\bar{\lambda}$ på så sätt att
+%$\Prob(\vect{O}|\bar{\lambda}) > \Prob(\vect{O}|\lambda)$. 
 
 \subsubsection{Olika typer av HMMs}
 

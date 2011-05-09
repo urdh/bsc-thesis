@@ -1,47 +1,50 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 \subsection{Statiska gester}
-När vi använder endast tre gester; tumme upp, Spock och V-tecknet,
+När vi använder endast tre gester --- tumme upp, Spock och V-tecknet ---
 blir träffresultatet mycket gott. Vi lät inlärningsmängden består av
-tre bilder på varje gest från sju personer \marginpar{hur många i
-  inlärmning? Harald, Meffe, David, Gurra, Banan, Uffe, Joppe?}, dvs
+tre bilder på varje gest från sju personer, dvs
+%\marginpar{hur många i
+%  inlärmning? Harald, Meffe, David, Gurra, Banan, Uffe, Joppe?}
 totalt 63 bilder. Med filmer av samma statiska gester som
 testmängd träffar programmet rätt på nära 99 \% av bildrutorna, då
-klassificering med KNN (k=XXX)\marginpar{vilket k?} på 17 normerade
+klassificering med \knn
+\marginpar{vilket k?}
+på 17 normerade
 features används. Detta
 resultat gäller både då vi använder filmer av personer som ingår i
 inlärningsmängden och då vi låter en person som inte ingår
 inlärningsmängden filmas. Mer detaljerat resultat finns i tabell
 \ref{tab:3resInl} och \ref{tab:3resEmma}.
 
-\begin{table}
-  \centering  
-  \caption{???}
-  \label{tab:3resInl}
-  \begin{tabular}{lccc}
-    \toprule
-    Verklig \ Tolkad & 1 & 2 & 3 \\
-    \midrule
-    1&a11&a12&a13 \\
-    2&a21&a22&a23 \\
-    3&a31&a32&a33 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}
-  \centering
-  \caption{???}
-  \label{tab:3resEmma}
-  \begin{tabular}{lccc}
-    \toprule
-    Verklig \ Tolkad & 1 & 2 & 3 \\
-    \midrule
-    1&a11&a12&a13 \\
-    2&a21&a22&a23 \\
-    3&a31&a32&a33 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+%\begin{table}
+%  \centering  
+%  \caption{???}
+%  \label{tab:3resInl}
+%  \begin{tabular}{lccc}
+%    \toprule
+%    Verklig \ Tolkad & 1 & 2 & 3 \\
+%    \midrule
+%    1&a11&a12&a13 \\
+%    2&a21&a22&a23 \\
+%    3&a31&a32&a33 \\
+%    \bottomrule
+%  \end{tabular}
+%\end{table}
+%
+%\begin{table}
+%  \centering
+%  \caption{???}
+%  \label{tab:3resEmma}
+%  \begin{tabular}{lccc}
+%    \toprule
+%    Verklig \ Tolkad & 1 & 2 & 3 \\
+%    \midrule
+%    1&a11&a12&a13 \\
+%    2&a21&a22&a23 \\
+%    3&a31&a32&a33 \\
+%    \bottomrule
+%  \end{tabular}
+%\end{table}
 
 \end{document}

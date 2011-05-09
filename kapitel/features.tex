@@ -7,13 +7,14 @@ innehåller och tolka den på ett bra sätt måste denna data transformeras till
 något meningsfullt. Det finns många sätt att göra detta --- man kan t.ex.~
 beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
 fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
-och studera Hausdorff-avståndet till dessa \cite{Nielsen04}. En enklare metod
+och sedan studera Hausdorff-avståndet till dessa \cite{Nielsen04}.
+En enklare metod
 är att beräkna ett antal olika egenskaper baserat på den binära bilden.
 
 Dessa egenskaper består av mått med enkla definitioner baserade på area,
 omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
-därför användas av \knn-algoritmen för att skilja mellan olika rörelseoberoende
-gester. Eftersom egenskaperna innehåller information om rörelse kan denna
+därför användas av t.ex.~\knn-algoritmen för att skilja mellan olika rörelseoberoende
+gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
 uppsättning egenskaper inte användas direkt i tillämpningar som involverar
 rörelsegester, utan måste kompletteras av exempelvis hastighets- eller
 riktningsegenskaper.
@@ -64,7 +65,7 @@ x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
 
 Man kan dessutom definiera ett centroidläge, centroidens avvikelse från
 den inneslutande lådans övre vänstra hörn, som avståndet mellan centroiden
-och lådans vänstra hörn genom lådans bredd/höjd.
+och lådans övre vänstra hörn genom lådans bredd/höjd.
 
 \paragraph{Hu-moment}
 
@@ -110,7 +111,7 @@ bildens ljusstyrka. För binära bilder gäller att $f\mapsto\left\{0,1\right\}$
 
 \paragraph{Konvexitet}
 
-Konvexitet \cite[s.~26]{Rudemo09} är ett användbart dimensionslöst
+Konvexitet \cite[s.~26]{Rudemo09} är ett dimensionslöst
 mått som i någon mening beskriver hur konvext ett objekt är --- för
 gestigenkänning är detta ett relevant mått på huruvida fingrarna är
 utsträckta eller inte, men även på om de sitter tätt ihop (ex.
@@ -121,7 +122,8 @@ definieras av
 \end{equation*}
 där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
-mening).
+mening). Detta innebär i princip att $\left|\partial A\right|$ betecknar
+$A$s omkrets.
 
 \paragraph{Kompakthet}
 
@@ -138,7 +140,7 @@ Kompakthet definieras av
 \paragraph{Soliditet}
 
 Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
-definieras av ration mellan objektets area och det konvexa skalets
+definieras av kvoten mellan objektets area och det konvexa skalets
 area enligt
 \begin{equation*}
   \textrm{soliditet}(A) = \frac{\textrm{Area}(A)}{\textrm{Area}(A_h)},
@@ -158,10 +160,10 @@ gest är. Dess definition är mycket enkel:
 
 En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
 fyrkantigheten avviker från detta värde desto mer avlång är gesten.
-Notera dock att detta mått är låst till $x/y$-led (likt Manhattanavstånd),
+Notera dock att detta mått är låst till $x/y$-led,
 och att
-excentriciteten mäter i princip samma sak men utgår från den
-omslutande ellipsen och därmed tar hänsyn till objektets vinkel.
+excentriciteten mäter i princip samma sak men utgår från
+andramomenten och därmed tar hänsyn till objektets vinkel.
 
 \paragraph{Excentricitet}
 
@@ -176,17 +178,17 @@ objektet ligger i gentemot horisontalaxeln.
 
 Utsträckningen mäter hur stor del av den inneslutande lådan som
 faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
-till soliditeten och definieras enligt
+till konvexiteten och definieras enligt
 \begin{equation*}
   \textrm{utsträckning}(A) =
   \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
 \end{equation*}
 
-\subsubsection{Normering och viktning för \knn}
+\subsubsection{Normering och viktning för klassificering}
 
-Många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 
+Eftersom många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 
 egenskapsrummet är det viktigt att egenskaperna som används varierar över
-ungefär samma värdemängd. Eftersom så inte är fallet från början måste indata
+ungefär samma värdemängd. Så är inte är fallet från början och därför måste indata
 normeras.
 
 Man kan exempelvis skala all indata så att den anpassas till en enkel
