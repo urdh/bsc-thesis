@@ -2,18 +2,18 @@
 \begin{document}
 \subsection{Kvantitativa mått på handens geometri}\label{sec:features}
 
-För att på något sätt kunna kvantifiera den data en binär bild på en hand 
+För att på något sätt kunna kvantifiera den data en binär bild av en hand 
 innehåller och tolka den på ett bra sätt måste denna data transformeras till
 något meningsfullt. Det finns många sätt att göra detta --- man kan t.ex.~
 beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
 fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
-och sedan studera Hausdorff-avståndet till dessa \cite{Nielsen04}.
+och sedan studera det s.k.~Hausdorff-avståndet till dessa \cite{Nielsen04}.
 En enklare metod
 är att beräkna ett antal olika egenskaper baserat på den binära bilden.
 
 Dessa egenskaper består av mått med enkla definitioner baserade på area,
 omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
-därför användas av t.ex.~\knn-algoritmen för att skilja mellan olika rörelseoberoende
+därför användas för att skilja mellan olika rörelseoberoende
 gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
 uppsättning egenskaper inte användas direkt i tillämpningar som involverar
 rörelsegester, utan måste kompletteras av exempelvis hastighets- eller
@@ -22,8 +22,8 @@ riktningsegenskaper.
 \subsubsection{Egenskapsrummet}
 
 Egenskapsrummet är ett $\R^n$-rum där varje dimension representerar en
-egenskap. Detta rum kan man sedan använda för att beräkna ''avstånd'' i
-någon mening mellan olika bilder och gester. Egenskaperna baseras som sagt
+egenskap. I detta rum kan man beräkna ''avstånd'' mellan olika gester,
+eller mellan en observerad gest och tidigare träningsdata. Egenskaperna baseras som sagt
 på olika grundläggande mått hos den binära bilden, och ett antal användbara
 egenskaper presenteras nedan.
 Många av egenskaperna som beskrivs kan beräknas effektivt av
@@ -63,15 +63,30 @@ binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vect{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
 x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
 
-Man kan dessutom definiera ett centroidläge, centroidens avvikelse från
-den inneslutande lådans övre vänstra hörn, som avståndet mellan centroiden
+Man kan dessutom definiera ett relativt centroidläge  som avståndet mellan centroiden
 och lådans övre vänstra hörn genom lådans bredd/höjd.
+\notes{Ska det inte vara avstånd till överkant _eller_ vänsterkant}
 
 \paragraph{Hu-moment}
 
 Dessa moment definierades först av \citeasnoun{Hu62} och är ett försök att
-göra centralmomenten rotations-, skalnings- och translationsinvarianta och
-därmed mer användbara. Sju Hu-moment definieras \cite[s.~185]{Hu62}:
+göra centralmomenten $u_{pq}$ rotations-, skalnings- och translationsinvarianta och
+därmed mer användbara. 
+
+Centralmomenten $\mu_{pq}$ definieras av
+\begin{equation*}
+	\mu_{pq} = \sum\limits_x\sum\limits_y
+	           \left(x-\bar{x}\right)^p
+	           \left(y-\bar{y}\right)^q
+	           f(x,y)
+\end{equation*}
+där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
+bildens ljusstyrka. För binära bilder gäller att
+$f\mapsto\left\{0,1\right\}$.
+\notes{Fel, betyder f avbildas på {0,1}. Ska vara f avbildar mängden
+  av bildpunkter på mängden {0,1} eller dyl.}
+
+De sju Hu-moment definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 \begin{align*}
 	I_1 =& \;\mu_{20} + \mu_{02}\\
 	I_2 =& \left(\mu_{20} - \mu_{02}\right)^2 + 4\mu^2_{11}\\
@@ -99,20 +114,12 @@ därmed mer användbara. Sju Hu-moment definieras \cite[s.~185]{Hu62}:
   	     \left(\mu_{21}+\mu_{03}\right)^2\right)
 \end{align*}
 
-Centralmomenten $\mu_{pq}$ definieras av
-\begin{equation*}
-	\mu_{pq} = \sum\limits_x\sum\limits_y
-	           \left(x-\bar{x}\right)^p
-	           \left(y-\bar{y}\right)^q
-	           f(x,y)
-\end{equation*}
-där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
-bildens ljusstyrka. För binära bilder gäller att $f\mapsto\left\{0,1\right\}$.
+
 
 \paragraph{Konvexitet}
 
 Konvexitet \cite[s.~26]{Rudemo09} är ett dimensionslöst
-mått som i någon mening beskriver hur konvext ett objekt är --- för
+mått som beskriver hur konvext ett objekt är --- för
 gestigenkänning är detta ett relevant mått på huruvida fingrarna är
 utsträckta eller inte, men även på om de sitter tätt ihop (ex.
 stopptecken) eller löst konfigurerade (ex. segertecken). Det
@@ -139,7 +146,7 @@ Kompakthet definieras av
 
 \paragraph{Soliditet}
 
-Soliditet är i någon mening ett mått på hur poröst ett objekt är. Det
+Soliditet är ett mått på hur poröst ett objekt är. Det
 definieras av kvoten mellan objektets area och det konvexa skalets
 area enligt
 \begin{equation*}
