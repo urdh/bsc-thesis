@@ -2,52 +2,51 @@
 \begin{document}
 
 \subsection{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
+Det första problemet vid visuell gestigenkänning är att kunna se handen.
+För att göra detta
+måste bilden först behandlas. Bildpunkterna klassificeras som hud eller
+icke-hud. Som nästa problem ska bildområdet med hud i sin tur klassificeras som
+en hand eller som övrig hud.
 
-Delproblemen som uppstår i videobaserad gestigenkänning är två, och
-det första handlar i princip om att kunna se handen. För att göra detta
-måste först bilden behandlas och bildpunkterna klassificeras som hud eller
-icke-hud, och sedan måste bildpunkterna som är hud klassificeras som händer
-eller ickehänder.
-
-Den första biten hanteras enklast genom att transformera bilden till en
-lämplig färgrymd, sedan kan diverse statistiska metoder användas för att
-markera bildpunkterna. Detta förklaras närmre i \ref{sec:klassificering:fargrymder}
-och \ref{sec:klassificering:hud}. Nästa bit är svårare; det finns många
-mer eller mindre statistiska metoder för att göra detta. Då dessa inte är
-särskilt intressanta rent teorimässigt förklaras de först i
-\ref{sec:metod_hud:urskiljning}.
+För att kunna isolera hud i en bild börjar man fördelaktigen med
+att transformera bilden till en
+lämplig färgrymd. Statistiska metoder kan sedan användas för att
+markera bildpunkterna som hud respektive icke-hud.
+Det andra problemet, att identifiera handen bland hudobjekten i bilden kan göras
+exempelvis genom subtraktion av objekt som matchar ett ansiktes form. En enklare
+metod är att ta det objekt som ligger längst till vänster i bilden, vilket
+förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
 
 \subsubsection{Färgrymder}\label{sec:klassificering:fargrymder}
-
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
-basvektorer är grundfärger i färgsystemet. För att kunna representera alla färger
+basvektorer är som grundfärgerna i ett färgsystem.
+För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
 det räcka --- kanske till och med vara fördelaktigt --- med ett
 tvådimensionellt färgrum \cite{Kakumanu07}.
 
-Vilken färgrymd som är bäst för just hudklassificering beror på
-situation. RGB-liknande färgrymder har använts av bland annat
+Vilken färgrymd som är lämpligast för hudklassificering har inget
+entydigt svar.
+RGB-färgrymden (röd, grön, blå) har använts av bland annat
 \citeasnoun{Lockton02} och \citeasnoun{Sebe04}, och ter sig lämplig
 eftersom det är denna färgrymd som används i datorer. Perceptuella
-färgrymder som separerar kulör och styrka, till exempel HSL, har inte
-rönt någon större framgång eftersom de är prestandamässigt olämpliga
-att använda i realtidstillämpningar.
+färgrymder, såsom HSL, separerar kulör, mättnad och ljusintensitet.
+De har inte rönt någon större framgång dels då deras definierande
+transformationer innehåller singulariteter, dels då de är
+prestandamässigt ofördelaktiga.
 
-Ortogonala färgrymder har däremot nått stor användning för
+Ortogonala färgrymder har däremot nått utbredd användning för
 hudklassificering \cite{Hsu02,Elmezain08,Hassanpour08} eftersom de
-både separerar färg från ljusstyrka och är affina avbildningar av
-RGB och därmed prestandamässigt lämpliga för realtidsapplikationer.
-En ortogonal färgrymd som har stor utbredning och som även visat
-sig vara mycket bra \cite{Kakumanu07} är $YC_bC_r$.
+både separerar kulör och mättnad från ljusstyrka, och är affina avbildningar av
+RGB. 
+En ortogonal färgrymd som har visat sig särskiljt bra är $YC_bC_r$ \cite{Kakumanu07}.
 
 \subsubsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
-
-$YC_bC_r$-rymden är ett försök att ortogonalisera RGB-rymden genom en
-linjärtransformation, vilken resulterar i en basvektor som
-representerar ljusstyrka ($Y$) och två som representerar ''chroma''
-(färg), $C_b$ och $C_r$. Enligt den standard International
-Telecommunication Union publicerat \cite{ITU-BT601} ges
-linjärtransformationen av
+$YC_bC_r$-rymden är en ortogonalisering av RGB-rymden genom en
+affin transformation, vilken resulterar i en basvektor som
+representerar ljusstyrka ($Y$) och två som representerar färg (chroma), $C_b$ och $C_r$. Enligt
+internationell standard \cite{ITU-BT601} ges
+transformationen av
 \begin{equation*}
   \label{eq:farg:ycbcr}
   \begin{gathered}
@@ -61,9 +60,8 @@ färgens värde i RGB-rymden.
 
 \subsubsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
 
-För att skilja bildpunkter med hud från bakgrunden, vilket är ett
-centralt problem inom gestigenkänning, kan flera olika statistiska
-metoder
+För att skilja bildpunkter med hud från bakgrunden,
+kan flera olika statistiska metoder
 appliceras. Man har till exempel gjort försök med skogar av
 slumpmässiga träd
 \cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller
@@ -78,10 +76,10 @@ bildpunkten föreställer hud eller inte.
 
 Färgen antas då vara en multivariat normalfördelad
 stokastisk variabel, där fördelningens parametrar beror på om
-pixeln motsvarar hud eller inte. För att täcka olika hudfärger kan en
-uppsättning olika
-fördelningar för hudfärger användas, där den totala
-sannolikhetsfördelning sedan är en linjärkombination av dessa. Detsamma
+pixeln motsvarar hud eller inte. För att kunna hantera olika hudfärger kan en
+uppsättning av olika
+fördelningar för respektive hudfärg användas. Den totala
+sannolikhetsfördelning är sedan en linjärkombination av dessa. Detsamma
 kan göras med sannolikhetsfördelningen för bildpunkter som inte
 innehåller hud.
 
