@@ -1,17 +1,23 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 \begin{abstract}
-    Syftet med arbetet är att skriva ett program som med hjälp av en
-    enkel webbkamera kan analysera och identifiera ett antal handgester, och
-    utföra kommandon därefter. Programmet skall vara kapabelt till att i realtid
-    lokalisera händer, inklusive intressanta punkter och tillhörande mått. Dessa
-    mått är de egenskaper som därefter skall bearbetas med metoder grundade
-    i statistik och sannolikhetslära, för att med precision fastställa den aktuella
-    gesten.
+Den här rapporten beskriver arbetet med och teorin bakom skapandet av
+ett program som kan identifiera ett antal olika statiska gester med
+god noggrannhet. Rapporten beskriver även relativt detaljerat metoder
+för att med hjälp av dolda Markovmodeller (HMM) identifiera dynamiska
+gester. 
 
-    Det slutgiltiga målet är ett program som är både stabilt och effektivt, med
-    prestanda i klass med existerande program. Ett delmål är därför att ta fram ett
-    prestandamått där vi på ett objektivt sätt kan jämföra vårt resultat med
-    befintliga metoder.
+Med hjälp av Gaussian mixture models för hudidentifiering och
+kNN-klassificering för gestigenkänning kan 10 statiska gester
+identifieras med 91.4\,\% rättklassificering. För analys av dynamiska
+gester saknas resultat.
+
+Analysen utförs på inspelade filmer, men realtidsanalys är inte långt
+borta varken vad gäller prestanda eller implementering. 
+
+Klassificeringsmetoderna som används är helt statistiska, och använder
+varken färdiga handmodeller eller artificiella neurala
+nätverk. Handidentifieringen kräver långärmad tröja, men i rapporten
+beskrivs även metoder för att identifiera handleder.
 \end{abstract}
 \end{document}
