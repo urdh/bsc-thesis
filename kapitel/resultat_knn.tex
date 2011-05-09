@@ -3,11 +3,11 @@
 
 \subsection{Klassificering av gester med hjälp av \knn}
 Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91,5\%.
-Denna andel uppnåddes då samtliga gester var inkluderade, antalet aktiverade
+Denna andel uppnåddes då samtliga gester var inkluderade. Antalet aktiverade
 egenskaper var 10 och värdet på $k$ i \knn-metoden var 7. Egenskaperna som
 användes var det första, andra, tredje och sjunde Hu-momentet, centroidens
 position i den inneslutande lådan, fyrkantighet, soliditet, excentricitet,
-konvexitet och utsträckning. Figur~\ref{fig:knn-optimering} visar hur andelen korrekta
+konvexitet samt utsträckning. Figur~\ref{fig:knn-optimering} visar hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tb]
@@ -20,10 +20,10 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 Det framgår tydligt att antalet aktiverade egenskaper har stor
 inverkan på resultatet då man använder sig av färre än
-5st. Därefter planar procenttalet ut för att återigen stiga då
-fler än 10 egenskaper används. Andelen korrekta klassificeringar
-ökar också i takt med att $k$ ökar från 1 till 7, för att sedan
-bidra negativt då värdet ökar från 7 till 13. Med det optimala
+fem. Därefter planar andelen ut för att återigen stiga då
+fler än 10 egenskaper används. Andelen felklassificeringar
+minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
+öka då värdet ökar från 7 till 13. Med det optimala
 valet av egenskaper och $k$ blev prestandan för respektive gest
 
 \notes{(Inkludera resultat där problemgester är borttagna?)}
