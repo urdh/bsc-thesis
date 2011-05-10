@@ -1,4 +1,4 @@
-\documentclass[a4wide,twoside]{article}
+\documentclass[a4wide,twoside,notitlepage,openright,openbib]{report}
 \usepackage[utf8]{inputenc}
 
 \usepackage[T1]{fontenc}
@@ -93,7 +93,7 @@
 % Förord
 \pagenumbering{Roman}
 \pagestyle{plain}
-\section*{Förord}
+\chapter*{Förord}
 \subfile{kapitel/forord.tex}
 \cleardoublepage
 \tableofcontents
@@ -102,7 +102,7 @@
 
 % Inledning
 \pagenumbering{arabic}
-\section{Inledning}\label{sec:inledning}
+\chapter{Inledning}\label{sec:inledning}
 \subfile{kapitel/inledning.tex}
 \subfile{kapitel/problem.tex}
 \subfile{kapitel/avgransning.tex}
@@ -112,7 +112,7 @@
 % Huvuddel
 % Ändra inbördes ordning på allt det här så att det blir logiskt.
 % Ta även bort kapitel som vi inte ska ha, och lägg till nya.
-\section{Teori}
+\chapter{Teori}
 \subfile{kapitel/klassificering.tex}
 \subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/features.tex}
@@ -120,7 +120,7 @@
 \subfile{kapitel/HMM.tex}
 \cleardoublepage
 
-\section{Metod}
+\chapter{Metod}
 %\subfile{kapitel/metod.tex}
 \subfile{kapitel/metod_gester.tex}
 \subfile{kapitel/metod_hud.tex}
@@ -128,13 +128,13 @@
 \subfile{kapitel/metod_knn.tex}
 \cleardoublepage
 
-\section{Resultat}
+\chapter{Resultat}
 \subfile{kapitel/resultat.tex}
 \subfile{kapitel/resultat_hudklassificering.tex}
 \subfile{kapitel/resultat_knn.tex}
 \cleardoublepage
 
-\section{Diskussion}
+\chapter{Diskussion}
 \subfile{kapitel/diskussion.tex}
 %\subfile{kapitel/diskussion_xxx.tex}
 %\subfile{kapitel/diskussion_yyy.tex}

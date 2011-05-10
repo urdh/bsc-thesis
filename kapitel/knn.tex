@@ -1,7 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{$k$-nearest-neighbor}\label{sec:knn}
+\section{$k$-nearest-neighbor}\label{sec:knn}
 
 \knn eller $k$ närmsta grannar är en konceptuellt enkel modellfri
 klassificeringsmetod.
@@ -52,7 +52,7 @@ Den är därför ofta att föredra framför en Gaussian Mixture Model, där
 varje klass approximeras av sina anpassade parametrar.
 \cite{Hastie09}.
 
-\subsubsection{Kd-tree och algoritmer för \knn}
+\subsection{Kd-tree och algoritmer för \knn}
 Att linjärt söka genom prototypmängden tar lång tid ($\mathcal{O}(d k n)$). Istället kan man,
 beroende på mängdens storlek och antalet egenskaper, använda smartare
 metoder. Ett tillvägagångssätt är att inte söka de sanna närmsta grannarna,

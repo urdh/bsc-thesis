@@ -1,7 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{Dolda Markovmodeller (HMM)}\label{sec:HMM}
+\section{Dolda Markovmodeller (HMM)}\label{sec:HMM}
 För att kunna klassificera dynamiska gester räcker det inte att 
 analysera bilder var för sig. Man behöver en modell som kan beskriva
 karakterstiska beteenden för sekvenser av bilder.  
@@ -54,7 +54,7 @@ gestigenkänning gjordes bland annat i början av 90-talet av \citeasnoun{Yamato
 och så sent som 2008 av \citeasnoun{Elmezain08}.}
 % (Kan även nämna Starner98, Rigol98)}
 
-\subsubsection{Beståndsdelarna av en HMM}
+\subsection{Beståndsdelarna av en HMM}
 En HMM karakteriseras av följande:
 \begin{itemize}
 \item Antalet tillstånd i modellen $N$. Vi betecknar de olika
@@ -91,7 +91,7 @@ fullständigt specificera en HMM. I fortsättningen kommer vi att
 använda oss av den kompaktare notationen $\lambda = (A,B,\pi)$
 för att representera parametrarna för en given HMM.
 
-\subsubsection{Grundläggande problem}
+\subsection{Grundläggande problem}
 För att kunna föra över modellen från teori till praktisk tillämpning
 återstår flera viktiga detaljer. \citeasnoun{Rabiner89} presenterar
 tre grundläggande frågor för implementationen av en HMM, varav följande
@@ -126,7 +126,7 @@ optimeringsprocessen ger bra resultat är stor eftersom
 träningssekvensen utgör kopplingen till det verkliga fenomen
 man önskar modellera.      
 
-\subsubsection{Framåt-bakåt-tekniken}
+\subsection{Framåt-bakåt-tekniken}
 \notes{Använda bilder i denna sektion?}
 
 En användbar teknik för att lösa det första problemet introducerades av \citeasnoun{Baum67}, kallad
@@ -183,7 +183,7 @@ Med andra ord är sannolikheten att generera observationsföljden
 $\vect{O}$ summan av sannolikheterna att generera $\vect{O}$ med
 sluttillstånd $S_i$, $1 \leq i \leq N$.
 
-\subsubsection{Iterativ metod för träning av HMM}
+\subsection{Iterativ metod för träning av HMM}
 
 Med en lösning till problem 1 i bagaget vänder vi oss till problem 2,
 själva träningen av en HMM. Detta är ett betydligt mer invecklat
@@ -285,7 +285,7 @@ visade att denna iterativa process resulterar antingen i
   $\Prob(\vect{O}|\bar{\lambda}) > \Prob(\vect{O}|\lambda)$
 \end{inparaenum}. 
 
-\subsubsection{Olika typer av HMM}
+\subsection{Olika typer av HMM}
 Då man talar om olika typer av HMM syftar man först och främst på
 typen av övergångsmatris som används. Hittills har bara 
 fallet där $a_{ij} > 0$ för alla $i,j$ nämnts --- detta kallas en ergodisk

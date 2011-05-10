@@ -1,7 +1,7 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
-\subsection{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
+\section{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
 Det första problemet vid visuell gestigenkänning är att kunna se handen.
 För att göra detta
 måste bilden först behandlas. Bildpunkterna klassificeras som hud eller
@@ -17,7 +17,7 @@ exempelvis genom subtraktion av objekt som matchar ett ansiktes form. En enklare
 metod är att ta det objekt som ligger längst till vänster i bilden, vilket
 förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
 
-\subsubsection{Färgrymder}\label{sec:klassificering:fargrymder}
+\subsection{Färgrymder}\label{sec:klassificering:fargrymder}
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
 basvektorer är som grundfärgerna i ett färgsystem.
 För att kunna representera alla färger
@@ -41,7 +41,7 @@ både separerar kulör och mättnad från ljusstyrka, och är affina avbildninga
 RGB. 
 En ortogonal färgrymd som har visat sig särskiljt bra är $YC_bC_r$ \cite{Kakumanu07}.
 
-\subsubsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
+\subsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
 $YC_bC_r$-rymden är en ortogonalisering av RGB-rymden genom en
 affin transformation, vilken resulterar i en basvektor som
 representerar ljusstyrka ($Y$) och två som representerar färg (chroma), $C_b$ och $C_r$. Enligt
@@ -58,7 +58,7 @@ transformationen av
 där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
 färgens värde i RGB-rymden.
 
-\subsubsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
+\subsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
 
 För att skilja bildpunkter med hud från bakgrunden,
 kan flera olika statistiska metoder
@@ -142,7 +142,7 @@ hud. Med denna information kan man sedan sätta en tröskel på den behandlade
 bilden, vilket resulterar i en binär bild som kan behandlas ytterligare
 innan egenskaper tas fram utifrån handens form.
 
-\subsubsection{Morfologiska operationer}\label{sec:morph}
+\subsection{Morfologiska operationer}\label{sec:morph}
 
 Morfologiska operationer kan användas för att modifiera ''objekt'' i
 binära bilder, till exempel för att rensa bort brus eller för att
