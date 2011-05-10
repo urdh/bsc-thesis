@@ -35,7 +35,7 @@ nära grannar vinner, se figur \ref{fig:knn-overview}.
 
 \begin{figure}[!htb]
     \begin{center}
-\includegraphics[width=0.75\textwidth]{bilder/KnnClassification}
+\includegraphics[width=0.5\textwidth]{bilder/KnnClassification}
     \end{center}
     \caption{kNN-klassificering av den runda observationen i mitten i ett rum
     med två klasser, trianglar och kvadrater. Majoritetsomröstning
@@ -52,16 +52,19 @@ Den är därför ofta att föredra framför en Gaussian Mixture Model, där
 varje klass approximeras av sina anpassade parametrar.
 \cite{Hastie09}.
 
-\subsubsection{Kd-tree och algoritmer för \knn}
-Att linjärt söka genom prototypmängden tar lång tid ($\mathcal{O}(d k n)$). Istället kan man,
-beroende på mängdens storlek och antalet egenskaper, använda smartare
-metoder. Ett tillvägagångssätt är att inte söka de sanna närmsta grannarna,
-utan att genom någon slumpmässig metod approximera till önskad noggranhet.
+\subsubsection{Algoritmer för \knn}
+Att linjärt söka genom prototypmängden tar enligt
+\citeasnoun{Roding08} lång tid ($\mathcal{O}(d k n)$).
+Istället kan man, beroende på mängdens storlek och antalet egenskaper,
+använda smartare metoder.
+Ett tillvägagångssätt är att inte söka de sanna närmsta grannarna,
+utan att med en slumpmässig metod approximera till önskad noggranhet.
 Detta tillåter stora datamängder och hög dimension.
 
-En metod som fungerar bra för dimensioner lägre än ungefär 20 är kd-tree.
-Den går ut på att prototypmängden av plan genom egenskapsrummet
-delas upp i ett binärt träd. Detta gör sökningen mycket snabbare
+En metod som är snabb för dimensioner lägre än ungefär 20 är kd-tree.
+Den går ut på att prototypmängden delas av plan genom egenskapsrummet,
+som resulterar i ett binärt träd. Färdiga implementeringar finns dessutom
+i överflöd \cite{Skiena08}.
 
 %Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok
 %per gest; detta eftersom vi har en HMM per gest.

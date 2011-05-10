@@ -10,6 +10,14 @@ sätt gå vidare från resultatet.
 Bättre fördelning från större datamängd, k-kluster.
 Manuellt skrapande i SCM
 \subsection{Handidentifiering}
+\subsection{\knn}
+Något som kan göras för att förbättra \knn-metodens träffsäkerhet är först och
+främst att utöka prototypmängden till fler punkter per gest. En annan möjlig
+förbättring skulle vara att inspektera de bilder som faktiskt ligger bakom
+punkten i egenskapsrummet. Om den uppenbart är felaktig, och kanske hade varit
+svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
+Slarvigt utförda gester kommer då mindre sannolikt att
+klassificeras rätt.\notes{om alls? thresholding?!}
 \subsection{Features}
 Inre av handen (linjer etc)
 
