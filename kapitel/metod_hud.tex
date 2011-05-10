@@ -32,9 +32,10 @@ problem.
 
 Vår lösning på problemet är att först använda den inbyggda
 matlabfunktionen \texttt{bwareaopen}, som är en inbyggd morfologisk
-öppningsfunktion. Till skillnad från metoden beskrivet i
-\ref{sec:morph} ställer \texttt{bwareaopen} inga
-krav på områdets form utan endast dess area. Vad som är en lämplig area
+öppningsfunktion. Metoden beskrivs i
+\ref{sec:morph} använder ett strukturelement $S$, som \texttt{bwareaopen}
+genererar utifrån en parameter som specificerar
+dess area --- vad som är en lämplig area
 varierar med upplösning och
 och avstånd till kameran. Vi använder en gräns på 200
 bildpunkter. Detta fungerar bra även för relativt stort avstånd till
