@@ -30,6 +30,15 @@
 \usepackage[font=small,format=plain,labelfont=bf,textfont=it]{caption,subfig}
 %\usepackage{afterpage}
 \usepackage{slashbox}
+\usepackage{tikz}
+
+% Tikz-flowcharts
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=black!5, 
+    text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=black!5, 
+    text width=10em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
 
 % Titel här istället för topmatter.tex för att kunna använda i headers
 \newcommand{\titel}{Statistisk bildanalys av handgester för människa-dator-interaktion} %Skriv in titeln här

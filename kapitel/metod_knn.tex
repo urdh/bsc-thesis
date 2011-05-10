@@ -66,9 +66,23 @@ inträffade lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, f�
 att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen
 arbetade alltså i linje med flödesschemat i figur~\ref{fig:knn-flowchart}. 
 \notes{\cite{Jain97}}
+
 \begin{figure}[tbp]
 	\centering 
-	%\includegraphics...
+	\begin{tikzpicture}[node distance = 2cm, auto]
+		% nodes
+		\node [block] (init) {\textbf{Start}\\Skapa en tom grupp $E$};
+		\node [block, below of=init, node distance=3cm] (ident) {Identifiera den egenskap som ger bäst resultat tillsammans med egenskaperna i $E$};
+		\node [block, below of=ident, node distance=3cm] (add) {Lägg till denna egenskap i $E$ och ge den en ranking.\\Lägre ranking innebär bättre egenskap};
+		\node [decision, right of=ident, node distance=5cm] (finns) {Finns det egenskaper som inte ligger i $E$?};
+		\node [block, below of=finns, node distance=5cm] (end) {\textbf{Returnera} egenskaperna, sorterade efter ranking};
+		% edges
+		\path [line] (init) -- (ident);
+		\path [line] (ident) -- (add);
+		\path [line] (add) -- (finns);
+		\path [line] (finns) -- node [near start] {Ja} (ident);
+		\path [line] (finns) -- node [near start] {Nej} (end);
+	\end{tikzpicture}
 	\caption{\notes{FLOWCHART!}}
 	\label{fig:knn-flowchart}
 \end{figure}
