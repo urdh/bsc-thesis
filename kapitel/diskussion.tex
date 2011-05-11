@@ -7,8 +7,23 @@ träffsäkerheten, utvidga programmets funktionalitet eller på övrigt
 sätt gå vidare från resultatet.
 
 \section{Hudigenkänning}
-Bättre fördelning från större datamängd, k-kluster.
-Manuellt skrapande i SCM
+De sannolikhetsfördelningar som använts för att skilja hud från annat
+har fungerat tillräckligt bra för att kunna skilja ut handen i en
+relativt kontrollerad miljö. Bättre resultat skulle dock kunna uppnås
+med bättre sannolikhetsfördelningar. Det man främst skulle kunna göra
+är att använda k-klustring, d.v.s.~linjärkombinationer av flera
+sannolikhetsfördelningar, även för ickehud. Bättre fördelningar skulle
+antagligen även fås med en större datamängd, alltså fler
+exempelbilder.
+
+Man skulle också kunna använda någon annan klassificerare, såsom \knn,
+vid skapandet av vår SCM. En svårighet med det är att det skulle
+kräva kassering av data för att få lika stora prototypmängder,
+eller viktning av datapunkterna.
+
+Efter det statistiska urvalet skulle man kunna redigera direkt i
+hudfärgskartan för att få ett bättre resultat. Detta är dock väldigt
+tidskrävande.
 
 \section{Handidentifiering}
 
