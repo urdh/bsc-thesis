@@ -12,7 +12,7 @@ signalmodell som
 beskriver ett system bestående av ett ändligt antal tillstånd. Likt en
 vanlig Markovmodell förflyttar man sig sedan efter en given
 sannolikhetsfördelning mellan tillstånden. Det som är dolt i en HMM är
-det faktum att varje tillstånd i sin tur genererar
+att varje tillstånd i sin tur genererar
 symboler efter ännu en sannolikhetsfördelning. Där man i standardfallet
 observerar modellens tillstånd direkt, observaras nu istället de
 symboler som genereras då tillstånden växlar, symboler som motsvarar
@@ -340,5 +340,19 @@ a_{11} & a_{12} & 0 & 0\\
 
 Utöver dessa varianter finns det självklart otaliga andra då man kan
 sammanbinda de olika tillstånden helt efter eget tycke.  
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/ourmodelHMM}
+  \caption{}
+  \label{hmm1}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/ElmezainHMM}
+  \caption{}
+  \label{hmm2}
+\end{figure}
 
 \end{document}
