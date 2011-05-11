@@ -14,23 +14,44 @@ testfilmer. Tilldelningen sker genom att varje prototypfilm delas upp i fyra lik
 första fjärdedelen tilldelas en symbol, den andra en annan osv. Förhoppningen är att liknande 
 delgester (behöver omformuleras) på så vis tilldelas samma symbol. 
 
-Prototypgesterna placeras i kodboken. 
-
-Programmet kommer därefter omvandla träningsfilmerna till symboler via kodboken. Längden av 
+Programmet omvandlar därefter träningsfilmerna till symboler via kodboken som utvidgats 
+med prototypgesterna. Längden av 
 symbolföljderna för respektive gest beror på programmets prestanda, dvs hur många bilder 
 man önskar analysera per sekund. Det bör uppmärksammas att varianter av en och samma gest 
 kommer, beroende på deras längd, representeras av olika långa symbolföljder, vilket leder till 
 att vi tränar flera HMM-modeller för varje gest. En möjlighet är att gruppera in symbolsekvenserna 
-i tre längder för att motverka alltför strikta krav på utförande. 
+i tre längder för att motverka alltför strikta krav på gestens utförande. 
 
-Vi använder Bakis-modellen. 
-Detta medför att varje HMM måste tränas med flera observationsföljder. \ref{Rabiner89}
-Nämna hur A och B initieras för bästa resultat? 
+HMM-modellerna tränas med Baum-Welch-metoden via Matlabfunktionen \texttt{hmmtrain}. Vi använder Bakis-modellen 
+då den som sagt gett bra resultat i samband med signaler som förändras över tid, en topologi som medför att
+modellerna måste tränas med flera symbolsekvenser \cite{Rabiner89}. Då ingen förflyttning till ett tidigare
+tillstånd är tillåten blir modellen nämligen mycket selektiv med vilka symboler varje tillstånd kan generera. 
+Enbart en symbolföljd skulle träna modellen till att systematiskt vandra från ett tillstånd till nästa och i 
+varje generera rätt symbol i ordningen med sannolikhet ett. 
+
+\note{Nämna att vi skrev egen HMM-kod}
+
+Om vi antar att det tränats HMMs för gester av längd två, fem och sju symboler kommer programmets 
+klassificering av testfilmerna ske på följande vis:
+ 
+(FLOWCHART)
+
+Programmet initieras
+
+(BILD)
+
+Då programmet körts mer än x antal frames
+
+(BILD)
+
+klassificeringen sker lämpligen med en threshold 
+De längsta sekvenserna går först
+
+
 Antal tillstånd för modellen lika många som gesten den modellerar har symboler.
 HMMs för statiska gester tränas för att känna igen sekvenser av samma symbol.
 Med tränade modeller undersöker man sedan sannolikheten att en symbolföljd genererades av en viss modell.
 Bäst modell vinner.
-Behöver göra bilder/flowchart.  
 
  \end{document}
 
