@@ -16,7 +16,7 @@ ut från tillståndet, och valet av kant sker genom en stokastisk process.
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.8\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
+  \includegraphics[width=0.6\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
   \caption{En enkel, ergodisk Markovmodell med fyra tillstånd}
   \label{fig:hmm-ergodic}
 \end{figure}
@@ -319,9 +319,18 @@ utseende
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.8\textwidth,trim=0 0 1010 10,clip=true]{bilder/LR_HMM}
-  \caption{En Markovmodell av Bakis-modellen med fyra tillstånd}
-  \label{fig:hmm-lr}
+  \subfloat[Markovmodell enligt Bakis-modellen]{
+		\includegraphics[width=0.8\textwidth,trim=0 -10 1010 10,clip=true]{bilder/LR_HMM}
+		\label{fig:hmm-lr}
+	}
+	\\[2em]
+	\subfloat[Markovmodell enligt
+  \protect\possessivecite{Yamato92} modell]{
+		\includegraphics[width=0.8\textwidth,trim=0 -10 0 0]{bilder/LRB_HMM}
+		\label{fig:hmm-lrb}
+	}
+  \caption{Två Markovmodeller med fyra tillstånd enligt olika modeller}
+  \label{fig:hmm-lr-lrb}
 \end{figure}
 
 Man startar alltså alltid i det första tillståndet för att sedan
@@ -343,14 +352,6 @@ a_{11} & a_{12} & 0 & 0\\
 0 & 0 & 0 & a_{44}
 \end{bmatrix}.  
 \end{equation*} 
-
-\begin{figure}[tb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{bilder/LRB_HMM}
-  \caption{En Markovmodell med fyra tillstånd enligt
-  \protect\possessivecite{Yamato92} modell}
-  \label{fig:hmm-lrb}
-\end{figure}
 
 Utöver dessa varianter finns det självklart otaliga andra då man kan
 sammanbinda de olika tillstånden helt efter eget tycke.
