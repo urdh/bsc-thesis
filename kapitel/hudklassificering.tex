@@ -8,14 +8,14 @@ måste bilden först behandlas. Bildpunkterna måste klassificeras som hud
 eller ickehud, och därefter måste bildområdet med hud i sin tur 
 klassificeras som en hand eller som övrig hud.
 
-För att kunna isolera hud i en bild börjar man fördelaktigen med
+För att kunna isolera hud i en bild börjar man fördelaktigt med
 att transformera bilden till en
 lämplig färgrymd, varpå statistiska metoder kan användas för att
 markera bildpunkterna som hud respektive ickehud.
 Det andra problemet, att identifiera handen bland hudobjekten i bilden kan göras
-exempelvis genom subtraktion av objekt som matchar ett ansiktes form, men en enklare
-metod är att ta det objekt som ligger längst till vänster i bilden. Denna metod
-förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
+exempelvis genom subtraktion av objekt som matchar ett ansiktes form. En enklare
+metod är att ta det objekt som ligger längst till vänster i bilden, 
+något som förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
 
 \subsection{Färgrymder}\label{sec:klassificering:fargrymder}
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
@@ -59,14 +59,13 @@ där $R$, $G$, och $B$ är värden mellan $0$ och $255$ som representerar
 färgens värde i RGB-rymden.
 
 \subsection{Sannolikhetsfördelning för hudfärg}\label{sec:klassificering:hud}
-
 För att skilja bildpunkter med hud från bakgrunden,
 kan flera olika statistiska metoder
-appliceras. Man har till exempel gjort försök med skogar av
-slumpmässiga träd
-\cite{Khan10}, Bayesiska nätverk \cite{Sebe04}, generativa modeller
+appliceras. Man har till exempel gjort försök med 
+''random forests''
+\cite{Khan10}, Bayesianska nätverk \cite{Sebe04}, generativa modeller
 \cite{Kruppa02}
-och luddig aritmetik \cite{Shang10} --- en större undersökning av metoder
+och ''fuzzy arithmetics'' \cite{Shang10} --- en större undersökning av metoder
 för huddetektion gjordes av \citeasnoun{Kakumanu07}.
 
 En enklare metod som nått relativt stor framgång är den som baseras på
@@ -88,7 +87,7 @@ uppskattad normalfördelning krävs ett
 antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
 likelihood-metoden.
 
-Fördelningen ges allmänt av
+Fördelningen ges allmänt av \notes{sannolikhetstätheten}
 \begin{equation*}
   p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2},
 \end{equation*}
@@ -247,5 +246,7 @@ och ger även motsatt resultat (svarta områden ''öppnas upp'').
 De
 båda operationerna använder utöver $A$ och $S$ även $S'$, vilket är
 $S$ roterad 180\textdegree{} runt sin referensbildpunkt.
+
+\notes{hål i handen?}
 
 \end{document} 

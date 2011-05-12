@@ -7,14 +7,17 @@ Det handlar om att klassificeraren ska göra en kvalificerad gissning för hur
 observerad data ska hanteras, baserat på någon typ av ''inlärningsprocess''.
 Man skiljer på modellbaserade och modellfria metoder, där de modellbaserade
 bygger på modeller av de bakomliggande system som ska analyseras, medan de
-modellfria kan ses som mer oberoende av sammanhang.
+modellfria kan ses som mer oberoende av sammanhang\cite{Hastie09}.
 Man skiljer också på övervakad respektive icke-övervakad inlärning,
 där man i det övervakade fallet har etiketter på den träningsdata man stoppar
-in, så att man för varje objekt kan säga om det klassificerats rätt eller fel.
+in, så att man för varje objekt kan säga om det klassificerats rätt eller
+fel.
 
-Indata till klassificeraren är någon mängd av objekt med någon typ av egenskaper
-(features) vilka vi kan mäta. I de givna egenskapernas rum önskar man då
-separera objekten i olika kluster. I vissa problem är resultatet binärt,
+Indata till klassificeraren är någon mängd av objekt med någon uppsättning
+egenskaper (features) vilka vi kan mäta.
+I egenskapernas rum önskar man då att objekten separeras i olika kluster
+som stämmer överens med deras verkliga klass.
+I vissa problem är resultatet binärt,
 vilket exempelvis gäller i hudisoleringsproblemet.
 I andra fall väljs bland många klasser, vilket gäller gestklassificeringen.
 Svårigheten kan förtydligas något med hjälp av figur \ref{fig:kluster}.
@@ -24,10 +27,9 @@ Svårigheten kan förtydligas något med hjälp av figur \ref{fig:kluster}.
     \end{center}
     \caption{Det är enkelt att se vart ett objekt hör i den vänstra figuren,
     där de två klasserna är väl separerade. I den högra figuren kan man också se
-    skilnad på objekt, men det är nu mycket svårt. Axlarna kan tänkas motsvara
-    två godtyckliga egenskaper. I det högra rummet kan man tänka sig två svagare
-    egenskaper än i det vänstra. Det kan också motsvara två grupper som
-    överlappar varandra i samma rum.}
+    skilnad på objekt, men det är nu mycket svårt. Axlarna motsvarar
+    två godtyckliga egenskaper. En starkare uppsättning egenskaper ger en
+    tydligare separering av klasserna.}
     \label{fig:kluster}
 \end{figure}
 
