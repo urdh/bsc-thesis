@@ -57,25 +57,25 @@ då i någon mening olika skeden av gesterna.
 \subsection{Beståndsdelarna av en HMM}
 En HMM karakteriseras av följande beståndsdelar:
 \begin{itemize}
-\item Antalet tillstånd i modellen $N$. Vi betecknar de olika
+\item $N$, antalet tillstånd i modellen. Vi betecknar de olika
   tillstånden som $S = \{S_1, S_2, \dots, S_N\}$, och tillståndet vid
   tiden $t$ som $q_t$.
-\item Antalet distinkta observationssymboler $M$, för ett givet
+\item $M$, antalet distinkta observationssymboler för ett givet
   tillstånd. De individuella symbolerna betecknar vi som $V =
   \{v_1,v_2,\dots,v_M\}$.
-\item En övergångsmatris $A$, där varje element ger sannolikheten att
+\item $A$,en övergångsmatris där varje element ger sannolikheten att
   vandra från ett tillstånd till ett annat, 
 \begin{equation*}
 a_{ij} = \Prob(q_{t+1} = S_j|q_t = S_i),\quad 1 \leq i,j \leq N.
 \end{equation*}
 I fallet då man kan nå alla tillstånd från vilket tillstånd som helst
 med ett enda steg har vi alltså $a_{ij} > 0,\;\forall i,j$. 
-\item Sannolikhetsfördelningar $B = b_j(k)$ för observationssymboler givet ett
+\item $b_j(k)$, sannolikhetsfördelningar för observationssymboler givet ett
   specifikt tillstånd $j$, där 
 \begin{equation*}
 b_j(k) = \Prob(v_k \text{ vid tiden } t|q_t = S_j) \quad 1 \leq j \leq N,\quad1 \leq k \leq M.
 \end{equation*}
-$B(j,k)$ ger med andra ord sannolikheten att symbolen $v_k$ genereras
+$b_j(k)$ ger med andra ord sannolikheten att symbolen $v_k$ genereras
 då vi befinner oss i tillstånd $j$.
 \item Sannolikhetsfördelningen för ett begynnelsetillstånd, $\pi =
   \{\pi_i\}$, där
