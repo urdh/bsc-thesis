@@ -10,9 +10,16 @@ En dold Markovmodell eller Hidden Markov model (HMM) är en utökning
 av den klassiska Markovmodellen som gjorts för att skapa en
 signalmodell som beskriver ett system utifrån dess utdata.
 En vanlig Markovmodell består av ett antal tillstånd sammankopplade
-med övergångssannolikheter (se figur~\ref{fig:ergodisk}). Man kan alltså
+med övergångssannolikheter (se figur~\ref{fig:hmm-ergodic}). Man kan alltså
 röra sig i Markovprocessen genom att i varje tidssteg följa en av kanterna
 ut från tillståndet, och valet av kant sker genom en stokastisk process.
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.8\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
+  \caption{En enkel, ergodisk Markovmodell med fyra tillstånd}
+  \label{fig:hmm-ergodic}
+\end{figure}
 
 Det som är dolt i en HMM och som särställer den från en vanlig Markovmodell
 är att varje tillstånd genererar
@@ -313,14 +320,23 @@ utseende
          0 & \quad\text{om } i \neq 1.\end{cases}.
 \end{equation*}  
 
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.8\textwidth,trim=0 0 1010 10,clip=true]{bilder/LR_HMM}
+  \caption{En Markovmodell av Bakis-modellen med fyra tillstånd}
+  \label{fig:hmm-lr}
+\end{figure}
+
 Man startar alltså alltid i det första tillståndet för att sedan
-stanna kvar i samma tillstånd eller röra sig åt höger. Antalet steg
+stanna kvar i samma tillstånd eller röra sig åt höger (se
+figur~\ref{fig:hmm-lr}). Antalet steg
 man tar är inte begränsat på annat sätt än att det slutgiltiga
 tillståndet $S_N$ inte får passeras. Denna modell användes av
 \citeasnoun{Yamato92} och skiljer sig i vissa avseenden från
-den som den som används av Elmezain. \citeasnoun{Elmezain08} tillåter bara
-förflyttning från
-ett tillstånd till sig självt eller till nästa (man får alltså inte ''hoppa över'' tillstånd), ett val som ger upphov
+den som den som används av \citeasnoun{Elmezain08}, t.ex.~på det sätt att
+den bara tillåter förflyttning från
+ett tillstånd till sig självt eller till nästa (man får alltså inte ''hoppa
+över'' tillstånd, se figur~\ref{fig:hmm-lrb}), ett val som ger upphov
 till övergångsmatrisen
 \begin{equation*}
 A = \begin{bmatrix}
@@ -331,21 +347,15 @@ a_{11} & a_{12} & 0 & 0\\
 \end{bmatrix}.  
 \end{equation*} 
 
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{bilder/LRB_HMM}
+  \caption{En Markovmodell med fyra tillstånd enligt
+  \protect\possessivecite{Yamato92} modell}
+  \label{fig:hmm-lrb}
+\end{figure}
+
 Utöver dessa varianter finns det självklart otaliga andra då man kan
-sammanbinda de olika tillstånden helt efter eget tycke.  
-
-\begin{figure}[tb]
-  \centering
-%  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/ourmodelHMM}
-  \caption{}
-  \label{hmm1}
-\end{figure}
-
-\begin{figure}[tb]
-  \centering
-%  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/ElmezainHMM}
-  \caption{}
-  \label{hmm2}
-\end{figure}
+sammanbinda de olika tillstånden helt efter eget tycke.
 
 \end{document}
