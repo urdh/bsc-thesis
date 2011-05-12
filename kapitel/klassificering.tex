@@ -12,14 +12,22 @@ Man skiljer också på övervakad respektive icke-övervakad inlärning,
 där man i det övervakade fallet har etiketter på den träningsdata man stoppar
 in, så att man för varje objekt kan säga om det klassificerats rätt eller fel.
 
+Indata till klassificeraren är någon mängd av objekt med någon typ av egenskaper
+(features) vilka vi kan mäta. I de givna egenskapernas rum önskar man då
+separera objekten i olika kluster. I vissa problem är resultatet binärt,
+vilket exempelvis gäller i hudisoleringsproblemet.
+I andra fall väljs bland många klasser, vilket gäller gestklassificeringen.
 Svårigheten kan förtydligas något med hjälp av figur \ref{fig:kluster}.
 \begin{figure}[!htpb]
     \begin{center}
-        \includegraphics[width=0.8\textwidth,clip=true,trim=2cm 3cm 1.5cm 3cm]{bilder/kluster.eps}
+\includegraphics[width=0.8\textwidth,clip=true,trim=2cm 3cm 1.5cm 3cm]{bilder/kluster.pdf}
     \end{center}
     \caption{Det är enkelt att se vart ett objekt hör i den vänstra figuren,
     där de två klasserna är väl separerade. I den högra figuren kan man också se
-    skilnad på objekt, men det är nu mycket svårt.}
+    skilnad på objekt, men det är nu mycket svårt. Axlarna kan tänkas motsvara
+    två godtyckliga egenskaper. I det högra rummet kan man tänka sig två svagare
+    egenskaper än i det vänstra. Det kan också motsvara två grupper som
+    överlappar varandra i samma rum.}
     \label{fig:kluster}
 \end{figure}
 
