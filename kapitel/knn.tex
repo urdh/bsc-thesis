@@ -8,21 +8,6 @@ klassificeringsmetod.
 Den baseras på prototypobjekt i egenskapsrummet och tilldelar en klass
 till en observerad punkt baserat på dess närmsta grannar i egenskapsrummet.
 
-Prototypobjekten är redan klassificerade objekt som väljs ur en inlärningsmängd.
-De kan skrivas som
-\begin{equation*}
-    (\vect{x}_i, l_i)\qquad l_i \in \{ 1,\dotsc,K \}
-\end{equation*}
-där $l_i$ är en klassetikett och $K$ är antalet klasser.
-Prototyperna kan väljas genom mer eller mindre sofistikerade metoder,
-%Uppgiften är att bestämma vilken klass ett nytt testobjekt tillhör.
-
-\notes{prototypurval}
-
-Klasserna motsvarar i detta sammanhang olika statiska gester,
-eller olika grupperingar i egenskapsrummet. För
-varje observerad bildruta undersöker man alltså vilken klass den tillhör.
-
 Avståndet som används är vanligtvis det euklidiska, dvs
 \begin{equation*}
     d(i) = \left(\sum_{i=1}^n(x_i-x_0,i)^2\right)^{1/2}
@@ -43,6 +28,21 @@ nära grannar vinner, se figur \ref{fig:knn-overview}.
     till klassificering som kvadrat.}
     \label{fig:knn-overview}
 \end{figure}
+
+Prototypobjekten är redan klassificerade objekt som väljs ur en inlärningsmängd.
+De kan skrivas som
+\begin{equation*}
+    (\vect{x}_i, l_i)\qquad l_i \in \{ 1,\dotsc,K \}
+\end{equation*}
+där $l_i$ är en klassetikett och $K$ är antalet klasser.
+Prototyperna kan väljas genom mer eller mindre sofistikerade metoder.
+Exempelvis kan varje redan klassificerad punkt undersökas med \knn mot
+alla andra punkter, varpå den tas bort ur mängden om den nya klassen avviker
+från den ursprungliga.
+
+Klasserna motsvarar sammanhanget olika statiska gester,
+eller olika grupperingar i egenskapsrummet. För
+varje observerad bildruta undersöker man alltså vilken klass den tillhör.
 
 För att metoden ska fungera krävs att alla klasser är representerade med lika
 många prototypobjekt, annars får vissa klasser större vikt och kommer med högre
