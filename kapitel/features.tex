@@ -81,7 +81,7 @@ Centralmomenten $\mu_{pq}$ definieras av
 \end{equation*}
 där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
 bildens ljusstyrka. För binära bilder gäller att
-$f:\left\{Bildpunkter\right\}\rightarrow\left\{0,1\right\}$.
+$f:\left\{A\right\}\rightarrow\left\{0,1\right\}$.
 
 De sju Hu-moment definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 \begin{align*}
@@ -195,7 +195,10 @@ egenskapsrummet är det viktigt att egenskaperna som används varierar över
 ungefär samma värdemängd. Så är inte är fallet från början och därför måste indata
 normeras.
 
-Man kan exempelvis skala all indata så att den anpassas till en $\N(0,1)$-distribution, genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
+Man kan exempelvis skala all indata så att den anpassas till en 
+$\N(0,1)$-distribution (efter att ha sett till att egenskaperna kan tänkas 
+vara normalfördelade, t.ex.~genom att logaritmera de kvotbaserade 
+egenskaperna) genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
 utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana
 parametrar per egenskap i egenskapsrummet). Denna metod kommer inte
 att göra icke normalfördelade egenskaper normalfördelade, men alla
@@ -204,11 +207,11 @@ egenskapers varians kommer begränsas.
 Man kan därefter använda dessa parametrar för att normalisera ny indata, så
 att även den passar in i det nya, uniforma egenskapsrummet:
 \begin{equation*}
-	\hat{x} = \frac{x - \mu_x}{\sigma_x}
+	\hat{x} = \frac{x - \hat\mu_x}{\hat\sigma_x}
 \end{equation*}
 
 Vill man därefter optimera klassificeraren och se till att den tar större hänsyn
-till vissa gester kan man även införa en viktningskonstant $w_x$. En stor
+till vissa gester kan man även införa en viktningskonstant $w_x$ --- en stor
 sådan gör att egenskapen har större betydelse (eftersom avståndet då ökar
 snabbare). Denna konstant appliceras lämpligen direkt efter normeringen.
 
