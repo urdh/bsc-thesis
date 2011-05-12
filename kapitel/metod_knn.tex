@@ -83,7 +83,7 @@ arbetade alltså i linje med flödesschemat i figur~\ref{fig:knn-flowchart}.
 		\path [line] (finns) -- node [near start] {Ja} (ident);
 		\path [line] (finns) -- node [near start] {Nej} (end);
 	\end{tikzpicture}
-	\caption{\notes{FLOWCHART!}}
+	\caption{\notes{FLOWCHART!} (forward-metod?)}
 	\label{fig:knn-flowchart}
 \end{figure}
 
@@ -94,5 +94,25 @@ en uppfattning av dess inverkan. Trots att algoritmen är krävande att köra b�
 det nämnas att den inte är inte är lika beräkningsintensiv som de två
 förstnämnda. Det ska även nämnas att eftersom detta är en icke-uttömmande
 algoritm så är det inte garanterat att den hittar ett globala optimum \cite{Cover77}.
+
+\begin{figure}[tbp]
+	\centering 
+	\begin{tikzpicture}[node distance = 2cm, auto]
+		% nodes
+		\node [block] (init) {\textbf{Start}\\Skapa en grupp $E$ med alla egenskaper};
+		\node [block, below of=init, node distance=3cm] (ident) {Identifiera den egenskap som ger bäst resultat när den exkluderas ur $E$};
+		\node [block, below of=ident, node distance=3cm] (add) {Ta bort denna egenskap från $E$ och ge den en ranking.\\Lägre ranking innebär sämre egenskap};
+		\node [decision, right of=ident, node distance=5cm] (finns) {Finns det egenskaper kvar i $E$?};
+		\node [block, below of=finns, node distance=5cm] (end) {\textbf{Returnera} egenskaperna, sorterade efter ranking};
+		% edges
+		\path [line] (init) -- (ident);
+		\path [line] (ident) -- (add);
+		\path [line] (add) -- (finns);
+		\path [line] (finns) -- node [near start] {Ja} (ident);
+		\path [line] (finns) -- node [near start] {Nej} (end);
+	\end{tikzpicture}
+	\caption{\notes{FLOWCHART!} (backward-metod?)}
+	\label{fig:knn-flowchart}
+\end{figure}
 
 \end{document}
