@@ -163,11 +163,39 @@ morfologiska operationer.
 \subsection{Morfologiska operationer}\label{sec:morph}
 \notes{Behövs figurer och tydligare förklaring!}
 
+\begin{figure}[tb]
+	\centering 
+	\subfloat[Originalbilden]{
+		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-orig}
+		\label{fig:morph:or}
+	}
+	\subfloat[Erosion]{
+		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-erosion}
+ 		\label{fig:morph:er}
+	}
+	\subfloat[Dilatation]{
+		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-dilatation}
+		\label{fig:morph:di}
+	}
+	\\
+	\hspace{0.3\textwidth}\quad % ser det fult ut kanske?
+	\subfloat[Öppning]{
+		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-oppning}
+		\label{fig:morph:op}
+	}
+	\subfloat[Stängning]{
+		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-stangning}
+		\label{fig:morph:cl}
+	}
+	\caption{De fyra morfologiska operationerna}
+	\label{fig:morph}
+\end{figure}
+
 Morfologiska operationer kan användas för att modifiera områden i
 binära bilder, till exempel för att rensa bort brus eller för att
 mjuka upp kanter. Det finns fyra grundläggande morfologiska
 operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
-\emph{stängning} \cite[s.~25]{Rudemo09}.
+\emph{stängning} \cite[s.~25]{Rudemo09}, vars resultat visas i figur~\ref{fig:morph}.
 
 Dessa definieras som operationer på mängder; specifikt mängden $A$
 av alla svarta bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är

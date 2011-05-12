@@ -37,7 +37,10 @@ matlabfunktionen \texttt{bwareaopen}, som är en inbyggd morfologisk
 genererar utifrån en parameter som specificerar
 dess area --- vad som är en lämplig area
 varierar med upplösning och
-och avstånd till kameran. Vi använder en gräns på 200
+och avstånd till kameran. Notera att \texttt{bwareaopen} opererar på mängden
+vita bildpunkter, inte svarta som operationerna i \ref{sec:morph}, varför
+resultatet kommer att likna figur~\ref{fig:morph:cl} istället för
+figur~\ref{fig:morph:op}.  Vi använder en gräns på 200
 bildpunkter. Detta fungerar bra även för relativt stort avstånd till
  en kamera med upplösning på $320\times240$ bildpunkter. Därefter itererarar vi
 igenom bildens kolonner från
