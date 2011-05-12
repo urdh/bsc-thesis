@@ -2,19 +2,19 @@
 \begin{document}
 
 \section{Klassificering av hudfärg och urskiljning av händer}\label{sec:hudklassificering}
-Det första problemet vid visuell gestigenkänning är att kunna se handen.
-För att göra detta
-måste bilden först behandlas. Bildpunkterna klassificeras som hud eller
-icke-hud. Som nästa problem ska bildområdet med hud i sin tur klassificeras som
-en hand eller som övrig hud.
+Det första problemet vid visuell gestigenkänning är att kunna se handen,
+och för att kunna göra detta
+måste bilden först behandlas. Bildpunkterna måste klassificeras som hud 
+eller ickehud, och därefter måste bildområdet med hud i sin tur 
+klassificeras som en hand eller som övrig hud.
 
 För att kunna isolera hud i en bild börjar man fördelaktigen med
 att transformera bilden till en
-lämplig färgrymd. Statistiska metoder kan sedan användas för att
-markera bildpunkterna som hud respektive icke-hud.
+lämplig färgrymd, varpå statistiska metoder kan användas för att
+markera bildpunkterna som hud respektive ickehud.
 Det andra problemet, att identifiera handen bland hudobjekten i bilden kan göras
-exempelvis genom subtraktion av objekt som matchar ett ansiktes form. En enklare
-metod är att ta det objekt som ligger längst till vänster i bilden, vilket
+exempelvis genom subtraktion av objekt som matchar ett ansiktes form, men en enklare
+metod är att ta det objekt som ligger längst till vänster i bilden. Denna metod
 förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
 
 \subsection{Färgrymder}\label{sec:klassificering:fargrymder}
@@ -131,7 +131,7 @@ där konstanten $c$ anpassas för att få så bra resultat som möjligt.
 De sannolikheter som kan bestämmas med de skattade parametrarna från den
 multivariata distributionen är
 $\Prob(\textrm{färg}|\textrm{hud})$ och
-$\Prob(\textrm{färg}|\textrm{ickehud})$ \notes{inte uppenbart!}. Med hjälp av Bayes sats
+$\Prob(\textrm{färg}|\textrm{ickehud})$. Med hjälp av Bayes sats
 kan kvoten ovan omformuleras enligt
 \begin{multline*}
 \frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
@@ -161,7 +161,6 @@ och vita öar i bakgrunden. För att bli av med dessa används
 morfologiska operationer.
 
 \subsection{Morfologiska operationer}\label{sec:morph}
-\notes{Behövs figurer och tydligare förklaring!}
 
 \begin{figure}[tb]
 	\centering 

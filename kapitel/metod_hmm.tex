@@ -22,7 +22,7 @@ kommer, beroende på deras längd, representeras av olika långa symbolföljder,
 att vi tränar flera HMM-modeller för varje gest. En möjlighet är att gruppera in symbolsekvenserna 
 i tre längder för att motverka alltför strikta krav på gestens utförande. 
 
-HMM-modellerna tränas med Baum-Welch-metoden via Matlabfunktionen \texttt{hmmtrain}. Vi använder Bakis-modellen 
+HMM-modellerna tränas med Baum-Welch-metoden via \MATLAB{}\-funk\-tion\-en \texttt{hmmtrain}. Vi använder Bakis-modellen 
 då den som sagt gett bra resultat i samband med signaler som förändras över tid, en topologi som medför att
 modellerna måste tränas med flera symbolsekvenser \cite{Rabiner89}. Då ingen förflyttning till ett tidigare
 tillstånd är tillåten blir modellen nämligen mycket selektiv med vilka symboler varje tillstånd kan generera. 
@@ -39,7 +39,7 @@ klassificering av testfilmerna ske på följande vis:
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{bilder/HMM_flowchart}
+  \includegraphics[width=0.95\textwidth]{bilder/HMM_flowchart}
   \caption{\notes{FÖRKLARANDE TEXT}}
   \label{fig:hmm-flowchart}
 \end{figure}
