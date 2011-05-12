@@ -3,7 +3,7 @@
 \subsection{Klassificering av hud}
 I 44 bilder tagna med webkameran separerades huden från resten av
 bilden manuellt med hjälp av fotoredigeringsprogramvara. Baserat på
-dessa pixlar bestämdes sedan en sannolikhetsfördelning för både hud
+dessa bildpunkter bestämdes sedan en sannolikhetsfördelning för både hud
 och icke-hud. Dessa fördelningar jämfördes sedan med de presenterade
 av \citeasnoun{Elmezain08}.
 
@@ -39,7 +39,7 @@ dess area --- vad som är en lämplig area
 varierar med upplösning och
 och avstånd till kameran. Vi använder en gräns på 200
 bildpunkter. Detta fungerar bra även för relativt stort avstånd till
- en kamera med upplösning på $320\times240$ bildpunkter. Därefter loopar vi
+ en kamera med upplösning på $320\times240$ bildpunkter. Därefter itererarar vi
 igenom bildens kolonner från
 höger för att se om kolonnen innehåller någon hudbildpunkt. Den första
 bildpunkt som nås på detta sätt väljs till att tillhöra handen, och det

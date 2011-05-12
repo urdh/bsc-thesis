@@ -8,11 +8,11 @@ klassificering; enkla sannolikhetsbaserade metoder som Gaussian Mixture
 Models eller mer deterministiska metoder så som \knn-metoden.
 
 Klassificering handlar egentligen om att göra en kvalificerad gissning
-i någon fråga, t.ex.~om en bildpunkt innehåller hud, eller om ett område har
+i någon fråga, t.ex.~om en bildpunkt (pixel) innehåller hud, eller om ett område har
 en viss form. I denna mening måste man alltid ha ''träningsdata'' att jämföra med
 till sin
 klassificerare, även om det inte alltid handlar om faktisk träning. Angreppssätt
-så som HMM, skogar av slumpmässiga träd, genetiska metoder och liknande kräver
+så som dolda markovmodeller, random forests, genetiska metoder och liknande kräver
 träning i form av att känd data matas in i klassificeraren varpå denne
 konstruerar en struktur som används för framtida klassificering.
 Enklare metoder så som \knn 
