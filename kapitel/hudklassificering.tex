@@ -163,7 +163,7 @@ morfologiska operationer.
 \subsection{Morfologiska operationer}\label{sec:morph}
 \notes{Behövs figurer och tydligare förklaring!}
 
-Morfologiska operationer kan användas för att modifiera ''objekt'' i
+Morfologiska operationer kan användas för att modifiera områden i
 binära bilder, till exempel för att rensa bort brus eller för att
 mjuka upp kanter. Det finns fyra grundläggande morfologiska
 operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
@@ -175,7 +175,8 @@ av alla svarta bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
 som i någon mening förändrar hur operationen verkar på bilden.
 Strukturelementet kan dessutom förflyttas så att dess referensbildpunkt
 ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
-strukturelement för $S_{i,j}$.
+strukturelement för $S_{i,j}$. Innebörden av $S$ bör framgå ur hur det används
+nedan.
 
 \emph{Erosionen} eroderar bort delar av de svarta områdena genom
 att endast behålla de bildpunkter vars ''omgivning'' (definierad av mängden
@@ -205,7 +206,7 @@ En öppning är en erosion följd av en dilatation, enligt
   \phi_S(A)=(A\ominus S)\oplus S'.
 \end{equation*}
 
-Detta resulterar i att svart ''brus'', dvs.~svarta områden som inte kan täckas
+Detta resulterar i att svart brus, dvs.~svarta områden som inte kan täckas
 av $S$, försvinner i
 första steget varefter större svarta områdena utökas till sin ursprungliga
 storlek i det andra
