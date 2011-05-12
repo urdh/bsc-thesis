@@ -127,20 +127,31 @@ sådana fördelningar beskrivs av \citeasnoun{Elmezain08}.
 För varje bildpunktsfärg kan med dessa fördelningar sannolikheten för att färgen ska
 förekomma då bildpunkten föreställer hud
 respektive ickehud bestämmas. Det är rimligt att klassa en pixel som
-hud om det gäller att
-$\Prob(\textrm{hud}|\textrm{färg})>\Prob(\textrm{ickehud}|\textrm{färg})$
-. Det innebär att om kvoten
+hud om sannolikheten för att bildpunkten föreställer hud är större än
+sannolikheten att den inte gör det, dvs.~om
+\begin{equation*}
+	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > k = 1.
+\end{equation*}
+
+Beroende på tillämpning kan konstanten $k$ omdefinieras. Denna kvot måste med
+hjälp av Bayes sats omformuleras för att metoden ska kunna tillämpas med
+bildpunktens färg som indata:
 \begin{multline*}
 \frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
  \frac{\Prob(\textrm{färg}}{\Prob(\textrm{ickehud})\Prob(\textrm{ickehud}|\textrm{färg})}=\\
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})
- P(\textrm{ickehud})}
+ \Prob(\textrm{ickehud})}.
 \end{multline*}
-är större än någon konstant (exempelvis ett), så sägs bildpunkten föreställa
-hud. Med denna information kan man sedan sätta en tröskel på den behandlade
+
+Med denna information kan man sedan sätta en tröskel på den behandlade
 bilden, vilket resulterar i en binär bild som kan behandlas ytterligare
-innan egenskaper tas fram utifrån handens form.
+innan egenskaper tas fram utifrån handens form. Kvoten
+$\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ måste uppskattas och betecknar
+den förväntade mängden hudbildpunkter i bilden genom den förväntade mängden
+ickehudbildpunkter.
+
+\notes{Mjuk övergång till vad man får ut och varför man behöver morf. op.}
 
 \subsection{Morfologiska operationer}\label{sec:morph}
 
@@ -151,7 +162,7 @@ operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
 \emph{stängning} \cite[s.~25]{Rudemo09}.
 
 Dessa definieras som operationer på mängder; specifikt mängden $A$
-av alla svarta pixlar i bilden vi behandlar, dvs. alla pixlar som är
+av alla svarta bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
 ''avstängda'' och mängden $S$ som representerar ett strukturelement
 som i någon mening förändrar hur operationen verkar på bilden.
 Strukturelementet kan dessutom förflyttas så att dess referenspixel
@@ -159,7 +170,7 @@ ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
 strukturelement för $S_{i,j}$.
 
 \emph{Erosionen} eroderar bort delar av de svarta områdena genom
-att endast behålla de pixlar vars ''omgivning'' (definierad av mängden
+att endast behålla de bildpunkter vars ''omgivning'' (definierad av mängden
 $S_{i,j}$) ligger helt i mängden $A$. Vad operationen egentligen gör är alltså
 att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras enligt
 \begin{equation*}
@@ -192,7 +203,7 @@ första steget varefter större svarta områdena utökas till sin ursprungliga
 storlek i det andra
 steget. Operationen ''öppnar upp'' vita områden.
 
-En stängning består av motsatt procedur, enligt
+En stängning består av den omvända proceduren, enligt
 \begin{equation*}
   \Phi_S(A)=(A\oplus S)\ominus S',
 \end{equation*}
