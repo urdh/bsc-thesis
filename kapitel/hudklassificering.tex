@@ -88,33 +88,18 @@ uppskattad normalfördelning krävs ett
 antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
 likelihood-metoden.
 
-Fördelningen ges av
+Fördelningen ges allmänt av
 \begin{equation*}
-  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2}
+  p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2},
 \end{equation*}
-med kovariansmatris $\Sigma$ och väntevärde $\mu$.
-Givet $N$ datapunkter $\vect{x}_i,\:1\leq i\leq N$ ges den logaritmerade
-sannolikheten $l(\mu,\Sigma|\vect{x}_1,{\ldots} ,\vect{x}_N)$ av
+där $\mu$ är väntevärdesvektorn och $\Sigma$ är kovariansmatrisen, definierad
+genom sina element
 \begin{equation*}
-  \begin{aligned}
-  l(\mu,\Sigma|\vect{x}_1,...,\vect{x}_N) = &-\frac{Nd}{2}\log(2\pi)-\frac{N}{2}\log|\Sigma|\\
-                              &-\sum_{i=1}^N\frac{(\vect{x}_i-\mu)^T\Sigma^{-1}(\vect{x}_i-\mu)}{2}.
-  \end{aligned}
+ \sigma_{i,j}=\text{Cov}[X_1,X_2]=\text{E}[(X_1-\mu_1)(X_2-\mu_2)]].
 \end{equation*}
 
-Vi kan därefter beräkna derivatan med avseende på $\mu$,
-\begin{equation*}
-  \frac{\partial l}{\partial \mu}=\sum_{i=1}^N(\vect{x}_i-\mu)^T\Sigma^{-1},
-\end{equation*}
-samt derivatan med avseende på $\Sigma^{-1}$,
-\begin{equation*}
-  \frac{\partial l}{\partial \Sigma^{-1}}=\frac{N}{2}\Sigma
-  -\sum_{i=1}^N\frac{(\vect{x}_i-\mu)(\vect{x}_i-\mu)^T}{2}.
-\end{equation*}
+Med N datapunkter fås de skattade parametrarna
 
-Sätter man dem i tur och ordning till noll fås uppskattningarna
-$\hat\mu$ och $\hat\Sigma$:
-\notes{Hur då? Det är \emph{inte} uppenbart!}
 \begin{gather*}
   \hat\mu    =\frac{1}{N}\sum_{i=1}^N\vect{x}_i\\
   \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(\vect{x}_i-\hat\mu)(\vect{x}_i-\hat\mu)^T
@@ -126,16 +111,26 @@ sådana fördelningar beskrivs av \citeasnoun{Elmezain08}.
 
 För varje bildpunktsfärg kan med dessa fördelningar sannolikheten för att färgen ska
 förekomma då bildpunkten föreställer hud
-respektive ickehud bestämmas. Det är rimligt att klassa en pixel som
+respektive ickehud bestämmas. Det är rimligt att klassa en bildpunkt som
 hud om sannolikheten för att bildpunkten föreställer hud är större än
-sannolikheten att den inte gör det, dvs.~om
+sannolikheten att den inte gör det givet dess färg, dvs.~om
 \begin{equation*}
-	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > k = 1.
+	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > 1.
 \end{equation*}
 
-Beroende på tillämpning kan konstanten $k$ omdefinieras. Denna kvot måste med
-hjälp av Bayes sats omformuleras för att metoden ska kunna tillämpas med
-bildpunktens färg som indata:
+Ibland kan det vara önskvärt att kräva att kvoten ska vara ännu
+större, då det är värre att klassa ickehud som hud (och då lägga
+handen i det som egentligen är bakgrund) än att klassa hud som ickehud
+(och få en för liten hand). Man ställer därför istället kravet 
+\begin{equation*}
+	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > c,
+\end{equation*}
+där konstanten $c$ anpassas för att få så bra resultat som möjligt.
+
+Den sannolikhet vi kan bestämma med våra skattade parametrar är
+$\Prob(\textrm{färg}|\textrm{hud})$ och
+$\Prob(\textrm{färg}|\textrm{ickehud})$. Med hjälp av Bayes sats
+omformulerar vi därför kvoten ovan till
 \begin{multline*}
 \frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})}=\\
 =\frac{\Prob(\textrm{färg}|\textrm{hud})\Prob(\textrm{hud})}{\Prob(\textrm{färg})}
@@ -144,14 +139,22 @@ bildpunktens färg som indata:
  \Prob(\textrm{ickehud})}.
 \end{multline*}
 
-Med denna information kan man sedan sätta en tröskel på den behandlade
-bilden, vilket resulterar i en binär bild som kan behandlas ytterligare
-innan egenskaper tas fram utifrån handens form. Kvoten
-$\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ måste uppskattas och betecknar
+Kvoten $\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ måste uppskattas och betecknar
 den förväntade mängden hudbildpunkter i bilden genom den förväntade mängden
-ickehudbildpunkter.
+ickehudbildpunkter. Denna kvot kan bakas in i konstanten $c$, och vi
+får vårt slutliga krav för att klassa en bildpunkt som hud:
 
-\notes{Mjuk övergång till vad man får ut och varför man behöver morf. op.}
+\begin{equation*}
+	\frac{\Prob(\textrm{färg}|\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})} > c,
+\end{equation*}
+
+där $c$ anpassas separat. På detta sätt kan en bild från kameran göras
+binär, varje bildpunkt är antingen hud eller ickehud.
+
+Denna metod för att klassa bildpunkter leder dock till att en del
+bildpunkter klassas fel, vilket resulterar i svarta öar i handen
+och vita öar i bakgrunden. För att bli av med dessa används
+morfologiska operationer.
 
 \subsection{Morfologiska operationer}\label{sec:morph}
 
