@@ -31,20 +31,38 @@ tidskrävande.
 Något som kan göras för att förbättra \knn-metodens träffsäkerhet är först och
 främst att utöka prototypmängden till fler punkter per gest. En annan möjlig
 förbättring skulle vara att inspektera de bilder som faktiskt ligger bakom
-punkten i egenskapsrummet. Om den uppenbart är felaktig, och kanske hade varit
+punkten i egenskapsrummet. Om en bild är uppenbart är felaktig, och
+kanske hade varit
 svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
 Slarvigt utförda gester kommer då mindre sannolikt att
 klassificeras rätt.\notes{om alls? thresholding?!}
 
-\section{Features}
-Inre av handen (linjer etc)
+\section{Egenskaper}
+De egenskaper vi använt för klassificering har visat sig relativt
+effektiva, men det finns modifieringar och tillägg som skulle kunna
+öka träffsäkerheten.
+En sådan modifiering är att istället för fyrkantigheten $\Delta
+x/\Delta y$ använda dess logaritm, $\text{ln}(\Delta x/\Delta
+y)$. Detta då kvotens värdemängd är $(0,\inf)$ och den tar värdet 1 då
+höjen och bredden är samma. Det innebär att egenskapen får större
+viktning då handen är bredare än hög än tvärtom. Detta problem
+försvinner då kvoten logaritmeras. Även övriga egenskaper som
+definieras genom kvoter kan logaritmeras på liknande sätt.
 
-Kurvatur (fingertoppar, avstånd däremellan)
+Det finns även nya klasser av egenskaper som vi inte arbetat med
+alls. Med hjälp av studier av handens kurvatur bör fingertoppar kunna
+identifieras. Antal, avstånd och relativt läge för dessa skulle vara
+väldigt intressanta, och antagligen mycket karakteristiska.
+
+En annan intressant egenskapsklass är de som utnyttjar mönster i det
+inre av handen. Detta skulle kunna göras
+genom att efter man identifierat handen studera originalbilden i dess
+inre, t.ex.~genom ett kantdetektionsfilter, och där plocka ut mängden
+kanter eller riktning genom s.k.~Houghtransform\notes{Har vi källa på
+  det här?}
 
 \section{Realtid}
 \section{Tillämpningar}
-Alfabetsigenkänning, sten-sax-påse
-
 \section{Dynamiska gester}
 
 
