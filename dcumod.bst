@@ -893,7 +893,7 @@ FUNCTION {mastersthesis}
     { skip$ }
     { format.title emphasize "title" output.check }
   if$
-  "Examensarbete " format.thesis.type output.nonnull
+  "examensarbete" format.thesis.type output.nonnull
   school "school" output.check
   address output
   
@@ -927,7 +927,7 @@ FUNCTION {phdthesis}
     { skip$ }
     { format.btitle "title" output.check }
   if$
-  "Doktorsavhandling " format.thesis.type output.nonnull
+  "doktorsavhandling" format.thesis.type output.nonnull
   school "school" output.check
   address output
   
