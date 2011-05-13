@@ -9,7 +9,8 @@ beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
 fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
 och sedan studera det s.k.~Hausdorff-avståndet till dessa \cite{Nielsen04}.
 En enklare metod
-är att beräkna ett antal olika egenskaper baserat på den binära bilden.
+är att beräkna ett antal olika egenskaper baserat på den binära bilden
+och använda dessa för klassificering.
 
 Dessa egenskaper består av mått med enkla definitioner baserade på area,
 omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
@@ -50,18 +51,17 @@ mittpunkten i $x$- och $y$-led.
 
 Centroiden är masscentrum för ett område, och beräknas enligt
 \begin{equation*}
-  \textrm{centroid}(A) = \left\lfloor\frac{
+  \textrm{centroid}(A) = \frac{
     \sum\limits_{a\in A}m_a\vect{r}_a
   }{
     \sum\limits_{a\in A}m_a
-  }\right\rfloor =
-  \left\lfloor\sum\limits_{a\in
-  A}\frac{\vect{r}_a}{\textrm{Area}(A)}\right\rfloor,
+  } =
+  \sum\limits_{a\in
+  A}\frac{\vect{r}_a}{\textrm{Area}(A)},
 \end{equation*}
 där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
-$\vect{r}_a$ är positionen av punkten $a$). Operatorn $\lfloor
-x\rfloor$ avrundar $x$ nedåt till närmsta heltal. Centroiden är vektorvärd.
+$\vect{r}_a$ är positionen av punkten $a$). Centroiden är vektorvärd.
 
 Man kan dessutom definiera ett relativt centroidläge  som avståndet mellan 
 centroiden och lådans övre/vänstra kant genom lådans bredd/höjd.
@@ -81,7 +81,7 @@ Centralmomenten $\mu_{pq}$ definieras av
 \end{equation*}
 där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
 bildens ljusstyrka. För binära bilder gäller att
-$f:\left\{A\right\}\rightarrow\left\{0,1\right\}$.
+$f:\left\{\text{Bildpunkter}\right\}\rightarrow\left\{0,1\right\}$.
 
 De sju Hu-moment definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 \begin{align*}
@@ -124,10 +124,10 @@ definieras av
 \begin{equation*}
   \textrm{konvexitet}(A) = \frac{\left|\partial A_h\right|}{\left|\partial A\right|}
 \end{equation*}
-där $A_h$ är det konvexa skalet till $A$ (dvs. det minsta konvexa område som
+där $A_h$ är det konvexa höljet till $A$ (dvs. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
-mening). Detta innebär i princip att $\left|\partial A\right|$ betecknar
-$A$s omkrets.
+mening). Detta innebär i princip att $\left|\partial A\right|$
+betecknar omkretsen av $A$.
 
 \paragraph{Kompakthet}
 
@@ -155,7 +155,7 @@ gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 
 \paragraph{Fyrkantighet}
 
-Den här egenskapen är helt enkelt ett mått på hur kvadratisk den
+Den här egenskapen är helt enkelt ett mått på hur kvadratisk den axelparallella
 inneslutande lådan är, och på så sätt mäter den hur ''utsträckt'' en
 gest är. Dess definition är mycket enkel:
 \begin{equation*}
@@ -164,19 +164,17 @@ gest är. Dess definition är mycket enkel:
 
 En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
 fyrkantigheten avviker från detta värde desto mer avlång är gesten.
-Notera dock att detta mått är låst till $x/y$-led,
-och att
-excentriciteten mäter i princip samma sak men utgår från
-andramomenten och därmed tar hänsyn till objektets vinkel.
+Notera att excentriciteten (se nedan) mäter i princip samma sak men utgår från
+andramomenten och därmed är oberoende av objektets vinkel.
 
 \paragraph{Excentricitet}
 
 Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
 fyrkantigheten), men utgår från den ellips
-vars andramoment är samma som objektets. Excenticiteten definieras av avståndet
+vars andramoment $\mu_{20}$ och $\mu_{02}$ är samma som
+objektets. Excenticiteten definieras av avståndet
 mellan andramomenten i ellipsen genom längden av den längsta axeln. Därmed
-tar måttet, till skillnad från fyrkantigheten, även hänsyn till vilken vinkel
-objektet ligger i gentemot horisontalaxeln.
+beror måttet, till skillnad från fyrkantigheten, inte på objektets orientering.
 
 \paragraph{Utsträckning}
 
@@ -202,10 +200,10 @@ egenskaperna) genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
 utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana
 parametrar per egenskap i egenskapsrummet). Denna metod kommer inte
 att göra icke normalfördelade egenskaper normalfördelade, men alla
-egenskapers varians kommer begränsas.
+egenskapers varians kommer likställas \cite{Aksoy01}.
 
 Man kan därefter använda dessa parametrar för att normalisera ny indata, så
-att även den passar in i det nya, uniforma egenskapsrummet:
+att även den passar in i det nya egenskapsrummet:
 \begin{equation*}
 	\hat{x} = \frac{x - \hat\mu_x}{\hat\sigma_x}
 \end{equation*}
