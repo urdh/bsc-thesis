@@ -2,23 +2,24 @@
 \begin{document}
 Moderna och innovativa gränssnitt för interaktion med datorer har länge varit
 en vision inom filmindustrin. Redan på mitten av nittiotalet hänfördes
-tittare av 3d-gränssnitt i filmen Hackers, och i början av 2000-talet visade
-scener i Minority Report hur Tom Cruise styr ett ett operativsystem endast med
-sina händer, med hjälp av två trådlösa handskar.
+tittare av 3D-gränssnitt i filmen Hackers, och i början av 2000-talet visade
+scener i Minority Report hur Tom Cruise styr ett operativsystem endast med
+sina händer med hjälp av två trådlösa handskar.
 
 Denna framtidsvision kan
-ligga mycket närmre än vad Spielberg förväntat sig. Redan i början av
+ligga mycket närmare än vad Spielberg förväntat sig. Redan i början av
 nittiotalet gjordes försök att tolka mänskliga rörelser i bildsekvenser
 \cite{Yamato92}, och sedan dess har intresset i forskarvärlden bara ökat.
 Handgester för kommunikation med datorer är alltså inte längre något som
-hör hemma i filmens värld, utan kan snart vara en verklighet.
+hör hemma i filmens värld, utan kan snart vara verklighet.
 
 Det finns två sätt att uppnå denna vision; den för användaren mer krävande
 metoden med sensorfyllda handskar och den mer lättillgängliga kamerabaserade
 metoden som använder data från exempelvis vanliga webbkameror. Den senare har
 fördelen att gemene man kan utnyttja lösningen utan några extra hårdvarukrav.
 
-För den kamerabaserade tankegången är det mest grundläggande problemet att över huvud taget kunna identifiera en människas hud i bilder, och det
+För den kamerabaserade tillvägagångssättet är det mest grundläggande problemet
+att över huvud taget kunna identifiera en människas hud i bilder, och det
 problemet har många lösningar. Metoderna förfinas hela tiden, men i stort har
 det inte hänt något revolutionerande sedan början av 2000-talet
 \cite{Sebe04,Kruppa02,Albiol01,Brand00}, med några få undantag
@@ -41,8 +42,9 @@ har också behandlats flitigt \cite{Pavlovic97,Garg09,Nielsen04,Zabulis09}.
 %och så sent som 2008 av \citeasnoun{Elmezain08}.}
 
 Trots denna uppmärksamhet från forskarvärden och på senare tid även den kommersiella sektorn
- (t.ex.~Microsoft Kinect till TV-spelskonsolen Xbox) så fortsätter gestigenkänning vara något som
-kräver extern, ofta dyr hårdvara eller mycket kontrollerade miljöer för att
+ (t.ex.~Microsoft Kinect till TV-spelskonsolen Xbox) så fortsätter
+gestigenkänning vara något som
+kräver extern och ofta dyr hårdvara eller mycket kontrollerade miljöer för att
 fungera bra. Detta problem kan endast lösas genom att implementera ett
 videobaserat system som är tillräckligt robust för att kunna identifiera
 handgester i mycket varierande miljöer.
@@ -50,7 +52,8 @@ handgester i mycket varierande miljöer.
 Denna rapport behandlar både hudigenkänning och gestigenkänning, och ger en
 lösning på gestigenkänningsproblemet i dess enklaste form, när
 datorn endast förväntas känna igen statiska gester. Detta görs med hjälp av
-Gaussian Mixture Models för hudklassificering och \knn-metoden för tolkning
+Gaussian Mixture Models för hudklassificering och \knn-metoden (k
+närmsta grannar) för tolkning
 av handgester utifrån en stor mängd egenskaper som extraheras ur bilddata.
 Vidare lägger den en
 teoretisk grund för att även kunna känna igen rörliga gester med hjälp av
