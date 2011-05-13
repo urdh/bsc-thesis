@@ -7,7 +7,7 @@ Det handlar om att klassificeraren ska göra en kvalificerad gissning för hur
 observerad data ska hanteras, baserat på någon typ av ''inlärningsprocess''.
 Man skiljer på modellbaserade och modellfria metoder, där de modellbaserade
 bygger på modeller av de bakomliggande system som ska analyseras, medan de
-modellfria kan ses som mer oberoende av sammanhang\cite{Hastie09}.
+modellfria kan ses som mer oberoende av sammanhang \cite{Hastie09}.
 Man skiljer också på övervakad respektive icke-övervakad inlärning,
 där man i det övervakade fallet har etiketter på den träningsdata man stoppar
 in, så att man för varje objekt kan säga om det klassificerats rätt eller
@@ -15,7 +15,7 @@ fel.
 
 Indata till klassificeraren är någon mängd av objekt med någon uppsättning
 egenskaper (features) vilka vi kan mäta.
-I egenskapernas rum önskar man då att objekten separeras i olika kluster
+I egenskapsrummet önskar man då att objekten separeras i olika kluster
 som stämmer överens med deras verkliga klass.
 I vissa problem är resultatet binärt,
 vilket exempelvis gäller i hudisoleringsproblemet.
@@ -28,14 +28,14 @@ Svårigheten kan förtydligas något med hjälp av figur \ref{fig:kluster}.
     \caption{Det är enkelt att se vart ett objekt hör i den vänstra figuren,
     där de två klasserna är väl separerade. I den högra figuren kan man också se
     skilnad på objekt, men det är nu mycket svårt. Axlarna motsvarar
-    två godtyckliga egenskaper. En starkare uppsättning egenskaper ger en
+    två godtyckliga egenskaper. En annan uppsättning egenskaper kan ge en
     tydligare separering av klasserna.}
     \label{fig:kluster}
 \end{figure}
 
-Vi kommer att beröra tre klassificerare, två modellfria, i någon mån
-prototypbaserade i form av \knn och Gaussian Mixture Models samt en
-modellbaserad i avsnittet om dolda Markovmodeller.
+Vi kommer att beröra tre klassificerare, den modellfria
+prototypbaserade \knn samt de två modellbaserade Gaussian Mixture
+Models och dolda Markovmodeller.
 
 %Klassificering handlar om att göra en kvalificerad gissning
 %i någon fråga, t.ex.~om en bildpunkt (pixel) innehåller hud, eller om ett område har
