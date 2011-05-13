@@ -52,12 +52,15 @@ och avstånd till kameran. Notera att \texttt{bwareaopen} opererar på mängden
 vita bildpunkter, inte svarta som operationerna i \ref{sec:morph}, varför
 resultatet kommer att likna figur~\ref{fig:morph:cl} istället för
 figur~\ref{fig:morph:op}.  Vi använder en gräns på 200
-bildpunkter. Detta fungerar bra även för relativt stort avstånd till
- en kamera med upplösning på $320\times240$ bildpunkter. Därefter itererarar vi
-igenom bildens kolonner från
-höger för att se om kolonnen innehåller någon hudbildpunkt. Den första
-bildpunkt som nås på detta sätt väljs till att tillhöra handen, och det
-sammanhängande område som bildpunkten är en del av betraktas som den sökta
+bildpunkter; detta fungerar bra även för relativt stort avstånd till
+kameran med en upplösning på $320\times240$ bildpunkter.
+
+För att hitta handen gör vi den kvalificerade gissningen att handen är det
+objekt som befinner sig längst till höger i bilden.
+Vi itererar därför över bildens kolonner från
+höger för att se om kolonnen innehåller någon hudbildpunkt --- den första
+hudbildpunkten som nås på detta sätt antas tillhöra handen, och det
+sammanhängande område som bildpunkten är en del av antas därför vara den sökta
 handen. Att på detta sätt välja objektet längst till höger av de
 intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
 sig dock av det högra av de två största sammanhängande objekten,
@@ -70,16 +73,19 @@ i bilden.
 En alternativ metod för att leta från
 vänster är lätt att implementera om man vill kunna använda programmet
 som vänsterhänt --- detta kommer dock att kräva en
-separat inlärningsmängd till gestigenkänningen.
+separat inlärningsmängd till gestigenkänningen. \notes{Kan man inte bara
+spegelvända bilden?}
 
 Metoden plockar med all hud som hänger samman med
-handen, inklusive armen om personen framför kameran bär kortärmad tröja. För att
+handen, inklusive armen om personen framför kameran bär en kortärmad tröja. 
+För att
 råda bot på detta kan man identifiera handleden och kapa handen
-där. Detta har gjordes av \citeasnoun{Deimel99} genom att identifiera den största cirkel
+där. Detta har gjordes av \citeasnoun{Deimel99} genom att identifiera den 
+största cirkel
 som får plats helt i handen, som antas vara centrerad mitt i handen. Då
 cirkeln förstoras något är det längsta cirkelsegment som helt får
 plats i hudområdet placerat vid handleden, och mittpunktstangenten
-till segmentet är då handleden. Handen utgörs då av hudområdet på den
+till segmentet skär handleden --- handen utgörs då av hudområdet på den
 sida om handleden som cirkeln befinner sig på. Denna metod har vi dock
 inte implementerat, varför vi kräver att den filmade bär
 långärmad tröja. 

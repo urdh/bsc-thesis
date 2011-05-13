@@ -5,23 +5,26 @@
 \notes{intro?}
 
 \subsection{Konstruktion av prototypmängd för \knn}
+%\notes{Tas upp av 3.3.2}
+%Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
+%representativ inlärningsmängd. Ur denna tog vi sedan den första bildrutan i
+%varje film, då de efterföljande var allt för lika för att tillföra något. Vi
+%sparade dessa bilders egenskapsvektorer i en matris --- varje gest 
+%fick därmed 24 punkter i
+%egenskapsrummet. Till matrisen hade vi även lagt två kolonner som %identifierade
+%varje rad, en som specificerade gesten och en som sade vilken filmsekvens den
+%hämtats ur. På så vis kunde vi hela tiden spåra felklassificerade gester.
+
 Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
-representativ inlärningsmängd. Ur denna tog vi sedan den första bildrutan i
-varje film, då de efterföljande var allt för lika för att tillföra något. Vi
-sparade dessa bilders egenskapsvektorer i en matris --- varje gest 
-fick därmed 24 punkter i
-egenskapsrummet. Till matrisen hade vi även lagt två kolonner som identifierade
-varje rad, en som specificerade gesten och en som sade vilken filmsekvens den
-hämtats ur. På så vis kunde vi hela tiden spåra felklassificerade gester.
-
-De övriga två femtedelarna av filmerna användes som testmängd. Här använde vi oss
-av de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
+representativ inlärningsmängd --- de övriga två femtedelarna av filmerna 
+användes som testmängd, ur vilken vi endast plockade ut
+de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
 En oberoende testmängd är viktigt för att kunna säga om klassificeraren är
-stark eller inte. Vi testade dessutom med ytterligare personer som
-inte redan existerade i vår inlärningsmängd.
+stark eller inte; vi testade därför även med personer som inte redan 
+existerade i vår inlärningsmängd.
 
-%% Förklarar snarare vad KNN är än vad vi gjort?
 %\subsection{Implementering och test av \knn}
+% \notes{Förklarar snarare vad KNN är än vad vi gjort?}
 %Klassificeringen av testfilmernas gester genomfördes med hjälp av \MATLAB{}s
 %inbyggda funktion \texttt{knnsearch}. Med hjälp av den nyligen skapade
 %inlärningsmängden som grund kunde vi köra testfilmernas bilder,
@@ -41,14 +44,19 @@ klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper
 fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets
 prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man
 eliminera de egenskaper som kanske rentav försämrar chanserna till en korrekt
-klassificering.Det kan handla om egenskaper som är överdrivet utspridda i
-vektorrummet eller instabila egenskaper som förorenar datan med slumpmässiga
+klassificering. Det kan handla om egenskaper som är överdrivet utspridda i
+egenskapsrummet eller instabila egenskaper som förorenar datan med slumpmässiga
 variationer.
 
 Då vi först tog oss an problemet att finna de bäst klassificerande
 egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att helt
 enkelt testa olika långa permutationsföljder av egenskaper ---
-men att detta ger upphov till enorma beräkningskrav är tydligt. 
+men att detta ger upphov till enorma beräkningskrav är tydligt; med 15
+egenskaper ger detta $32\,767$ kombinationer totalt, och varje kombination
+måste testas emot hela testmängden på 96 bilder. Man måste alltså bygga ett
+kd-tree över $30\,000$ gånger och göra totalt $3\,145\,632$ klassificeringar,
+något som skulle ta mycket lång tid.
+ 
 Den andra angreppsvinkeln utnyttjar
 möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en
 större inverkan. Man optimerar då
@@ -57,17 +65,24 @@ utesluter de egenskaper som inte bidrar till diskrimineringen. Vi experimenterad
 med denna metod lite kort, men konstaterade snart att den var allt för 
 beräkningsintensiv för våra tillämpningar.
 
+\notes{Detta stycket är lite rörigt.}
 Den tredje metoden --- som vi slutligen kom att
-använda --- var utformad på så sätt att vi först identifierade den egenskap som
-ensam gav störst antal korrekta klassificeringar. Därefter identifierades
-egenskapen som tillsammans med den första gav bäst resultat --- detta
-upprepades tills samtliga egenskaper var inkluderade. Då detta
-inträffade lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, följt av
-att vi startade om algoritmen som valde de bästa egenskaperna. Algoritmen
-arbetade alltså i linje med flödesschemat i figur~\ref{fig:knn-flowchart}. 
-\notes{\cite{Jain97}}
+använda --- kallas greedy forward selection (se
+ figur~\ref{fig:knn-flowchart}). Den är utformad på så sätt att
+man först identifierar den egenskap som
+ensam ger störst antal korrekta klassificeringar, varefter
+man identifierar den egenskap som tillsammans med den första ger
+bäst resultat --- detta
+upprepas tills samtliga egenskaper är inkluderade. Man har då randordnat
+egenskaperna (lokalt) optimalt. Då detta
+inträffade lät vi ändra värdet av $k$,
+alltså parametern i \knn-metoden, följt av
+att vi startade om forward selection-algoritmen som valde de bästa egenskaperna.
+\citeasnoun{Jain97} utförde en undersökning av feature selection-algoritmer,
+och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
+metoder så som branch-and-bound.
 
-\begin{figure}[tbp]
+\begin{figure}[tb]
 	\centering 
 	\begin{tikzpicture}[node distance = 2cm, auto]
 		% nodes
@@ -83,36 +98,17 @@ arbetade alltså i linje med flödesschemat i figur~\ref{fig:knn-flowchart}.
 		\path [line] (finns) -- node [near start] {Ja} (ident);
 		\path [line] (finns) -- node [near start] {Nej} (end);
 	\end{tikzpicture}
-	\caption{\notes{FLOWCHART!} (forward-metod?)}
+	\caption{Greedy forward selection för att välja de bästa egenskaperna}
 	\label{fig:knn-flowchart}
 \end{figure}
 
 I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån
 endast den främsta egenskapen, de två främsta och så vidare upp till
-samtliga femton egenskaper. Vi lät även $k$ variera mellan 1 och 13 för att få
-en uppfattning av dess inverkan. Trots att algoritmen är krävande att köra bör
+samtliga femton egenskaper, och vi lät även $k$ variera mellan 1 och 13 för att få
+en uppfattning av dess inverkan (se figur~\ref{fig:knn-optimering} för en
+visualisering av resultaten). Trots att algoritmen är krävande att köra bör
 det nämnas att den inte är inte är lika beräkningsintensiv som de två
-förstnämnda. Det ska även nämnas att eftersom detta är en icke-uttömmande
-algoritm så är det inte garanterat att den hittar ett globala optimum \cite{Cover77}.
-
-\begin{figure}[tbp]
-	\centering 
-	\begin{tikzpicture}[node distance = 2cm, auto]
-		% nodes
-		\node [block] (init) {\textbf{Start}\\Skapa en grupp $E$ med alla egenskaper};
-		\node [block, below of=init, node distance=3cm] (ident) {Identifiera den egenskap som ger bäst resultat när den exkluderas ur $E$};
-		\node [block, below of=ident, node distance=3cm] (add) {Ta bort denna egenskap från $E$ och ge den en ranking.\\Lägre ranking innebär sämre egenskap};
-		\node [decision, right of=ident, node distance=5cm] (finns) {Finns det egenskaper kvar i $E$?};
-		\node [block, below of=finns, node distance=5cm] (end) {\textbf{Returnera} egenskaperna, sorterade efter ranking};
-		% edges
-		\path [line] (init) -- (ident);
-		\path [line] (ident) -- (add);
-		\path [line] (add) -- (finns);
-		\path [line] (finns) -- node [near start] {Ja} (ident);
-		\path [line] (finns) -- node [near start] {Nej} (end);
-	\end{tikzpicture}
-	\caption{\notes{FLOWCHART!} (backward-metod?)}
-	\label{fig:knn-flowchart}
-\end{figure}
+förstnämnda, men det ska även nämnas att eftersom algoritmen utför en icke-uttömmande
+sökning så är det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 
 \end{document}
