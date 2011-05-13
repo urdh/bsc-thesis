@@ -8,9 +8,9 @@ måste bilden först behandlas. Bildpunkterna måste klassificeras som hud
 eller ickehud, och därefter måste bildområdet med hud i sin tur 
 klassificeras som en hand eller som övrig hud.
 
-För att kunna isolera hud i en bild börjar man fördelaktigt med
+För att kunna isolera hud i en bild är det lämpligt att börja med
 att transformera bilden till en
-lämplig färgrymd, varpå statistiska metoder kan användas för att
+passande färgrymd, varpå statistiska metoder kan användas för att
 markera bildpunkterna som hud respektive ickehud.
 Det andra problemet, att identifiera handen bland hudobjekten i bilden kan göras
 exempelvis genom subtraktion av objekt som matchar ett ansiktes form. En enklare
@@ -63,41 +63,45 @@ För att skilja bildpunkter med hud från bakgrunden,
 kan flera olika statistiska metoder
 appliceras. Man har till exempel gjort försök med 
 ''random forests''
-\cite{Khan10}, Bayesianska nätverk \cite{Sebe04}, generativa modeller
+\cite{Khan10}, bayesianska nätverk \cite{Sebe04}, generativa modeller
 \cite{Kruppa02}
-och ''fuzzy arithmetics'' \cite{Shang10} --- en större undersökning av metoder
+och ''fuzzy arithmetics'' \cite{Shang10}. En större undersökning av metoder
 för huddetektion gjordes av \citeasnoun{Kakumanu07}.
 
 En enklare metod som nått relativt stor framgång är den som baseras på
-Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, det vill säga
-en modell där bildpunktens färg antas bero stokastiskt på om
+Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, en modell där
+bildpunktens färg antas bero stokastiskt på om
 bildpunkten föreställer hud eller inte.
 
-Färgen antas då vara en multivariat normalfördelad
-stokastisk variabel, där fördelningens parametrar beror på om
-bildpunkten motsvarar hud eller inte. För att kunna hantera olika hudfärger kan en
+Färgen antas då vara en multivariat stokastisk variabel, vars
+fördelning är en mixtur av normalfördelning. Fördelningens parametrar
+antas bero på om bildpunkten motsvarar hud eller inte. För att kunna
+hantera olika hudfärger kan en
 uppsättning av olika
 fördelningar för respektive hudfärg användas. Den totala
-sannolikhetsfördelning är sedan en linjärkombination av dessa. Detsamma
+sannolikhetsfördelning är sedan en linjärkombination av dessa, där
+vikterna motsvarar a priori-fördelningen mellan olika hudfärger. Detsamma
 kan göras med sannolikhetsfördelningen för bildpunkter som inte
 innehåller hud.
 
 För att bestämma väntevärdesvektorn och kovariansmatrisen i en
 uppskattad normalfördelning krävs ett
-antal datapunkter, med vilkas hjälp parametrarna kan skattas med maximum
-likelihood-metoden.
+antal datapunkter, med vars hjälp parametrarna kan skattas med maximum
+likelihood.
 
-Fördelningen ges allmänt av \notes{sannolikhetstätheten}
+Sannolikhetstätheten ges i $d$ dimensioner allmänt av
 \begin{equation*}
   p(x)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}e^{-(\vect{x}-\mu)^T\Sigma^{-1}(\vect{x}-\mu)/2},
 \end{equation*}
-där $\mu$ är väntevärdesvektorn och $\Sigma$ är kovariansmatrisen, definierad
+där $\mu\in\R^d$ är väntevärdesvektorn och
+$\Sigma\in\R^{d\times d}$ är kovariansmatrisen, definierad
 genom sina element
 \begin{equation*}
  \sigma_{i,j}=\text{Cov}[X_i,X_j]=\text{E}[(X_i-\mu_i)(X_j-\mu_j)]].
-\end{equation*}
+\end{equation*}.
 
-Med N datapunkter fås de skattade parametrarna
+I vårt fall har färgen en $\text{C_b}$ och en $\text{C_r}$-komponent,
+varför $d=2$. Med N datapunkter skattas parametrarna med
 
 \begin{gather*}
   \hat\mu    =\frac{1}{N}\sum_{i=1}^N\vect{x}_i\\
@@ -124,7 +128,7 @@ handen i det som egentligen är bakgrund) än att klassa hud som ickehud
 \begin{equation*}
 	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > c,
 \end{equation*}
-där konstanten $c$ anpassas för att få så bra resultat som möjligt.
+där konstanten $c$ kan anpassas för att få så bra resultat som möjligt.
 
 De sannolikheter som kan bestämmas med de skattade parametrarna från den
 multivariata distributionen är
@@ -152,7 +156,7 @@ får vårt slutliga krav för att klassa en bildpunkt som hud:
 \end{equation*}
 
 där $c$ anpassas separat. På detta sätt kan en bild från kameran göras
-binär, varje bildpunkt är antingen hud eller ickehud.
+binär, där varje bildpunkt är antingen hud eller ickehud.
 
 Denna metod för att klassa bildpunkter leder dock till att en del
 bildpunkter klassas fel, vilket resulterar i svarta öar i handen
@@ -199,12 +203,14 @@ Dessa definieras som operationer på mängder; specifikt mängden $A$
 av alla svarta bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
 ''avstängda'' och mängden $S$ som representerar ett strukturelement
 som i någon mening förändrar hur operationen verkar på bilden.
-Strukturelementet kan dessutom förflyttas så att dess referensbildpunkt
+Strukturelementet kan dessutom förflyttas så att dess
+referensbildpunkt (en punkt kring vilken elementet är definierad, ofta
+mittpunkten)
 ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
 strukturelement för $S_{i,j}$. Innebörden av $S$ framgår ur hur det används
 nedan.
 
-\emph{Erosionen} eroderar bort delar av de svarta områdena genom
+\emph{Erosion} eroderar bort delar av de svarta områdena genom
 att endast behålla de bildpunkter vars ''omgivning'' (definierad av mängden
 $S_{i,j}$) ligger helt i mängden $A$. Vad operationen egentligen gör är alltså
 att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras enligt
@@ -221,7 +227,7 @@ en erosion på komplementet till $A$ och definieras enligt
 Dessa operationer är i sig inte särskilt användbara då de förändrar
 arean av objektet i bilderna. Operationerna kan dock kombineras för
 att skapa operationer som i någon mening endast 
-''mjukar upp'' objektet i bilden utan att förändra deras area markant.
+''mjukar upp'' objekten i bilden utan att förändra deras area markant.
 Eftersom erosion och dilatation är motsatser kan dessa appliceras i
 följd för att behandla bilden och
 sedan återställa den. Detta ger upphov till två nya operationer:
@@ -247,7 +253,5 @@ och ger även motsatt resultat (svarta områden ''öppnas upp'').
 De
 båda operationerna använder utöver $A$ och $S$ även $S'$, vilket är
 $S$ roterad 180\textdegree{} runt sin referensbildpunkt.
-
-\notes{hål i handen?}
 
 \end{document} 
