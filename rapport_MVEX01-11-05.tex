@@ -82,8 +82,15 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 %\afterpage{\clearpage}
+\let\oldquote=\quote
 \expandafter\def\expandafter\quote\expandafter{\quote\small}
 \definecolor{codebg}{rgb}{0.975,0.975,0.975}
+% Abstract-hack
+\makeatletter
+\renewenvironment{abstract}{\if@twocolumn\section*{\abstractname}
+\else\small\begin{center}{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}
+\end{center}\oldquote\fi}{\if@twocolumn\else\endquote\fi}
+\makeatother
 
 % Kommandon
 \newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}  % Vektorer
