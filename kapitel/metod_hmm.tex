@@ -22,7 +22,7 @@ kommer, beroende på deras längd, representeras av olika långa symbolföljder,
 att vi tränar flera HMM-modeller för varje gest. En möjlighet är att gruppera in symbolsekvenserna 
 i tre längder för att motverka alltför strikta krav på gestens utförande. 
 
-HMM-modellerna tränas med Baum-Welch-metoden via Matlabfunktionen \texttt{hmmtrain}. Vi använder Bakis-modellen 
+HMM-modellerna tränas med Baum-Welch-metoden via \MATLAB-funktionen \texttt{hmmtrain}. Vi använder Bakis-modellen 
 då den som sagt gett bra resultat i samband med signaler som förändras över tid, en topologi som medför att
 modellerna måste tränas med flera symbolsekvenser \cite{Rabiner89}. Då ingen förflyttning till ett tidigare
 tillstånd är tillåten blir modellen nämligen mycket selektiv med vilka symboler varje tillstånd kan generera. 
@@ -32,16 +32,26 @@ varje generera rätt symbol i ordningen med sannolikhet ett.
 \notes{Nämna att vi skrev egen HMM-kod}
 
 Om vi antar att det tränats HMMs för gester av längd två, fem och sju symboler kommer programmets 
-klassificering av testfilmerna ske på följande vis:
- 
+klassificering av testfilmerna ske på det sätt som beskrivs i
+figur~\ref{fig:hmm-flowchart}.
  
  \begin{figure}[tbp]
   \centering
+  \captionsetup{singlelinecheck=off} % hack
   \includegraphics[width=0.95\textwidth]{bilder/HMM_flowchart}
-  \caption{\notes{FÃ–RKLARANDE TEXT}}
+  \caption[Klassificering av dynamiska gester med två, dem eller sju
+  symboler]{Klassificering av dynamiska gester med två, fem eller sju
+  symboler sker enligt en relativt enkel procedur:
+  \begin{enumerate}
+    \item Blah blah blah
+    \item Blah blah blah
+    \item Blah blah blah
+    \item Blah blah blah
+  \end{enumerate}}
   \label{fig:hmm-flowchart}
 \end{figure}
  
+\notes{
 Programmet initieras
 
 (BILD)
@@ -52,7 +62,7 @@ Då programmet körts mer än x antal frames
 
 klassificeringen sker lämpligen med en threshold 
 De längsta sekvenserna går först
-
+}
 
 Antal tillstånd för modellen lika många som gesten den modellerar har symboler.
 HMMs för statiska gester tränas för att känna igen sekvenser av samma symbol.
