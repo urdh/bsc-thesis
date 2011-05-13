@@ -3,20 +3,25 @@
 \begin{abstract}
 	Den här rapporten beskriver arbetet med och teorin bakom skapandet av
 	ett program som kan identifiera ett antal olika statiska gester med
-	god noggrannhet. Rapporten beskriver även relativt detaljerat metoder
+	god noggrannhet. Rapporten beskriver även metoder
 	för att med hjälp av dolda Markovmodeller (HMM) identifiera dynamiska
-	gester. 
+	gester.
+  
+
+	Klassificeringsmetoderna som används är helt statistiska, och använder
+	varken färdiga handmodeller eller artificiella neurala
+	nätverk. Handidentifieringen kräver att användaren bär
+        långärmad tröja, men i rapporten
+	beskrivs även metoder för att identifiera handleder så att
+        kravet kan tas bort.
+
+        Analysen utförs på inspelade filmer, men realtidsanalys är inte långt
+	borta varken vad gäller prestanda eller implementering. 
 
 	Med hjälp av Gaussian mixture models för hudidentifiering och
 	kNN-klassificering för gestigenkänning kan 10 statiska gester
 	identifieras med 91.4\,\% korrekt klassificering. För analys av dynamiska
 	gester saknas resultat.
-  Analysen utförs på inspelade filmer, men realtidsanalys är inte långt
-	borta varken vad gäller prestanda eller implementering. 
 
-	Klassificeringsmetoderna som används är helt statistiska, och använder
-	varken färdiga handmodeller eller artificiella neurala
-	nätverk. Handidentifieringen kräver långärmad tröja, men i rapporten
-	beskrivs även metoder för att identifiera handleder.
 \end{abstract}
 \end{document}
