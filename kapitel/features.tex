@@ -2,19 +2,19 @@
 \begin{document}
 \section{Kvantitativa mått på handens geometri}\label{sec:features}
 
-För att på något sätt kunna kvantifiera den data en binär bild av en hand 
+För att på något sätt kunna kvantifiera den data en bild av en hand 
 innehåller och tolka den på ett bra sätt måste denna data transformeras till
-något meningsfullt. Det finns många sätt att göra detta --- man kan t.ex.~
+något meningsfullt. Det finns många sätt att göra detta --- man kan exempelvis
 beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
 fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
 och sedan studera det s.k.~Hausdorff-avståndet till dessa \cite{Nielsen04}.
 En enklare metod
-är att beräkna ett antal olika egenskaper baserat på den binära bilden
+är att beräkna ett antal olika egenskaper baserade på den binära bilden
 och använda dessa för klassificering.
 
-Dessa egenskaper består av mått med enkla definitioner baserade på area,
+Dessa egenskaper kan bestå av mått med enkla definitioner baserade på area,
 omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
-därför användas för att skilja mellan olika rörelseoberoende
+därför användas av en klassificerare för att skilja mellan olika rörelseoberoende
 gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
 uppsättning egenskaper inte användas direkt i tillämpningar som involverar
 rörelsegester, utan måste kompletteras av exempelvis hastighets- eller
