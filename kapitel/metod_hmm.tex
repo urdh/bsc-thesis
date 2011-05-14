@@ -4,7 +4,7 @@
 \section{Implementering av HMM för klassificering av icke-statiska gester}
 För att klassificera icke-statiska gester bygger man vidare på metoden som användes i det 
 statiska fallet. Steget till HMM kräver att gester utgörs av följder av index istället
-för ensamma. I linje med HMM-teorin motsvarar dessa index de symboler som modellerna genererar, 
+för ett index. I linje med HMM-teorin motsvarar dessa index de symboler som modellerna genererar, 
 och i fortsättningen används endast ordet symbol. Idén är att representera varje gest, statisk som icke-statisk, i form av 
 en symbolföljd. De statiska definieras lättast som två eller tre symboler av samma typ, medan 
 de icke-statiska kommer bestå av en följd av olika symboler. Då de statiska gesterna redan tilldelats
@@ -16,7 +16,7 @@ delgester (behöver omformuleras) på så vis tilldelas samma symbol.
 
 Programmet omvandlar därefter träningsfilmerna till symboler via kodboken som utvidgats 
 med prototypgesterna. Längden av 
-symbolföljderna för respektive gest beror på programmets prestanda, dvs hur många bilder 
+symbolföljden för respektive gest beror på programmets prestanda, dvs hur många bilder 
 man önskar analysera per sekund. Det bör uppmärksammas att varianter av en och samma gest 
 kommer, beroende på deras längd, representeras av olika långa symbolföljder, vilket leder till 
 att vi tränar flera HMM-modeller för varje gest. En möjlighet är att gruppera in symbolsekvenserna 
@@ -31,43 +31,36 @@ varje generera rätt symbol i ordningen med sannolikhet ett.
 
 \notes{Nämna att vi skrev egen HMM-kod}
 
-Om vi antar att det tränats HMMs för gester av längd två, fem och sju symboler kommer programmets 
-klassificering av testfilmerna ske på det sätt som beskrivs i
+För att beräkna sannolikheten att en viss HMM skapat en symbolföljd används \MATLAB-funktionen \texttt{hmmviterbi}. 
+Om vi antar att det tränats HMMs för gester av längd två, fem och sju symboler kommer programmets klassificering 
+av testfilmerna ske på det sätt som beskrivs i
 figur~\ref{fig:hmm-flowchart}.
  
  \begin{figure}[tbp]
   \centering
   \captionsetup{singlelinecheck=off} % hack
   \includegraphics[width=0.95\textwidth]{bilder/HMM_flowchart}
-  \caption[Klassificering av dynamiska gester med två, dem eller sju
-  symboler]{Klassificering av dynamiska gester med två, fem eller sju
+  \caption[Klassificering av dynamiska gester med två, fem och sju
+  symboler]{Klassificering av dynamiska gester med två, fem och sju
   symboler sker enligt en relativt enkel procedur:
   \begin{enumerate}
-    \item Blah blah blah
-    \item Blah blah blah
-    \item Blah blah blah
-    \item Blah blah blah
+    \item Programmet beräknar sannolikheten att en HMM tränad med sju
+	symboler skapat symbolföljden. Är någon sannolikhet tillräckligt hög 
+	registreras den aktuella gesten och programmet går till steg fyra, 
+	annars går det vidare till steg två.
+    \item Programmet beräknar sannolikheten att de fem senaste symbolerna
+	skapats av en HMM tränad med fem symboler. Vid tillräckligt hög sannolikhet 
+	registreras en gest och programmet går till steg fyra, annars går det 
+	vidare till steg tre. 
+    \item Programmet beräknar sannolikheten att de två senaste symbolerna skapats av 
+	en HMM tränad med två symboler. Om sannolikheten är tillräckligt hög registreras
+	en (statisk) gest. 
+    \item De två äldsta symbolerna kasseras och två nya sätts in i slutet av följden. 
+	Programmet börjar om i steg ett. (Märk att detta program prioriterar långa symbolföljder,
+	störst går först).
   \end{enumerate}}
   \label{fig:hmm-flowchart}
 \end{figure}
  
-\notes{
-Programmet initieras
-
-(BILD)
-
-Då programmet körts mer än x antal frames
-
-(BILD)
-
-klassificeringen sker lämpligen med en threshold 
-De längsta sekvenserna går först
-}
-
-Antal tillstånd för modellen lika många som gesten den modellerar har symboler.
-HMMs för statiska gester tränas för att känna igen sekvenser av samma symbol.
-Med tränade modeller undersöker man sedan sannolikheten att en symbolföljd genererades av en viss modell.
-Bäst modell vinner.
-
  \end{document}
 
