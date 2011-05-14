@@ -1,6 +1,7 @@
 \section{Hud- och handidentifiering}
 
 \subsection{Klassificering av hud}
+\notes{44 bilder?? gjorde Elmezain detta?}
 I 44 bilder tagna med webbkameran separerades huden från resten av
 bilden manuellt med hjälp av fotoredigeringsprogramvara. Baserat på
 dessa bildpunkter bestämdes sedan en sannolikhetsfördelning för både hud
@@ -34,52 +35,56 @@ sannolikhetsfördelningarna framtagna av \citeasnoun{Elmezain08} men
 med samma metod.\notes{What?!}
 
 \subsection{Urskiljning av handen}\label{sec:metod_hud:urskiljning}
-
-När väl hudbildpunkterna i figuren urskiljts återstår att plocka ut
-vad som är handen som ska följas. Det är troligt att man bland
-bildpunkterna fått med ett antal mindre områden som felaktigt bedömts vara
+\notes{Håll i dig, nu blir det presens! Kan vi variera tempus fram och tillbaka?}
+När väl hudbildpunkterna i figuren urskiljts återstår att 
+identifiera handen som ska följas. Det är troligt att man i bilden
+fått med ett antal mindre områden som felaktigt bedömts vara
 hud. Dessutom är huvudet ofta med i bilden, vilket kan ställa till med
 problem. 
 
 Vår lösning på problemet är att först använda den inbyggda
-matlabfunktionen \texttt{bwareaopen}, som är en inbyggd morfologisk
-öppningsfunktion. Metoden beskrivs i
+matlabfunktionen \texttt{bwareaopen}, som är en morfologisk
+öppningsfunktion. Metoden som beskrivs i
 \ref{sec:morph} använder ett strukturelement $S$, som \texttt{bwareaopen}
 genererar utifrån en parameter som specificerar
 dess area --- vad som är en lämplig area
 varierar med upplösning och
-och avstånd till kameran. Notera att \texttt{bwareaopen} opererar på mängden
+och avstånd till kameran. Notera att \texttt{bwareaopen} opererar på mängden av
 vita bildpunkter, inte svarta som operationerna i \ref{sec:morph}, varför
 resultatet kommer att likna figur~\ref{fig:morph:cl} istället för
-figur~\ref{fig:morph:op}.  Vi använder en gräns på 200
+figur~\ref{fig:morph:op}.
+\notes{Är detta sant efter att skåning bytte svarta och vita i morfkapitlet?}
+Vi använder en gräns på 200
 bildpunkter; detta fungerar bra även för relativt stort avstånd till
 kameran med en upplösning på $320\times240$ bildpunkter.
 
-För att hitta handen gör vi den kvalificerade gissningen att handen är det
+För att hitta handen gör vi antagandet att handen är det
 objekt som befinner sig längst till vänster i bilden.
 Vi itererar därför över bildens kolonner från
 höger för att se om kolonnen innehåller någon hudbildpunkt --- den första
-hudbildpunkten som nås på detta sätt antas tillhöra handen, och det
-sammanhängande område som bildpunkten är en del av antas därför vara den sökta
-handen. Att på detta sätt välja objektet längst till vänster av de
+hudbildpunkten som nås på detta sätt antas tillhöra handen.
+Det sammanhängande område som bildpunkten är en del av antas därför vara
+den sökta handen.
+Att på detta sätt välja objektet längst till vänster av de
 intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
 sig dock av det högra av de två största sammanhängande objekten,
 vilket har fördelen att man inte behöver sätta en manuell gräns för
-när ett objekt är ''tillräckligt stort''. En nackdel är att man tvingas
+när ett objekt är ''tillräckligt stort''. Till nackdelarna hör
+att man tvingas
 söka igenom hela bilden, att den är något svårare att
 implementera samt att den endast fungerar då både huvud och hand finns
 i bilden.
 
-En alternativ metod för att leta från
+En alternativ metod som letar från
 höger är lätt att implementera om man vill kunna använda programmet
 som vänsterhänt --- detta kommer dock att kräva en
 separat inlärningsmängd till gestigenkänningen. \notes{Kan man inte bara
 spegelvända bilden?}
 
 Metoden plockar med all hud som hänger samman med
-handen, inklusive armen om personen framför kameran bär en kortärmad tröja. 
-För att
-råda bot på detta kan man identifiera handleden och kapa handen
+handen, vilket när personen framför kameran bär en kortärmad tröja inkluderar
+armen. För att
+kringgå detta kan man identifiera handleden och kapa handen
 där. Detta har gjordes av \citeasnoun{Deimel99} genom att identifiera den 
 största cirkel
 som får plats helt i handen, som antas vara centrerad mitt i handen. Då
