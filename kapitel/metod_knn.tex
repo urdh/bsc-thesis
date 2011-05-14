@@ -65,19 +65,14 @@ utesluter de egenskaper som inte bidrar till diskrimineringen. Vi experimenterad
 med denna metod lite kort, men konstaterade snart att den var allt för 
 beräkningsintensiv för våra tillämpningar.
 
-\notes{Detta stycket är lite rörigt.}
-Den tredje metoden --- som vi slutligen kom att
-använda --- kallas greedy forward selection (se
- figur~\ref{fig:knn-flowchart}). Den är utformad på så sätt att
-man först identifierar den egenskap som
-ensam ger störst antal korrekta klassificeringar, varefter
-man identifierar den egenskap som tillsammans med den första ger
-bäst resultat --- detta
-upprepas tills samtliga egenskaper är inkluderade. Man har då randordnat
-egenskaperna (lokalt) optimalt. Då detta
-inträffade lät vi ändra värdet av $k$,
-alltså parametern i \knn-metoden, följt av
-att vi startade om forward selection-algoritmen som valde de bästa egenskaperna.
+Den tredje metoden, som vi slutligen kom att
+använda, kallas greedy forward selection (se
+ figur~\ref{fig:knn-flowchart} för en förklaring av algoritmen).
+Resultatet av denna algoritm är en rangordning av egenskaperna som är
+åtminstone lokalt optimal. När vi funnit denna rangordning
+lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, följt av
+att vi startade om forward selection-algoritmen --- detta gjorde att vi
+fick en bra uppfattning om vilka $k$ och vilka egenskaper som gav bäst resultat.
 \citeasnoun{Jain97} utförde en undersökning av feature selection-algoritmer,
 och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
 metoder så som branch-and-bound.
