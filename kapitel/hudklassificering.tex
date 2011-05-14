@@ -199,6 +199,8 @@ binära bilder, till exempel för att rensa bort brus eller för att
 mjuka upp kanter. Det finns fyra grundläggande morfologiska
 operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
 \emph{stängning} \cite[s.~25]{Rudemo09}, vars resultat visas i figur~\ref{fig:morph}.
+\notes{\cite{Sonka08} istället? han har samma open/close men något annan
+erosion/dilatation}
 
 Dessa definieras som operationer på mängder; specifikt mängden $A$
 av alla vita bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
@@ -228,6 +230,7 @@ en erosion på komplementet till $A$ och definieras enligt
 \begin{equation*}
   A\oplus S = (A^C\ominus S)^C.
 \end{equation*}
+\notes{motsats!?}
 
 Dessa operationer är i sig inte särskilt användbara eftersom de förändrar
 arean av objektet i bilderna. Operationerna kan dock kombineras för

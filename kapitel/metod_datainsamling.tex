@@ -5,33 +5,38 @@
 
 \subsection{Inspelning av gester}
 Eftersom syftet med arbetet var att behandla rörliga
-gester och att implementera gestigenkänning i realtid var det naturligt att 
-till en början använda sig av korta filmsekvenser för varje gest.
-För att bearbetningen av av dessa filmsekvenser inte skulle ta för lång tid 
+gester var det naturligt att 
+använda sig av inspelade filmsekvenser av varje gest.
+För att bearbetningen av av dessa filmsekvenser inte skulle ta för lång tid,
+och för att samma metod senare skulle kunna tillämpas i realtid,
 nöjde vi oss med en upplösning på $320\times240$ bildpunkter.
 
-Kameran var en Logitech C250, med inbyggd kompensering av vitbalans. Detta
-medförde att omgivningens färger och färger i kläder kraftigt störde bildens 
-vitbalans, och därmed förvrängde hudfärgerna. Detta medförde att vi var
+Kameran var en Logitech C250, med automatisk kompensering av vitbalans,
+vilker medförde att färger i kläder och omgivning kraftigt påverkade bilden,
+och därmed förvrängde hudfärgerna. Detta gjorde i sin tur att vi var
 tvungna att ha ett större område i hudfärgkartan
-som motsvade hud, och därmed ökade antalet felklassificeringar. För att råda
-bot på detta valde vi att begränsa användningen till en så konstant miljö som
-möjligt, med en ''ren'' miljö fri från hudliknande färger.
+som motsvade hud, varpå fler bildområden felaktigt klassificerades som hud.
+För att råda
+bot på detta valde vi att begränsa uppställningen till en miljö fri från
+hudliknande färger och utan varierande ljusförhållanden.
 
 Vi lät åtta personer spela in varje gest fem gånger.
-För att inom varje gest erhålla större spridning på handens position och form
+För att inom varje gest erhålla större spridning av handens position och form
 visade försökspersonen de olika gesterna efter varandra, och upprepade sedan
 hela sekvensen tills alla filmats fem gånger. Sammanlagt fick vi då 480
 filmklipp att analysera.
-Alla filmer verifierades för hand och uppenbart felaktiga ersattes, och därefter
-namngavs de med en gestspecifik bokstavskod samt ett tal mellan 1 och 40.
+Alla filmer verifierades för hand och uppenbart felaktiga ersattes, varefter
+de namngavs med en gestspecifik bokstavskod och ett tal mellan 1 och 40.
 
 \subsection{Egenskapsanalys av filmerna}
-För att snabbare kunna arbeta med materialet beräknade vi
-egenskaper för den isolerade handen i alla bildrutor från varje film och sparade
-resultatet i matriser. Varje sådan matris sparades sedan i en ''cell array''
-i MATLAB --- detta gjordes med ett skript som itererade över filnamnen
-med en specificerad hudfärgskarta. I samband med detta normerades också dessa
+Egenskaperna från kapitel \ref{sec:features} samlades i en funktion
+(bilaga \ref{sec:matlab:features}) där MATLABs inbyggda funktioner kombinerades
+med egenskrivna.
+Dessa egenskaper beräknades
+för den isolerade handen i alla bildrutor från varje film och resultatet
+sparades i matriser.
+
+I samband med detta normerades också dessa
 matriser mot datamängden så att egenskaperna blev $\N(0,1)$-fördelade,
 under antagandet att de var normalfördelade från början (vilket inte
 nödvändigtvis är sant).

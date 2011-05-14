@@ -132,6 +132,7 @@
 % Ändra inbördes ordning på allt det här så att det blir logiskt.
 % Ta även bort kapitel som vi inte ska ha, och lägg till nya.
 \chapter{Teori}
+\subfile{kapitel/teori.tex}
 \subfile{kapitel/klassificering.tex}
 \subfile{kapitel/hudklassificering.tex}
 \subfile{kapitel/features.tex}
@@ -140,7 +141,7 @@
 \cleardoublepage
 
 \chapter{Metod}
-%\subfile{kapitel/metod.tex}
+\subfile{kapitel/metod.tex}
 \subfile{kapitel/metod_gester.tex}
 \subfile{kapitel/metod_hud.tex}
 \subfile{kapitel/metod_datainsamling.tex}
@@ -174,7 +175,7 @@
 \pagestyle{fancier}
 \renewcommand{\rightmark}[1]{\appendixname\ \thechapter}
 
-\chapter{\MATLAB-kod}
+\chapter{\MATLAB-kod}\label{sec:matlab}
 \ifminted\subfile{kapitel/kodappendix.tex}\fi
 \chapter{En bilaga till}
 
