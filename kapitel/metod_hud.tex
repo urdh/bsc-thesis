@@ -56,12 +56,12 @@ bildpunkter; detta fungerar bra även för relativt stort avstånd till
 kameran med en upplösning på $320\times240$ bildpunkter.
 
 För att hitta handen gör vi den kvalificerade gissningen att handen är det
-objekt som befinner sig längst till höger i bilden.
+objekt som befinner sig längst till vänster i bilden.
 Vi itererar därför över bildens kolonner från
 höger för att se om kolonnen innehåller någon hudbildpunkt --- den första
 hudbildpunkten som nås på detta sätt antas tillhöra handen, och det
 sammanhängande område som bildpunkten är en del av antas därför vara den sökta
-handen. Att på detta sätt välja objektet längst till höger av de
+handen. Att på detta sätt välja objektet längst till vänster av de
 intressanta har tidigare gjorts av bl.a. \citeasnoun{Nielsen04}. De använde
 sig dock av det högra av de två största sammanhängande objekten,
 vilket har fördelen att man inte behöver sätta en manuell gräns för
@@ -71,7 +71,7 @@ implementera samt att den endast fungerar då både huvud och hand finns
 i bilden.
 
 En alternativ metod för att leta från
-vänster är lätt att implementera om man vill kunna använda programmet
+höger är lätt att implementera om man vill kunna använda programmet
 som vänsterhänt --- detta kommer dock att kräva en
 separat inlärningsmängd till gestigenkänningen. \notes{Kan man inte bara
 spegelvända bilden?}

@@ -165,9 +165,7 @@ och vita öar i bakgrunden. För att bli av med dessa används
 morfologiska operationer.
 
 \subsection{Morfologiska operationer}\label{sec:morph}
-\notes{Förtydliga svarta/vita och $A$ jfrt. featurekapitlet.
-Förklara att strukturelementet är en bild som man har som ''pensel'' och sveper
-över huvudbilden med?}
+
 \begin{figure}[tb]
 	\centering 
 	\subfloat[Originalbilden]{
@@ -175,21 +173,21 @@ Förklara att strukturelementet är en bild som man har som ''pensel'' och svepe
 		\label{fig:morph:or}
 	}
 	\subfloat[Erosion]{
-		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-erosion}
+		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-dilatation}
  		\label{fig:morph:er}
 	}
 	\subfloat[Dilatation]{
-		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-dilatation}
+		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-erosion}
 		\label{fig:morph:di}
 	}
 	\\
 	\hspace{0.3\textwidth}\quad % ser det fult ut kanske?
 	\subfloat[Öppning]{
-		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-oppning}
+		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-stangning}
 		\label{fig:morph:op}
 	}
 	\subfloat[Stängning]{
-		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-stangning}
+		\includegraphics[width=0.3\columnwidth,trim=115 75 115 20,clip=true]{bilder/morph-oppning}
 		\label{fig:morph:cl}
 	}
 	\caption{De fyra morfologiska operationerna}
@@ -203,17 +201,21 @@ operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
 \emph{stängning} \cite[s.~25]{Rudemo09}, vars resultat visas i figur~\ref{fig:morph}.
 
 Dessa definieras som operationer på mängder; specifikt mängden $A$
-av alla svarta bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
+av alla vita bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
 ''avstängda'' och mängden $S$ som representerar ett strukturelement
-som i någon mening förändrar hur operationen verkar på bilden.
+som kan liknas vid en pensel med vilken man sveper över bilden.
 Strukturelementet kan dessutom förflyttas så att dess
 referensbildpunkt (en punkt kring vilken elementet är definierad, ofta
 mittpunkten)
 ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
 strukturelement för $S_{i,j}$. Innebörden av $S$ framgår ur hur det används
 nedan.
+Notera dessutom att \citename{Rudemo09} definierar mängden
+$A$ som alla svarta bildpunkter i bilden; i denna rapport är det mer
+fördelaktigt att definiera $A$ som mängden vita bildpunkter, då detta
+är den definition \MATLAB använder.
 
-\emph{Erosion} eroderar bort delar av de svarta områdena genom
+\emph{Erosion} eroderar bort delar av de vita områdena genom
 att endast behålla de bildpunkter vars ''omgivning'' (definierad av mängden
 $S_{i,j}$) ligger helt i mängden $A$. Vad operationen egentligen gör är alltså
 att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras enligt
@@ -233,7 +235,7 @@ att skapa operationer som i någon mening endast
 ''mjukar upp'' objekten i bilden utan att förändra deras area markant.
 Eftersom erosion och dilatation är motsatser kan dessa appliceras i
 följd för att behandla bilden och
-sedan återställa den\notes{inte sant? återställa låter som fel ord..}. Detta ger upphov till två nya operationer:
+sedan återställa delar av den. Detta ger upphov till två nya operationer:
 \emph{öppning} och \emph{stängning}.
 
 En öppning är en erosion följd av en dilatation, enligt
@@ -241,17 +243,17 @@ En öppning är en erosion följd av en dilatation, enligt
   \phi_S(A)=(A\ominus S)\oplus S'.
 \end{equation*}
 
-Detta resulterar i att svart brus, dvs.~svarta områden som inte kan täckas
+Detta resulterar i att vitt brus, dvs.~vita områden som inte kan täckas
 av $S$, försvinner i
-första steget varefter större svarta områdena utökas till sin ursprungliga
+första steget varefter större vita områdena utökas till sin ursprungliga
 storlek i det andra
-steget. Operationen ''öppnar upp'' vita områden.
+steget. Operationen ''öppnar upp'' svarta områden.
 
 En stängning består av den omvända proceduren, enligt
 \begin{equation*}
   \Phi_S(A)=(A\oplus S)\ominus S',
 \end{equation*}
-och ger även motsatt resultat (svarta områden ''öppnas upp'').
+och ger även motsatt resultat (vita områden ''öppnas upp'').
 
 De
 båda operationerna använder utöver $A$ och $S$ även $S'$, vilket är
