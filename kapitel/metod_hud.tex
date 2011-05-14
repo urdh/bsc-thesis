@@ -1,11 +1,11 @@
 \section{Hud- och handidentifiering}
 
 \subsection{Klassificering av hud}
-\notes{44 bilder?? gjorde Elmezain detta?}
 I 44 bilder tagna med webbkameran separerades huden från resten av
 bilden manuellt med hjälp av fotoredigeringsprogramvara. Baserat på
 dessa bildpunkter bestämdes sedan en sannolikhetsfördelning för både hud
 och icke-hud enligt kapitel \ref{sec:hudklassificering}). 
+\notes{44 bilder?? gjorde Elmezain detta?}
 
 Med hjälp av
 sannolikhetsfördelningarna delades kamerabilden in i hud
@@ -35,7 +35,6 @@ sannolikhetsfördelningarna framtagna av \citeasnoun{Elmezain08} men
 med samma metod.\notes{What?!}
 
 \subsection{Urskiljning av handen}\label{sec:metod_hud:urskiljning}
-\notes{Håll i dig, nu blir det presens! Kan vi variera tempus fram och tillbaka?}
 När väl hudbildpunkterna i figuren urskiljts återstår att 
 identifiera handen som ska följas. Det är troligt att man i bilden
 fått med ett antal mindre områden som felaktigt bedömts vara
@@ -58,10 +57,13 @@ Vi använder en gräns på 200
 bildpunkter; detta fungerar bra även för relativt stort avstånd till
 kameran med en upplösning på $320\times240$ bildpunkter.
 
+\notes{hudpunkt? Förklara kolonnerna? Förslag: Vi sveper över bilden från vänster till
+dess att vi stöter på en bildpunkt med hud. Denna antas tillhöra handen, och
+det sammanhängande\ldots}
 För att hitta handen gör vi antagandet att handen är det
 objekt som befinner sig längst till vänster i bilden.
 Vi itererar därför över bildens kolonner från
-höger för att se om kolonnen innehåller någon hudbildpunkt --- den första
+vänster för att se om kolonnen innehåller någon hudbildpunkt --- den första
 hudbildpunkten som nås på detta sätt antas tillhöra handen.
 Det sammanhängande område som bildpunkten är en del av antas därför vara
 den sökta handen.
