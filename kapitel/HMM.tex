@@ -17,13 +17,12 @@ ut från tillståndet, och valet av kant sker genom en stokastisk process.
 \begin{figure}[tb]
   \centering
   \includegraphics[width=0.6\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
-  \caption{En enkel, ergodisk Markovmodell med fyra tillstånd}
+  \caption{En enkel, ergodisk Markovmodell med fyra tillstånd.}
   \label{fig:hmm-ergodic}
 \end{figure}
 
 Det som är dolt i en HMM och som särställer den från en vanlig Markovmodell
-är att varje tillstånd genererar
-symboler efter ännu en sannolikhetsfördelning. Då man i vanliga Markovmodeller
+är att varje tillstånd genererar observerbar utdata, symboler, efter ännu en sannolikhetsfördelning. Då man i vanliga Markovmodeller
 observerar modellens tillstånd direkt, observeras nu istället de
 symboler som genereras då tillstånden växlar. Dessa symboler motsvarar
 den verkliga process man önskar modellera. Ett förtydligande exempel
@@ -45,7 +44,7 @@ Den förstnämnda personen rör sig mellan tärningarna
 (symbolerna) som genereras av dem. 
 \end{quote}
 
-För att tillämpa detta vi gestigenkänning måste man konstruera en HMM
+För att tillämpa detta på gestigenkänning måste man konstruera en HMM
 för varje gest som finns med i systemet. Klassificeringen görs sedan genom
 att välja den HMM som bäst beskriver den observerade datan. Symbolerna
 tilldelas exempelvis genom någon typ av enklare klassificering av bilddata
@@ -63,7 +62,7 @@ En HMM karakteriseras av följande beståndsdelar:
 \item $M$, antalet distinkta observationssymboler för ett givet
   tillstånd. De individuella symbolerna betecknar vi som $V =
   \{v_1,v_2,\dots,v_M\}$.
-\item $A$,en övergångsmatris där varje element ger sannolikheten att
+\item $A$, en övergångsmatris där varje element ger sannolikheten att
   vandra från ett tillstånd till ett annat, 
 \begin{equation*}
 a_{ij} = \Prob(q_{t+1} = S_j|q_t = S_i),\quad 1 \leq i,j \leq N.
@@ -86,7 +85,7 @@ då vi befinner oss i tillstånd $j$.
 Givet parametrarna $M$ och $N$, en specificering av symboler, samt de
 tre sannolikhetsmåtten $A, B$ och $\pi$ är det möjligt att
 fullständigt specificera en HMM. I fortsättningen kommer vi att
-använda oss av den kompaktare notationen $\lambda = (A,B,\pi)$
+använda oss av den mer kompakta notationen $\lambda = (A,B,\pi)$
 för att representera parametrarna för en given HMM.
 
 \subsection{Grundläggande problem}
@@ -103,7 +102,7 @@ två är av intresse i den här rapporten:
   vara ytterst viktig. 
 \item[Problem 2:] Hur går man tillväga för att optimera
   $\Prob(\vect{O}|\lambda)$ genom att justera
-  modellparametrarna $\lambda = (A,B,\lambda)$? 
+  modellparametrarna $\lambda = (A,B,\pi)$? 
 \end{description}
 
 Kan man lösa det första problemet har man möjlighet att uppskatta hur
@@ -113,13 +112,13 @@ deras relation till en specifik observationsföljd. Denna synvinkel är
 mycket användbar då man ställs inför utmaningen att välja mellan
 flera existerande modeller. 
 
-Det andra problemet behandlar modelloptimering. Hur kan på bästa
+Det andra problemet behandlar modellestimering. Hur kan på bästa
 sätt anpassa en modell till en viss observationsföljd?
-Lösningen till detta problem utgör en fundamental del av
+Lösningen till detta problem utgör en fundamental del i
 att skapa modellen i  praktiken.
 Med hjälp av en träningssekvens, alltså en följd av
 observationer, kan man då träna en HMM. Vikten av att
-optimeringsprocessen ger bra resultat är stor eftersom
+optimeringsproceduren ger bra resultat är stor eftersom
 träningssekvensen utgör den enda kopplingen till det verkliga fenomen
 man önskar modellera.      
 
@@ -136,7 +135,7 @@ $t$, givet en modell $\lambda$. En av metodens fördelar är att man med
 hjälp av induktion kan finna $\alpha_t(i)$ genom följande process:
 
 \begin{enumerate}
-\item Initialisering:
+\item Initiering:
 \begin{equation*}
 \alpha_1(i) = \pi_ib_i(O_1), \quad 1\leq i \leq N
 \end{equation*}
@@ -153,7 +152,7 @@ hjälp av induktion kan finna $\alpha_t(i)$ genom följande process:
 \end{equation*}
 \end{enumerate}
 
-I första steget, då $t=1$, initialiseras framåtvariabeln $\alpha_1(i)$ som
+I första steget, då $t=1$, initieras framåtvariabeln $\alpha_1(i)$ som
 sannolikheten att börja i tillstånd $S_i$ och därefter generera
 observation $O_1$. För $t=2$ använder man sedan induktionssteget. Utgår man
 från första steget kan man övertyga sig om att
@@ -187,7 +186,9 @@ problem än det tidigare, med betydligt fler angreppsvinklar. En
 analytisk lösning till optimeringsproblemet är inte känd, utan man
 tvingas istället använda sig av Baum-Welch-metoden eller
 gradient-tekniker \cite{Dempster77,Levinson83}. 
-Givet en ändlig observationssekvens går det inte att optimera modellens parametrar globalt \cite{Rabiner89}.
+Givet en ändlig observationssekvens går det inte att optimera
+modellens parametrar globalt \cite{Rabiner89}. \notes{Röding undrar
+  varför vi refererar Rabiner här}
 Däremot kan man välja $\lambda = (A,B,\pi)$ på så sätt att $\Prob(\vect{O}|\lambda)$ är lokalt
 maximerad. 
 
@@ -200,7 +201,7 @@ framåtvariabeln $\alpha_t(i)$ definieras enligt
 $\beta_t(i)$ är alltså sannolikheten att observera en delsekvens av
 observationer då man startar i tillstånd $S_i$. Processen för att beräkna $\beta_t(i)$ består av två steg:
 \begin{enumerate}
-\item Initialisering: 
+\item Initiering: 
 \begin{equation*}
 \beta_T(i) = 1, \quad 1 \leq i \leq N.
 \end{equation*}
@@ -355,5 +356,7 @@ a_{11} & a_{12} & 0 & 0\\
 
 Utöver dessa varianter finns det självklart otaliga andra då man kan
 sammanbinda de olika tillstånden helt efter eget tycke.
+
+\Notes{Röding saknar länken kNN-HMM}
 
 \end{document}
