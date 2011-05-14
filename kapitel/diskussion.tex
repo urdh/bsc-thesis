@@ -1,9 +1,10 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
+	\notes{Skriv om?}
 Med de metoder som beskrivits nås alltså en träffsäkerhet på 91.4\,\%
 för våra tio statiska gester. I ett antal stycken framöver diskuteras
 vad som skulle kunna göras för att ytterligare förbättra
-träffsäkerheten, utvidga programmets funktionalitet eller på övrigt
+träffsäkerheten, utvidga programmets funktionalitet eller på annat
 sätt gå vidare från resultatet.
 
 \section{Hudigenkänning}
@@ -11,29 +12,45 @@ De sannolikhetsfördelningar som använts för att skilja hud från annat
 har fungerat tillräckligt bra för att kunna skilja ut handen i en
 relativt kontrollerad miljö. Bättre resultat skulle dock kunna uppnås
 med bättre sannolikhetsfördelningar. Det man främst skulle kunna göra
-är att använda k-klustring, d.v.s.~linjärkombinationer av flera
+är att använda $k$-klustring, d.v.s.~linjärkombinationer av flera
 sannolikhetsfördelningar, även för ickehud. Bättre fördelningar skulle
 antagligen även fås med en större datamängd, alltså fler
 exempelbilder.
 
 Man skulle också kunna använda någon annan klassificerare, såsom \knn,
-vid skapandet av vår SCM. En svårighet med det är att det skulle
-kräva kassering av data för att få lika stora prototypmängder,
-eller viktning av datapunkterna.
+vid skapandet av vår SPM. Ett problem med den metoden är att det
+kräver att man kasserar data för att få lika stora prototypmängder,
+eller att man viktar datapunkterna.
 
 Efter det statistiska urvalet skulle man kunna redigera direkt i
 hudfärgskartan för att få ett bättre resultat. Detta är dock väldigt
 tidskrävande.
 
 \section{Handidentifiering}
+Handidentifieringen kan förbättras på ett antal punkter;
+den metod vi använder (att söka ett tillräckligt stort objekt från höger i
+bilden) är relativt ''dum''. \notes{några andra metoder?}
+
+Man skulle dessutom kunna klippa bort handleden på det sätt
+\citeasnoun{Deimel99} föreslår, och därmed öka träffsäkerheten --- att
+handleden ibland syns och ibland skuggas är något som gör vissa av våra
+egenskaper allt för osäkra. Dessutom skulle man då kunna släppa på kravet
+att användaren har en långärmad tröja.
+
+Till sist kan man då man identifierat handen utnyttja denna information och
+klippa bort resten av bilden i nästa iteration. På så sätt behöver man bara
+identifiera handobjektet en gång i bilden, och kan koncentrera beräkningen
+i följande iterationer på att beräkna egenskaper och klassificera gesten.
+Man skulle med fördel kunna hoppa över egenskapsberäkningen i denna första
+iteration.
 
 \section{\knn}
-Något som kan göras för att förbättra \knn-metodens träffsäkerhet är först och
+För att förbättra \knn-metodens träffsäkerhet kan man först och
 främst att utöka prototypmängden till fler punkter per gest. En annan möjlig
-förbättring skulle vara att inspektera de bilder som faktiskt ligger bakom
-punkten i egenskapsrummet. Om en bild är uppenbart är felaktig, och
+förbättrna i egenskapsrummet; om en bild är uppenbart är felaktig, och
 kanske hade varit
-svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
+svår att tolka som rätt gest även för en människa,
+kan den med fördel tas bort.
 Slarvigt utförda gester kommer då mindre sannolikt att
 klassificeras rätt.\notes{om alls? thresholding?!}
 
@@ -42,27 +59,42 @@ De egenskaper vi använt för klassificering har visat sig relativt
 effektiva, men det finns modifieringar och tillägg som skulle kunna
 öka träffsäkerheten.
 En sådan modifiering är att istället för fyrkantigheten $\Delta
-x/\Delta y$ använda dess logaritm, $\text{ln}(\Delta x/\Delta
-y)$. Detta då kvotens värdemängd är $(0,\inf)$ och den tar värdet 1 då
-höjen och bredden är samma. Det innebär att egenskapen får större
+x/\Delta y$ använda dess logaritm, $\ln(\Delta x/\Delta
+y)$, eftersom kvotens värdemängd är $(0,\infty)$ och tar värdet 1 då
+höjen och bredden är samma, vilket innebär att egenskapen får större
 viktning då handen är bredare än hög än tvärtom. Detta problem
 försvinner då kvoten logaritmeras. Även övriga egenskaper som
 definieras genom kvoter kan logaritmeras på liknande sätt.
 
 Det finns även nya klasser av egenskaper som vi inte arbetat med
 alls. Med hjälp av studier av handens kurvatur bör fingertoppar kunna
-identifieras. Antal, avstånd och relativt läge för dessa skulle vara
-väldigt intressanta, och antagligen mycket karakteristiska.
-
+identifieras --- antal, avstånd och relativt läge för dessa skulle vara
+mycket intressanta egenskaper, och antagligen ge mycket bra resultat.
 En annan intressant egenskapsklass är de som utnyttjar mönster i det
 inre av handen. Detta skulle kunna göras
 genom att efter man identifierat handen studera originalbilden i dess
 inre, t.ex.~genom ett kantdetektionsfilter, och där plocka ut mängden
-kanter eller riktning genom s.k.~Houghtransform\notes{Har vi källa på
-  det här?}
+kanter eller riktning genom så kallad Houghtransform \cite[s.~23]{Rudemo09}.
 
 \section{Realtid}
+Målet med en applikation för gestigenkänning är givetvis att kunna tolka
+gester i realtid, vilket kan vara svårt eftersom bildbehandlingen och
+klassificeringen som används ofta är beräkningsintensiv. Vår implementation
+är skriven i \MATLAB, och skulle troligtvis vara mycket snabbare om den
+skrivits i ett lågnivåspråk som C istället, men kan trots det utföra
+beräkningarna snabbt nog för att nästan vara realtid.
+
+För att kunna känna igen statiska gester behövs betydligt färre bilder per
+sekund än de 24 våra webbkameror gett oss. Därmed kan man utan skam slänga
+bort majoriteten av bilderna och endast behandla fyra eller sex bilder per
+sekund, vilket skulle göra att gestigenkänningen ser ut att vara i realtid.
+Detta skulle givetvis medföra att statiska gester som visas i mindre tid
+än intervallet mellan bilderna inte skulle kännas igen.
+
+\notes{Mer?}
+
 \section{Tillämpningar}
+
 \section{Dynamiska gester}
 
 
