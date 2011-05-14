@@ -38,7 +38,7 @@ där $l_i$ är en klassetikett och $K$ är antalet klasser.
 Prototyperna kan väljas genom mer eller mindre sofistikerade metoder.
 Exempelvis kan varje redan klassificerad punkt undersökas med \knn mot
 alla andra punkter, varpå den tas bort ur mängden om den nya klassen avviker
-från den ursprungliga\cite{Mazurowski11}.
+från den ursprungliga \cite{Mazurowski11}.
 
 Klasserna motsvarar i sammanhanget olika statiska gester,
 eller olika grupperingar i egenskapsrummet. För
@@ -50,12 +50,10 @@ sannolikhet att väljas. (Klasserna kan fortfarande viktas i efterhand.)
 Om prototyperna är väl valda avspeglar de den sanna
 förderlningen hos klassen.
 Den är därför ofta att föredra framför en Gaussian Mixture Model, där
-varje klass approximeras av sina anpassade parametrar.
-\cite{Hastie09}.
+varje klass approximeras av sina anpassade parametrar \cite{Hastie09}.
 
 \subsection{Algoritmer för \knn}
-Att linjärt söka genom prototypmängden tar enligt
-\citeasnoun{Roding08} \notes{Skaffa bättre referens}lång tid ($\mathcal{O}(d k n)$).
+Att linjärt söka genom prototypmängden tar lång tid.
 Istället kan man, beroende på mängdens storlek och antalet egenskaper,
 använda smartare metoder.
 Ett tillvägagångssätt är att inte söka de sanna närmsta grannarna,
