@@ -5,9 +5,10 @@
 \usepackage{lmodern}
 
 \usepackage[british,swedish]{babel}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage{ifpdf}
 \ifpdf\DeclareGraphicsExtensions{.pdf,.png,.jpg}\fi
+\usepackage{epstopdf}
 \usepackage{amsmath, amssymb}
 \usepackage{epsfig}
 %\usepackage{floatflt}
@@ -32,7 +33,7 @@
 \usepackage{slashbox}
 \usepackage{tikz}
 \usepackage[noauto]{chappg}
-\usepackage[swedish]{gloss}
+\usepackage[swedish,refpages]{gloss}
 
 %% Minted-saker. Aktivera med \mintedtrue, avaktivera med \mintedfalse
 \newif\ifminted
@@ -105,7 +106,9 @@
 \newcommand{\MATLAB}{MAT\-LAB\xspace}         % MATLAB
 \newcommand{\knn}{$k$NN\xspace}              % kNN
 
+% Glossary
 \makegloss
+\gloss[nocite]{*}
 
 \begin{document}
 
