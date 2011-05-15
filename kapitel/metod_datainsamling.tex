@@ -23,22 +23,22 @@ hudliknande färger och utan varierande ljusförhållanden.
 Vi lät åtta personer spela in varje gest fem gånger.
 För att inom varje gest erhålla större spridning av handens position och form
 visade försökspersonen de olika gesterna efter varandra, och upprepade sedan
-hela sekvensen tills alla filmats fem gånger. Sammanlagt fick vi då 480
+hela sekvensen tills alla filmats fem gånger. Sammanlagt fick vi då 400
 filmklipp att analysera.
 Alla filmer verifierades för hand och uppenbart felaktiga ersattes, varefter
-de namngavs med en gestspecifik bokstavskod och ett tal mellan 1 och 40.
+de tilldelades ett gestspecifikt index samt
+ett tal mellan 1 och 40 för spårning till en viss videofil.
 
 \subsection{Egenskapsanalys av filmerna}
 Egenskaperna från kapitel \ref{sec:features} samlades i en funktion
 (bilaga~\ref{sec:matlab:features}) där MATLABs inbyggda funktioner kombinerades
 med egenskrivna.
 Dessa egenskaper beräknades
-för den isolerade handen i alla bildrutor från varje film och resultatet
-sparades i matriser.
+för handen i alla bildrutor från varje film, och resultatet
+sparades i matriser. Detta eftersom analysen av filmerna tog lång tid
+--- mycket längre än filmernas speltid.
 
-I samband med detta normerades också dessa
-matriser mot datamängden så att egenskaperna blev $\N(0,1)$-fördelade,
-under antagandet att de var normalfördelade från början (vilket inte
-nödvändigtvis är sant).
+Egenskaperna normerades sedan enligt kapitel \ref{sec:normering},
+och de nya egenskapsvektorerna användes sedan för klassificering.
 
 \end{document}
