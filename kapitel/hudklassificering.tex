@@ -39,7 +39,7 @@ Ortogonala färgrymder har däremot nått utbredd användning för
 hudklassificering \cite{Hsu02,Elmezain08,Hassanpour08} eftersom de
 både separerar kulör och mättnad från ljusstyrka, och är affina avbildningar av
 RGB. 
-En ortogonal färgrymd som har visat sig särskiljt bra är $YC_bC_r$ \cite{Kakumanu07}.
+En ortogonal färgrymd som har visat sig särskilt bra är $YC_bC_r$ \cite{Kakumanu07}.
 
 \subsection[Färgrymden $\mathrm{YC_bC_r}$]{Färgrymden $\mathbf{YC_bC_r}$}
 $YC_bC_r$-rymden är en ortogonalisering av RGB-rymden genom en
@@ -69,10 +69,11 @@ och ''fuzzy arithmetics'' \cite{Shang10}. En större undersökning av metoder
 för huddetektion gjordes av \citeasnoun{Kakumanu07}.
 
 En enklare metod som nått relativt stor framgång är den som baseras på
-Gaussian Mixture Models \cite{Elmezain08,Hassanpour08}, en modell där
+Gaus\-sian Mixture Models \cite{Elmezain08,Hassanpour08}, en modell där
 bildpunktens färg antas bero stokastiskt på om
 bildpunkten föreställer hud eller inte.
 
+\notes{en blandning av normalfördelningar/BN}
 Färgen antas då vara en multivariat stokastisk variabel, vars
 fördelning är en mixtur av normalfördelning. Fördelningens parametrar
 antas bero på om bildpunkten motsvarar hud eller inte. För att kunna
@@ -100,9 +101,8 @@ genom sina element
  \sigma_{i,j}=\text{Cov}[X_i,X_j]=\text{E}[(X_i-\mu_i)(X_j-\mu_j)]].
 \end{equation*}
 
-Med en $C_b$ och en $C_r$-komponent får man
-att $d=2$. Med N datapunkter skattas parametrarna med
-
+Med komponenterna $C_b$ och en $C_r$ är $d=2$.
+Med N datapunkter skattas parametrarna med
 \begin{gather*}
   \hat\mu    =\frac{1}{N}\sum_{i=1}^N\vect{x}_i\\
   \hat\Sigma =\frac{1}{N-1}\sum_{i=1}^N(\vect{x}_i-\hat\mu)(\vect{x}_i-\hat\mu)^T
@@ -112,17 +112,17 @@ För att ytterligare förbättra fördelningarna kan de antas vara
 en linjärkombination av flera normalfördelningar. En iterativ metod för optimering av
 sådana fördelningar beskrivs av \citeasnoun{Kanungo02}.
 
-För varje bildpunktsfärg kan med dessa fördelningar sannolikheten för att färgen ska
-förekomma då bildpunkten föreställer hud
-respektive ickehud bestämmas. Det är rimligt att klassa en bildpunkt som
+För varje bildpunktsfärg kan med dessa fördelningar sannolikheten bestämmas,
+för att färgen ska förekomma när bildpunkten föreställer hud
+respektive ickehud. Det är rimligt att klassa en bildpunkt som
 hud om sannolikheten för att bildpunkten föreställer hud är större än
-sannolikheten att den inte gör det givet dess färg, dvs.~om
+sannolikheten att den inte gör det givet dess färg, d.v.s.~om
 \begin{equation*}
 	\frac{\Prob(\textrm{hud}|\textrm{färg})}{\Prob(\textrm{ickehud}|\textrm{färg})} > 1.
 \end{equation*}
 
 Ibland kan det vara önskvärt att kräva att kvoten ska vara ännu
-större, då det är värre att klassa ickehud som hud (och då lägga
+större, eftersom det är värre att klassa ickehud som hud (och då lägga
 handen i det som egentligen är bakgrund) än att klassa hud som ickehud
 (och få en för liten hand). Man ställer därför istället kravet 
 \begin{equation*}
@@ -148,13 +148,11 @@ klassificera hud i bilden.
 Kvoten $\Prob(\textrm{hud})/\Prob(\textrm{ickehud})$ måste uppskattas
 och betecknar
 den förväntade mängden hudbildpunkter i bilden genom den förväntade mängden
-ickehudbildpunkter. Denna kvot kan bakas in i konstanten $c$, och vi
-får vårt slutliga krav för att klassa en bildpunkt som hud:
-
+ickehudbildpunkter. Denna kvot kan bakas in i konstanten $c$, och 
+det slutliga kravet för att klassa en bildpunkt som hud blir
 \begin{equation*}
 	\frac{\Prob(\textrm{färg}|\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})} > c,
 \end{equation*}
-
 där $c$ anpassas separat. På detta sätt kan en bild från kameran göras
 binär, där varje bildpunkt är antingen hud eller ickehud (se figur
 \vref{fig:hudklassificering} för ett exempel).
@@ -200,18 +198,18 @@ mjuka upp kanter. Det finns fyra grundläggande morfologiska
 operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
 \emph{stängning} \cite[s.~25]{Rudemo09}, vars resultat visas i figur~\vref{fig:morph}.
 
-Dessa definieras som operationer på mängder; specifikt mängden $A$
-av alla vita bildpunkter i bilden vi behandlar, dvs. alla bildpunkter som är
-''avstängda'' och mängden $S$ som representerar ett strukturelement
+Dessa definieras som operationer på mängder, specifikt mängden $A$
+av alla vita bildpunkter i bilden som behandlas, d.v.s. alla bildpunkter som är
+''avstängda'', och mängden $S$ som representerar ett strukturelement
 som kan liknas vid en pensel med vilken man sveper över bilden.
 Strukturelementet kan dessutom förflyttas så att dess
-referensbildpunkt (en punkt kring vilken elementet är definierad, ofta
+referensbildpunkt (en punkt kring vilken elementet är definierat, ofta
 mittpunkten)
-ligger på plats $(i,j)$ i bilden --- kalla detta förflyttade
-strukturelement för $S_{i,j}$. Innebörden av $S$ framgår ur hur det används
-nedan.
+ligger på plats $(i,j)$ i bilden. Detta förflyttade
+strukturelement benämns $S_{i,j}$. Innebörden av $S$ framgår av
+hur det används nedan.
 Notera dessutom att \citename{Rudemo09} definierar mängden
-$A$ som alla svarta bildpunkter i bilden; i denna rapport är det mer
+$A$ som alla svarta bildpunkter i bilden. I denna rapport är det mer
 fördelaktigt att definiera $A$ som mängden vita bildpunkter, då detta
 är den definition \MATLAB använder.
 
@@ -232,7 +230,7 @@ en erosion på komplementet till $A$ och definieras enligt
 Dessa operationer är i sig inte särskilt lämpliga att använda i den
 tillämpning som beskrivs här, eftersom de förändrar
 arean av objektet i bilderna. Operationerna kan dock kombineras för
-att skapa operationer som i någon mening endast 
+att skapa operationer som
 ''mjukar upp'' objekten i bilden utan att förändra deras area markant.
 Eftersom erosion och dilatation är motsatser kan dessa appliceras i
 följd för att behandla bilden och
@@ -244,7 +242,7 @@ En öppning är en erosion följd av en dilatation, enligt
   \phi_S(A)=(A\ominus S)\oplus S'.
 \end{equation*}
 
-Detta resulterar i att vitt brus, dvs.~vita områden som inte kan täckas
+Detta resulterar i att vitt brus, d.v.s.~vita områden som inte kan täckas
 av $S$, försvinner i
 första steget varefter större vita områdena utökas till sin ursprungliga
 storlek i det andra

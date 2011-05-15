@@ -4,7 +4,7 @@
 
 Klassificering är ett centralt statistiskt begrepp inom maskininlärning.
 Det handlar om att klassificeraren ska göra en kvalificerad gissning för hur
-observerad data ska hanteras, baserat på någon typ av ''inlärningsprocess''.
+observerad data ska hanteras, baserad på någon typ av ''inlärningsprocess''.
 Man skiljer på modellbaserade och modellfria metoder, där de modellbaserade
 bygger på modeller av de bakomliggande system som ska analyseras, medan de
 modellfria kan ses som mer oberoende av sammanhang \cite{Hastie09}.
@@ -14,7 +14,7 @@ in, så att man för varje objekt kan säga om det klassificerats rätt eller
 fel.
 
 Indata till klassificeraren är någon mängd av objekt med någon uppsättning
-egenskaper (features) vilka vi kan mäta.
+egenskaper (features) som kan mätas.
 I egenskapsrummet önskar man då att objekten separeras i olika kluster
 som stämmer överens med deras verkliga klass.
 I vissa problem är resultatet binärt,
@@ -25,15 +25,15 @@ Svårigheten kan förtydligas något med hjälp av figur \vref{fig:kluster}.
     \begin{center}
 \includegraphics[width=0.8\textwidth,clip=true,trim=2cm 3cm 1.5cm 3cm]{bilder/kluster.pdf}
     \end{center}
-    \caption{Det är enkelt att se vart ett objekt hör i den vänstra figuren,
+    \caption{Det är enkelt att se var ett objekt hör hemma i den vänstra figuren,
     där de två klasserna är väl separerade. I den högra figuren kan man också se
-    skilnad på objekt, men det är nu mycket svårt. Axlarna motsvarar
+    skillnad på objekt, men det är nu mycket svårt. Axlarna motsvarar
     två godtyckliga egenskaper. En annan uppsättning egenskaper kan ge en
     tydligare separering av klasserna.}
     \label{fig:kluster}
 \end{figure}
 
-Vi kommer att beröra tre klassificerare, den modellfria
+Tre klassificerare kommer att beröras, den modellfria
 prototypbaserade \knn samt de två modellbaserade Gaussian Mixture
 Models och dolda Markovmodeller.
 

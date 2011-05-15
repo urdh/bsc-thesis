@@ -1,8 +1,8 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 \section{Kvantitativa mått på handens geometri}\label{sec:features}
-För att på något sätt kunna kvantifiera den data en bild av en hand 
-innehåller och tolka den på ett bra sätt måste denna data transformeras till
+För att kunna kvantifiera den data en bild av en hand 
+innehåller och tolka den på ett bra sätt, måste denna data transformeras till
 något meningsfullt. Det finns många sätt att göra detta --- man kan exempelvis
 beräkna bildens egenvärden \cite{Funck02}, använda filter för att hitta
 fingertoppar \cite{Noelker97}, eller jämföra bilden med lagrade prototypbilder
@@ -16,7 +16,7 @@ omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
 därför användas av en klassificerare för att skilja mellan olika rörelseoberoende
 gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
 uppsättning egenskaper inte användas direkt i tillämpningar som involverar
-rörelsegester, utan måste kompletteras av exempelvis hastighets- eller
+rörelsegester, utan måste kompletteras med exempelvis hastighets- eller
 riktningsegenskaper.
 
 \subsection{Egenskapsrummet}
@@ -31,10 +31,10 @@ Många av egenskaperna som beskrivs kan beräknas effektivt av
 \paragraph{Inledande definitioner}
 
 För beräkning av vissa egenskaper behöver man definiera två
-grundläggande begrepp; den inneslutande lådan och centroiden. Dessa
-två kan användas för att i någon mening hitta ''mitten'' av objektet
+grundläggande begrepp, den inneslutande lådan och centroiden. Dessa
+två kan användas för att hitta ''mitten'' av objektet
 vi undersöker. Den inneslutande lådan kan dessutom användas för vissa
-jämförelser relaterade till area (dvs. densitetsliknande begrepp).
+jämförelser relaterade till area (d.v.s. densitetsliknande begrepp).
 
 \subparagraph{Inneslutande låda}
 
@@ -81,7 +81,7 @@ där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ ä
 bildens ljusstyrka. För binära bilder gäller att
 $f:\left\{\text{Bildpunkter}\right\}\rightarrow\left\{0,1\right\}$.
 
-De sju Hu-moment definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
+De sju Hu-momenten definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 \begin{align*}
 	I_1 =& \;\mu_{20} + \mu_{02}\\
 	I_2 =& \left(\mu_{20} - \mu_{02}\right)^2 + 4\mu^2_{11}\\
@@ -153,7 +153,7 @@ gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 
 \paragraph{Fyrkantighet}
 
-Den här egenskapen är helt enkelt ett mått på hur kvadratisk den axelparallella
+Den här egenskapen är ett mått på hur kvadratisk den axelparallella
 inneslutande lådan är, och på så sätt mäter den hur ''utsträckt'' en
 gest är. Dess definition är mycket enkel:
 \begin{equation*}
@@ -162,8 +162,8 @@ gest är. Dess definition är mycket enkel:
 
 En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
 fyrkantigheten avviker från detta värde desto mer avlång är gesten.
-Notera att excentriciteten (se nedan) mäter i princip samma sak men utgår från
-andramomenten och därmed är oberoende av objektets vinkel.
+Notera att excentriciteten (se nedan) i princip mäter samma sak, men utgår från
+andramomenten och är därmed oberoende av objektets vinkel.
 
 \paragraph{Excentricitet}
 
@@ -208,7 +208,7 @@ egenskaperna) genom att beräkna uppskattningar $\hat\mu$ och $\hat\sigma$
 utifrån prototyp- eller träningsdata (man får självfallet en uppsättning sådana
 parametrar per egenskap i egenskapsrummet). Denna metod kommer inte
 att göra icke normalfördelade egenskaper normalfördelade, men alla
-egenskapers varians kommer likställas \cite{Aksoy01}.
+egenskapers varians kommer att likställas \cite{Aksoy01}.
 
 Man kan därefter använda dessa parametrar för att normalisera ny indata, så
 att även den passar in i det nya egenskapsrummet:
