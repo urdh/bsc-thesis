@@ -12,7 +12,7 @@ Man skiljer också på övervakad respektive icke-övervakad inlärning,
 där man i det övervakade fallet har etiketter på den träningsdata man stoppar
 in, så att man för varje objekt kan säga om det klassificerats rätt eller fel.
 
-Svårigheten kan förtydligas något med hjälp av figur \ref{fig:kluster}.
+Svårigheten kan förtydligas något med hjälp av figur \vref{fig:kluster}.
 \begin{figure}[!htpb]
     \begin{center}
         \includegraphics[width=0.8\textwidth,clip=true,trim=2cm 3cm 1.5cm 3cm]{bilder/kluster}

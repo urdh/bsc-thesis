@@ -34,6 +34,10 @@
 \usepackage{tikz}
 \usepackage[noauto]{chappg}
 \usepackage[swedish,refpages]{gloss}
+\usepackage[swedish]{varioref}
+
+% För att kunna kommentera bort varioref om det inte är bra
+\ifdefined\vref\relax\else\newcommand{\vref}[1]{\ref{#1}}\fi
 
 %% Minted-saker. Aktivera med \mintedtrue, avaktivera med \mintedfalse
 \newif\ifminted

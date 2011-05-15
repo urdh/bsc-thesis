@@ -10,7 +10,7 @@ En dold Markovmodell eller Hidden Markov model (HMM) är en utökning
 av den klassiska Markovmodellen som gjorts för att skapa en
 signalmodell som beskriver ett system utifrån dess utdata.
 En vanlig Markovmodell består av ett antal tillstånd sammankopplade
-med övergångssannolikheter (se figur~\ref{fig:hmm-ergodic}). Man kan alltså
+med övergångssannolikheter (se figur~\vref{fig:hmm-ergodic}). Man kan alltså
 röra sig i Markovprocessen genom att i varje tidssteg följa en av kanterna
 ut från tillståndet, och valet av kant sker genom en stokastisk process.
 
@@ -328,14 +328,14 @@ utseende
 
 Man startar alltså alltid i det första tillståndet för att sedan
 stanna kvar i samma tillstånd eller röra sig åt höger (se
-figur~\ref{fig:hmm-lr}). Antalet steg
+figur~\vref{fig:hmm-lr}). Antalet steg
 man tar är inte begränsat på annat sätt än att det slutgiltiga
 tillståndet $S_N$ inte får passeras. Denna modell användes av
 \citeasnoun{Yamato92} och skiljer sig i vissa avseenden från
 den som den som används av \citeasnoun{Elmezain08}, t.ex.~på det sätt att
 den bara tillåter förflyttning från
 ett tillstånd till sig självt eller till nästa (man får alltså inte ''hoppa
-över'' tillstånd, se figur~\ref{fig:hmm-lrb}), ett val som ger upphov
+över'' tillstånd, se figur~\vref{fig:hmm-lrb}), ett val som ger upphov
 till övergångsmatrisen
 \begin{equation*}
 A = \begin{bmatrix}
