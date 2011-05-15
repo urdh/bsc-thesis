@@ -31,7 +31,7 @@ Många av egenskaperna som beskrivs kan beräknas effektivt av
 \paragraph{Inledande definitioner}
 
 För beräkning av vissa egenskaper behöver man definiera två
-grundläggande begrepp, den inneslutande lådan och centroiden. Dessa
+grundläggande begrepp, den inneslutande lådan och tyngdpunkten. Dessa
 två kan användas för att hitta ''mitten'' av objektet
 vi undersöker. Den inneslutande lådan kan dessutom användas för vissa
 jämförelser relaterade till area (d.v.s. densitetsliknande begrepp).
@@ -45,11 +45,11 @@ extrempunkterna i $x$- och $y$-led. Lådan har fyra mått: bredd, höjd samt
 position i $x$- och $y$-led. Utifrån dessa kan vi även beräkna
 mittpunkten i $x$- och $y$-led.
 
-\subparagraph{Centroid}
+\subparagraph{Tyngdpunkt}
 
-Centroiden är masscentrum för ett område, och beräknas enligt
+Tyngdpunkten är masscentrum för ett område, och beräknas enligt
 \begin{equation*}
-  \textrm{centroid}(A) = \frac{
+  \textrm{tyngdpunkt}(A) = \frac{
     \sum\limits_{a\in A}m_a\vect{r}_a
   }{
     \sum\limits_{a\in A}m_a
@@ -59,10 +59,10 @@ Centroiden är masscentrum för ett område, och beräknas enligt
 \end{equation*}
 där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
-$\vect{r}_a$ är positionen av punkten $a$). Centroiden är vektorvärd.
+$\vect{r}_a$ är positionen av punkten $a$). Tyngdpunkten är vektorvärd.
 
-Man kan dessutom definiera ett relativt centroidläge  som avståndet mellan 
-centroiden och lådans övre/vänstra kant genom lådans bredd/höjd.
+Man kan dessutom definiera ett relativt tyngdpunktsläge  som avståndet mellan 
+tyngdpunkten och lådans övre/vänstra kant genom lådans bredd/höjd.
 
 \paragraph{Hu-moment}
 
@@ -77,7 +77,7 @@ Centralmomenten $\mu_{pq}$ definieras av
 	           \left(y-\bar{y}\right)^q
 	           f(x,y)
 \end{equation*}
-där $\bar{x}$ och $\bar{y}$ är centroidens x- och y-komponent, och $f(x,y)$ är
+där $\bar{x}$ och $\bar{y}$ är tyngdpunktens x- och y-komponent, och $f(x,y)$ är
 bildens ljusstyrka. För binära bilder gäller att
 $f:\left\{\text{Bildpunkter}\right\}\rightarrow\left\{0,1\right\}$.
 

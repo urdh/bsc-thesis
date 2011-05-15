@@ -34,7 +34,7 @@ f.Eccentricity = props.Eccentricity;
 f.Extent = props.Extent;
 % Fyrkantighet
 f.Squareness = props.BoundingBox(3)/props.BoundingBox(4);
-% Centroidl\"{a}ge
+% Tyngdpunktsl\"{a}ge
 f.CentroidBoxPosX = ( props.Centroid(1) - ...
  	props.BoundingBox(1) ) / props.BoundingBox(3);
 f.CentroidBoxPosY = ( props.Centroid(2) - ...

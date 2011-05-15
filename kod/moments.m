@@ -24,7 +24,7 @@ for i = 1:size(M,1)
         M(i,j) = s;
     end
 end
-% Centroidens $x$- och $y$-koordinat
+% Tyngdpunktens $x$- och $y$-koordinat
 x_bar = M(2,1)/M(1,1);
 y_bar = M(1,2)/M(1,1);
 % Ber\"{a}kning av centralmomenten $\mu_{ij}$ och de skalningsinvarianta
