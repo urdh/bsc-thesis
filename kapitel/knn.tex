@@ -3,19 +3,19 @@
 
 \section{$k$ nearest neighbours}\label{sec:knn}
 
-\knn eller $k$ närmsta grannar är en konceptuellt enkel modellfri
+\knn eller $k$ närmsta grannar är en konceptuellt enkel och modellfri
 klassificeringsmetod.
-Den baseras på prototypobjekt i egenskapsrummet och tilldelar en klass
-till en observerad punkt baserat på dess närmsta grannar i egenskapsrummet.
+Den baseras på prototypobjekt i egenskapsrummet och en observerad punkt
+tilldelas en klass baserat på dess närmsta grannar.
 
-Avståndet som används är vanligtvis det euklidiska, dvs
+Avståndet som används är vanligtvis det euklidiska, d.v.s.
 \begin{equation*}
     d(i) = \left(\sum_{i=1}^n(x_i-x_0,i)^2\right)^{1/2}
 \end{equation*}
 där $n$ är dimensionen på egenskapsrummet, $\vect{x}$ är koordinaterna för en
 prototyp och $\vect{x_0}$ är observationen. Genom en sökning i
 egenskapsrummet letar vi efter de $k$ närmsta grannarna. Om $k$ är större än ett
-avgörs klasstillhörigheten genom majoritetsomröstning, dvs. den klass med flest
+avgörs klasstillhörigheten genom majoritetsomröstning, d.v.s. den klass med flest
 nära grannar vinner, se figur \vref{fig:knn-overview}.
 
 \begin{figure}[!htb]
@@ -48,7 +48,7 @@ För att metoden ska fungera krävs att alla klasser är representerade med lika
 många prototypobjekt, annars får vissa klasser större vikt och kommer med högre
 sannolikhet att väljas. (Klasserna kan fortfarande viktas i efterhand.)
 Om prototyperna är väl valda avspeglar de den sanna
-förderlningen hos klassen.
+fördelningen hos klassen.
 Den är därför ofta att föredra framför en Gaussian Mixture Model, där
 varje klass approximeras av sina anpassade parametrar \cite{Hastie09}.
 
@@ -62,7 +62,7 @@ Detta tillåter stora datamängder och hög dimension.
 
 En metod som är snabb för dimensioner lägre än ungefär 20 är kd-tree.
 Den går ut på att prototypmängden delas av plan genom egenskapsrummet,
-som resulterar i ett binärt träd. Färdiga implementeringar finns dessutom
+vilket resulterar i ett binärt träd. Färdiga implementeringar finns dessutom
 i överflöd \cite{Skiena08}.
 
 %Detta måste givetvis göras en gång per gest, vilket ger oss en kodbok

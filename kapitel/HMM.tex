@@ -6,9 +6,9 @@ För att kunna klassificera dynamiska gester räcker det inte att
 analysera bilder var för sig. Man behöver en modell som kan beskriva
 karakteristiska beteenden för sekvenser av bilder.
 
-En dold Markovmodell eller Hidden Markov model (HMM) är en utökning
+En dold Markovmodell eller Hidden Markov Model (HMM) är en utökning
 av den klassiska Markovmodellen som gjorts för att skapa en
-signalmodell som beskriver ett system utifrån dess utdata.
+signalmodell vilken beskriver ett system utifrån dess utdata.
 En vanlig Markovmodell består av ett antal tillstånd sammankopplade
 med övergångssannolikheter (se figur~\vref{fig:hmm-ergodic}). Man kan alltså
 röra sig i Markovprocessen genom att i varje tidssteg följa en av kanterna
@@ -24,7 +24,7 @@ ut från tillståndet, och valet av kant sker genom en stokastisk process.
 Det som är dolt i en HMM och som särställer den från en vanlig Markovmodell
 är att varje tillstånd genererar observerbar utdata, symboler, efter ännu en sannolikhetsfördelning. Då man i vanliga Markovmodeller
 observerar modellens tillstånd direkt, observeras nu istället de
-symboler som genereras då tillstånden växlar. Dessa symboler motsvarar
+symboler som genereras när tillstånden växlar. Dessa symboler motsvarar
 den verkliga process man önskar modellera. Ett förtydligande exempel
 är på sin plats: 
 
@@ -49,7 +49,7 @@ för varje gest som finns med i systemet. Klassificeringen görs sedan genom
 att välja den HMM som bäst beskriver den observerade datan, och symbolerna
 tilldelas genom någon typ av enklare klassificering (t.ex.~\knn) av bilddata
 som resulterar i ett mindre antal ''typbilder''. Tillstånden motsvarar
-då i någon mening olika skeden av gesterna.
+då olika skeden av gesterna.
 
 % (Kan även nämna Starner98, Rigol98)}
 
@@ -75,7 +75,7 @@ med ett enda steg har vi alltså $a_{ij} > 0,\;\forall i,j$.
 b_j(k) = \Prob(v_k \text{ vid tiden } t|q_t = S_j) \quad 1 \leq j \leq N,\quad1 \leq k \leq M.
 \end{equation*}
 $b_j(k)$ ger med andra ord sannolikheten att symbolen $v_k$ genereras
-då vi befinner oss i tillstånd $j$.
+då systemet befinner sig i tillstånd $j$.
 \item Sannolikhetsfördelningen för ett begynnelsetillstånd, $\pi =
   \{\pi_i\}$, där
 \begin{equation*}
@@ -96,10 +96,9 @@ två är av intresse i den här rapporten:
 \begin{description}
 \item[Problem 1:] Givet en sekvens av observationer
   $\vect{O}=\{O_1,O_2,\dots,O_t\}$ och en modell $\lambda = (A,B,\pi)$, hur
-  beräknar man $\Prob(\vect{O}|\lambda)$? Dvs. vad är sannolikheten att
+  beräknar man $\Prob(\vect{O}|\lambda)$? D.v.s. vad är sannolikheten för att
   sekvensen genererades av modellen $\lambda$? Hur kan
-  det göras så effektivt som möjligt? Effektivitetsfrågan visar sig
-  vara ytterst viktig. 
+  det göras så effektivt som möjligt?
 \item[Problem 2:] Hur går man tillväga för att optimera
   $\Prob(\vect{O}|\lambda)$ genom att justera
   modellparametrarna $\lambda = (A,B,\pi)$? 
@@ -112,9 +111,9 @@ deras relation till en specifik observationsföljd. Denna synvinkel är
 mycket användbar då man ställs inför utmaningen att välja mellan
 flera existerande modeller. 
 
-Det andra problemet behandlar modellestimering. Hur kan på bästa
-sätt anpassa en modell till en viss observationsföljd?
-Lösningen till detta problem utgör en fundamental del i
+Det andra problemet behandlar modellestimering. Hur kan en modell
+på bästa sätt anpassas till en viss observationsföljd?
+Lösningen på detta problem utgör en fundamental del i
 att skapa modellen i  praktiken.
 Med hjälp av en träningssekvens, alltså en följd av
 observationer, kan man då träna en HMM. Vikten av att
@@ -129,7 +128,7 @@ definierar framåtvariabeln $\alpha_t(i)$ enligt
 \begin{equation*}
 \alpha_t(i) = \Prob(O_1,O_2,\dots,O_t,q_t = S_i | \lambda),
 \end{equation*}
-alltså sannolikheten att ha genererat observationsföljden $\textbf{O}
+alltså sannolikheten för att ha genererat observationsföljden $\textbf{O}
 = \{O_1,O_2,\dots,O_t$\} samt befinna sig i tillstånd $S_i$ vid tiden
 $t$, givet en modell $\lambda$. En av metodens fördelar är att man med
 hjälp av induktion kan finna $\alpha_t(i)$ genom följande process:
@@ -157,17 +156,18 @@ sannolikheten att börja i tillstånd $S_i$ och därefter generera
 observation $O_1$. För $t=2$ använder man sedan induktionssteget. Utgår man
 från första steget kan man övertyga sig om att
 $\sum_{i=1}^N\alpha_1(i)a_{ij}$ måste vara den totala sannolikheten
-att hamna i $S_j$ vid $t=2$, efter att ha genererat $O_1$ i föregående
+för att hamna i $S_j$ vid $t=2$, efter att ha genererat $O_1$ i föregående
 tillstånd.
 
 Efter multiplikation med $B_j(O_{2})$ fås därefter
-sannolikheten att generera $O_2$, då man befinner sig i $S_j$ med en
+sannolikheten att generera $O_2$, då systemet befinner sig i $S_j$ med
+en
 observerad symbol $O_1$, eller med andra ord, $\Prob(O_1,O_2,S_j
 = q_2 | \lambda) = \alpha_2(j)$. Fortsätter man på samma vis har man
 slutligen $\alpha_T(i) = \Prob(O_1,O_2,\dots,O_T,S_i = q_T |
 \lambda)$.
 
-Sista steget ger slutligen svaret på vårt första problem, nämligen
+Sista steget ger slutligen svaret på det första problemet, nämligen
 sannolikheten $\Prob(\vect{O}|\lambda)$. Detta inses lätt då vi
 använder oss av definitionen av $\alpha_T(i)$, 
 \begin{equation*}
@@ -175,15 +175,15 @@ använder oss av definitionen av $\alpha_T(i)$,
 \sum_{i=1}^N\Prob(O_1,O_2,\dots,O_T,q_T = S_i|\lambda). 
 \end{equation*} 
 
-Med andra ord är sannolikheten att generera observationsföljden
-$\vect{O}$ summan av sannolikheterna att generera $\vect{O}$ med
+Med andra ord är sannolikheten för att generera observationsföljden
+$\vect{O}$ summan av sannolikheterna för att generera $\vect{O}$ med
 sluttillstånd $S_i$, $1 \leq i \leq N$.
 
 \subsection{En iterativ metod för träning av HMM}
-Med en lösning till första problemet i bagaget kan man tackla nästa,
+Med en lösning på första problemet i bagaget kan man tackla nästa,
 själva träningen av en HMM. Detta är ett betydligt mer invecklat
 problem än det tidigare, med betydligt fler angreppsvinklar. En
-analytisk lösning till optimeringsproblemet är inte känd, utan man
+analytisk lösning på optimeringsproblemet är inte känd, utan man
 tvingas istället använda sig av Baum-Welch-metoden eller
 gradient-tekniker \cite{Dempster77,Levinson83}. 
 Givet en ändlig observationssekvens går det inte att optimera
@@ -197,7 +197,7 @@ framåtvariabeln $\alpha_t(i)$ definieras enligt
 \beta_t(i) = \Prob(O_{t+1},O_{t+2},\dots,O_T | q_t = S_i, \lambda).
 \end{equation*} 
 
-$\beta_t(i)$ är alltså sannolikheten att observera en delsekvens av
+$\beta_t(i)$ är alltså sannolikheten för att observera en delsekvens av
 observationer då man startar i tillstånd $S_i$. Processen för att beräkna $\beta_t(i)$ består av två steg:
 \begin{enumerate}
 \item Initiering: 
@@ -221,7 +221,7 @@ Den första definieras som
 \begin{equation*}
 \xi_t(i,j) = P(q_t = S_i, q_{t+1} = S_j|\vect{O},\lambda),
 \end{equation*}
-alltså sannolikheten att befinna sig i tillstånd $S_i$ och
+alltså sannolikheten för att befinna sig i tillstånd $S_i$ och
 därefter i $S_j$. Genom $\alpha$ och $\beta$ kan den uttryckas som
 \begin{equation*}
 \xi_t(i,j) = \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\Prob(\vect{O}|\lambda)}
@@ -284,12 +284,12 @@ visade att denna iterativa process resulterar antingen i
 
 \subsection{Olika typer av HMM}
 Då man talar om olika typer av HMM syftar man först och främst på
-typen av övergångsmatris som används. Hittills har bara 
+den typ av övergångsmatris som används. Hittills har bara 
 fallet där $a_{ij} > 0$ för alla $i,j$ nämnts --- detta kallas en ergodisk
 modell. Detta innebär att varje tillstånd i modellen
 kan nås från alla andra tillstånd inom ändlig tid. Om man
 tänker sig en modell med fyra tillstånd blir övergångsmatrisen
-följdakligen en allmän $4\times 4$-matris $A$ där alla element kan vara nollskiljda.
+följaktligen en allmän $4\times 4$-matris $A$ där alla element kan vara nollskilda.
 
 Det har dock visats att andra typer av modeller i vissa fall presterar
 bättre än den ergodiska. \citeasnoun{Elmezain08}
@@ -318,11 +318,11 @@ utseende
 	}
 	\\[2em]
 	\subfloat[Markovmodell enligt
-  \protect\possessivecite{Yamato92} modell]{
+  \protect\cite{Yamato92}]{
 		\includegraphics[width=0.8\textwidth,trim=0 -10 0 0]{bilder/LRB_HMM}
 		\label{fig:hmm-lrb}
 	}
-  \caption{Två Markovmodeller med fyra tillstånd enligt olika modeller}
+  \caption{Två Markovmodeller med fyra tillstånd enligt olika modeller.}
   \label{fig:hmm-lr-lrb}
 \end{figure}
 
