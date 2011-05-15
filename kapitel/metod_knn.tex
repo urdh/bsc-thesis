@@ -52,7 +52,12 @@ med denna metod lite kort, men konstaterade snart att även den var för
 beräkningsintensiv för våra tillämpningar.
 
 Det tredje tillvägagångssättet, som vi slutligen 
-använde, är s.k.~girig optimering. Detta kan delas in i två snarlika algoritmer, greedy forward resp.~backward selection. Framåtalgoritmen förlaras i figur~\ref{fig:knn-flowchart}. Bakåtalgoritmen är snarlik, men börjar istället med samtliga egenskaper inkluderade och plockar succesivt bort den som bidrar minst.
+använde, är s.k.~girig optimering. Detta kan delas in i två snarlika 
+algoritmer, greedy forward selection resp.~backward elimination.
+Framåtalgoritmen förlaras 
+i figur~\ref{fig:knn-flowchart}; bakåtalgoritmen är snarlik, men börjar 
+istället med samtliga egenskaper inkluderade och plockar successivt bort den 
+som bidrar minst.
 Resultatet av dessa algoritmer är en rangordning av egenskaperna.
 Vi beräknade denna rangordning för olika värden
 av $k$, alltså parametern i \knn-metoden.

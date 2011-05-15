@@ -26,7 +26,7 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
         \label{fig:bwd_sel}}
     \end{center}
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värden på $k$. Med forward selection-algoritmer fås ett minimum då $k=7$ och 10 egenskaper inkluderades. Med backward selection fås samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
+och värden på $k$. Med forward selection-algoritmen fås ett minimum då $k=7$ och 10 egenskaper inkluderades. Med backward elimination fås samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
     \label{fig:knn-optimering}
 \end{figure}
 
@@ -35,7 +35,8 @@ inverkan på resultatet då man använder sig av färre än
 fem. Därefter planar andelen ut för att återigen stiga då
 fler än 10 egenskaper används. Andelen felklassificeringar
 minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
-öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ enligt forward selection presterade metoden enligt
+öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ från
+optimeringen med forward selection presterade metoden enligt
 tabell~\ref{tab:tolkningsmatris} och tabell~\ref{tab:prestanda}.
 
 \notes{(Inkludera resultat där problemgester är borttagna?)}
