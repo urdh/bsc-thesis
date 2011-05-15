@@ -1,11 +1,11 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-	\notes{Skriv om?}
-Med de metoder som beskrivits nås alltså en träffsäkerhet på 91.4\,\%
-för våra tio statiska gester. I ett antal stycken framöver diskuteras
-vad som skulle kunna göras för att ytterligare förbättra
-träffsäkerheten, utvidga programmets funktionalitet eller på annat
-sätt gå vidare från resultatet.
+De metoder vi använt ger en träffsäkerhet på 91.4\,\% för de tio statiska
+gester vi valt. Denna träffsäkerhet kan sannolikt förbättras på ett antal
+olika sätt, och tillämpningarna av vårt resultat kan vara stora. Dessutom
+kan metoden utökas och generaliseras för att även kunna identifiera
+dynamiska gester. I detta kapitel ämnar vi därför lägga fram förslag på framtida
+förbättringar, tillämpningar och utökningar av vår metod och vårt program,
 
 \section{Hudigenkänning}
 De sannolikhetsfördelningar som använts för att skilja hud från annat
@@ -29,7 +29,13 @@ tidskrävande.
 \section{Handidentifiering}
 Handidentifieringen kan förbättras på ett antal punkter;
 den metod vi använder (att söka ett tillräckligt stort objekt från höger i
-bilden) är relativt ''dum''. \notes{några andra metoder?}
+bilden) är relativt ''dum''. Förutsätter man att de två objekt som kan finnas
+i bild är ett ansikte och en hand (vilket oftast är fallet) så kan man
+istället välja handen genom att först identifiera ansiktet, exempelvis genom
+den metod \citeasnoun{Hsu02} använder, för att sedan ''välja bort'' detta
+objekt (dvs.~ta bort det från bilden). Vad man har kvar bör då,om brus tagits
+bort med en morfologisk operation eller genom att välja de två största
+objekten i bilden enligt \citeasnoun{Nielsen04}, vara handen.
 
 Man skulle dessutom kunna klippa bort handleden på det sätt
 \citeasnoun{Deimel99} föreslår, och därmed öka träffsäkerheten --- att
