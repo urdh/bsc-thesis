@@ -40,6 +40,7 @@
 	\usepackage{minted}
 	\newminted{matlab}{linenos,mathescape,bgcolor=codebg}
 	\usemintedstyle{manni}
+	\renewcommand{\listingscaption}{Kodfragment}
 \fi
 
 % Tikz-flowcharts
@@ -176,7 +177,7 @@
 \renewcommand{\rightmark}[1]{\appendixname\ \thechapter}
 
 \chapter{\MATLAB-kod}\label{sec:matlab}
-\ifminted\subfile{kapitel/kodappendix.tex}\fi
+\ifminted\subfile{kapitel/appendix-matlab.tex}\fi
 \chapter{En bilaga till}
 
 \end{document}
