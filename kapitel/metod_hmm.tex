@@ -2,43 +2,49 @@
 \begin{document}
 
 \section{Implementering av HMM för klassificering av icke-statiska gester}
-
 För att klassificera dynamiska gester bygger man vidare på metoden som användes
 för de statiska.  HMM kräver att gester utgörs av följder av symboler,
-motsvarande olika observationer. Dessa symboler tar vi från en första
-klassificering med \knn.
-
+motsvarande olika observationer. Dessa symboler får vi från en 
+klassificering med \knn, med en prototypmängd enligt nedan.
 Idén är att representera varje gest, statisk som dynamisk, i form av en
 symbolföljd.  De statiska definieras lättast som två eller tre efterföljande
 symboler av samma typ, medan de dynamiska består av en följd av blandade
 symboler.
 
-Då de statiska gesterna redan tilldelats
-symboler ligger problemet i att tilldela icke-statiska gester symboler på ett effektivt sätt. Vår tanke
-var att dela upp filmerna med en icke-statisk gest i tre kategorier; prototypfilmer, träningsfilmer och 
-testfilmer. Tilldelningen sker genom att varje prototypfilm delas upp i fyra lika stora delar. Den 
-första fjärdedelen tilldelas en symbol, den andra en annan osv. Förhoppningen är att liknande 
-delgester (behöver omformuleras) på så vis tilldelas samma symbol. 
+Eftersom de statiska gesterna redan tilldelats
+symboler ligger problemet i att tilldela dynamiska gester symboler på ett effektivt sätt. Vår tanke
+är att dela upp filmerna av dynamiska gester i tre kategorier: prototypfilmer, träningsfilmer och 
+testfilmer. Tilldelningen av symboler sker genom att varje prototypfilm
+i tiden delas upp i fyra lika stora delar. Den 
+första fjärdedelen tilldelas en symbol, den andra en annan o.s.v.
+Förhoppningen är att det som ligger i en viss fjärdedel alltid motsvarar samma
+del av gesten, eftersom de tilldelas samma symbol.
+De symboler som förknippats med dessa delgester, används med
+tillhörande egenskapsvektorer för att definiera nya klasser i prototypmängden.
 
-Programmet omvandlar därefter träningsfilmerna till symboler via kodboken som utvidgats 
-med prototypgesterna. Längden av 
-symbolföljden för respektive gest beror på programmets prestanda, dvs hur många bilder 
+Programmet omvandlar därefter träningsfilmerna till symboler med \knn i
+prototypmängden.
+Längden av 
+symbolföljden för respektive gest beror på programmets prestanda, d.v.s. hur många bilder 
 man önskar analysera per sekund. Det bör uppmärksammas att varianter av en och samma gest 
-kommer, beroende på deras längd, representeras av olika långa symbolföljder, vilket leder till 
+kommer, beroende på deras längd, att representeras av olika långa symbolföljder, vilket leder till 
 att vi tränar flera HMM-modeller för varje gest. En möjlighet är att gruppera in symbolsekvenserna 
 i tre längder för att motverka alltför strikta krav på gestens utförande. 
 
 HMM-modellerna tränas med Baum-Welch-metoden via \MATLAB-funktionen \texttt{hmmtrain}. Vi använder Bakis-modellen 
-då den som sagt gett bra resultat i samband med signaler som förändras över tid, en topologi som medför att
+då den enligt kapitel \ref{sec:hmmtypes}
+ger bra resultat i samband med signaler som förändras över tid.
+Den är en typ av HMM som medför att
 modellerna måste tränas med flera symbolsekvenser \cite{Rabiner89}. Då ingen förflyttning till ett tidigare
-tillstånd är tillåten blir modellen nämligen mycket selektiv med vilka symboler varje tillstånd kan generera. 
-Enbart en symbolföljd skulle träna modellen till att systematiskt vandra från ett tillstånd till nästa och i 
-varje generera rätt symbol i ordningen med sannolikhet ett. 
+tillstånd är tillåten blir modellen mycket selektiv med vilka symboler varje tillstånd kan generera. 
+Att endast använda en symbolföljd skulle träna modellen till att systematiskt
+vandra från ett tillstånd till nästa,
+och i varje tillstånd generera rätt symbol i ordningen med sannolikhet ett. 
 
-\notes{Nämna att vi skrev egen HMM-kod}
-
-För att beräkna sannolikheten att en viss HMM skapat en symbolföljd används \MATLAB-funktionen \texttt{hmmviterbi}. 
-Om vi antar att det tränats HMMs för gester av längd två, fem och sju symboler kommer programmets klassificering 
+För att beräkna sannolikheten att en viss HMM har skapat en
+symbolföljd används \MATLAB-funktionen \texttt{hmmviterbi}. 
+Om vi antar att det har tränats HMM-modeller för gester av längd två,
+fem och sju symboler, kommer programmets klassificering 
 av testfilmerna ske på det sätt som beskrivs i
 figur~\vref{fig:hmm-flowchart}.
  
