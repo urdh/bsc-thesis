@@ -279,7 +279,7 @@ FUNCTION {either.or.check}
 FUNCTION {format.bvolume}
 { volume empty$
     { "" }
-    { "Vol." volume tie.or.space.connect
+    { "vol." volume embolden tie.or.space.connect
       series empty$
 	'skip$
 	{ " av " * series emphasize * }
@@ -354,10 +354,10 @@ FUNCTION {format.pages}
 }
 
 FUNCTION {format.vol.num.pages}
-{ volume embolden field.or.null
+{ "vol. " * volume embolden field.or.null
   number empty$
     'skip$
-    { "(" number * ")" * *
+    { ", nr. " number * "" * *
       volume empty$
 	{ "there's a number but no volume in " cite$ * warning$ }
 	'skip$
@@ -368,7 +368,7 @@ FUNCTION {format.vol.num.pages}
     'skip$
     { duplicate$ empty$
 	{ pop$ format.pages }
-	{ ":~" * pages n.dashify * }
+	{ ":~" * format.pages n.dashify * }
       if$
     }
   if$
@@ -451,7 +451,7 @@ FUNCTION {format.book.crossref}
     { "empty volume in " cite$ * "'s crossref of " * crossref * warning$
       "i "
     }
-    { "Vol." volume tie.or.space.connect
+    { "vol." volume embolden tie.or.space.connect
       " av " *
     }
   if$
