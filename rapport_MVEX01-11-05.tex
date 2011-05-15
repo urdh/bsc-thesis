@@ -32,6 +32,7 @@
 \usepackage{slashbox}
 \usepackage{tikz}
 \usepackage[noauto]{chappg}
+\usepackage[swedish]{gloss}
 
 %% Minted-saker. Aktivera med \mintedtrue, avaktivera med \mintedfalse
 \newif\ifminted
@@ -104,6 +105,8 @@
 \newcommand{\MATLAB}{MAT\-LAB\xspace}         % MATLAB
 \newcommand{\knn}{$k$NN\xspace}              % kNN
 
+\makegloss
+
 \begin{document}
 
 % Titelsida
@@ -118,10 +121,9 @@
 \cleardoublepage
 \tableofcontents
 \cleardoublepage
+\printgloss{glossary}
+\cleardoublepage
 \pagestyle{fancier}
-
-% Ordlista
-\notes{ORDLISTA: bildpunkt, bildruta, bildmatris,}
 
 % Inledning
 \pagenumbering{arabic}
