@@ -2,9 +2,13 @@
 \begin{document}
 
 \section{Klassificering av gester med hjälp av \knn}
-Den största andelen korrekt klassificerade gester vi lyckades uppnå med samtliga gester tillåtna var 91.5\,\%. Antalet aktiverade
-egenskaper var 10 då forward selection-algoritmen användes och 7 med backward selection, och antalet närmsta grannar i \knn-metoden var 7. Egenskaperna som
-användes är listade i tabell~\vref{tab:bestfeats}. Figur~\vref{fig:knn-optimering} visar mer exakt hur andelen korrekta
+Den största andelen korrekt klassificerade gester vi lyckades uppnå
+med samtliga gester tillåtna var 91.5\,\%. Antalet aktiverade
+egenskaper var 10 då forward selection-algoritmen användes och 7 med
+backward selection, och antalet närmsta grannar i \knn-metoden var 7. Egenskaperna som
+användes är listade i
+tabell~\vref{tab:bestfeats}. Figur~\vref{fig:knn-optimering} visar mer
+exakt hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
@@ -27,7 +31,9 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
         \label{fig:bwd_sel}}
     \end{center}
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värden på $k$. Med forward selection-algoritmen fås ett minimum då $k=7$ och 10 egenskaper inkluderades. Med backward elimination fås samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
+och värden på $k$. Med forward selection-algoritmen fås ett minimum då
+$k=7$ och 10 egenskaper inkluderades. Med backward elimination fås
+samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
     \label{fig:knn-optimering}
 \end{figure}
 
@@ -53,7 +59,7 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 	\label{tab:prestanda}
 	\begin{tabular}{c c c}
 		\toprule 
-		Försöksgest & Priori-fel & Posteriori-fel \\
+		Försöksgest & A Priori-fel & A Posteriori-fel \\
 		\midrule 
 		A & & \\
 		B & & \\
@@ -104,9 +110,12 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 \subsection{Egenskaper}\label{sec:resultat_features}
 
 Egenskaperna vi använt har visat sig vara mycket bra, upp till en viss gräns.
-Figur~\vref{fig:knn-optimering} visar att optimering av vilka egenskaper som
-inkluderas ger ett distinkt minimum redan vid tio egenskaper --- dessa tio
-bästa listas i tabell~\vref{tab:bestfeats}. Ett urval av sex gester visar i
+I tabell~\vref{tab:bestfeats} syns de tio egenskaper som inkluderades
+med forward selection. Av dessa kan man ta bort tre, \notes{Vilka???},
+med samma resultat, enligt resultat från backward
+elimination-algoritmen. 
+
+Ett urval av sex gester visar i
 figur~\vref{fig:feats1011} hur de två bästa egenskaperna tydligt samlar varje
 gest i ett relativt litet område, vilket gör att avstånden i \knn-metoden 
 blir mindre, och att det därför blir enklare att sätta en tröskel för att
