@@ -2,10 +2,28 @@
 
 \subsection{Klassificering av hud}
 I 44 bilder tagna med webbkameran separerades huden från resten av
-bilden manuellt med hjälp av fotoredigeringsprogramvara. Baserat på
+bilden manuellt med hjälp av fotoredigeringsprogramvara (se figur
+\ref{fig:hudseparerad}. Baserat på
 dessa bildpunkter bestämdes sedan en sannolikhetsfördelning för både hud
 och icke-hud enligt kapitel \ref{sec:hudklassificering}). 
-\notes{44 bilder?? gjorde Elmezain detta?}
+
+\begin{figure}[tb]
+	\centering 
+	\subfloat[Hud]{
+		\includegraphics[height=5cm]{bilder/hud.png}
+		\label{fig:hud}
+	}
+	% ev. spacing
+	\subfloat[Ickehud]{
+		\includegraphics[height=5cm]{bilder/ohud.png}
+		\label{fig:ohud}
+	}
+	\caption{För att skapa sannolikhetsfördelningar för hudfärg
+          respektive färg för ickehud togs 44 bilder ur vilka huden
+          spearerades från övriga bilden.}
+	\label{fig:hudseparerad}
+\end{figure}
+
 
 Med hjälp av
 sannolikhetsfördelningarna delades kamerabilden in i hud
@@ -15,24 +33,25 @@ som analyseras,
 vilket hade krävt lång beräkningstid, gjordes beräkningen
 i förväg för varje tänkbar färg ($256^2$ stycken i
 $C_bC_r$-rymden). Resultaten sparades
-sedan i två\notes{två?} $256\times256$-matriser, där färgvärdet används som
+sedan i två $256\times256$-matriser, där färgvärdet användes som
 koordinater. Ett antal binära matriser skapades sedan med ettor på de
 positioner där klassificeringskravet 
 \begin{equation*}
 	\frac{\Prob(\textrm{färg}|\textrm{hud})}{\Prob(\textrm{färg}|\textrm{ickehud})} > c,
 \end{equation*}
-var uppfyllt för olika värden på konstanten c. Detta resulterade alltså i mer
-eller mindre inklusiva tolkningar av vad som är hudfärg. I dessa matriser, eller
+var uppfyllt för olika värden på konstanten c. Ju större c var desto färre
+färger klassades som hud. 
+
+I dessa matriser, eller
 ''hudfärgskartor'', kunde man sedan slå upp
-färgvärden för att direkt få veta sannolikheten för att dessa är
-hud. \notes{få veta om desssa ska klassas som hud. (låter bättre?)}
+färgvärden för att direkt få veta om desssa skulle klassas som hud.
 De olika kartorna testades, och den som gav en så bra bild av
 handen som möjligt utan att ta med stora bakgrundsområden användes.
 Metoden med hudfärgskartor har visats vara effektiv av bl.a.~\citeasnoun{Brand00}
 
-Resultatet jämfördes sedan med det som ficks med
-sannolikhetsfördelningarna framtagna av \citeasnoun{Elmezain08} men
-med samma metod.\notes{What?!}
+De resulterande binära bilderna jämfördes sedan med de som ficks med
+sannolikhetsfördelningarna framtagna av \citeasnoun{Elmezain08}. Detta
+för att bestämma kvaliteten på våra prametrar.
 
 \subsection{Urskiljning av handen}\label{sec:metod_hud:urskiljning}
 När väl hudbildpunkterna i figuren urskiljts återstår att 
@@ -48,21 +67,13 @@ matlabfunktionen \texttt{bwareaopen}, som är en morfologisk
 genererar utifrån en parameter som specificerar
 dess area --- vad som är en lämplig area
 varierar med upplösning och
-och avstånd till kameran. Notera att \texttt{bwareaopen} opererar på mängden av
-vita bildpunkter, inte svarta som operationerna i \ref{sec:morph}, varför
-resultatet kommer att likna figur~\ref{fig:morph:cl} istället för
-figur~\ref{fig:morph:op}.
-\notes{Är detta sant efter att skåning bytte svarta och vita i morfkapitlet?}
-Vi använder en gräns på 200
+och avstånd till kameran. Vi använder en gräns på 200
 bildpunkter; detta fungerar bra även för relativt stort avstånd till
 kameran med en upplösning på $320\times240$ bildpunkter.
 
-\notes{hudpunkt? Förklara kolonnerna? Förslag: Vi sveper över bilden från vänster till
-dess att vi stöter på en bildpunkt med hud. Denna antas tillhöra handen, och
-det sammanhängande\ldots}
 För att hitta handen gör vi antagandet att handen är det
 objekt som befinner sig längst till vänster i bilden.
-Vi itererar därför över bildens kolonner från
+Vi sveper därför över bildmatrisens kolonner från
 vänster för att se om kolonnen innehåller någon hudbildpunkt --- den första
 hudbildpunkten som nås på detta sätt antas tillhöra handen.
 Det sammanhängande område som bildpunkten är en del av antas därför vara
