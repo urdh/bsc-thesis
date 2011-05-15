@@ -49,7 +49,7 @@ egenskapsrummet eller instabila egenskaper som förorenar datan med slumpmässig
 variationer.
 
 Då vi först tog oss an problemet att finna de bäst klassificerande
-egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att
+egenskaperna identifierade vi tre olika tillvägagångssätt. En variant är att
 testa alla möjliga kombinationer av egenskaper,
 men detta ger upphov till enorma beräkningskrav. Med 15
 egenskaper ger detta sammanlagt $32\,767$ kombinationer, och varje kombination
@@ -58,25 +58,35 @@ alltför lång tid.
 %Man måste alltså bygga ett kd-tree över $30\,000$ gånger och göra totalt $3\,145\,632$ klassificeringar,
 %något som skulle ta mycket lång tid.
  
-Den andra angreppsvinkeln utnyttjar
-möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en
+Den andra varianten utnyttjar
+möjligheten att vikta de olika egenskaperna för att på så sätt ge de som bättre
+separerar klasserna en
 större inverkan. Man optimerar då
-viktfördelningen för att ett nå så bra resultat som möjligt, följt av att man
-utesluter de egenskaper som inte bidrar till diskrimineringen. Vi experimenterade
+viktfördelningen för att nå ett så bra resultat som möjligt. Vi experimenterade
 med denna metod lite kort, men konstaterade snart att även den var för 
 beräkningsintensiv för våra tillämpningar.
 
-Den tredje metoden, som vi slutligen 
+Det tredje tillvägagångssättet, som vi slutligen 
 använde, kallas greedy forward selection (se
  figur~\ref{fig:knn-flowchart} för en förklaring av algoritmen).
-Resultatet av denna algoritm är en rangordning av egenskaperna som är
-åtminstone lokalt optimal. När vi funnit denna rangordning
-lät vi ändra värdet av $k$, alltså parametern i \knn-metoden, följt av
-att vi startade om forward selection-algoritmen --- detta gjorde att vi
-fick en bra uppfattning om vilka $k$ och vilka egenskaper som gav bäst resultat.
+Resultatet av denna algoritm är en rangordning av egenskaperna.
+Vi beräknade denna rangordning för olika värden
+av $k$, alltså parametern i \knn-metoden.
+
+Vi lät $k$ variera mellan 1 och 13 och
+beräknade andelen korrekta klassificeringar utifrån
+först den främsta egenskapen, sedan de två främsta och så vidare upp till
+dess att samtliga femton egenskaper var inluderade.
+Detta resulterade i att vi hade klassificeringsstyrkan som en funktion
+av $k$ och antalet egenskaper (enligt rangordningen),
+se figur~\ref{fig:knn-optimering} för en
+visualisering av resultaten.
+
 \citeasnoun{Jain97} utförde en undersökning av feature selection-algoritmer,
 och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
 metoder så som branch-and-bound.
+Här bör nämnas att eftersom algoritmen utför en icke-uttömmande sökning så är
+det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 
 \begin{figure}[tb]
 	\centering 
@@ -98,17 +108,11 @@ metoder så som branch-and-bound.
 	\label{fig:knn-flowchart}
 \end{figure}
 
-I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån
-först den främsta egenskapen, sedan de två främsta och så vidare upp till
-dess att samtliga femton egenskaper var inluderade. Samtidigt lät vi
-i varje uppsättning $k$ variera mellan 1 och 13 för att få
-en uppfattning av dess inverkan (se figur~\ref{fig:knn-optimering} för en
-visualisering av resultaten).
-%Trots att algoritmen är krävande att köra bör
+%Samtidigt lät vi
+%i varje uppsättning $k$ variera mellan 1 och 13 för att få
+%en uppfattning av dess inverkan (%Trots att algoritmen är krävande att köra bör
 %det nämnas att den inte är inte är lika beräkningsintensiv som de två
 %förstnämnda, men det ska även nämnas att eftersom algoritmen utför en icke-uttömmande
 %sökning så är det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
-Här bör nämnas att eftersom algoritmen utför en icke-uttömmande sökning så är
-det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 
 \end{document}
