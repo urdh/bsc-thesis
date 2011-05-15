@@ -7,7 +7,7 @@ med samtliga gester tillåtna var 91.5\,\%. Antalet aktiverade
 egenskaper var 10 då forward selection-algoritmen användes och 7 med
 backward selection, och antalet närmsta grannar i \knn-metoden var 7. Egenskaperna som
 användes är listade i
-tabell~\vref{tab:bestfeats}. Figur~\vref{fig:knn-optimering} visar mer
+tabell~\vref{tab:bestfeatsfwd}. Figur~\vref{fig:knn-optimering} visar mer
 exakt hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
@@ -88,7 +88,7 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 	\centering
 	\caption{De tio bästa egenskaperna}
 	
-	\label{tab:bestfeats}
+	\label{tab:bestfeatsfwd}
 	\begin{tabular}{ll}
 		\toprule
 		Ranking & Egenskap \\
@@ -107,13 +107,40 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 	\end{tabular}
 \end{table}
 
+\begin{table}[tb]
+	\centering
+	\caption{De tio bästa egenskaperna \notes{FELFELFELFELFEL, ny
+            körning på gång}}
+	
+	\label{tab:bestfeatsfwd}
+	\begin{tabular}{ll}
+		\toprule
+		Ranking & Egenskap \\
+		\midrule
+                1 & Fyrkantighet \\
+                2 & Centroidläge, $y$-led \\
+                3 & Hu-moment 1\\
+                4 & Soliditet\\
+                5 & Konvexitet \\
+                6 & Utsträckning \\
+                7 & Hu-moment 3 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 \subsection{Egenskaper}\label{sec:resultat_features}
 
 Egenskaperna vi använt har visat sig vara mycket bra, upp till en viss gräns.
-I tabell~\vref{tab:bestfeats} syns de tio egenskaper som inkluderades
-med forward selection. Av dessa kan man ta bort tre, \notes{Vilka???},
+I tabell~\vref{tab:bestfeatsfwd} syns de tio egenskaper som inkluderades
+med forward selection. Av dessa kan man ta bort tre, excentricitet,
+Hu-moment 2 och Hu-moment 7,
 med samma resultat, enligt resultat från backward
-elimination-algoritmen. 
+elimination-algoritmen. De sju egenskaper som lämnas kvar med
+backward elimination listas i tabell~\vref{tab:bestfeatsbwd}, i
+ordning efter hur länge de är kvar i körningen.
+
+Rankingen för samtliga egenskaper med de respektive metoderna finns i
+\ref{sec:egenskapsresultat}.
 
 Ett urval av sex gester visar i
 figur~\vref{fig:feats1011} hur de två bästa egenskaperna tydligt samlar varje
