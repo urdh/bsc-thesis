@@ -7,15 +7,15 @@
 Eftersom syftet med arbetet var att behandla rörliga
 gester var det naturligt att 
 använda sig av inspelade filmsekvenser av varje gest.
-För att bearbetningen av av dessa filmsekvenser inte skulle ta för lång tid,
+För att bearbetningen av dessa filmsekvenser inte skulle ta för lång tid,
 och för att samma metod senare skulle kunna tillämpas i realtid,
 nöjde vi oss med en upplösning på $320\times240$ bildpunkter.
 
 Kameran var en Logitech C250, med automatisk kompensering av vitbalans,
 vilker medförde att färger i kläder och omgivning kraftigt påverkade bilden,
 och därmed förvrängde hudfärgerna. Detta gjorde i sin tur att vi var
-tvungna att ha ett större område i hudfärgkartan
-som motsvade hud, varpå fler bildområden felaktigt klassificerades som hud.
+tvungna att ha ett större område på hudfärgskartan
+som motsvarade hud, varpå fler bildområden felaktigt klassificerades som hud.
 För att råda
 bot på detta valde vi att begränsa uppställningen till en miljö fri från
 hudliknande färger och utan varierande ljusförhållanden.
@@ -31,14 +31,14 @@ ett tal mellan 1 och 40 för spårning till en viss videofil.
 
 \subsection{Egenskapsanalys av filmerna}
 Egenskaperna från kapitel \ref{sec:features} samlades i en funktion
-(bilaga~\ref{sec:matlab:features}) där MATLABs inbyggda funktioner kombinerades
+(bilaga~\ref{sec:matlab:features}) där MATLAB:s inbyggda funktioner kombinerades
 med egenskrivna.
 Dessa egenskaper beräknades
 för handen i alla bildrutor från varje film, och resultatet
 sparades i matriser. Detta eftersom analysen av filmerna tog lång tid
 --- mycket längre än filmernas speltid.
 
-Egenskaperna normerades sedan enligt kapitel \ref{sec:normering},
+Egenskaperna normerades därefter enligt kapitel \ref{sec:normering},
 och de nya egenskapsvektorerna användes sedan för klassificering.
 
 \end{document}

@@ -4,7 +4,7 @@
 \section{Klassificering av gester} 
 För klassificering av de statiska gesterna (och då även de statiska symboler
 en dynamisk gest är tänkt att bestå av) bestämde vi oss efter konsultation med
-våra handledare att använda \knn-metoden. Vi hade tidigare sneglat på andra
+våra handledare för att använda \knn-metoden. Vi hade tidigare sneglat på andra
 metoder som t.ex.~\notes{vilka var det?}, men konstaterade att \knn ofta ger
 tillfredsställande resultat samtidigt som den är intuitiv och relativt enkel
 att implementera.
@@ -19,15 +19,16 @@ representativ inlärningsmängd --- de övriga två femtedelarna av filmerna
 användes som testmängd, ur vilken vi endast plockade ut
 de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
 Att ha en oberoende testmängd är viktigt för att kunna säga om klassificeraren är
-stark eller inte, vi testade därför även med personer som inte redan 
-existerade i vår inlärningsmängd.
+effektiv eller inte, vi testade därför även med personer som inte redan 
+fanns i vår inlärningsmängd.
 
 \subsection{Optimering av antal egenskaper och grannar i \knn}
 Fram till denna punkt hade vi endast definierat ett antal egenskaper utan att
-diskutera huruvida de var användbara som klassificerare eller inte. Att finna
-klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är
-fördelaktigt av flera anledningar, dels kan man märkbart förbättra programmets
-prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man
+diskutera huruvida de var användbara som klassificerare eller inte. Att nå
+klarhet i denna fråga, och att därmed ha möjlighet att reducera antalet
+egenskaper, är
+fördelaktigt av flera anledningar. Dels kan man märkbart förbättra programmets
+prestanda då färre egenskaper behöver beräknas och analyseras, dels kan man
 eliminera de egenskaper som kanske rentav försämrar klassificeringen.
 Det kan handla om egenskaper som är överdrivet utspridda i
 egenskapsrummet eller instabila egenskaper som förorenar datan med slumpmässiga
@@ -53,8 +54,8 @@ beräkningsintensiv för våra tillämpningar.
 
 Det tredje tillvägagångssättet, som vi slutligen 
 använde, är s.k.~girig optimering. Detta kan delas in i två snarlika 
-algoritmer, greedy forward selection resp.~backward elimination.
-Framåtalgoritmen förlaras 
+algoritmer, greedy forward selection respektive backward elimination.
+Framåtalgoritmen förklaras 
 i figur~\vref{fig:knn-flowchart}; bakåtalgoritmen är snarlik, men börjar 
 istället med samtliga egenskaper inkluderade och plockar successivt bort den 
 som bidrar minst.
@@ -67,9 +68,9 @@ korrekta klassificeringar som funktion av $k$ och antal inkluderade egenskaper
 för de två algoritmerna. Bilaga~\ref{sec:matlab:knnopt} visar vår
 implementering av dessa algoritmer i \MATLAB.
 
-\citeasnoun{Jain97} utförde en undersökning av algoritmer för ural av egenskaper,
+\citeasnoun{Jain97} utförde en undersökning av algoritmer för urval av egenskaper,
 och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
-metoder så som branch-and-bound.
+metoder såsom branch-and-bound.
 Här bör nämnas att eftersom algoritmen utför en icke-uttömmande sökning så är
 det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 
@@ -79,9 +80,11 @@ det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 		% nodes
 		\node [block] (init) {\textbf{Start}\\Skapa en tom grupp $E$};
 		\node [block, below of=init, node distance=3cm] (ident) {Identifiera den egenskap som ger bäst resultat tillsammans med egenskaperna i $E$};
-		\node [block, below of=ident, node distance=3cm] (add) {Lägg till denna egenskap i $E$ och ge den en ranking.\\Lägre ranking innebär bättre egenskap};
+		\node [block, below of=ident, node distance=3cm] (add) {Lägg till denna
+        egenskap i $E$ och ge den en rankning.\\Lägre rankning innebär bättre egenskap};
 		\node [decision, right of=ident, node distance=5cm] (finns) {Finns det egenskaper som inte ligger i $E$?};
-		\node [block, below of=finns, node distance=5cm] (end) {\textbf{Returnera} egenskaperna, sorterade efter ranking};
+		\node [block, below of=finns, node distance=5cm] (end)
+        {\textbf{Returnera} egenskaperna, sorterade efter rankning};
 		% edges
 		\path [line] (init) -- (ident);
 		\path [line] (ident) -- (add);
