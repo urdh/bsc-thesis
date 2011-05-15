@@ -102,7 +102,19 @@ Detta skulle givetvis medföra att statiska gester som visas i mindre tid
 \section{Tillämpningar}
 
 \section{Dynamiska gester}
-
+För att på allvar uppnå den potential människa-dator-interaktion för med sig
+är det viktigt att även kunna klassificera dynamiska gester. Med den HMM-metod 
+vi utformat befinner vi oss på gränsen till att nå resultat och avgöra hur väl 
+den fungerar i praktiken. Eftersom metoden behandlar dynamiska gester som flera 
+statiska i följd återkommer värre varianter \notes{omformulera} 
+av de utmaningar vi mötte i samband med dessa. 
+Beräkningsintensiten tilltar i och med implementeringen av HMM, vilket innebär 
+att \MATLAB blir otillräckligt. Eftersom en dynamisk gest består av flera statiska
+kommer också skillnaden mellan likadana dynamiska gester öka. Detta leder till 
+mer jobb under träningsfasen, då fler filmsekvenser kan behövas för att få en 
+bra prototypmängd, och för att träna HMMs till att klara av variationerna. 
+Man måste även introducera nya egenskaper som karakteriserar dynamiska gester, 
+exempelvis position och hastighet. 
 
 
 
