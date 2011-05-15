@@ -19,8 +19,8 @@ Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
 representativ inlärningsmängd --- de övriga två femtedelarna av filmerna 
 användes som testmängd, ur vilken vi endast plockade ut
 de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
-En oberoende testmängd är viktigt för att kunna säga om klassificeraren är
-stark eller inte; vi testade därför även med personer som inte redan 
+Att ha en oberoende testmängd är viktigt för att kunna säga om klassificeraren är
+stark eller inte, vi testade därför även med personer som inte redan 
 existerade i vår inlärningsmängd.
 
 %\subsection{Implementering och test av \knn}
@@ -41,32 +41,33 @@ existerade i vår inlärningsmängd.
 Fram till denna punkt hade vi endast definierat ett antal egenskaper utan att
 diskutera huruvida de var användbara som klassificerare eller inte. Att finna
 klarhet i denna fråga och därmed ha möjlighet att reducera antalet egenskaper är
-fördelaktigt av flera anledningar; dels kan man märkbart förbättra programmets
+fördelaktigt av flera anledningar, dels kan man märkbart förbättra programmets
 prestanda då färre egenskaper behöver beräknas och analyseras, och dels kan man
-eliminera de egenskaper som kanske rentav försämrar chanserna till en korrekt
-klassificering. Det kan handla om egenskaper som är överdrivet utspridda i
+eliminera de egenskaper som kanske rentav försämrar klassificeringen.
+Det kan handla om egenskaper som är överdrivet utspridda i
 egenskapsrummet eller instabila egenskaper som förorenar datan med slumpmässiga
 variationer.
 
 Då vi först tog oss an problemet att finna de bäst klassificerande
-egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att helt
-enkelt testa olika långa permutationsföljder av egenskaper ---
-men att detta ger upphov till enorma beräkningskrav är tydligt; med 15
-egenskaper ger detta $32\,767$ kombinationer totalt, och varje kombination
-måste testas emot hela testmängden på 96 bilder. Man måste alltså bygga ett
-kd-tree över $30\,000$ gånger och göra totalt $3\,145\,632$ klassificeringar,
-något som skulle ta mycket lång tid.
+egenskaperna identifierade vi tre olika angreppsvinklar. En variant är att
+testa alla möjliga kombinationer av egenskaper,
+men detta ger upphov till enorma beräkningskrav. Med 15
+egenskaper ger detta sammanlagt $32\,767$ kombinationer, och varje kombination
+måste testas mot hela testmängden, i vårt fall 960 bilder, vilket hade tagit
+alltför lång tid.
+%Man måste alltså bygga ett kd-tree över $30\,000$ gånger och göra totalt $3\,145\,632$ klassificeringar,
+%något som skulle ta mycket lång tid.
  
 Den andra angreppsvinkeln utnyttjar
 möjligheten att vikta de olika egenskaperna för att på så sätt ge de starka en
 större inverkan. Man optimerar då
-viktfördelninger för att ett nå så bra resultat som möjligt, följt av att man
+viktfördelningen för att ett nå så bra resultat som möjligt, följt av att man
 utesluter de egenskaper som inte bidrar till diskrimineringen. Vi experimenterade
-med denna metod lite kort, men konstaterade snart att den var allt för 
+med denna metod lite kort, men konstaterade snart att även den var för 
 beräkningsintensiv för våra tillämpningar.
 
-Den tredje metoden, som vi slutligen kom att
-använda, kallas greedy forward selection (se
+Den tredje metoden, som vi slutligen 
+använde, kallas greedy forward selection (se
  figur~\ref{fig:knn-flowchart} för en förklaring av algoritmen).
 Resultatet av denna algoritm är en rangordning av egenskaperna som är
 åtminstone lokalt optimal. När vi funnit denna rangordning
@@ -98,12 +99,16 @@ metoder så som branch-and-bound.
 \end{figure}
 
 I slutändan hade vi beräknat antalet korrekta klassificeringar utifrån
-endast den främsta egenskapen, de två främsta och så vidare upp till
-samtliga femton egenskaper, och vi lät även $k$ variera mellan 1 och 13 för att få
+först den främsta egenskapen, sedan de två främsta och så vidare upp till
+dess att samtliga femton egenskaper var inluderade. Samtidigt lät vi
+i varje uppsättning $k$ variera mellan 1 och 13 för att få
 en uppfattning av dess inverkan (se figur~\ref{fig:knn-optimering} för en
-visualisering av resultaten). Trots att algoritmen är krävande att köra bör
-det nämnas att den inte är inte är lika beräkningsintensiv som de två
-förstnämnda, men det ska även nämnas att eftersom algoritmen utför en icke-uttömmande
-sökning så är det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
+visualisering av resultaten).
+%Trots att algoritmen är krävande att köra bör
+%det nämnas att den inte är inte är lika beräkningsintensiv som de två
+%förstnämnda, men det ska även nämnas att eftersom algoritmen utför en icke-uttömmande
+%sökning så är det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
+Här bör nämnas att eftersom algoritmen utför en icke-uttömmande sökning så är
+det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 
 \end{document}
