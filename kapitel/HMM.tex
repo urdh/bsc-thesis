@@ -122,7 +122,7 @@ optimeringsproceduren ger bra resultat är stor eftersom
 träningssekvensen utgör den enda kopplingen till det verkliga fenomen
 man önskar modellera.      
 
-\subsection{Framåt-bakåt-tekniken}
+\subsection{Framåt-bakåt-proceduren}
 En användbar teknik för att lösa det första problemet introducerades av \citeasnoun{Baum67}, kallad
 \emph{forward-backward}-proceduren. Vi
 definierar framåtvariabeln $\alpha_t(i)$ enligt
@@ -179,7 +179,7 @@ Med andra ord är sannolikheten att generera observationsföljden
 $\vect{O}$ summan av sannolikheterna att generera $\vect{O}$ med
 sluttillstånd $S_i$, $1 \leq i \leq N$.
 
-\subsection{Iterativ metod för träning av HMM}
+\subsection{En iterativ metod för träning av HMM}
 Med en lösning till första problemet i bagaget kan man tackla nästa,
 själva träningen av en HMM. Detta är ett betydligt mer invecklat
 problem än det tidigare, med betydligt fler angreppsvinklar. En
@@ -187,8 +187,7 @@ analytisk lösning till optimeringsproblemet är inte känd, utan man
 tvingas istället använda sig av Baum-Welch-metoden eller
 gradient-tekniker \cite{Dempster77,Levinson83}. 
 Givet en ändlig observationssekvens går det inte att optimera
-modellens parametrar globalt \cite{Rabiner89}. \notes{Röding undrar
-  varför vi refererar Rabiner här}
+modellens parametrar globalt.
 Däremot kan man välja $\lambda = (A,B,\pi)$ på så sätt att $\Prob(\vect{O}|\lambda)$ är lokalt
 maximerad. 
 
