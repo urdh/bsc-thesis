@@ -2,13 +2,9 @@
 \begin{document}
 
 \section{Klassificering av gester med hjälp av \knn}
-Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91.5\,\%, och
-denna andel uppnåddes då samtliga gester var inkluderade. Antalet aktiverade
-egenskaper var 10 och antalet närmsta grannar i \knn-metoden var 7 --- denna
-konfiguration nåddes genom optimering i $k$-led och av mängden inkluderade
-egenskaper. Egenskaperna som
-användes är listade i tabell~\ref{tab:bestfeats}. och
-figur~\ref{fig:knn-optimering} visar mer exakt hur andelen korrekta
+Den största andelen korrekt klassificerade gester vi lyckades uppnå med samtliga gester tillåtna var 91.5\,\%. Antalet aktiverade
+egenskaper var 10 då forward selection-algoritmen användes och 7 med backward selection, och antalet närmsta grannar i \knn-metoden var 7. Egenskaperna som
+användes är listade i tabell~\ref{tab:bestfeats}. Figur~\ref{fig:knn-optimering} visar mer exakt hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
@@ -22,10 +18,15 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
     \begin{center}
-        \includegraphics[trim=2cm 2cm 2cm 1.8cm,width=\columnwidth,clip=true]{bilder/knn_optimering.pdf}
+        \subfloat[Forward selection]{
+        \includegraphics[trim=2cm 2cm 2cm 1.8cm,width=\columnwidth,clip=true]{bilder/fwd_sel.eps}
+        \label{fig:fwd_sel}}
+        \subfloat[Backward selection]{
+        \includegraphics[trim=2cm 2cm 2cm 1.8cm,width=\columnwidth,clip=true]{bilder/bwd_sel.eps}
+        \label{fig:bwd_sel}}
     \end{center}
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värder på $k$ ger ett tydligt minimum då $k=7$ och 10 egenskaper inkluderades}
+och värden på $k$. Med forward selection-algoritmer fås ett minimum då $k=7$ och 10 egenskaper inkluderades. Med backward selection fås samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
     \label{fig:knn-optimering}
 \end{figure}
 
@@ -34,8 +35,7 @@ inverkan på resultatet då man använder sig av färre än
 fem. Därefter planar andelen ut för att återigen stiga då
 fler än 10 egenskaper används. Andelen felklassificeringar
 minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
-öka då värdet ökar från 7 till 13. Med det optimala
-valet av egenskaper och $k$ presterade metoden enligt
+öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ enligt forward selection presterade metoden enligt
 tabell~\ref{tab:tolkningsmatris} och tabell~\ref{tab:prestanda}.
 
 \notes{(Inkludera resultat där problemgester är borttagna?)}

@@ -52,23 +52,17 @@ med denna metod lite kort, men konstaterade snart att även den var för
 beräkningsintensiv för våra tillämpningar.
 
 Det tredje tillvägagångssättet, som vi slutligen 
-använde, kallas greedy forward selection (se
- figur~\ref{fig:knn-flowchart} för en förklaring av algoritmen).
-Resultatet av denna algoritm är en rangordning av egenskaperna.
+använde, är s.k.~girig optimering. Detta kan delas in i två snarlika algoritmer, greedy forward resp.~backward selection. Framåtalgoritmen förlaras i figur~\ref{fig:knn-flowchart}. Bakåtalgoritmen är snarlik, men börjar istället med samtliga egenskaper inkluderade och plockar succesivt bort den som bidrar minst.
+Resultatet av dessa algoritmer är en rangordning av egenskaperna.
 Vi beräknade denna rangordning för olika värden
 av $k$, alltså parametern i \knn-metoden.
 
-Vi lät $k$ variera mellan 1 och 13 och
-beräknade andelen korrekta klassificeringar utifrån
-först den främsta egenskapen, sedan de två främsta och så vidare upp till
-dess att samtliga femton egenskaper var inluderade.
-Detta resulterade i att vi hade klassificeringsstyrkan som en funktion
-av $k$ och antalet egenskaper (enligt rangordningen).
-Se figur~\ref{fig:knn-optimering} för en
-visualisering av resultaten och bilaga~\ref{sec:matlab:knnopt} för vår
-implementering av denna algoritm i \MATLAB.
+Vi lät $k$ variera mellan 1 och 13 och fick på så sätt ut andelen
+korrekta klassificeringar som funktion av $k$ och antal inkluderade egenskaper
+för de två algoritmerna. Bilaga~\ref{sec:matlab:knnopt} visar vår
+implementering av dessa algoritmer i \MATLAB.
 
-\citeasnoun{Jain97} utförde en undersökning av feature selection-algoritmer,
+\citeasnoun{Jain97} utförde en undersökning av algoritmer för ural av egenskaper,
 och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
 metoder så som branch-and-bound.
 Här bör nämnas att eftersom algoritmen utför en icke-uttömmande sökning så är
