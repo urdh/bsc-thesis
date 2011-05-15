@@ -2,21 +2,21 @@
 \begin{document}
 
 \section{Klassificering av gester med hjälp av \knn}
-Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91,5\%, och
+Den största andelen korrekt klassificerade gester vi lyckades uppnå var 91.5\,\%, och
 denna andel uppnåddes då samtliga gester var inkluderade. Antalet aktiverade
 egenskaper var 10 och antalet närmsta grannar i \knn-metoden var 7 --- denna
 konfiguration nåddes genom optimering i $k$-led och av mängden inkluderade
 egenskaper. Egenskaperna som
-användes är listade i tabell~\ref{tab:bestfeats}.
-Figur~\ref{fig:knn-optimering} visar mer exakt hur andelen korrekta
+användes är listade i tabell~\ref{tab:bestfeats}. och
+figur~\ref{fig:knn-optimering} visar mer exakt hur andelen korrekta
 klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/feats-10+11}
-  \caption{Träningsmängden för ett urval av gester plottat mot de två starkaste
-  egenskaperna. De olika symbolerna i figuren motsvarar olika gester,
-  och man kan se att vissa grupperar sig tydligt medan andra ligger tätt.}
+  \caption{Träningsmängden för ett urval av sex gester plottade mot de två
+	starkaste egenskaperna. Notera hur de flesta är tydligt samlade, men att
+	de även överlappar varandra.}
   \label{fig:feats1011}
 \end{figure}
 
@@ -87,7 +87,7 @@ tabell~\ref{tab:tolkningsmatris} och tabell~\ref{tab:prestanda}.
 		\midrule
 		1 & Hu-moment 3 \\
 		2 & Hu-moment 2 \\
-		3 & Centroidläge, Y-led \\
+		3 & Centroidläge, $y$-led \\
 		4 & Fyrkantighet \\
 		5 & Soliditet \\
 		6 & Excentricitet \\
@@ -104,6 +104,11 @@ tabell~\ref{tab:tolkningsmatris} och tabell~\ref{tab:prestanda}.
 Egenskaperna vi använt har visat sig vara mycket bra, upp till en viss gräns.
 Figur~\ref{fig:knn-optimering} visar att optimering av vilka egenskaper som
 inkluderas ger ett distinkt minimum redan vid tio egenskaper --- dessa tio
-bästa listas i tabell~\ref{tab:bestfeats}.
+bästa listas i tabell~\ref{tab:bestfeats}. Ett urval av sex gester visar i
+figur~\ref{fig:feats1011} hur de två bästa egenskaperna tydligt samlar varje
+gest i ett relativt litet område, vilket gör att avstånden i \knn-metoden 
+blir mindre, och att det därför blir enklare att sätta en tröskel för att
+kunna klassificera ickegester. Det ska dock även noteras att egenskaperna 
+överlappar varandra vilket sannolikt minskar träffsäkerheten.
 
 \end{document}

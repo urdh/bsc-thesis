@@ -2,19 +2,18 @@
 \begin{document}
 
 \section{Klassificering av gester} 
-\notes{intro?}
+För klassificering av de statiska gesterna (och då även de statiska symboler
+en dynamisk gest är tänkt att bestå av) bestämde vi oss efter konsultation med
+våra handledare att använda \knn-metoden. Vi hade tidigare sneglat på andra
+metoder som t.ex.~\notes{vilka var det?}, men konstaterade att \knn ofta ger
+tillfredsställande resultat samtidigt som den är intuitiv och relativt enkel
+att implementera.
+
+För att \knn-metoden skulle ge ett bra resultat var vi dock tvungna att välja
+en bra prototypmängd, och dessutom välja vilka egenskaper vi skulle inkludera
+och vilket värde på $k$ som var optimalt.
 
 \subsection{Konstruktion av prototypmängd för \knn}
-%\notes{Tas upp av 3.3.2}
-%Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
-%representativ inlärningsmängd. Ur denna tog vi sedan den första bildrutan i
-%varje film, då de efterföljande var allt för lika för att tillföra något. Vi
-%sparade dessa bilders egenskapsvektorer i en matris --- varje gest 
-%fick därmed 24 punkter i
-%egenskapsrummet. Till matrisen hade vi även lagt två kolonner som %identifierade
-%varje rad, en som specificerade gesten och en som sade vilken filmsekvens den
-%hämtats ur. På så vis kunde vi hela tiden spåra felklassificerade gester.
-
 Genom att plocka ut tre femtedelar av de filmade gesterna fick vi en
 representativ inlärningsmängd --- de övriga två femtedelarna av filmerna 
 användes som testmängd, ur vilken vi endast plockade ut
@@ -22,20 +21,6 @@ de fyra första bildrutorna i varje klipp, sammanlagt 96 bilder per gest.
 Att ha en oberoende testmängd är viktigt för att kunna säga om klassificeraren är
 stark eller inte, vi testade därför även med personer som inte redan 
 existerade i vår inlärningsmängd.
-
-%\subsection{Implementering och test av \knn}
-% \notes{Förklarar snarare vad KNN är än vad vi gjort?}
-%Klassificeringen av testfilmernas gester genomfördes med hjälp av \MATLAB{}s
-%inbyggda funktion \texttt{knnsearch}. Med hjälp av den nyligen skapade
-%inlärningsmängden som grund kunde vi köra testfilmernas bilder,
-%eller närmare bestämt deras egenskapsvektorer genom algoritmen och därmed
-%finna de $k$ närmsta prototyperna.
-%
-%Detta följdes av en majoritetsomröstning där det index som förekom flest gånger
-%avgjorde vilken gest som registrerades av programmet. Utöver andelen korrekta
-%klassificeringar lagrades även för vilka andra gester den aktuella gesten
-%felaktigt identifierades som, detta för att i ett senare skede kunna avgöra hur
-%gesternas eventuella snarlikhet påverkade resultatet.
 
 \subsection{Optimering av antal egenskaper och grannar i \knn}
 Fram till denna punkt hade vi endast definierat ett antal egenskaper utan att
@@ -78,9 +63,10 @@ beräknade andelen korrekta klassificeringar utifrån
 först den främsta egenskapen, sedan de två främsta och så vidare upp till
 dess att samtliga femton egenskaper var inluderade.
 Detta resulterade i att vi hade klassificeringsstyrkan som en funktion
-av $k$ och antalet egenskaper (enligt rangordningen),
-se figur~\ref{fig:knn-optimering} för en
-visualisering av resultaten.
+av $k$ och antalet egenskaper (enligt rangordningen).
+Se figur~\ref{fig:knn-optimering} för en
+visualisering av resultaten och bilaga~\ref{sec:matlab:knnopt} för vår
+implementering av denna algoritm i \MATLAB.
 
 \citeasnoun{Jain97} utförde en undersökning av feature selection-algoritmer,
 och fann att forward selection gav bättre resultat än andra mer beräkningsintensiva
