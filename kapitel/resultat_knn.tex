@@ -47,7 +47,7 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
 \begin{table}[tbp]
 	\centering
-	\caption{Felklassificeringar av statiska gester. Priori-fel
+	\caption{Andel felklassificeringar av statiska gester i procent. Priori-fel
 	betecknar sådana fel då gesten varit känd men identifierats
 	som något annat; posteriori-fel betecknar sådana fel då
 	identifikationen är känd men felaktig. \notes{Relatera till
@@ -58,25 +58,27 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 		\toprule 
 		Försöksgest & A Priori-fel & A Posteriori-fel \\
 		\midrule 
-		A & & \\
-		B & & \\
-		C & & \\
-		D & & \\
-		E & & \\
-		Sten & & \\
-		Sax & & \\
-		Påse & & \\
-		Spock & & \\
-		Seger & & \\
+		A & 14&15 \\
+		B & 11&12 \\
+		C & 0& 0\\
+		D & 0& 0\\
+		E & 30& 41\\
+		Sten & 6& 5\\
+		Sax & 16& 18\\
+		Påse & 9& 9\\
+		Spock & 0& 0\\
+		Seger & 0& 0\\
 		\bottomrule 
 	\end{tabular}
 \end{table}
 
 \begin{table}[tbp]
 	  \centering
-		\caption{Vid försök misstolkas en del gester betydligt oftare än
-		andra. Notera att raderna inte adderar till 100 eftersom värdena är
-		avrundade.}
+		\caption{En s.k.~confusion matrix för klassificering
+                  av tio statiska gester. Tecknet för E var det klart
+                  svåraste att klassificera, med endast 70\,\%
+                  korrekta klassificeringar. Varje gest testades med
+                  64 bilder.}
 		\label{tab:tolkningsmatris}
     \includegraphics[trim=2cm 16cm 8cm 2.5cm,clip=true,width=8cm]{bilder/tolkningsmatris.pdf}
 \end{table}
