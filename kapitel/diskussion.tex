@@ -57,7 +57,13 @@ förbättring är att inspektera de bilder som faktiskt ligger bakom
 punkten i egenskapsrummet. Om bilden uppenbart är felaktig, och kanske hade varit
 svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
 Slarvigt utförda gester kommer då mindre sannolikt att
-klassificeras rätt.\notes{om alls? thresholding?!}
+klassificeras rätt.
+
+Man kan även införa en övre gräns på avståndet till de närmsta
+prototypobjekten, över vilken gesten klassificerades som en
+''nonsensgest''. På detta sätt skulle man kunna söka efter gester
+löpande i en filmsekvens, vilket är ett viktigt steg på vägen mot
+realtidsimplementering.
 
 \section{Egenskaper}
 De egenskaper vi använt för klassificering har visat sig relativt
@@ -77,8 +83,8 @@ identifieras --- antal, avstånd och relativt läge för dessa skulle vara
 mycket intressanta egenskaper, och antagligen ge mycket bra resultat.
 En annan intressant egenskapsklass är de som utnyttjar mönster i det
 inre av handen. Detta skulle kunna göras
-genom att efter man identifierat handen studera originalbilden i dess
-inre, t.ex.~genom ett kantdetektionsfilter, och där plocka ut mängden
+genom att man efter att ha identifierat handen studerar originalbilden i dess
+inre, t.ex.~genom ett kantdetektionsfilter, och där plockar ut mängden
 kanter eller riktning genom så kallad Houghtransform \cite[s.~23]{Rudemo09}.
 
 \section{Realtid}
@@ -90,24 +96,25 @@ skrivits i ett lågnivåspråk som C istället, men kan trots det utföra
 beräkningarna snabbt nog för att nästan vara realtid.
 
 För att kunna känna igen statiska gester behövs betydligt färre bilder per
-sekund än de 24 våra webbkameror gett oss. Därmed kan man utan skam slänga
-bort majoriteten av bilderna och endast behandla fyra eller sex bilder per
+sekund än de 24 våra webbkameror gett oss. Därmed kan man nöja sig med
+att behandla fyra eller sex bilder per
 sekund, vilket skulle göra att gestigenkänningen ser ut att vara i realtid.
 Detta skulle givetvis medföra att statiska gester som visas i mindre tid
 än intervallet mellan bilderna inte skulle kännas igen.
 
-\notes{Mer?}
+\notes{mer?}
 
 \section{Tillämpningar}
+
+\notes{Skriv eller ta bort}
 
 \section{Dynamiska gester}
 För att på allvar uppnå den potential människa-dator-interaktion för med sig
 är det viktigt att även kunna klassificera dynamiska gester. Med den HMM-metod 
 vi utformat befinner vi oss på gränsen till att nå resultat och avgöra hur väl 
 den fungerar i praktiken. Eftersom metoden behandlar dynamiska gester som flera 
-statiska i följd återkommer värre varianter \notes{omformulera} 
-av de utmaningar vi mötte i samband med dessa. 
-Beräkningsintensiten tilltar i och med implementeringen av HMM, vilket innebär 
+statiska i följd återkommer flera av de utmaningar vi mötte i samband med dessa. 
+Beräkningsintensiteten tilltar i och med implementeringen av HMM, vilket innebär 
 att \MATLAB blir otillräckligt. Eftersom en dynamisk gest består av flera statiska
 kommer också skillnaden mellan likadana dynamiska gester öka. Detta leder till 
 mer jobb under träningsfasen, då fler filmsekvenser kan behövas för att få en 
