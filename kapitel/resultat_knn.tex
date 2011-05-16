@@ -23,18 +23,14 @@ klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
 
 \begin{figure}[tbp]
     \begin{center}
-        \subfloat[Forward selection]{
         \includegraphics[width=0.5\columnwidth,clip=true]{bilder/fwd_sel.eps}
-        \label{fig:fwd_sel}}
 				%\\\medskip
-        \subfloat[Backward selection]{
-        \includegraphics[width=0.5\columnwidth,clip=true]{bilder/bwd_sel.eps}
-        \label{fig:bwd_sel}}
     \end{center}
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värden på $k$. Med forward selection-algoritmen fås ett minimum då
+och värden på $k$ med forward selection-algoritmen. Ett minimum i
+andel felaktiga klassificeringar, 91.4\,\%, fås då
 $k=7$ och 10 egenskaper inkluderades. Med backward elimination fås
-samma andel korrekta klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
+samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
     \label{fig:knn-optimering}
 \end{figure}
 
