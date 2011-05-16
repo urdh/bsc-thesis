@@ -25,7 +25,7 @@ egenskap. I detta rum kan man beräkna ''avstånd'' mellan olika gester,
 eller mellan en observerad gest och tidigare träningsdata. Egenskaperna baseras som sagt
 på olika grundläggande mått hos den binära bilden, och ett antal användbara
 egenskaper presenteras nedan.
-Många av egenskaperna som beskrivs kan beräknas effektivt av
+Många av egenskaperna som beskrivs kan beräknas effektivt med hjälp av
 \MATLAB-funktionen \texttt{regionprops}.
 
 \paragraph{Inledande definitioner}
@@ -79,7 +79,7 @@ Centralmomenten $\mu_{pq}$ definieras av
 \end{equation*}
 där $\bar{x}$ och $\bar{y}$ är tyngdpunktens x- och y-komponent, och $f(x,y)$ är
 bildens ljusstyrka. För binära bilder gäller att
-$f:\left\{\text{Bildpunkter}\right\}\rightarrow\left\{0,1\right\}$.
+$f$ antar värdena 0 och 1.
 
 De sju Hu-momenten definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 \begin{align*}

@@ -14,7 +14,7 @@ med övergångssannolikheter (se figur~\vref{fig:hmm-ergodic}). Man kan alltså
 röra sig i Markovprocessen genom att i varje tidssteg följa en av kanterna
 ut från tillståndet, och valet av kant sker genom en stokastisk process.
 
-\begin{figure}[tb]
+\begin{figure}[hb]
   \centering
   \includegraphics[width=0.6\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
   \caption{En enkel, ergodisk Markovmodell med fyra tillstånd.}
@@ -222,7 +222,7 @@ Den första definieras som
 \xi_t(i,j) = P(q_t = S_i, q_{t+1} = S_j|\vect{O},\lambda),
 \end{equation*}
 alltså sannolikheten för att befinna sig i tillstånd $S_i$ och
-därefter i $S_j$. Genom $\alpha$ och $\beta$ kan den uttryckas som
+därefter i $S_j$. Uttryckt i $\alpha$ och $\beta$ kan den skrivas
 \begin{equation*}
 \xi_t(i,j) = \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\Prob(\vect{O}|\lambda)}
 \end{equation*} 
