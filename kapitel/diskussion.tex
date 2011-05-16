@@ -5,7 +5,7 @@ gester vi valt. Denna träffsäkerhet kan sannolikt förbättras på ett antal
 olika sätt, och tillämpningarna av vårt resultat kan vara stora. Dessutom
 kan metoden utökas och generaliseras för att även kunna identifiera
 dynamiska gester. I detta kapitel ämnar vi därför lägga fram förslag på framtida
-förbättringar, tillämpningar och utökningar av vår metod och vårt program,
+förbättringar, tillämpningar och utökningar av vår metod och vårt program.
 
 \section{Hudigenkänning}
 De sannolikhetsfördelningar som använts för att skilja hud från annat
@@ -13,12 +13,12 @@ har fungerat tillräckligt bra för att kunna skilja ut handen i en
 relativt kontrollerad miljö. Bättre resultat skulle dock kunna uppnås
 med bättre sannolikhetsfördelningar. Det man främst skulle kunna göra
 är att använda $k$-klustring, d.v.s.~linjärkombinationer av flera
-sannolikhetsfördelningar, även för ickehud. Bättre fördelningar skulle
+sannolikhetsfördelningar, inte bara för hud utan även för ickehud. Bättre fördelningar skulle
 antagligen även fås med en större datamängd, alltså fler
 exempelbilder.
 
 Man skulle också kunna använda någon annan klassificerare, såsom \knn,
-vid skapandet av vår SPM. Ett problem med den metoden är att det
+vid skapandet av vår hudfärgskarta. Ett problem med den metoden är att det
 kräver att man kasserar data för att få lika stora prototypmängder,
 eller att man viktar datapunkterna.
 
