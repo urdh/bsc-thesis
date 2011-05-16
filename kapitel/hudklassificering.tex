@@ -19,7 +19,7 @@ något som förklaras mer utförligt i \ref{sec:metod_hud:urskiljning}.
 
 \subsection{Färgrymder}\label{sec:klassificering:fargrymder}
 En färg kan matematiskt beskrivas som en vektor i ett färgrum, vars
-basvektorer är som grundfärgerna i ett färgsystem.
+basvektorer är grundfärgerna i ett färgsystem.
 För att kunna representera alla färger
 behöver man ett tredimensionellt färgrum, men i vissa situationer kan
 det räcka --- kanske till och med vara fördelaktigt --- med ett
@@ -174,7 +174,7 @@ morfologiska operationer.
 		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-dilatation}
  		\label{fig:morph:er}
 	}
-	\subfloat[Dilatation]{
+	\subfloat[Utvidgning]{
 		\includegraphics[width=0.3\textwidth,trim=115 75 115 20,clip=true]{bilder/morph-erosion}
 		\label{fig:morph:di}
 	}
@@ -195,7 +195,7 @@ morfologiska operationer.
 Morfologiska operationer kan användas för att modifiera områden i
 binära bilder, till exempel för att rensa bort brus eller för att
 mjuka upp kanter. Det finns fyra grundläggande morfologiska
-operationer: \emph{erosion}, \emph{dilatation}, \emph{öppning} och
+operationer: \emph{erosion}, \emph{utvidgning}, \emph{öppning} och
 \emph{stängning} \cite[s.~25]{Rudemo09}, vars resultat visas i figur~\vref{fig:morph}.
 
 Dessa definieras som operationer på mängder, specifikt mängden $A$
@@ -221,7 +221,7 @@ att skala av det yttersta lagret, randen, av mängden $A$. Erosion definieras en
   A\ominus S = \{(i,j)\;:\;S_{i,j}\subseteq A\}.
 \end{equation*}
 
-Dess motsats, \emph{dilatation}, agerar som
+Dess motsats, \emph{utvidgning}, agerar som
 en erosion på komplementet till $A$ och definieras enligt
 \begin{equation*}
   A\oplus S = (A^C\ominus S)^C.
@@ -232,12 +232,12 @@ tillämpning som beskrivs här, eftersom de förändrar
 arean av objektet i bilderna. Operationerna kan dock kombineras för
 att skapa operationer som
 ''mjukar upp'' objekten i bilden utan att förändra deras area markant.
-Eftersom erosion och dilatation är motsatser kan dessa appliceras i
+Eftersom erosion och utvidgning är motsatser kan dessa appliceras i
 följd för att behandla bilden och
-sedan återställa delar av den. Detta ger upphov till två nya operationer:
+sedan delvis återställa den. Detta ger upphov till två nya operationer:
 \emph{öppning} och \emph{stängning}.
 
-En öppning är en erosion följd av en dilatation, enligt
+En öppning är en erosion följd av en utvidgning, enligt
 \begin{equation*}
   \phi_S(A)=(A\ominus S)\oplus S'.
 \end{equation*}
