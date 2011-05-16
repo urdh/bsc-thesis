@@ -39,14 +39,23 @@
 % För att kunna kommentera bort varioref om det inte är bra
 \ifdefined\vref\relax\else\newcommand{\vref}[1]{\ref{#1}}\fi
 
-%% Minted-saker. Aktivera med \mintedtrue, avaktivera med \mintedfalse
+%% Minted-saker. Använder listings om minted inte finns
+% Kod infogas med \inputcode{<filnamn>}
 \newif\ifminted
-\mintedfalse % <-- denna raden (av)aktiverar minted
+\IfFileExists{minted.sty}{\mintedtrue}{\mintedfalse}
 \ifminted
 	\usepackage{minted}
-	\newminted{matlab}{linenos,mathescape,bgcolor=codebg}
 	\usemintedstyle{manni}
 	\renewcommand{\listingscaption}{Kodfragment}
+	\newcommand\inputcode[1]{
+		\inputminted[linenos,texcl,samepage=false]{matlab}{#1}
+	}
+\else 
+	\usepackage{listings}
+	\lstset{language=MATLAB,basicstyle=\small\ttfamily,keywordstyle=\color{black}\bfseries,showstringspaces=false,numbers=left,numberstyle=\tiny}
+	\newcommand\inputcode[1]{
+		\lstinputlisting[texcl]{#1}
+	}
 \fi
 
 % Tikz-flowcharts
@@ -91,7 +100,6 @@
 %\afterpage{\clearpage}
 \let\oldquote=\quote
 \expandafter\def\expandafter\quote\expandafter{\quote\small}
-\definecolor{codebg}{rgb}{0.975,0.975,0.975}
 % Abstract-hack
 \makeatletter
 \renewenvironment{abstract}{\if@twocolumn\section*{\abstractname}
@@ -189,7 +197,7 @@
 \renewcommand{\rightmark}[1]{\appendixname\ \thechapter}
 
 \chapter{\MATLAB-kod}\label{sec:matlab}
-\ifminted\subfile{kapitel/appendix-matlab.tex}\fi
+\subfile{kapitel/appendix-matlab.tex}
 \chapter{Fullständigt resultat för egenskaper}\label{sec:egenskapsresultat}
 \subfile{kapitel/app_res_egenskaper.tex}
 
