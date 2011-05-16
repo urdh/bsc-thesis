@@ -33,14 +33,14 @@ bilden) är relativt ''dum''. Förutsätter man att de två objekt som kan finna
 i bild är ett ansikte och en hand (vilket oftast är fallet) så kan man
 istället välja handen genom att först identifiera ansiktet, exempelvis genom
 den metod \citeasnoun{Hsu02} använder, för att sedan ''välja bort'' detta
-objekt (dvs.~ta bort det från bilden). Vad man har kvar bör då,om brus tagits
+objekt (dvs.~ta bort det från bilden). Vad man har kvar bör då, om brus tagits
 bort med en morfologisk operation eller genom att välja de två största
 objekten i bilden enligt \citeasnoun{Nielsen04}, vara handen.
 
 Man skulle dessutom kunna klippa bort handleden på det sätt
 \citeasnoun{Deimel99} föreslår, och därmed öka träffsäkerheten --- att
 handleden ibland syns och ibland skuggas är något som gör vissa av våra
-egenskaper allt för osäkra. Dessutom skulle man då kunna släppa på kravet
+egenskaper alltför osäkra. Dessutom skulle man då kunna släppa på kravet
 att användaren har en långärmad tröja.
 
 Till sist kan man då man identifierat handen utnyttja denna information och
@@ -52,11 +52,10 @@ iteration.
 
 \section{\knn}
 För att förbättra \knn-metodens träffsäkerhet kan man först och
-främst att utöka prototypmängden till fler punkter per gest. En annan möjlig
-förbättrna i egenskapsrummet; om en bild är uppenbart är felaktig, och
-kanske hade varit
-svår att tolka som rätt gest även för en människa,
-kan den med fördel tas bort.
+främst utöka prototypmängden till fler punkter per gest. En annan möjlig
+förbättring är att inspektera de bilder som faktiskt ligger bakom
+punkten i egenskapsrummet. Om bilden uppenbart är felaktig, och kanske hade varit
+svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
 Slarvigt utförda gester kommer då mindre sannolikt att
 klassificeras rätt.\notes{om alls? thresholding?!}
 
