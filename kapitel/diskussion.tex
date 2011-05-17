@@ -57,19 +57,19 @@ Man skulle med fördel kunna hoppa över egenskapsberäkningen i denna första
 iteration.
 
 \section{\knn}
-För att förbättra \knn-metodens träffsäkerhet kan man först och
-främst utöka prototypmängden till fler punkter per gest. En annan möjlig
-förbättring är att inspektera de bilder som faktiskt ligger bakom
-punkten i egenskapsrummet. Om bilden uppenbart är felaktig, och kanske hade varit
+För att förbättra \knn-metodens träffsäkerhet kan först och
+främst prototypmängden utökas till fler punkter per gest. En annan
+möjlighet är att inspektera de bilder som faktiskt ligger bakom
+punkten i egenskapsrummet. Om en bild är uppenbart felaktig, och kanske hade varit
 svår att tolka som rätt gest även för en människa, kan den med fördel tas bort.
 Slarvigt utförda gester kommer då mindre sannolikt att
 klassificeras rätt.
 
-Man kan även införa en övre gräns på avståndet till de närmsta
-prototypobjekten, över vilken gesten klassificerades som en
-''nonsensgest''. På detta sätt skulle man kunna söka efter gester
-löpande i en filmsekvens, vilket är ett viktigt steg på vägen mot
-realtidsimplementering.
+Man kan även införa ett tröskelvärde på avståndet till de närmsta
+prototypobjekten, över vilket gesten inte klassificerades som någon
+gest. På detta sätt kan man löpande söka efter gester
+i en filmsekvens, ett viktigt steg mot
+realtidsidentifiering.
 
 \section{Egenskaper}
 De egenskaper vi använt för klassificering har visat sig relativt
