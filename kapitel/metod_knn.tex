@@ -28,7 +28,7 @@ skapade vi en alternativ prototypmängd för realtidstester.
 Här lät vi testpersonen filma handen ur flera vinklar,
 för att erhålla en mer varierad representation av varje gest.
 
-\subsection{Optimering av antal egenskaper och grannar i \knn}
+\subsection{Optimering av antal egenskaper och grannar i \knn}\label{sec:metod_knn:optim}
 Fram till denna punkt hade vi endast definierat ett antal egenskaper utan att
 diskutera huruvida de var användbara som klassificerare eller inte. Att nå
 klarhet i denna fråga, och att därmed ha möjlighet att reducera antalet
@@ -60,10 +60,11 @@ med denna metod lite kort, men konstaterade snart att även den var för
 beräkningsintensiv för våra tillämpningar.
 
 Det tredje tillvägagångssättet, som vi slutligen 
-använde, är s.k.~girig optimering. Detta kan delas in i två snarlika 
-algoritmer, greedy forward selection respektive backward elimination.
-Framåtalgoritmen förklaras 
-i figur~\vref{fig:knn-flowchart}; bakåtalgoritmen är snarlik, men börjar 
+använde, är s.k.~girig optimering. Denna kan utföras med två snarlika
+algoritmer, framåturval (forward selection) respektive
+bakåteliminering (backward elimination).
+Framåturvalet förklaras 
+i figur~\vref{fig:knn-flowchart}; bakåteliminering är snarlik, men börjar 
 istället med samtliga egenskaper inkluderade och plockar successivt bort den 
 som bidrar minst.
 Resultatet av dessa algoritmer är en rangordning av egenskaperna.
@@ -99,7 +100,7 @@ det inte garanterat att den hittar ett globalt optimum \cite{Cover77}.
 		\path [line] (finns) -- node [near start] {Ja} (ident);
 		\path [line] (finns) -- node [near start] {Nej} (end);
 	\end{tikzpicture}
-	\caption{Greedy forward selection för att välja de bästa egenskaperna}
+	\caption{Girigt framåturval för att välja de bästa egenskaperna}
 	\label{fig:knn-flowchart}
 \end{figure}
 

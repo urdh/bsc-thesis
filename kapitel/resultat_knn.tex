@@ -3,10 +3,10 @@
 
 \section{Klassificering av gester med hjälp av \knn}
 Den största andelen korrekt klassificerade gester vi lyckas uppnå
-med samtliga gester tillåtna är 91.9\,\%, både med forward selection
-och backward elimination. Antalet aktiverade
-egenskaper blir 10 då forward selection-algoritmen användes och 7 med
-backward selection, och antalet närmsta grannar i \knn-metoden är 7. Egenskaperna som
+med samtliga gester tillåtna är 91.9\,\%, både med framåturval
+och bakåteliminering. Antalet aktiverade
+egenskaper blir 10 då algoritmen för framåturval användes och 7 med
+bakåteliminering, och antalet närmsta grannar i \knn-metoden är 7. Egenskaperna som
 används är listade i
 tabell~\vref{tab:bestfeatsfwd}.
 
@@ -20,14 +20,14 @@ fem egenskaper. Därefter planar andelen ut för att återigen stiga då
 fler än 10 egenskaper används. Andelen felklassificeringar
 minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
 öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ från
-optimeringen med forward selection presterade metoden enligt
+optimeringen med framåturval presterade metoden enligt
 tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/feats-10+11}
   \caption{De olika symbolerna motsvarar olika gester, plottade mot de två starkaste egenskaperna
-  enligt forward selection. Notera hur de flesta är tydligt samlade, men att
+  enligt framåturvalet. Notera hur de flesta är tydligt samlade, men att
 	vissa gester överlappar varandra. För två av gesterna (nedåtvända trianglar och fyrkanter) 
 	är de två egenskaperna tydligt korrelerade, medan de inte är det för andra.}
   \label{fig:feats1011}
@@ -41,7 +41,7 @@ tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
 och värden på $k$ med forward selection-algoritmen. Ett minimum i
 andel felaktiga klassificeringar, 91.4\,\%, fås då
-$k=7$ och 10 egenskaper inkluderades. Med backward elimination fås
+$k=7$ och 10 egenskaper inkluderades. Med bakåteliminering fås
 samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
     \label{fig:knn-optimering}
 \end{figure}
@@ -89,7 +89,7 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 
 \begin{table}[tb]
 	\centering
-	\caption{De tio bästa egenskaperna med forward selection.}
+	\caption{De tio bästa egenskaperna med framåturval.}
 	
 	\label{tab:bestfeatsfwd}
 	\begin{tabular}{ll}
@@ -112,7 +112,7 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 
 \begin{table}[tb]
 	\centering
-    \caption{De sju bästa egenskaperna med backward elimination.}
+    \caption{De sju bästa egenskaperna med bakåteliminering.}
 	
 	\label{tab:bestfeatsbwd}
 	\begin{tabular}{ll}
@@ -135,9 +135,9 @@ Egenskaperna som använts har visat sig vara mycket bra --- upp till en viss gr�
 I tabell~\vref{tab:bestfeatsfwd} syns de tio egenskaper som inkluderades
 med forward selection. Av dessa kan man ta bort tre --- excentricitet,
 Hu-moment 2 och Hu-moment 7 ---
-med oförändrad klassificeringsförmåga, enligt resultat från backward
-elimination-algoritmen. De sju bästa egenskaperna som resulterar från
-backward elimination listas i tabell~\vref{tab:bestfeatsbwd}, i
+med oförändrad klassificeringsförmåga, enligt resultat från bakåteliminering.
+De sju bästa egenskaperna som resulterar från
+bakåteliminering listas i tabell~\vref{tab:bestfeatsbwd}, i
 ordning efter hur länge de är kvar i körningen.
 
 Rankingen av samtliga egenskaper från respektive metod finns i appendix
