@@ -1,36 +1,42 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
-De metoder vi använt ger en träffsäkerhet på 91.4\,\% för de tio statiska
-gester vi valt. Denna träffsäkerhet kan sannolikt förbättras på ett antal
-olika sätt, och tillämpningarna av vårt resultat kan vara stora. Dessutom
-kan metoden utökas och generaliseras för att även kunna identifiera
-dynamiska gester. I detta kapitel ämnar vi därför lägga fram förslag på framtida
-förbättringar, tillämpningar och utökningar av vår metod och vårt program.
+De metoder som använts ger en träffsäkerhet på 91.4\,\% för de tio statiska
+gesterna. Denna träffsäkerhet kan sannolikt förbättras på ett antal
+olika sätt, dessutom
+kan metoden utökas och generaliseras för att kunna identifiera
+dynamiska gester. I detta kapitel presenteras förslag på möjliga framtida
+förbättringar och utökningar av metoden samt exmepel på tillämpningar.
 
 \section{Hudigenkänning}
-De sannolikhetsfördelningar som använts för att skilja hud från annat
-har fungerat tillräckligt bra för att kunna skilja ut handen i en
-relativt kontrollerad miljö. Bättre resultat skulle dock kunna uppnås
-med bättre sannolikhetsfördelningar. Det man främst skulle kunna göra
-är att använda $k$-klustring, d.v.s.~linjärkombinationer av flera
-sannolikhetsfördelningar, inte bara för hud utan även för ickehud. Bättre fördelningar skulle
+De sannolikhetsfördelningar som används för att skilja hud från annat
+fungerar tillräckligt bra för att kunna skilja ut handen i en
+relativt kontrollerad miljö, men bättre resultat skulle kunna uppnås
+med bättre sannolikhetsfördelningar. En sak man skulle kunna göra
+är att använda Gaussian Mixture Models, d.v.s.~linjärkombinationer av flera
+sannolikhetsfördelningar, inte bara för hud utan även för ickehud.
+Detta bidrar till att problematiska färger, som ofta klassas fel,
+kan ''filtreras bort''.
+Bättre fördelningar skulle
 antagligen även fås med en större datamängd, alltså fler
 exempelbilder.
 
-Man skulle också kunna använda någon annan klassificerare, såsom \knn,
-vid skapandet av vår hudfärgskarta. Ett problem med den metoden är att det
+Man kan också använda någon annan klassificerare, såsom \knn,
+vid skapandet av hudfärgskartan. Ett problem med den metoden är att det
 kräver att man kasserar data för att få lika stora prototypmängder,
 eller att man viktar datapunkterna.
-
 Efter det statistiska urvalet skulle man kunna redigera direkt i
-hudfärgskartan för att få ett bättre resultat. Detta är dock väldigt
-tidskrävande.
+hudfärgskartan för att få ett bättre resultat.
+
+En robustare metod är eventuellt den adaptiva metod som föreslås av
+\citeasnoun{Hassanpour08}, där klassificerade sammanhängade
+hudområden återkopplas till beräkningen av fördelningarna.
+På så vis anpassas kontinuerligt hudfärgsfördelningarna till miljön.
 
 \section{Handidentifiering}
 Handidentifieringen kan förbättras på ett antal punkter;
-den metod vi använder (att söka ett tillräckligt stort objekt från höger i
-bilden) är relativt ''dum''. Förutsätter man att de två objekt som kan finnas
-i bild är ett ansikte och en hand (vilket oftast är fallet) så kan man
+den metod vi använder, att söka ett tillräckligt stort objekt från höger i
+bilden, är relativt ''dum''. Förutsätter man att de två objekt som kan finnas
+i bilden är ett ansikte och en hand (vilket ofta är fallet) så kan man
 istället välja handen genom att först identifiera ansiktet, exempelvis genom
 den metod \citeasnoun{Hsu02} använder, för att sedan ''välja bort'' detta
 objekt (dvs.~ta bort det från bilden). Vad man har kvar bör då, om brus tagits
