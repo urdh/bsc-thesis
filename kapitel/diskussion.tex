@@ -49,12 +49,11 @@ handleden ibland syns och ibland skuggas är något som gör vissa av
 egenskaperna alltför osäkra. Dessutom skulle man då kunna släppa på kravet
 att användaren bär en långärmad tröja.
 
-Till sist kan man då man identifierat handen utnyttja denna information och
-klippa bort resten av bilden i nästa iteration. På så sätt behöver man bara
-identifiera handobjektet en gång i bilden, och kan koncentrera beräkningen
-i följande iterationer på att beräkna egenskaper och klassificera gesten.
-Man skulle med fördel kunna hoppa över egenskapsberäkningen i denna första
-iteration.
+Till sist kan man då handen identifierats utnyttja
+vetskapen om dess läge, och
+klippa bort resten av bilden i nästa bildruta.
+På så vis minskar risken för att man tappar bort handen och
+klassar ett annat objekt som handen.
 
 \section{\knn}
 För att förbättra \knn-metodens träffsäkerhet kan först och
@@ -98,16 +97,20 @@ beräknas med hjälp av en så kallad Houghtransform \cite{Duda72}.
 \section{Realtid}
 Målet med en applikation för gestigenkänning är givetvis att kunna tolka
 gester i realtid, vilket kan vara svårt eftersom bildbehandlingen och
-klassificeringen som används ofta är beräkningsintensiv. Vår implementation
-är skriven i \MATLAB, och skulle troligtvis vara mycket snabbare om den
-skrivits i ett lågnivåspråk som C istället, men kan trots det utföra
+klassificeringen som används ofta är beräkningsintensiv. Vår implementering
+är skriven i \MATLAB, och skulle bli mycket snabbare om den
+skrivs i ett lågnivåspråk som C istället, men kan trots det utföra
 beräkningarna snabbt nog för att nästan vara realtid.
+Ju fler egenskaper man lägger till och mer förfinad analys, desto
+större blir naturligtvis beräkningskraven. Detta är framförallt
+viktigt vid tillämpningar i robotar och inbyggda system, där beräkningskraften
+är begränsad.
 
 För att kunna känna igen statiska gester behövs betydligt färre bilder per
-sekund än de 24 våra webbkameror gett oss. Därmed kan man nöja sig med
+sekund än de 24 webbkameran ger. Därmed kan man nöja sig med
 att behandla fyra eller sex bilder per
-sekund, vilket skulle göra att gestigenkänningen ser ut att vara i realtid.
-Detta skulle givetvis medföra att statiska gester som visas i mindre tid
+sekund, vilket gör att gestigenkänningen ser ut att vara i realtid.
+Detta medför givetvis att statiska gester som visas i mindre tid
 än intervallet mellan bilderna inte skulle kännas igen.
 
 \notes{mer?}
