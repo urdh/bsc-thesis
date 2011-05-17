@@ -2,15 +2,26 @@
 \begin{document}
 
 \section{Klassificering av gester med hjälp av \knn}
-Den största andelen korrekt klassificerade gester vi lyckades uppnå
-med samtliga gester tillåtna var 91.9\,\%, både med forward selection
+Den största andelen korrekt klassificerade gester vi lyckas uppnå
+med samtliga gester tillåtna är 91.9\,\%, både med forward selection
 och backward elimination. Antalet aktiverade
-egenskaper var 10 då forward selection-algoritmen användes och 7 med
-backward selection, och antalet närmsta grannar i \knn-metoden var 7. Egenskaperna som
-användes är listade i
-tabell~\vref{tab:bestfeatsfwd}. Figur~\vref{fig:knn-optimering} visar mer
+egenskaper blir 10 då forward selection-algoritmen användes och 7 med
+backward selection, och antalet närmsta grannar i \knn-metoden är 7. Egenskaperna som
+används är listade i
+tabell~\vref{tab:bestfeatsfwd}.
+
+Figur~\vref{fig:knn-optimering} visar mer
 exakt hur andelen korrekta
-klassficeringar beror på antalet aktiverade egenskaper och värdet på $k$.
+klassficeringar beror på antalet aktiverade egenskaper och på värdet av $k$.
+Det framgår tydligt att antalet aktiverade egenskaper har stor
+inverkan på andelen felklassificerade gester
+om man använder sig av färre än
+fem egenskaper. Därefter planar andelen ut för att återigen stiga då
+fler än 10 egenskaper används. Andelen felklassificeringar
+minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
+öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ från
+optimeringen med forward selection presterade metoden enligt
+tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
 \begin{figure}[tbp]
   \centering
@@ -35,14 +46,6 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
     \label{fig:knn-optimering}
 \end{figure}
 
-Det framgår tydligt att antalet aktiverade egenskaper har stor
-inverkan på resultatet då man använder sig av färre än
-fem. Därefter planar andelen ut för att återigen stiga då
-fler än 10 egenskaper används. Andelen felklassificeringar
-minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
-öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ från
-optimeringen med forward selection presterade metoden enligt
-tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
 \notes{(Inkludera resultat där problemgester är borttagna?)}
 
