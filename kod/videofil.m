@@ -38,7 +38,7 @@ for i=1:nFrames
     % Ber\"{a}kna egenskaper
     feats = cell2mat(struct2cell(features(hand)))';
     % Normalisera egenskaper
-    feats = (feats - normal(:).mu)/normal(:).stddev;
+    feats = (feats - [normal(:).mu])./[normal(:).stddev];
     % Plocka ut aktiva egenskaper
     feats = feats(active);
     % Anv\"{a}nd \knn f\"{o}r att klassificera gesten
