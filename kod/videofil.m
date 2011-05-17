@@ -1,8 +1,8 @@
 function geststream = videofil(in_file)
 %VIDEOFIL klassificerar gester i en videofil
 %
-% Denna funktion läser in en videofil, identifierar handen och
-% beräknar egenskaper för varje bildruta. Därefter försöker den
+% Denna funktion l\"{a}ser in en videofil, identifierar handen och
+% ber\"{a}knar egenskaper f\"{o}r varje bildruta. D\"{a}refter f\"{o}rs\"{o}ker den
 % klassificera gester i vajre bildruta m.h.a. \knn.
 %
 % SYNOPSIS: gester = videofil(filnamn)
@@ -12,11 +12,11 @@ function geststream = videofil(in_file)
 % OUTPUT gester: En vektor med en gestgissning per
 %                bildruta i filmen.
 
-% Läs in video från filen
+% L\"{a}s in video fr\aa{}n filen
 vid = VideoReader(in_file);    
 nFrames = vid.NumberOfFrames();    
 
-% Variabel för utdata
+% Variabel f\"{o}r utdata
 geststream = [];
 
 % Importera externt lagrad data
@@ -29,11 +29,11 @@ active = [2 3 4 5 6 8 9 10 11 15];
 k = 7;
 
 for i=1:nFrames
-    % Läs in en bildruta och konvertera till $YC_bC_r$
+    % L\"{a}s in en bildruta och konvertera till $YC_bC_r$
     ycbcr = rgb2ycbcr(vid.read(1));
     % Identifiera hud och hand
     hand = gethand(getskin(rgb2ycbcr(rgb), SPM));
-    % Beräkna egenskaper
+    % Ber\"{a}kna egenskaper
     feats = cell2mat(struct2cell(features(hand)))';
     % Normalisera egenskaper
     feats = (feats - normal(:).mu)/normal(:).stddev;
@@ -41,6 +41,6 @@ for i=1:nFrames
     feats = feats(active);
     % Anv\"{a}nd \knn f\"{o}r att klassificera gesten
     [symb, dist] = getSymbol(feats, k, active);   
-    % Lägg till gestgissningen i utdatan
+    % L\"{a}gg till gestgissningen i utdatan
     geststream = [geststream; symb];
 end
