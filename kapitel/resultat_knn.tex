@@ -130,25 +130,28 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 	\end{tabular}
 \end{table}
 
-\subsection{Egenskaper}\label{sec:resultat_features}
-
-Egenskaperna vi använt har visat sig vara mycket bra, upp till en viss gräns.
+\subsection{Val av egenskaper}\label{sec:resultat_features}
+Egenskaperna som använts har visat sig vara mycket bra --- upp till en viss gräns.
 I tabell~\vref{tab:bestfeatsfwd} syns de tio egenskaper som inkluderades
-med forward selection. Av dessa kan man ta bort tre, excentricitet,
-Hu-moment 2 och Hu-moment 7,
-med samma resultat, enligt resultat från backward
-elimination-algoritmen. De sju egenskaper som lämnas kvar med
+med forward selection. Av dessa kan man ta bort tre --- excentricitet,
+Hu-moment 2 och Hu-moment 7 ---
+med oförändrad klassificeringsförmåga, enligt resultat från backward
+elimination-algoritmen. De sju bästa egenskaperna som resulterar från
 backward elimination listas i tabell~\vref{tab:bestfeatsbwd}, i
 ordning efter hur länge de är kvar i körningen.
 
-Rankingen för samtliga egenskaper med de respektive metoderna finns i appendix
+Rankingen av samtliga egenskaper från respektive metod finns i appendix
 \ref{sec:egenskapsresultat}.
 
 Ett urval av sex gester visar i
-figur~\vref{fig:feats1011} hur de två bästa egenskaperna tydligt samlar varje
-gest i ett relativt litet område, vilket gör att avstånden i \knn-metoden 
-blir mindre, och att det därför blir enklare att sätta en tröskel för att
-kunna klassificera ickegester. Det ska dock även noteras att egenskaperna 
+figur~\vref{fig:feats1011} hur de två bästa egenskaperna tydligt samlar 
+gesterna i relativt små områden, vilket gör att avstånden i \knn-metoden 
+blir mindre. Det ska dock noteras att egenskaperna 
 överlappar varandra för vissa gester vilket sannolikt minskar träffsäkerheten.
+
+\subsection{Klassificering i realtid}
+Med lämpliga val av egenskaper och en stor, representativ prototypmängd,
+kan klassificeraren i realtid klassificera testpersoner, med upprepat
+tillfredställande resultat.
 
 \end{document}
