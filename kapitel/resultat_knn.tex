@@ -23,113 +23,6 @@ minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
 optimeringen med framåturval presterade metoden enligt
 tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/feats-10+11}
-  \caption{De olika symbolerna motsvarar olika gester, plottade mot de två starkaste egenskaperna
-  enligt framåturvalet. Notera hur de flesta är tydligt samlade, men att
-	vissa gester överlappar varandra. För två av gesterna (nedåtvända trianglar och fyrkanter) 
-	är de två egenskaperna tydligt korrelerade, medan de inte är det för andra.}
-  \label{fig:feats1011}
-\end{figure}
-
-\begin{figure}[tbp]
-    \begin{center}
-        \includegraphics[width=0.5\columnwidth,clip=true]{bilder/fwd_sel}
-				%\\\medskip
-    \end{center}
-    \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värden på $k$ med forward selection-algoritmen. Ett minimum i
-andel felaktiga klassificeringar, 91.4\,\%, fås då
-$k=7$ och 10 egenskaper inkluderades. Med bakåteliminering fås
-samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
-    \label{fig:knn-optimering}
-\end{figure}
-
-
-\notes{(Inkludera resultat där problemgester är borttagna?)}
-
-\begin{table}[tbp]
-	\centering
-	\caption{Andel felklassificeringar av statiska gester i procent. Priori-fel
-	betecknar sådana fel då gesten varit känd men identifierats
-	som något annat; posteriori-fel betecknar sådana fel då
-	identifikationen är känd men felaktig. \notes{Relatera till
-	värden i tabell~\vref{tab:tolkningsmatris}}}
-	\smallskip
-	\label{tab:prestanda}
-	\begin{tabular}{c c c}
-		\toprule 
-		Försöksgest & A Priori-fel & A Posteriori-fel \\
-		\midrule 
-		A & 14&15 \\
-		B & 11&12 \\
-		C & 0& 0\\
-		D & 0& 0\\
-		E & 30& 41\\
-		Sten & 6& 5\\
-		Sax & 16& 18\\
-		Påse & 9& 9\\
-		Spock & 0& 0\\
-		Seger & 0& 0\\
-		\bottomrule 
-	\end{tabular}
-\end{table}
-
-\begin{table}[tbp]
-	  \centering
-		\caption{En s.k.~confusion matrix för klassificering
-                  av tio statiska gester. Tecknet för E var det klart
-                  svåraste att klassificera, med endast 70\,\%
-                  korrekta klassificeringar. Varje gest testades med
-                  64 bilder.}
-		\label{tab:tolkningsmatris}
-    \includegraphics[trim=2cm 16cm 8cm 2.5cm,clip=true,width=8cm]{bilder/tolkningsmatris.pdf}
-\end{table}
-
-\begin{table}[tb]
-	\centering
-	\caption{De tio bästa egenskaperna med framåturval.}
-	
-	\label{tab:bestfeatsfwd}
-	\begin{tabular}{ll}
-		\toprule
-		Ranking & Egenskap \\
-		\midrule
-		1 & Hu-moment 3 \\
-		2 & Hu-moment 2 \\
-		3 & Tyngdpunktsläge, $y$-led \\
-		4 & Fyrkantighet \\
-		5 & Soliditet \\
-		6 & Excentricitet \\
-		7 & Konvexitet \\
-		8 & Hu-moment 1 \\
-		9 & Utsträckning \\
-		10 & Hu-moment 7 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\begin{table}[tb]
-	\centering
-    \caption{De sju bästa egenskaperna med bakåteliminering.}
-	
-	\label{tab:bestfeatsbwd}
-	\begin{tabular}{ll}
-		\toprule
-		Ranking & Egenskap \\
-		\midrule
-                1 & Fyrkantighet \\
-                2 & Tyngdpunktsläge, $y$-led \\
-                3 & Hu-moment 1\\
-                4 & Soliditet\\
-                5 & Konvexitet \\
-                6 & Utsträckning \\
-                7 & Hu-moment 3 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
 \subsection{Val av egenskaper}\label{sec:resultat_features}
 Egenskaperna som använts har visat sig vara mycket bra --- upp till en viss gräns.
 I tabell~\vref{tab:bestfeatsfwd} syns de tio egenskaper som inkluderades
@@ -153,5 +46,113 @@ blir mindre. Det ska dock noteras att egenskaperna
 Med lämpliga val av egenskaper och en stor, representativ prototypmängd,
 kan klassificeraren i realtid klassificera testpersoner, med upprepat
 tillfredställande resultat.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.75\textwidth,trim=2cm 0.5cm 2cm 0,clip=true]{bilder/feats-10+11}
+  \caption{De olika symbolerna motsvarar olika gester, plottade mot de två starkaste egenskaperna
+  enligt framåturvalet. Notera hur de flesta är tydligt samlade, men att
+	vissa gester överlappar varandra. För två av gesterna (nedåtvända trianglar och fyrkanter) 
+	är de två egenskaperna tydligt korrelerade, medan de inte är det för andra.}
+  \label{fig:feats1011}
+\end{figure}
+
+\begin{figure}[p]
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth,clip=true]{bilder/fwd_sel}
+				%\\\medskip
+    \end{center}
+    \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
+och värden på $k$ med forward selection-algoritmen. Ett minimum i
+andel felaktiga klassificeringar, 91.4\,\%, fås då
+$k=7$ och 10 egenskaper inkluderades. Med bakåteliminering fås
+samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
+    \label{fig:knn-optimering}
+\end{figure}
+
+\clearpage
+
+\begin{table}[p]
+	\centering
+	\caption{Andel felklassificeringar av statiska gester i procent. Priori-fel
+	betecknar sådana fel då gesten varit känd men identifierats
+	som något annat; posteriori-fel betecknar sådana fel då
+	identifikationen är känd men felaktig.}
+	\smallskip
+	\label{tab:prestanda}
+	\begin{tabular}{c c c}
+		\toprule 
+		Försöksgest & A Priori-fel & A Posteriori-fel \\
+		\midrule 
+		A & 14&15 \\
+		B & 11&12 \\
+		C & 0& 0\\
+		D & 0& 0\\
+		E & 30& 41\\
+		Sten & 6& 5\\
+		Sax & 16& 18\\
+		Påse & 9& 9\\
+		Spock & 0& 0\\
+		Seger & 0& 0\\
+		\bottomrule 
+	\end{tabular}
+\end{table}
+
+\begin{table}[p]
+	\centering
+	\caption{De tio bästa egenskaperna med framåturval}
+	
+	\label{tab:bestfeatsfwd}
+	\begin{tabular}{ll}
+		\toprule
+		Ranking & Egenskap \\
+		\midrule
+		1 & Hu-moment 3 \\
+		2 & Hu-moment 2 \\
+		3 & Tyngdpunktsläge, $y$-led \\
+		4 & Fyrkantighet \\
+		5 & Soliditet \\
+		6 & Excentricitet \\
+		7 & Konvexitet \\
+		8 & Hu-moment 1 \\
+		9 & Utsträckning \\
+		10 & Hu-moment 7 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[p]
+	\centering
+    \caption{De sju bästa egenskaperna med bakåteliminering}
+       
+	\label{tab:bestfeatsbwd}
+	\begin{tabular}{ll}
+		\toprule
+		Ranking & Egenskap \\
+		\midrule
+                1 & Fyrkantighet \\
+                2 & Tyngdpunktsläge, $y$-led \\
+                3 & Hu-moment 1\\
+                4 & Soliditet\\
+                5 & Konvexitet \\
+                6 & Utsträckning \\
+                7 & Hu-moment 3 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
+
+\begin{table}[p]
+	  \centering
+		\caption{En s.k.~confusion matrix för klassificering
+                  av tio statiska gester. Tecknet för E var det klart
+                  svåraste att klassificera, med endast 70\,\%
+                  korrekta klassificeringar. Varje gest testades med
+                  64 bilder.}
+		\label{tab:tolkningsmatris}
+    \includegraphics[trim=2cm 16cm 8.875cm
+    2.5cm,clip=true,width=0.85\columnwidth]{bilder/tolkningsmatris.pdf}
+\end{table}
 
 \end{document}
