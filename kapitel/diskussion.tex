@@ -83,6 +83,13 @@ i originalbilden, t.ex.~genom ett kantdetektionsfilter.
 I den resulterande ''kantbilden'' kan sedan riktningar och antal kanter
 beräknas med hjälp av en så kallad Houghtransform \cite{Duda72}.
 
+\subsection{Val av egenskaper}
+Att klassificeringsresultaten från framåturval och bakåteliminering är 
+identiska, trots skillnaden i antal egenskaper, gör att andra
+optimeringsrutiner är värda att undersöka.
+Ett mer sofistikerat prototypurval och ''cross validation'' är exempel
+på förbättringar.
+
 \section{\knn}
 För att förbättra \knn-metodens träffsäkerhet kan först och
 främst prototypmängden utökas till fler punkter per gest. En annan
@@ -126,29 +133,46 @@ sekund, vilket gör att gestigenkänningen ser ut att vara i realtid.
 Detta medför givetvis att statiska gester som visas i mindre tid
 än intervallet mellan bilderna inte skulle kännas igen.
 
-\notes{mer?}
-
 \section{Tillämpningar}
 
 \notes{Skriv eller ta bort}
+sluta med avancerade emotionella robotar typ..
 
 \section{Dynamiska gester}
 För att på allvar uppnå den potential människa-dator-interaktion för med sig
-är det viktigt att även kunna klassificera dynamiska gester. Med den HMM-metod 
-vi utformat befinner vi oss på gränsen till att nå resultat och avgöra hur väl 
-den fungerar i praktiken. Eftersom metoden behandlar dynamiska gester som flera 
-statiska i följd återkommer flera av de utmaningar vi mötte i samband med dessa. 
+är det viktigt att även kunna klassificera dynamiska gester.
+Med den HMM-metod vi utformat befinner vi oss på gränsen till
+att nå resultat och att kunna avgöra hur väl den fungerar i praktiken.
+
+Eftersom metoden behandlar dynamiska gester som flera 
+statiska i följd återkommer flera av utmaningarna förknippade med dessa. 
 Beräkningsintensiteten tilltar i och med implementeringen av HMM, vilket innebär 
-att \MATLAB blir otillräckligt. Eftersom en dynamisk gest består av flera statiska
-kommer också skillnaden mellan likadana dynamiska gester öka. Detta leder till 
+att \MATLAB antagligen blir otillräckligt.
+
+Eftersom en dynamisk gest består av flera statiska
+kommer också skillnaden mellan likadana dynamiska gester att öka. Detta leder till 
 mer jobb under träningsfasen, då fler filmsekvenser kan behövas för att få en 
-bra prototypmängd, och för att träna HMMs till att klara av variationerna. 
+bra prototypmängd, och för att träna HMM:er till att klara av variationerna. 
 Man måste även introducera nya egenskaper som karakteriserar dynamiska gester, 
-exempelvis position och hastighet. 
+exempelvis position och hastighet.
 
+I ett tidigt skede bearbetade vi även dynamiska gester.
+I figur \vref{fig:motion} visas hur egenskaperna då ser ut.
+Dessa tidsberoende egenskaper kan analyseras exempelvis
+med hjälp av waveletanalys \cite{Hastie09}. 
 
-
+\begin{figure}[tbp]
+    \begin{center}
+        \includegraphics[width=\columnwidth]{bilder/motion}
+    \end{center}
+    \caption{BILD}
+    \label{fig:motion}
+\end{figure}
 
 \section{Slutsats}
+Med det ramverk för analys som presenterats, och med koden i bilaga
+\ref{sec:matlab} som utgångspunkt kan dessa förslag relativt enkelt
+implementeras och testas.
+
 \notes{skriv nåt käckt här?}
 \end{document}
