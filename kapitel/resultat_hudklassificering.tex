@@ -10,21 +10,22 @@ hudidentifiering bör denna varians vara stor, annars klassas allt
 istället sätta variansen oändlig, så att sannolikhetsfördelningen för
 bildpunkter som inte föreställde hud var likformig.
 
-Den sannolikhetsfördelning vi fick fram genom egen bildanalys skiljde
-ut händer relativt bra, men den lämnade ett antal hål i handen. Även
-den fördelning som ges av \citeasnoun{Elmezain08} fungerade bra, och
-gav färre falska bildpunkter med icke-hud. Denna fördelning var därför den som
-användes i resten av arbetet. 
+Den sannolikhetsfördelning vi erhåller genom egen bildanalys skiljer
+ut händer relativt bra, men den lämnar ett antal hål i handen. Även
+den fördelning som ges av \citeasnoun{Elmezain08} fungerar bra, och
+ger färre felaktiga ickehud-klassificeringar.
+Denna fördelning används därför
+i resten av arbetet. 
 
-Metoden för identifiering av händer visade sig fungera mycket väl i
-kontrollerad miljö. De krav som ställdes var, förutom långärmad
-tröja, att belysningen skulle vara god och helst komma från lysrör
-samt att bilden inte fick innehålla för stora rödfärgade partier --- detta
-då vårt hudfärgsområde var något för stort åt det röda hållet. 
+Metoden för identifiering av händer visar sig fungera mycket väl i
+kontrollerad miljö. De förutsättningar som gäller är, förutom långärmad
+tröja, att belysningen är god och helst kommer från lysrör
+samt att bilden inte får innehålla för stora rödfärgade partier --- detta
+eftersom vårt hudfärgsområde är något för stort åt det röda hållet. 
 
 En visualisering av hudurskiljningen kan ses i figur
-\vref{fig:hudklassificering}, där alla områden som klassats som hud
-gjorts vita och övriga svarta. Handen är markerad med en inneslutande
+\vref{fig:hudklassificering}, där alla områden som klassas som hud
+är vita och övriga är svarta. Handen är markerad med en inneslutande
 låda i figur \vref{fig:boundingbox}.
 
 \begin{figure}
