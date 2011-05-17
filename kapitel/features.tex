@@ -95,7 +95,7 @@ De sju Hu-momenten definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 	       3\left(\mu{21}+\mu{03}\right)^2\right) + \\
  	    &+ \left(3\mu_{21} - \mu_{03}\right)\left(\mu_{21} + \mu_{03}\right)
 	       \left(3\left(\mu_{30} + \mu{12}\right)^2 -
-	       \left(\mu_{21} + \mu_{03}\right)^2\right)\\
+	       \left(\mu_{21} + \mu_{03}\right)^2\right)\displaybreak\\
 	I_6 =& \left(\mu_{20}-\mu_{02}\right)
 	       \left(\left(\mu_{30}+\mu_{12}\right)^2 -
 	       \left(\mu_{21}+\mu_{03}\right)^2\right) + \\
@@ -109,7 +109,61 @@ De sju Hu-momenten definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
   	     \left(\mu_{21}+\mu_{03}\right)^2\right)
 \end{align*}
 
+\paragraph{Excentricitet}
 
+Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
+fyrkantigheten), men utgår från den ellips
+vars andramoment $\mu_{02}$ och $\mu_{20}$ enligt ovan är samma som
+objektets (se figur~\vref{fig:ellips}). Excenticiteten definieras av
+kvoten mellan avståndet
+mellan fokalpunkterna i ellipsen och längden av den längsta axeln. Därmed
+beror måttet, till skillnad från fyrkantigheten, inte på objektets orientering.
+
+\begin{figure}[hb]
+	\centering 
+	\includegraphics{bilder/matlab-ellips.png}
+	\caption{En ellips vars andramoment $\mu_{02}$ och $\mu_{20}$ är samma
+	som objektets. Excentriciteten är kvoten mellan avståndet
+        mellan fokalpunkterna (de två prickarna på diagonalen) och den
+        längsta axeln.}
+	\label{fig:ellips}
+\end{figure}
+
+\paragraph{Fyrkantighet}
+
+Den här egenskapen är ett mått på hur kvadratisk den axelparallella
+inneslutande lådan är, och på så sätt mäter den hur ''utsträckt'' en
+gest är. Dess definition är mycket enkel:
+\begin{equation*}
+  \textrm{fyrkantighet}(A) = \frac{\textrm{Box}_w(A)}{\textrm{Box}_h(A)}.
+\end{equation*}
+
+En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
+fyrkantigheten avviker från detta värde desto mer avlång är gesten.
+Notera att excentriciteten (se nedan) i princip mäter samma sak, men utgår från
+andramomenten och är därmed oberoende av objektets vinkel.
+
+\paragraph{Utsträckning}
+
+Utsträckningen mäter hur stor del av den inneslutande lådan som
+faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
+till konvexiteten och definieras enligt
+\begin{equation*}
+  \textrm{utsträckning}(A) =
+  \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
+\end{equation*}
+
+\paragraph{Kompakthet}
+
+Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått, som
+beskriver hur kompakt ett objekt är.
+Cirkeln är det mest kompakta objektet, och ju fler irregulariteter
+randen innehåller (jämfört med en cirkel) desto mindre blir kompaktheten.
+Kompakthet definieras av
+\begin{equation*}
+  \textrm{kompakthet}(A) = \frac{\textrm{Area}(A)}{\left|\partial
+  A\right|^2}.
+\end{equation*}
 
 \paragraph{Konvexitet}
 
@@ -127,18 +181,6 @@ helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
 mening). Detta innebär i princip att $\left|\partial A\right|$
 betecknar omkretsen av $A$.
 
-\paragraph{Kompakthet}
-
-Kompakthet \cite[s.~26]{Rudemo09} är ännu ett dimensionslöst mått, som
-beskriver hur kompakt ett objekt är.
-Cirkeln är det mest kompakta objektet, och ju fler irregulariteter
-randen innehåller (jämfört med en cirkel) desto mindre blir kompaktheten.
-Kompakthet definieras av
-\begin{equation*}
-  \textrm{kompakthet}(A) = \frac{\textrm{Area}(A)}{\left|\partial
-  A\right|^2}.
-\end{equation*}
-
 \paragraph{Soliditet}
 
 Soliditet är ett mått på hur poröst ett objekt är. Det
@@ -150,50 +192,6 @@ area enligt
 och är därför dimensionslöst. Detta mått kan vara mycket hjälpsamt för
 gester som t.ex.~''OK'' (en ring formad av tumme och pekfinger, med
 övriga fingrar riktade uppåt).
-
-\paragraph{Fyrkantighet}
-
-Den här egenskapen är ett mått på hur kvadratisk den axelparallella
-inneslutande lådan är, och på så sätt mäter den hur ''utsträckt'' en
-gest är. Dess definition är mycket enkel:
-\begin{equation*}
-  \textrm{fyrkantighet}(A) = \frac{\textrm{Box}_w(A)}{\textrm{Box}_h(A)}.
-\end{equation*}
-
-En perfekt kvadratisk låda har alltså fyrkantighet $1$, och ju mer
-fyrkantigheten avviker från detta värde desto mer avlång är gesten.
-Notera att excentriciteten (se nedan) i princip mäter samma sak, men utgår från
-andramomenten och är därmed oberoende av objektets vinkel.
-
-\paragraph{Excentricitet}
-
-Excentriciteten är ett mått på hur utsträckt ett objekt är (precis som
-fyrkantigheten), men utgår från den ellips
-vars andramoment $\mu_{02}$ och $\mu_{20}$ enligt ovan är samma som
-objektets (se figur~\vref{fig:ellips}). Excenticiteten definieras av
-kvoten mellan avståndet
-mellan fokalpunkterna i ellipsen och längden av den längsta axeln. Därmed
-beror måttet, till skillnad från fyrkantigheten, inte på objektets orientering.
-
-\begin{figure}[tb]
-	\centering 
-	\includegraphics{bilder/matlab-ellips.png}
-	\caption{En ellips vars andramoment $\mu_{02}$ och $\mu_{20}$ är samma
-	som objektets. Excentriciteten är kvoten mellan avståndet
-        mellan fokalpunkterna (de två prickarna på diagonalen) och den
-        längsta axeln.}
-	\label{fig:ellips}
-\end{figure}
-
-\paragraph{Utsträckning}
-
-Utsträckningen mäter hur stor del av den inneslutande lådan som
-faktiskt täcks av vårt objekt. Egenskapen kan ses som ett alternativ
-till konvexiteten och definieras enligt
-\begin{equation*}
-  \textrm{utsträckning}(A) =
-  \frac{\textrm{Area}(A)}{\textrm{Area}(\textrm{Box}(A))}.
-\end{equation*}
 
 \subsection{Normering och viktning för klassificering}\label{sec:normering}
 Eftersom många klassificeringsmetoder använder det euklidiska avståndet mellan punkter i 

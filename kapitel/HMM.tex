@@ -14,7 +14,7 @@ med övergångssannolikheter (se figur~\vref{fig:hmm-ergodic}). Man kan alltså
 röra sig i Markovprocessen genom att i varje tidssteg följa en av kanterna
 ut från tillståndet, och valet av kant sker genom en stokastisk process.
 
-\begin{figure}[hb]
+\begin{figure}[tb]
   \centering
   \includegraphics[width=0.6\textwidth,trim=0 0 935 80,clip=true]{bilder/ergodicHMM}
   \caption{En enkel, ergodisk Markovmodell med fyra tillstånd.}
@@ -159,6 +159,7 @@ $\sum_{i=1}^N\alpha_1(i)a_{ij}$ måste vara den totala sannolikheten
 för att hamna i $S_j$ vid $t=2$, efter att ha genererat $O_1$ i föregående
 tillstånd.
 
+\newpage % horungar
 Efter multiplikation med $B_j(O_{2})$ fås därefter
 sannolikheten att generera $O_2$, då systemet befinner sig i $S_j$ med
 en
@@ -228,7 +229,6 @@ därefter i $S_j$. Uttryckt i $\alpha$ och $\beta$ kan den skrivas
 \end{equation*} 
 där $\Prob(\vect{O}|\lambda)$ normerar $\xi_t$ så att den blir ett korrekt
 sannolikhetsmått.
-
 Den andra variabeln, som beskriver hur många gånger tillståndet $S_i$ besöks
 vid tiden $t$, kan uttryckas
 \begin{equation*}
@@ -243,14 +243,13 @@ eller antalet förflyttningar från tillståndet $S_i$:
   från tillstånd $S_i$.}
 \end{equation*} 
 
-På samma sätt kan summation över tiden hos  $\xi_t(i,j)$ förklaras:
+På samma sätt kan summation över tiden hos  $\xi_t(i,j)$ förklaras.
+Notera att efterson $\xi_t(i,j)$ inte är definierad för $t=T$ går summationen
+endast upp till $T -1$:
 \begin{equation*}
 \sum_{t=1}^{T-1}\xi_t(i,j) = \text{antalet förväntade förflyttningar
   från tillstånd $S_i$ till $S_j$}.
 \end{equation*}
-
-Notera att efterson $\xi_t(i,j)$ inte är definierad för $t=T$ går summationen 
-endast upp till $T -1$. 
 
 Den iterativa metoden som återuppskattar modellens parametrar $A,B$
 och $\pi$ kan nu skrivas som
