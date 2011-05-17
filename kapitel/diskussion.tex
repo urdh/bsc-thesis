@@ -98,6 +98,15 @@ gest. På detta sätt kan man löpande söka efter gester
 i en filmsekvens, ett viktigt steg mot
 realtidsidentifiering.
 
+Det största problemet med den metod som beskrivs i rapporten är dock
+inte implementationen utan testandet av den. Då vi tagit fyra
+efterföljande bilder
+från varje film i testmängden är datan inte oberoende. Tvärtom är det
+mycket troligt att samtliga fyra bilder ska klassas likadant, varför
+den effektiva testmängden inte är mycket mer än 16 bilder per
+gest. Denna mängd är egentligen för liten för att kunna dra några
+säkra slutsatser om klassificerarens prestanda.
+
 \section{Realtid}
 Målet med en applikation för gestigenkänning är givetvis att kunna tolka
 gester i realtid, vilket kan vara svårt eftersom bildbehandlingen och
