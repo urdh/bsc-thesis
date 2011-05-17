@@ -1,10 +1,10 @@
 function [A,B] = hmm_training(states,symbols,O)
-%HMM_TRAINING tr\"{a}nar en dold Markovmodell
+%HMM\_TRAINING tr\"{a}nar en dold Markovmodell
 %
 % Denna funktion tr\"{a}nar en dold Markovmodell med
 % Bakis-metoden (se kapitel \ref{sec:hmm:train})
 %
-% SYNOPSIS: [A,B] = hmm_training(states, symbols, O)
+% SYNOPSIS: [A,B] = hmm\_training(states, symbols, O)
 %
 % INPUT states: Antalet states modellen ska ha
 %      symbols: Antalet symboler i kodboken
