@@ -11,6 +11,8 @@ function geststream = videofil(in_file)
 %
 % OUTPUT gester: En vektor med en gestgissning per
 %                bildruta i filmen.
+%
+% SEE ALSO: realtid
 
 % L\"{a}s in video fr\aa{}n filen
 vid = VideoReader(in_file);    
