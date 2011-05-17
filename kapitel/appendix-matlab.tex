@@ -1,20 +1,26 @@
 \documentclass[../rapport_MVEX01-11-05]{subfiles}
 \begin{document}
 
+\overfullrule=5mm
+
 \notes{kort förklaring till appendix}
 
 \section{Kod för import av videodata}
 
 text
 
-\section{Kod för hudseparering}
+\section{Kod för hud- och handseparering}
 
-text
+\hsubsection{\texttt{getskin.m}}
+\inputcode{kod/getskin.m}
+\hsubsection{\texttt{gethand.m}}
+\inputcode{kod/gethand.m}
 
 \section{Kod för beräkning av egenskaper}\label{sec:matlab:features}
 
+\hsubsection{\texttt{features.m}}
 \inputcode{kod/features.m}
-\newpage
+\hsubsection{\texttt{moments.m}}
 \inputcode{kod/moments.m}
 
 \section{Kod för \knn-klassificering}

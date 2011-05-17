@@ -39,6 +39,10 @@
 % För att kunna kommentera bort varioref om det inte är bra
 \ifdefined\vref\relax\else\newcommand{\vref}[1]{\ref{#1}}\fi
 
+% Fulhack till appendix
+\newcommand{\hsubsection}[1]{\stepcounter{subsection}
+\subsection*{\thechapter.\arabic{section}.\arabic{subsection}\hspace{1em}{#1}}}
+
 %% Minted-saker. Använder listings om minted inte finns
 % Kod infogas med \inputcode{<filnamn>}
 \newif\ifminted
