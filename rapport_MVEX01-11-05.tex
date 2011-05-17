@@ -33,7 +33,6 @@
 \usepackage{slashbox}
 \usepackage{tikz}
 \usepackage[noauto]{chappg}
-\usepackage[swedish,refpages]{gloss}
 \usepackage[swedish]{varioref}
 %\usepackage{flafter} % blev fult och dumt, bättre att korra floats manuellt
 
@@ -123,10 +122,6 @@
 \newcommand{\MATLAB}{MAT\-LAB\xspace}         % MATLAB
 \newcommand{\knn}{$k$NN\xspace}              % kNN
 
-% Glossary
-\makegloss
-\gloss[nocite]{*}
-
 \begin{document}
 
 % Titelsida
@@ -141,7 +136,7 @@
 \cleardoublepage
 \tableofcontents
 \cleardoublepage
-\printgloss{glossary}
+\subfile{ordlista.tex}
 \cleardoublepage
 \pagestyle{fancier}
 
