@@ -39,15 +39,15 @@ bilden, är relativt ''dum''. Förutsätter man att de två objekt som kan finna
 i bilden är ett ansikte och en hand (vilket ofta är fallet) så kan man
 istället välja handen genom att först identifiera ansiktet, exempelvis genom
 den metod \citeasnoun{Hsu02} använder, för att sedan ''välja bort'' detta
-objekt (dvs.~ta bort det från bilden). Vad man har kvar bör då, om brus tagits
-bort med en morfologisk operation eller genom att välja de två största
-objekten i bilden enligt \citeasnoun{Nielsen04}, vara handen.
+objekt (dvs.~ta bort det från bilden). Vad som då finns kvar i bilden bör vara
+handen (om brus först tagits bort eller om de två största
+objekten i bilden redan isolerats enligt \citeasnoun{Nielsen04}).
 
-Man skulle dessutom kunna klippa bort handleden på det sätt
+Man kan dessutom klippa bort handleden på det sätt
 \citeasnoun{Deimel99} föreslår, och därmed öka träffsäkerheten --- att
-handleden ibland syns och ibland skuggas är något som gör vissa av våra
-egenskaper alltför osäkra. Dessutom skulle man då kunna släppa på kravet
-att användaren har en långärmad tröja.
+handleden ibland syns och ibland skuggas är något som gör vissa av 
+egenskaperna alltför osäkra. Dessutom skulle man då kunna släppa på kravet
+att användaren bär en långärmad tröja.
 
 Till sist kan man då man identifierat handen utnyttja denna information och
 klippa bort resten av bilden i nästa iteration. På så sätt behöver man bara
@@ -90,10 +90,10 @@ mycket intressanta egenskaper, och ger antagligen ett bra resultat.
 En annan intressant egenskapsklass är de som utnyttjar mönster i det
 inre av handen, tidigare analyserades enbart egenskaper för den binära bilden.
 Detta skulle kunna göras
-genom att man efter att ha identifierat handen studerar handområdet
+genom att man efter att ha identifierat handen studerar den
 i originalbilden, t.ex.~genom ett kantdetektionsfilter.
 I den resulterande ''kantbilden'' kan sedan riktningar och antal kanter
-beräknas med en så kallad Houghtransform \cite{Duda72}.
+beräknas med hjälp av en så kallad Houghtransform \cite{Duda72}.
 
 \section{Realtid}
 Målet med en applikation för gestigenkänning är givetvis att kunna tolka
