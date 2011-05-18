@@ -73,9 +73,8 @@ Gaus\-sian Mixture Models \cite{Elmezain08,Hassanpour08}, en modell där
 bildpunktens färg antas bero stokastiskt på om
 bildpunkten föreställer hud eller inte.
 
-\notes{en blandning av normalfördelningar/BN}
 Färgen antas då vara en multivariat stokastisk variabel, vars
-fördelning är en mixtur av normalfördelning. Fördelningens parametrar
+fördelning är en blandning av normalfördelningar. Fördelningens parametrar
 antas bero på om bildpunkten motsvarar hud eller inte. För att kunna
 hantera olika hudfärger kan en
 uppsättning av olika
@@ -111,7 +110,21 @@ Med N datapunkter skattas parametrarna med
 För att ytterligare förbättra fördelningarna kan de antas vara
 en linjärkombination av flera normalfördelningar. En iterativ metod för optimering av
 sådana fördelningar beskrevs av \citeasnoun{Dempster77}, och användes
-till de sannolikhetsfördelningar som ges av \citeasnoun{Elmezain08}.
+till de sannolikhetsfördelningar som ges av \citeasnoun{Elmezain08}. 
+Ett exempel på hur fördelningarna kan se ut längs en linje i
+$C_bC_r$-planet ses i figur \vref{fig:GMM}.
+
+\begin{figure}[tbp]
+    \begin{center}
+        \includegraphics[width=0.85\columnwidth]{bilder/gmm}
+    \end{center}
+    \caption{Ett exempel på hur sannolikhetsfördelningarna för hudfärg och
+    ickehudfärg kan se ut längs en linje i $C_bC_r$-planet.
+    Hudfördelningen är en linjärkombination av två normalfördelningar, medan
+    ickehudfördelningen är en enkel normalfördelning. Exemplet är rent
+    illustrativt, och bygger inte på resultat.}
+    \label{fig:GMM}
+\end{figure}
 
 För varje bildpunktsfärg kan med dessa fördelningar sannolikheten bestämmas,
 för att färgen ska förekomma när bildpunkten föreställer hud
