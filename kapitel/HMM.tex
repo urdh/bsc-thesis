@@ -44,6 +44,7 @@ Den förstnämnda personen rör sig mellan tärningarna
 (symbolerna) som genereras av dem. 
 \end{quote}
 
+\newpage
 För att tillämpa detta på gestigenkänning måste man konstruera en HMM
 för varje gest som finns med i systemet. Klassificeringen görs sedan genom
 att välja den HMM som bäst beskriver den observerade datan, och symbolerna
@@ -159,7 +160,6 @@ $\sum_{i=1}^N\alpha_1(i)a_{ij}$ måste vara den totala sannolikheten
 för att hamna i $S_j$ vid $t=2$, efter att ha genererat $O_1$ i föregående
 tillstånd.
 
-\newpage % horungar
 Efter multiplikation med $B_j(O_{2})$ fås därefter
 sannolikheten att generera $O_2$, då systemet befinner sig i $S_j$ med
 en
@@ -329,7 +329,9 @@ Man startar alltså alltid i det första tillståndet för att sedan
 stanna kvar i samma tillstånd eller röra sig åt höger (se
 figur~\vref{fig:hmm-lr}). Antalet steg
 man tar är inte begränsat på annat sätt än att det slutgiltiga
-tillståndet $S_N$ inte får passeras. Denna modell användes av
+tillståndet $S_N$ inte får passeras.
+
+Denna modell användes av
 \citeasnoun{Yamato92} och skiljer sig i vissa avseenden från
 den som den som används av \citeasnoun{Elmezain08}, t.ex.~på det sätt att
 den bara tillåter förflyttning från
