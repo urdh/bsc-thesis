@@ -1,5 +1,5 @@
 % Detta skript optimerar v\aa{}r \knn enligt kapitel \ref{sec:metod_knn:optim}.
-% Algoritmen som anv\"{a}nds \"{a}r fram\aa{}turval (figur \ref{fig:knn-flowchart}).
+% Algoritmen som anv\"{a}nds \"{a}r fram\aa{}turval
 
 % Ladda testdata
 load testbook; last = size(testbook,1);
