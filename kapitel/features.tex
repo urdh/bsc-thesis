@@ -14,7 +14,10 @@ och använda dessa för klassificering.
 Dessa egenskaper kan bestå av mått med enkla definitioner baserade på area,
 omkrets, mittpunkt eller rotation hos objektet i den binära bilden och kan
 därför användas av en klassificerare för att skilja mellan olika rörelseoberoende
-gester. Eftersom egenskaperna inte innehåller information om rörelse kan denna
+gester.
+
+%horungar
+Eftersom egenskaperna inte innehåller information om rörelse kan denna
 uppsättning egenskaper inte användas direkt i tillämpningar som involverar
 rörelsegester, utan måste kompletteras med exempelvis hastighets- eller
 riktningsegenskaper.
@@ -28,7 +31,7 @@ egenskaper presenteras nedan.
 Många av egenskaperna som beskrivs kan beräknas effektivt med hjälp av
 \MATLAB-funktionen \texttt{regionprops}.
 
-\newpage
+%\newpage
 
 \paragraph{Inledande definitioner}
 För beräkning av vissa egenskaper behöver man definiera två
@@ -61,10 +64,10 @@ Tyngdpunkten är masscentrum för ett område, och beräknas enligt
 där man använder att $m_a=1,\:\forall a\in A$ eftersom bilden är
 binär ($m_a$ är helt enkelt intensiteten i punkten $a$ och
 $\vect{r}_a$ är positionen av punkten $a$). Tyngdpunkten är vektorvärd.
-
 Man kan dessutom definiera ett relativt tyngdpunktsläge  som avståndet mellan 
 tyngdpunkten och lådans övre/vänstra kant genom lådans bredd/höjd.
 
+\newpage
 \paragraph{Hu-moment}
 
 Dessa moment definierades först av \citeasnoun{Hu62} och är ett försök att
@@ -96,7 +99,7 @@ De sju Hu-momenten definieras utifrån centralmomenten \cite[s.~185]{Hu62}:
 	       3\left(\mu{21}+\mu{03}\right)^2\right) + \\
  	    &+ \left(3\mu_{21} - \mu_{03}\right)\left(\mu_{21} + \mu_{03}\right)
 	       \left(3\left(\mu_{30} + \mu{12}\right)^2 -
-	       \left(\mu_{21} + \mu_{03}\right)^2\right)\displaybreak\\
+	       \left(\mu_{21} + \mu_{03}\right)^2\right)\\
 	I_6 =& \left(\mu_{20}-\mu_{02}\right)
 	       \left(\left(\mu_{30}+\mu_{12}\right)^2 -
 	       \left(\mu_{21}+\mu_{03}\right)^2\right) + \\
@@ -177,7 +180,7 @@ definieras av
 \begin{equation*}
   \textrm{konvexitet}(A) = \frac{\left|\partial A_h\right|}{\left|\partial A\right|}
 \end{equation*}
-där $A_h$ är det konvexa höljet till $A$ (dvs. det minsta konvexa område som
+där $A_h$ är det konvexa höljet till $A$ (d.v.s. det minsta konvexa område som
 helt täcker $A$) och $\partial A$ betecknar randen till $A$ (i diskret
 mening). Detta innebär i princip att $\left|\partial A\right|$
 betecknar omkretsen av $A$.

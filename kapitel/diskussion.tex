@@ -58,7 +58,7 @@ klippa bort resten av bilden i nästa bildruta.
 På så vis minskar risken för att man tappar bort handen och
 klassar ett annat objekt som handen.
 
-\section{Nya och förbättrade Egenskaper}
+\section{Förbättrade egenskaper}
 De egenskaper som använts för klassificering av gesterna har visat sig vara relativt
 effektiva, men det finns modifieringar och tillägg som skulle kunna
 öka träffsäkerheten. 
@@ -173,7 +173,19 @@ ungefär likadant för alla inspelningar av gesten.
 Dessa tidsberoende egenskaper kan analyseras exempelvis
 med hjälp av waveletanalys \cite{Hastie09}. 
 
-\begin{figure}[tbp]
+\newpage
+\section{Slutsats}
+Med det ramverk för analys som presenterats, och med koden i bilaga
+\ref{sec:matlab} som utgångspunkt, kan program som klassificerar
+statiska och dynamiska gester relativt enkelt
+implementeras och testas. Våra resultat visar att kamerabaserad
+gestigenkänning med statistiska metoder kan ge tillräckligt goda resultat
+för många tillämpningar, även om ett antal förbättringar krävs för att
+nå önskvärd robusthet.
+Flera vidareutvecklingar för att både vidga
+funktionaliteten och förbättra prestandan ligger nära till hands.
+
+\begin{figure}[hb]
     \begin{center}
         \includegraphics[width=\columnwidth]{bilder/motion}
     \end{center}
@@ -186,16 +198,5 @@ med hjälp av waveletanalys \cite{Hastie09}.
     upprepat öppnas och stängs.}
     \label{fig:motion}
 \end{figure}
-
-\section{Slutsats}
-Med det ramverk för analys som presenterats, och med koden i bilaga
-\ref{sec:matlab} som utgångspunkt, kan program som klassificerar
-statiska och dynamiska gester relativt enkelt
-implementeras och testas. Våra resultat visar att kamerabaserad
-gestigenkänning med statistiska metoder kan ge tillräckligt goda resultat
-för många tillämpningar, även om ett antal förbättringar krävs för att
-nå önskvärd robusthet.
-Flera vidareutvecklingar för att både vidga
-funktionaliteten och förbättra prestandan ligger nära till hands.
 
 \end{document}
