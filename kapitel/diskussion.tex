@@ -151,12 +151,14 @@ Med den HMM-metod vi utformat befinner vi oss på gränsen till
 att nå resultat och att kunna avgöra hur väl den fungerar i praktiken.
 
 Eftersom metoden behandlar dynamiska gester som flera 
-statiska i följd återkommer flera av utmaningarna förknippade med dessa. 
+statiska i följd, återkommer flera av utmaningarna förknippade med dessa. 
 Beräkningsintensiteten tilltar i och med implementeringen av HMM, vilket innebär 
 att \MATLAB antagligen blir otillräckligt.
 
-Eftersom en dynamisk gest består av flera statiska
-kommer också skillnaden mellan likadana dynamiska gester att öka. Detta leder till 
+Eftersom dynamiska gester av samma typ kan skilja sig åt i varje bildruta,
+kommer de totala skillnaderna mellan inspelningarna att vara större än för statiska
+gester.
+Detta leder till 
 mer jobb under träningsfasen, då fler filmsekvenser kan behövas för att uppnå en 
 tillräcklig prototypmängd, och för att träna HMM:er till att klara av variationerna. 
 Man måste även introducera nya egenskaper som karakteriserar dynamiska gester, 
