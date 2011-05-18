@@ -16,24 +16,24 @@ klassficeringar beror på antalet aktiverade egenskaper och på värdet av $k$.
 Det framgår tydligt att antalet aktiverade egenskaper har stor
 inverkan på andelen felklassificerade gester
 om man använder sig av färre än
-fem egenskaper. Därefter planar andelen ut för att återigen stiga då
+5 egenskaper. Därefter planar andelen ut för att återigen stiga då
 fler än 10 egenskaper används. Andelen felklassificeringar
 minskar också i takt med att $k$ ökar från 1 till 7, för att sedan
-öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ från
+öka då värdet ökar från 7 till 13. Med valet av egenskaper och $k$ tagna från
 optimeringen med framåturval presterade metoden enligt
 tabell~\vref{tab:tolkningsmatris} och tabell~\vref{tab:prestanda}.
 
 \subsection{Val av egenskaper}\label{sec:resultat_features}
 Egenskaperna som använts har visat sig vara mycket bra --- upp till en viss gräns.
 I tabell~\vref{tab:bestfeatsfwd} syns de tio egenskaper som inkluderades
-med forward selection. Av dessa kan man ta bort tre --- excentricitet,
+med framåturval. Av dessa kan man ta bort tre --- excentricitet,
 Hu-moment 2 och Hu-moment 7 ---
 med oförändrad klassificeringsförmåga, enligt resultat från bakåteliminering.
 De sju bästa egenskaperna som resulterar från
 bakåteliminering listas i tabell~\vref{tab:bestfeatsbwd}, i
 ordning efter hur länge de är kvar i körningen.
 
-Rankingen av samtliga egenskaper från respektive metod finns i appendix
+Rankningen av samtliga egenskaper från respektive metod finns i appendix
 \ref{sec:egenskapsresultat}.
 
 Ett urval av sex gester visar i
@@ -45,7 +45,7 @@ blir mindre. Det ska dock noteras att egenskaperna
 \subsection{Klassificering i realtid}
 Med lämpliga val av egenskaper och en stor, representativ prototypmängd,
 kan klassificeraren i realtid klassificera testpersoner, med upprepat
-tillfredställande resultat.
+tillfredsställande resultat.
 
 \begin{figure}[p]
   \centering
@@ -63,10 +63,11 @@ tillfredställande resultat.
 				%\\\medskip
     \end{center}
     \caption{Optimering av \knn-metoden med avseende på inkluderade egenskaper
-och värden på $k$ med forward selection-algoritmen. Ett minimum i
+och värden på $k$ med algoritmen för framåturval. Ett minimum i
 andel felaktiga klassificeringar, 91.4\,\%, fås då
 $k=7$ och 10 egenskaper inkluderades. Med bakåteliminering fås
-samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade egenskaper.}
+samma minsta andel felaktiga klassificeringar, fast med 7 inkluderade egenskaper
+och $k=7$.}
     \label{fig:knn-optimering}
 \end{figure}
 
@@ -74,15 +75,15 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 
 \begin{table}[p]
 	\centering
-	\caption{Andel felklassificeringar av statiska gester i procent. Priori-fel
+	\caption{Andel felklassificeringar av statiska gester i procent. Apriorifel
 	betecknar sådana fel då gesten varit känd men identifierats
-	som något annat; posteriori-fel betecknar sådana fel då
+	som något annat; aposteriorifel betecknar sådana fel då
 	identifikationen är känd men felaktig.}
 	\smallskip
 	\label{tab:prestanda}
 	\begin{tabular}{c c c}
 		\toprule 
-		Försöksgest & A Priori-fel & A Posteriori-fel \\
+		Försöksgest & Apriorifel & Aposteriorifel \\
 		\midrule 
 		A & 14&15 \\
 		B & 11&12 \\
@@ -105,7 +106,7 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 	\label{tab:bestfeatsfwd}
 	\begin{tabular}{ll}
 		\toprule
-		Ranking & Egenskap \\
+		Rankning & Egenskap \\
 		\midrule
 		1 & Hu-moment 3 \\
 		2 & Hu-moment 2 \\
@@ -128,7 +129,7 @@ samma andel felaktiga klassificeringar som minimum med $k=7$ och 7 inkluderade e
 	\label{tab:bestfeatsbwd}
 	\begin{tabular}{ll}
 		\toprule
-		Ranking & Egenskap \\
+		Rankning & Egenskap \\
 		\midrule
                 1 & Fyrkantighet \\
                 2 & Tyngdpunktsläge, $y$-led \\
