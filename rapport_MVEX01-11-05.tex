@@ -3,7 +3,7 @@
 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-
+\renewcommand*\ttdefault{txtt}
 
 \usepackage[british,swedish]{babel}
 \usepackage[pdftex]{graphicx}
@@ -49,8 +49,8 @@
 
 %% Minted-saker. Använder listings om minted inte finns
 % Kod infogas med \inputcode{<filnamn>}
-\newif\ifminted
-\IfFileExists{minted.sty}{\mintedtrue}{\mintedfalse}
+\newif\ifminted\mintedfalse
+%\IfFileExists{minted.sty}{\mintedtrue}{\mintedfalse}
 \ifminted
 	\usepackage{minted}
 	\usemintedstyle{manni}
