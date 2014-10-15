@@ -14,7 +14,7 @@ With Gaussian Mixture Models for skin identification and kNN classification for 
 
 ## Compiling the thesis
 
-This thesis should compile on most TeX distributions. There's a Makefile, so you could just do `make pdf` in the main directory to compile the entire thesis.
+This thesis should compile on most TeX distributions. The easiest way to compile it is to use latexmk, i.e. do `latexmk -pdf -shell-escape rapport_MVEX01-11-05.tex` in the main directory to compile the entire thesis.
 
 ## Licensing
 
