@@ -1,0 +1,16 @@
+*.pdf
+*.aux
+*.log
+*.dvi
+*.toc
+.DS_*
+*~
+*.orig
+*.out
+*.bbl
+*.blg
+*.bak
+*_latexmk
+*.pyg
+*.nav
+*.snm
